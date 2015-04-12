@@ -1,0 +1,17 @@
+{
+  "name"       : "wpsitecare/sitecare-library",
+  "description": "A helpful libray of functions and classes for SiteCare themes.",
+  "keywords"   : ["wordpress"],
+  "homepage"   : "https://github.com/wpsitecare/sitecare-library",
+  "license"    : "GPL-2.0+",
+  "authors"    : [
+    {
+      "name"    : "Robert Neu",
+      "email"   : "rob@wpsitecare.com",
+      "homepage": "http://www.wpsitecare.com"
+    }
+  ],
+  "support"    : {
+    "issues": "https://github.com/wpsitecare/sitecare-library/issues"
+  }
+}
