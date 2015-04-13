@@ -422,29 +422,34 @@ function sitecare_get_credit_link() {
 	return apply_filters( 'sitecare_credit_link', $link );
 }
 
+add_action( 'tha_footer_top', 'sitecare_theme_info' );
 /**
-* outputs a formatted link to the theme landing page.
- *
- * @since  0.1.0
- * @access public
- * @return void
- */
-function sitecare_theme_link() {
-	echo sitecare_get_theme_link();
-}
-
-/**
- * Returns a formatted link to the theme landing page.
+ * Outputs formatted theme information.
  *
  * @since  0.1.0
  * @access public
  * @return string
  */
-function sitecare_get_theme_link() {
-	$link = sprintf( '<a class="theme-link" href="%s"title="%s">%s</a>',
-		html_entity_decode( 'http://www.wpsitecare.com/&#99;ompass/' ),
-		__( 'The Most Advanced WordPress Starter Theme Ever Created', 'sitecare-library' ),
-		html_entity_decode( '&#67;ompass' )
+function sitecare_theme_info() {
+	echo sitecare_get_theme_info();
+}
+
+/**
+ * Returns formatted theme information.
+ *
+ * @since  0.1.0
+ * @access public
+ * @return string
+ */
+function sitecare_get_theme_info() {
+	$info = '<div class="credit">';
+	$info .= sprintf(
+		// Translators: 1 is current year, 2 is site name/link, 3 is the theme author name/link.
+		__( 'Copyright &#169; %1$s %2$s. Free WordPress Theme by %3$s', 'alpha' ),
+		date_i18n( 'Y' ),
+		hybrid_get_site_link(),
+		sitecare_get_credit_link()
 	);
-	return apply_filters( 'sitecare_theme_link', $link );
+	$info .= '</div>';
+	return apply_filters( 'sitecare_theme_info', $info );
 }
