@@ -373,8 +373,8 @@ function sitecare_customizer_link( $args = array() ) {
  */
 function sitecare_get_customizer_link( $args = array() ) {
 	$defaults = array(
-		'focus_type'   => 'panel',
-		'focus_target' => 'widgets',
+		'focus_type'   => '',
+		'focus_target' => '',
 		'return'       => get_permalink(),
 	);
 
