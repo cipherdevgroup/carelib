@@ -46,7 +46,7 @@ class SiteCare_Search_Form {
 		$label = apply_filters( 'sitecare_search_form_label', __( 'Search site', 'sitecare-library' ) );
 
 		return sprintf(
-			'<label for="%s" class="screen-reader-text">%s</label>',
+			'<label id="%1$s-label" for="%1$s" class="screen-reader-text">%2$s</label>',
 			esc_attr( $this->get_id() ),
 			esc_attr( $label )
 		);
