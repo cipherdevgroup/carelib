@@ -373,7 +373,7 @@ function sitecare_get_customizer_link( $args = array() ) {
 	$return     = $args['return'];
 
 	if ( ! empty( $type ) && ! empty( $target ) ) {
-		$query_args[] = array( 'autofocus' => array( $type => $target, ), );
+		$query_args[] = array( 'autofocus' => array( $type => $target ) );
 	}
 	if ( ! empty( $return ) ) {
 		$query_args['return'] = urlencode( wp_unslash( $return ) );
