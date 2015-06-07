@@ -10,18 +10,6 @@
  */
 
 /**
- * Outputs an entry's author.
- *
- * @since  0.1.0
- * @access public
- * @param  $args array
- * @return void
- */
-function sitecare_entry_author( $args = array() ) {
-	echo sitecare_get_entry_author( $args );
-}
-
-/**
  * This is simply a wrapper function for hybrid_get_post_author which adds a few
  * filters to make the function a bit more flexible. This will allow us to avoid
  * passing args into the function by default in our templates. Instead, we can
@@ -48,15 +36,15 @@ function sitecare_get_entry_author( $args = array() ) {
 }
 
 /**
- * Outputs a post's published date.
+ * Outputs an entry's author.
  *
  * @since  0.1.0
  * @access public
  * @param  $args array
  * @return void
  */
-function sitecare_entry_published( $args = array() ) {
-	echo sitecare_get_entry_published( $args );
+function sitecare_entry_author( $args = array() ) {
+	echo sitecare_get_entry_author( $args );
 }
 
 /**
@@ -69,8 +57,6 @@ function sitecare_entry_published( $args = array() ) {
  * @return string
  */
 function sitecare_get_entry_published( $args = array() ) {
-	$output = '';
-
 	$defaults = apply_filters( 'sitecare_entry_published_defaults',
 		array(
 			'before' => '',
@@ -83,23 +69,23 @@ function sitecare_get_entry_published( $args = array() ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	$output .= $args['before'];
+	$output  = isset( $args['before'] ) ? $args['before'] : '';
 	$output .= sprintf( $args['wrap'], hybrid_get_attr( $args['attr'] ), $args['date'] );
-	$output .= $args['after'];
+	$output .= isset( $args['after'] ) ? $args['after'] : '';
 
 	return apply_filters( 'sitecare_entry_published', $output, $args );
 }
 
 /**
- * Displays a formatted link to the current entry comments.
+ * Outputs a post's published date.
  *
  * @since  0.1.0
  * @access public
  * @param  $args array
  * @return void
  */
-function sitecare_entry_comments_link( $args = array() ) {
-	echo sitecare_get_entry_comments_link( $args );
+function sitecare_entry_published( $args = array() ) {
+	echo sitecare_get_entry_published( $args );
 }
 
 /**
@@ -142,9 +128,26 @@ function sitecare_get_entry_comments_link( $args = array() ) {
 	comments_number( $args['zero'], $args['one'], $args['more'] );
 	$comments = ob_get_clean();
 
-	$comments = sprintf( '<a rel="nofollow" href="%s">%s</a>', get_comments_link(), $comments );
+	$comments = sprintf( '<a rel="nofollow" href="%s">%s</a>',
+		get_comments_link(),
+		$comments
+	);
 
-	$output = '<span class="entry-comments-link">' . $args['before'] . $comments . $args['after'] . '</span>';
+	$output  = isset( $args['before'] ) ? $args['before'] : '';
+	$output .= '<span class="entry-comments-link">' . $comments . '</span>';
+	$output .= isset( $args['after'] ) ? $args['after'] : '';
 
 	return apply_filters( 'sitecare_entry_comments_link', $output, $args );
+}
+
+/**
+ * Displays a formatted link to the current entry comments.
+ *
+ * @since  0.1.0
+ * @access public
+ * @param  $args array
+ * @return void
+ */
+function sitecare_entry_comments_link( $args = array() ) {
+	echo sitecare_get_entry_comments_link( $args );
 }
