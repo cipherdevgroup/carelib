@@ -19,7 +19,7 @@
  *
  * Based on the TTFMAKE_CSS class by The Theme Foundry.
  *
- * @since   1.1.1
+ * @since   0.1.0
  * @version 0.1.0
  */
 class SiteCare_Style_Builder {
@@ -138,10 +138,12 @@ class SiteCare_Style_Builder {
 		// No matching selector set, add a new entry
 		if ( false === $match ) {
 			$this->data[ $media ][] = $entry;
-		}
-		// Yes, matching selector set, merge declarations
-		else {
-			$this->data[ $media ][ $match ]['declarations'] = array_merge( $this->data[ $media ][ $match ]['declarations'], $entry['declarations'] );
+		} else {
+			// Yes, matching selector set, merge declarations
+			$this->data[ $media ][ $match ]['declarations'] = array_merge(
+				$this->data[ $media ][ $match ]['declarations'],
+				$entry['declarations']
+			);
 		}
 	}
 
