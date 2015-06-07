@@ -193,7 +193,7 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 * @return  string
 		 */
 		public function get_library_directory() {
-			return apply_filters( 'sitecare_library_directory', dirname( __FILE__ ) );
+			return dirname( __FILE__ );
 		}
 
 		/**
@@ -246,23 +246,14 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 * @return  void
 		 */
 		private function includes() {
-			// Set up an array of library file paths which can be filtered.
-			$includes = apply_filters( 'sitecare_library_includes',
-				array(
-					'customizer/classes/customizer-base.php',
-					'classes/search-form.php',
-					'classes/style-builder.php',
-					'functions/attr.php',
-					'functions/seo.php',
-					'functions/template-entry.php',
-					'functions/template-general.php',
-					'functions/template.php',
-				)
-			);
-			// Include our library files.
-			foreach ( $includes as $include ) {
-				require_once $this->dir . $include;
-			}
+			require_once $this->dir . 'customizer/classes/customizer-base.php';
+			require_once $this->dir . 'classes/search-form.php';
+			require_once $this->dir . 'classes/style-builder.php';
+			require_once $this->dir . 'functions/attr.php';
+			require_once $this->dir . 'functions/seo.php';
+			require_once $this->dir . 'functions/template-entry.php';
+			require_once $this->dir . 'functions/template-general.php';
+			require_once $this->dir . 'functions/template.php';
 		}
 
 		/**
