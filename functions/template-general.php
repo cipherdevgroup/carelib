@@ -9,41 +9,6 @@
  * @since       0.1.0
  */
 
-add_action( 'wp_head', 'sitecare_load_favicon', 5 );
-/**
- * Echos a favicon link if one is found and falls back to the default SiteCare
- * theme favicon when no custom one has been set.
- *
- * URL to favicon is filtered via `sitecare_favicon_url` before being echoed.
- *
- * @since  0.1.0
- * @access public
- * @return void
- */
-function sitecare_load_favicon() {
-	$favicon = '';
-	$path    = 'images/favicon.ico';
-
-	// Fall back to the parent favicon if it exists.
-	if ( file_exists( trailingslashit( get_template_directory() ) . $path ) ) {
-		$favicon = trailingslashit( get_template_directory_uri() ) . $path;
-	}
-	// Use the child theme favicon if it exists.
-	if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $path ) ) {
-		$favicon = trailingslashit( get_stylesheet_directory_uri() ) . $path;
-	}
-
-	// Allow developers to set a custom favicon file.
-	$favicon = apply_filters( 'sitecare_favicon_url', $favicon );
-
-	// Bail if we don't have a favicon to display.
-	if ( empty( $favicon ) ) {
-		return;
-	}
-
-	echo '<link rel="Shortcut Icon" href="' . esc_url( $favicon ) . '" type="image/x-icon" />' . "\n";
-}
-
 /**
  * Retrieve the site logo URL or ID (URL by default). Pass in the string
  * 'id' for ID.
