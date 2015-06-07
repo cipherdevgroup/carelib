@@ -75,6 +75,28 @@ function sitecare_the_logo() {
 }
 
 /**
+ * Helper function to determine if we're within a blog section archive.
+ *
+ * @since  0.1.1
+ * @access public
+ * @return bool true if we're on a blog archive page.
+ */
+function sitecare_is_blog_archive() {
+	return is_home() || is_archive() && ! ( is_post_type_archive() || is_tax() );
+}
+
+/**
+ * Helper function to determine if we're anywhere within the blog section.
+ *
+ * @since  0.1.1
+ * @access public
+ * @return bool true if we're on a blog archive page or a singular post.
+ */
+function sitecare_is_blog() {
+	return sitecare_is_blog_archive() || is_singular( 'post' );
+}
+
+/**
  * Sets a common class, `.nav-menu`, for the custom menu widget if used as part
  * of a site navigation element.
  *
