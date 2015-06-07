@@ -15,15 +15,13 @@
  */
 
 // Attributes for major structural elements.
-add_filter( 'hybrid_attr_site-container',   'sitecare_attr_site_container' );
-add_filter( 'hybrid_attr_site-inner',       'sitecare_attr_site_inner' );
-add_filter( 'hybrid_attr_wrap',             'sitecare_attr_wrap', 10, 2 );
-add_filter( 'hybrid_attr_sidebar',          'sitecare_attr_sidebar_class', 10, 2 );
-add_filter( 'hybrid_attr_menu',             'sitecare_attr_menu_class', 10, 2 );
+add_filter( 'hybrid_attr_site-container', 'sitecare_attr_site_container' );
+add_filter( 'hybrid_attr_site-inner',     'sitecare_attr_site_inner' );
+add_filter( 'hybrid_attr_wrap',           'sitecare_attr_wrap', 10, 2 );
 // Post-specific attributes.
-add_filter( 'hybrid_attr_entry-summary',    'sitecare_attr_entry_summary_class' );
+add_filter( 'hybrid_attr_entry-summary',  'sitecare_attr_entry_summary_class' );
 // Other attributes.
-add_filter( 'hybrid_attr_nav',              'sitecare_attr_nav', 10, 2 );
+add_filter( 'hybrid_attr_nav',            'sitecare_attr_nav', 10, 2 );
 
 /**
  * Page site container element attributes.
@@ -66,40 +64,6 @@ function sitecare_attr_wrap( $attr, $context ) {
 		return $attr;
 	}
 	$attr['class'] = "wrap {$context}-wrap";
-	return $attr;
-}
-
-/**
- * Sidebar attributes.
- *
- * @since  0.1.0
- * @access public
- * @param  array $attr
- * @param  string $context
- * @return array
- */
-function sitecare_attr_sidebar_class( $attr, $context ) {
-	if ( empty( $context ) ) {
-		return $attr;
-	}
-	$attr['class'] .= " sidebar-{$context}";
-	return $attr;
-}
-
-/**
- * Add a menu context element to the class attribute to make styling easier.
- *
- * @since  0.1.0
- * @access public
- * @param  array $attr
- * @param  string $context
- * @return array
- */
-function sitecare_attr_menu_class( $attr, $context ) {
-	if ( empty( $context ) ) {
-		return $attr;
-	}
-	$attr['class'] .= " menu-{$context}";
 	return $attr;
 }
 
