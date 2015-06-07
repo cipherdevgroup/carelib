@@ -135,7 +135,7 @@ function sitecare_tiny_mce_formats( $args ) {
 		$sitecare_formats = array_merge( $sitecare_formats, $existing_formats );
 	}
 
-	$args['style_formats'] = json_encode( $sitecare_formats );
+	$args['style_formats'] = wp_json_encode( $sitecare_formats );
 
 	return $args;
 }
