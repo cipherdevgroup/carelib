@@ -13,6 +13,8 @@
 
 <p><span class="description"><?php _e( 'Choose where you would like to display an author box.', 'sitecare-library' ); ?></span></p>
 
+<?php wp_nonce_field( 'sitecare_author_box_nonce', 'toggle_author_box' ); ?>
+
 <table class="form-table">
 	<tbody>
 		<tr>

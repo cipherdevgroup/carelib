@@ -44,6 +44,20 @@ class SiteCare_Author_Box_Admin {
 	}
 
 	/**
+	 * Helper function to determine if an automated task which should prevent
+	 * saving meta box data is running.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @return void
+	 */
+	protected function stop_save() {
+		return defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ||
+			defined( 'DOING_AJAX' ) && DOING_AJAX ||
+			defined( 'DOING_CRON' ) && DOING_CRON;
+	}
+
+	/**
 	 * Add additional contact methods for registered users.
 	 *
 	 * @since  0.1.0
@@ -88,7 +102,11 @@ class SiteCare_Author_Box_Admin {
 	 * @return void
 	 */
 	public function meta_save( $user_id ) {
-		if ( ! current_user_can( 'edit_users', $user_id ) ) {
+		if ( $this->stop_save() || ! current_user_can( 'edit_users', $user_id ) ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( $_REQUEST['sitecare_author_box_nonce'], 'toggle_author_box' ) ) {
 			return;
 		}
 
