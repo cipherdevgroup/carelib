@@ -59,7 +59,7 @@
 		<?php endif; ?>
 
 		<li class="social-rss">
-			<a href="<?php echo esc_url( get_author_feed_link() ); ?>">
+			<a href="<?php echo esc_url( get_author_feed_link( get_the_author_meta( 'ID' ) ) ); ?>">
 				<span class="text"><?php _e( 'RSS Feed', 'sitecare-library' ); ?></span>
 			</a>
 		</li>
