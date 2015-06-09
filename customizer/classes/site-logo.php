@@ -224,8 +224,8 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	/**
 	 * Make custom image sizes available to the media manager.
 	 *
-	 * @param array $sizes
-	 * @uses get_intermediate_image_sizes()
+	 * @param  array $sizes
+	 * @uses   get_intermediate_image_sizes()
 	 * @return array All default and registered custom image sizes.
 	 */
 	public function media_manager_image_sizes( $sizes ) {
@@ -259,7 +259,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 		global $post;
 
 		// If our attachment ID and the site logo ID match, this image is the site logo.
-		if ( $post->ID == $this->logo['id'] ) {
+		if ( $post->ID === $this->logo['id'] ) {
 			$media_states[] = __( 'Site Logo', 'sitecare-library' );
 		}
 		return $media_states;
@@ -268,7 +268,8 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	/**
 	 * Determine if a site logo is assigned or not.
 	 *
-	 * @uses SiteCare_Logo::$logo
+	 * @since  0.1.0
+	 * @uses   SiteCare_Logo::$logo
 	 * @return boolean True if there is an active logo, false otherwise
 	 */
 	public function has_site_logo() {
@@ -278,7 +279,9 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	/**
 	 * Reset the site logo option to zero (empty).
 	 *
-	 * @uses update_option()
+	 * @since  0.1.0
+	 * @uses   update_option()
+	 * @return void
 	 */
 	public function remove_site_logo() {
 		update_option( 'site_logo',
@@ -293,11 +296,11 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	/**
 	 * Retrieve the site logo URL or ID (URL by default). Pass in the string 'id' for ID.
 	 *
-	 * @uses get_option()
-	 * @uses esc_url_raw()
-	 * @uses set_url_scheme()
+	 * @since  0.1.0
+	 * @uses   get_option()
+	 * @uses   esc_url_raw()
+	 * @uses   set_url_scheme()
 	 * @return mixed The URL or ID of our site logo, false if not set
-	 * @since 1.0
 	 */
 	function get_site_logo( $format = 'url' ) {
 		$logo = $this->logo;
@@ -319,6 +322,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 * Output an <img> tag of the site logo, at the size specified
 	 * in the theme's add_theme_support() declaration.
 	 *
+	 * @since 0.1.0
 	 * @uses SiteCare_Logo::logo
 	 * @uses SiteCare_Logo::theme_size()
 	 * @uses SiteCare_Logo::has_site_logo()
@@ -328,7 +332,6 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 * @uses esc_attr()
 	 * @uses wp_get_attachment_image()
 	 * @uses apply_filters()
-	 * @since 0.1.0
 	 */
 	function the_site_logo() {
 		$logo = $this->logo;
@@ -349,12 +352,12 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 		$html = sprintf( '<a href="%1$s" class="site-logo-link" rel="home">%2$s</a>',
 			esc_url( home_url( '/' ) ),
 			wp_get_attachment_image(
-				$logo['id'],
-				$size,
+				absint( $logo['id'] ),
+				esc_attr( $size ),
 				false,
 				array(
-					'class'     => "site-logo attachment-$size",
-					'data-size' => $size,
+					'class'     => 'site-logo attachment-' . esc_attr( $size ),
+					'data-size' => esc_attr( $size ),
 				)
 			)
 		);
@@ -397,7 +400,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 		}
 
 		// If the new setting doesn't point to a valid attachment, reset it.
-		return array( 'id' => 0, 'sizes' => array(), 'url' => '', );
+		return array( 'id' => 0, 'sizes' => array(), 'url' => '' );
 	}
 
 	/**
