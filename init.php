@@ -93,14 +93,6 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		public $tags;
 
 		/**
-		 * Placeholder for our entry template tags class instance.
-		 *
-		 * @since 0.2.0
-		 * @var   SiteCare_Template_Tags_Entry
-		 */
-		public $tags_entry;
-
-		/**
 		 * Placeholder for our footer widgets class instance.
 		 *
 		 * @since 0.1.0
@@ -291,7 +283,6 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 			require_once $this->dir . 'classes/style-builder.php';
 			require_once $this->dir . 'classes/attr.php';
 			require_once $this->dir . 'classes/seo.php';
-			require_once $this->dir . 'classes/template-entry.php';
 			require_once $this->dir . 'classes/template-tags.php';
 			require_once $this->dir . 'functions/tha-hooks.php';
 		}
@@ -369,7 +360,6 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 			$this->attr          = new SiteCare_Attributes;
 			$search_form         = new SiteCare_Search_Form;
 			$this->seo           = new SiteCare_SEO;
-			$this->tags_entry    = new SiteCare_Template_Tags_Entry;
 			$this->tags          = new SiteCare_Template_Tags;
 
 			$this->attr->run();
