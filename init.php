@@ -9,7 +9,7 @@
  * @since       0.1.0
  */
 
-if ( ! class_exists( 'SiteCare_Library' ) ) {
+if ( ! class_exists( 'SiteCare_Library', false ) ) {
 
 	/**
 	 * Class for common SiteCare theme functionality.
@@ -443,6 +443,3 @@ if ( ! function_exists( 'sitecare_library' ) ) {
 		return SiteCare_Library::instance();
 	}
 }
-
-// Get the library up and running.
-sitecare_library();
