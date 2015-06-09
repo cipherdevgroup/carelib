@@ -108,7 +108,7 @@ class SiteCare_Site_Logo_Image_Control extends WP_Customize_Control {
 	 */
 	public function render_content() {
 		// We do this to allow the upload control to specify certain labels
-		$l10n = json_encode( $this->l10n );
+		$l10n = wp_json_encode( $this->l10n );
 
 		// Control title
 		printf(
