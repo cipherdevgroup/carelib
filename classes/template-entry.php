@@ -12,7 +12,7 @@
 /**
  * SiteCare Entry Template Tags Class.
  */
-class SiteCare_Entry_Template_Tags {
+class SiteCare_Template_Tags_Entry {
 
 	/**
 	 * This is a private helper function used to format the entry title's display.
