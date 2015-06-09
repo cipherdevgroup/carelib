@@ -102,56 +102,6 @@ class SiteCare_Template_Tags {
 	}
 
 	/**
-	 * Sets a common class, `.nav-menu`, for the custom menu widget if used as part
-	 * of a site navigation element.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  array $args Header menu args.
-	 * @return array $args Modified header menu args.
-	 */
-	public function widget_menu_args( $args ) {
-		$args['menu_class'] .= ' nav-menu';
-		return $args;
-	}
-
-	/**
-	 * Wrap the header navigation menu in its own nav tags with markup API.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $menu Menu output.
-	 * @return string $menu Modified menu output.
-	 */
-	public function widget_menu_wrap( $menu, $context = '' ) {
-		return sprintf( '<nav %s>', hybrid_get_attr( 'menu', $context ) ) . $menu . '</nav>';
-	}
-
-	/**
-	 * Wrap the header navigation menu in its own nav tags with markup API.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $menu Menu output.
-	 * @return string $menu Modified menu output.
-	 */
-	public function header_menu_wrap( $menu ) {
-		return sitecare_widget_menu_wrap( $menu, 'header' );
-	}
-
-	/**
-	 * Customize the search form to improve accessibility.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @return string Search form markup.
-	 */
-	public function get_search_form() {
-		$search = new SiteCare_Search_Form;
-		return $search->get_form();
-	}
-
-	/**
 	 * Display our breadcrumbs based on selections made in the WordPress customizer.
 	 *
 	 * @since  0.1.0
@@ -165,18 +115,6 @@ class SiteCare_Template_Tags {
 			return false;
 		}
 		return $breadcrumbs->display_breadcrumbs();
-	}
-
-	/**
-	 * Outputs a navigation element for a singular entry.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array
-	 * @return void
-	 */
-	public function post_navigation( $args = array() ) {
-		echo $this->get_post_navigation( $args );
 	}
 
 	/**
@@ -258,18 +196,6 @@ class SiteCare_Template_Tags {
 	}
 
 	/**
-	 * Outputs a navigation element for a loop.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array
-	 * @return void
-	 */
-	public function posts_navigation( $args = array() ) {
-		echo $this->get_posts_navigation( $args );
-	}
-
-	/**
 	 * Helper function to build a newer/older or paginated navigation element within
 	 * a loop of multiple entries. This takes care of all the annoying formatting
 	 * which usually would need to be done within a template.
@@ -318,18 +244,6 @@ class SiteCare_Template_Tags {
 	}
 
 	/**
-	 * Display a link to the customizer panel.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array options for how the link will be formatted
-	 * @return void
-	 */
-	public function customizer_link( $args = array() ) {
-		echo $this->get_customizer_link( $args );
-	}
-
-	/**
 	 * Format a link to the customizer panel.
 	 *
 	 * Since WordPress 4.1, the customizer panel allows for deeplinking, but setting
@@ -367,17 +281,6 @@ class SiteCare_Template_Tags {
 	}
 
 	/**
-	 * Outputs a formatted theme credit link.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @return void
-	 */
-	public function credit_link() {
-		echo $this->get_credit_link();
-	}
-
-	/**
 	 * Returns a formatted theme credit link.
 	 *
 	 * @since  0.1.0
@@ -391,17 +294,6 @@ class SiteCare_Template_Tags {
 			'WP Site Care'
 		);
 		return apply_filters( 'sitecare_credit_link', $link );
-	}
-
-	/**
-	 * Outputs formatted theme information.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @return string
-	 */
-	public function theme_info() {
-		echo $this->get_theme_info();
 	}
 
 	/**

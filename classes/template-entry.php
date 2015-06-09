@@ -92,18 +92,6 @@ class SiteCare_Template_Tags_Entry {
 	}
 
 	/**
-	 * Outputs a formatted entry title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  $args array
-	 * @return void
-	 */
-	public function entry_title( $args = array() ) {
-		echo $this->get_entry_title( $args );
-	}
-
-	/**
 	 * This is simply a wrapper function for hybrid_get_post_author which adds a few
 	 * filters to make the function a bit more flexible. This will allow us to avoid
 	 * passing args into the function by default in our templates. Instead, we can
@@ -127,18 +115,6 @@ class SiteCare_Template_Tags_Entry {
 		$args = wp_parse_args( $args, $defaults );
 
 		return apply_filters( 'sitecare_entry_author', hybrid_get_post_author( $args ), $args );
-	}
-
-	/**
-	 * Outputs an entry's author.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array
-	 * @return void
-	 */
-	public function entry_author( $args = array() ) {
-		echo $this->get_entry_author( $args );
 	}
 
 	/**
@@ -168,18 +144,6 @@ class SiteCare_Template_Tags_Entry {
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
 		return apply_filters( 'sitecare_entry_published', $output, $args );
-	}
-
-	/**
-	 * Outputs a post's published date.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array
-	 * @return void
-	 */
-	public function entry_published( $args = array() ) {
-		echo $this->get_entry_published( $args );
 	}
 
 	/**
@@ -235,18 +199,6 @@ class SiteCare_Template_Tags_Entry {
 	}
 
 	/**
-	 * Displays a formatted link to the current entry comments.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array
-	 * @return void
-	 */
-	public function entry_comments_link( $args = array() ) {
-		echo $this->get_entry_comments_link( $args );
-	}
-
-	/**
 	 * Returns either an excerpt or the content depending on what page the user is
 	 * currently viewing.
 	 *
@@ -261,19 +213,6 @@ class SiteCare_Template_Tags_Entry {
 			$content = apply_filters( 'the_content', get_the_content() );
 		}
 		return apply_filters( 'sitecare_content', $content );
-	}
-
-	/**
-	 * Displays either an excerpt or the content depending on what page the user is
-	 * currently viewing.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  $args array
-	 * @return void
-	 */
-	public function content() {
-		echo $this->get_content();
 	}
 
 }
