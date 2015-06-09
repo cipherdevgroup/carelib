@@ -48,25 +48,25 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 * Placeholder for our style builder class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Library
+		 * @var   SiteCare_Style_Builder
 		 */
 		public $style_builder;
+
+		/**
+		 * Placeholder for our attributes class instance.
+		 *
+		 * @since 0.2.0
+		 * @var   SiteCare_Attributes
+		 */
+		public $attr;
 
 		/**
 		 * Placeholder for our author box class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Library
+		 * @var   SiteCare_Author_Box
 		 */
 		public $author_box;
-
-		/**
-		 * Placeholder for our author box admin class instance.
-		 *
-		 * @since 0.1.0
-		 * @var   SiteCare_Library
-		 */
-		public $author_box_admin;
 
 		/**
 		 * Placeholder for our breadcrumb display class instance.
@@ -75,6 +75,30 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 * @var   SiteCare_Breadcrumb_Display
 		 */
 		public $breadcrumb_display;
+
+		/**
+		 * Placeholder for our SEO class instance.
+		 *
+		 * @since 0.2.0
+		 * @var   SiteCare_SEO
+		 */
+		public $seo;
+
+		/**
+		 * Placeholder for our template tags class instance.
+		 *
+		 * @since 0.2.0
+		 * @var   SiteCare_Template_Tags
+		 */
+		public $tags;
+
+		/**
+		 * Placeholder for our entry template tags class instance.
+		 *
+		 * @since 0.2.0
+		 * @var   SiteCare_Template_Tags_Entry
+		 */
+		public $tags_entry;
 
 		/**
 		 * Placeholder for our footer widgets class instance.
@@ -91,6 +115,22 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 * @var   SiteCare_Site_Logo
 		 */
 		public $site_logo;
+
+		/**
+		 * Placeholder for our author box admin class instance.
+		 *
+		 * @since 0.1.0
+		 * @var   SiteCare_Author_Box_Admin
+		 */
+		public $author_box_admin;
+
+		/**
+		 * Placeholder for our TinyMCE admin class instance.
+		 *
+		 * @since 0.2.0
+		 * @var   SiteCare_TinyMCE_Admin
+		 */
+		public $tinymce_admin;
 
 		/**
 		 * Static placeholder for our main class instance.
@@ -249,11 +289,11 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 			require_once $this->dir . 'customizer/classes/customizer-base.php';
 			require_once $this->dir . 'classes/search-form.php';
 			require_once $this->dir . 'classes/style-builder.php';
-			require_once $this->dir . 'functions/attr.php';
-			require_once $this->dir . 'functions/seo.php';
-			require_once $this->dir . 'functions/template-entry.php';
-			require_once $this->dir . 'functions/template-general.php';
-			require_once $this->dir . 'functions/template.php';
+			require_once $this->dir . 'classes/attr.php';
+			require_once $this->dir . 'classes/seo.php';
+			require_once $this->dir . 'classes/template-entry.php';
+			require_once $this->dir . 'classes/template-tags.php';
+			require_once $this->dir . 'functions/tha-hooks.php';
 		}
 
 		/**
@@ -311,10 +351,7 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 * @return  void
 		 */
 		private function admin_includes() {
-			if ( apply_filters( 'sitecare_library_disable_admin', false ) ) {
-				return;
-			}
-			require_once $this->dir . 'admin/functions/tiny-mce.php';
+			require_once $this->dir . 'admin/classes/tiny-mce.php';
 			if ( current_theme_supports( 'sitecare-author-box' ) ) {
 				require_once $this->dir . 'admin/classes/author-box.php';
 			}
@@ -329,6 +366,13 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 */
 		private function instantiate() {
 			$this->style_builder = new SiteCare_Style_Builder;
+			$this->attr          = new SiteCare_Attributes;
+			$this->seo           = new SiteCare_SEO;
+			$this->tags_entry    = new SiteCare_Template_Tags_Entry;
+			$this->tags          = new SiteCare_Template_Tags;
+
+			$this->attr->run();
+			$this->seo->run();
 
 			if ( class_exists( 'SiteCare_Author_Box', false ) ) {
 				$this->author_box = new SiteCare_Author_Box;
@@ -342,6 +386,7 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 				$this->footer_widgets = new SiteCare_Footer_Widgets;
 				$this->footer_widgets->run();
 			}
+
 			add_action( 'init', array( $this, 'instantiate_logo' ), 13 );
 		}
 
@@ -370,6 +415,9 @@ if ( ! class_exists( 'SiteCare_Library' ) ) {
 		 * @return  void
 		 */
 		private function admin_instantiate() {
+			$this->tinymce_admin = new SiteCare_TinyMCE_Admin;
+			$this->tinymce_admin->run();
+
 			if ( class_exists( 'SiteCare_Author_Box_Admin', false ) ) {
 				$this->author_box_admin = new SiteCare_Author_Box_Admin;
 				$this->author_box_admin->run();
