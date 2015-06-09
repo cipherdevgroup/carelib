@@ -251,7 +251,11 @@ function sitecare_entry_comments_link( $args = array() ) {
  * @return void
  */
 function sitecare_get_content() {
-	return apply_filters( 'sitecare_content', is_singular() ? get_the_content() : get_the_excerpt() );
+	$content = get_the_excerpt();
+	if ( is_singular() ) {
+		$content = apply_filters( 'the_content', get_the_content() );
+	}
+	return apply_filters( 'sitecare_content', $content );
 }
 
 /**
