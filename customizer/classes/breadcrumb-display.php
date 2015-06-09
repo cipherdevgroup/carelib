@@ -66,10 +66,10 @@ class SiteCare_Breadcrumb_Display extends SiteCare_Customizer_Base {
 	 * An array of breadcrumb locations.
 	 *
 	 * @since  0.1.0
-	 * @access public
+	 * @access protected
 	 * @return array $breadcrumbs
 	 */
-	public function get_options() {
+	protected function get_options() {
 		return apply_filters( 'sitecare_breadcrumb_options', array(
 			'sitecare_breadcrumb_single' => array(
 				'default'  => 0,
@@ -99,16 +99,34 @@ class SiteCare_Breadcrumb_Display extends SiteCare_Customizer_Base {
 	}
 
 	/**
-	 * Deprecated wrapper method for backwards compatbility.
-	 *
-	 * @deprecated use get_options instead.
+	 * Display our breadcrumbs based on selections made in the WordPress customizer.
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @return array $breadcrumbs
+	 * @return bool true if both our template tag and theme mod return true.
 	 */
-	public function get_breadcrumb_options() {
-		return $this->get_options();
-	}
+	public function display_breadcrumbs() {
+		// Grab our available breadcrumb display options.
+		$options = array_keys( $this->get_options() );
+		// Set up an array of template tags to map to our breadcrumb display options.
+		$tags = apply_filters( 'sitecare_breadcrumb_tags',
+			array(
+				is_singular() && ! is_attachment() && ! is_page(),
+				is_page(),
+				is_home() && ! is_front_page(),
+				is_archive(),
+				is_404(),
+				is_attachment(),
+			)
+		);
 
+		// Loop through our theme mods to see if we have a match.
+		foreach ( array_combine( $options, $tags ) as $mod => $tag ) {
+			// Return true if we find an enabled theme mod within the correct section.
+			if ( 1 === absint( get_theme_mod( $mod, 0 ) ) && true === $tag ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
