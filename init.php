@@ -367,11 +367,13 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		private function instantiate() {
 			$this->style_builder = new SiteCare_Style_Builder;
 			$this->attr          = new SiteCare_Attributes;
+			$search_form         = new SiteCare_Search_Form;
 			$this->seo           = new SiteCare_SEO;
 			$this->tags_entry    = new SiteCare_Template_Tags_Entry;
 			$this->tags          = new SiteCare_Template_Tags;
 
 			$this->attr->run();
+			$search_form->run();
 			$this->seo->run();
 
 			if ( class_exists( 'SiteCare_Author_Box', false ) ) {

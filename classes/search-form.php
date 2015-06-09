@@ -21,6 +21,28 @@ class SiteCare_Search_Form {
 	protected $id;
 
 	/**
+	 * Get our class up and running!
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
+	public function run() {
+		self::wp_hooks();
+	}
+
+	/**
+	 * Register our actions and filters.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
+	private function wp_hooks() {
+		add_filter( 'get_search_form', array( $this, 'get_form' ), 99 );
+	}
+
+	/**
 	 * Get the search form elements and return them as a single string.
 	 *
 	 * @since  0.1.0
