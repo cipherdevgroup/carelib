@@ -90,7 +90,7 @@ class SiteCare_Author_Box_Admin {
 		if ( '' === $single_box ) {
 			$single_box = 1;
 		}
-		require_once sitecare_library()->dir . 'templates/admin/settings-author-box.php';
+		require_once sitecare_library()->dir . '/admin/templates/settings-author-box.php';
 	}
 
 	/**
