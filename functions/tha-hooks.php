@@ -1,6 +1,7 @@
 <?php
 /**
- * Template Adjustments for the Hybrid Core Framework.
+ * Temporarily adding some placeholder hook locations until they're added to
+ * Theme Hook Alliance. Hopefully these won't be in here very long.
  *
  * @package     SiteCareLibrary
  * @subpackage  HybridCore
@@ -9,14 +10,6 @@
  * @since       0.1.0
  */
 
-/**
- * Temporarily adding some placeholder hook locations until they're added to
- * Theme Hook Alliance. Hopefully these won't be in here very long.
- *
- * @since  0.1.0
- * @access public
- * @return void
- */
 if ( ! function_exists( 'tha_content_while_before' ) ) {
 	function tha_content_while_before() {
 		do_action( 'tha_content_while_before' );
