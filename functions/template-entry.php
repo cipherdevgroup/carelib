@@ -240,3 +240,29 @@ function sitecare_get_entry_comments_link( $args = array() ) {
 function sitecare_entry_comments_link( $args = array() ) {
 	echo sitecare_get_entry_comments_link( $args );
 }
+
+/**
+ * Returns either an excerpt or the content depending on what page the user is
+ * currently viewing.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  $args array
+ * @return void
+ */
+function sitecare_get_content() {
+	return apply_filters( 'sitecare_content', is_singular() ? get_the_content() : get_the_excerpt() );
+}
+
+/**
+ * Displays either an excerpt or the content depending on what page the user is
+ * currently viewing.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  $args array
+ * @return void
+ */
+function sitecare_content() {
+	echo sitecare_get_content();
+}
