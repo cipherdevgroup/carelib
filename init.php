@@ -154,7 +154,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 			// Cloning instances of the class is forbidden
 			_doing_it_wrong(
 				__FUNCTION__,
-				__( 'Cheatin&#8217; huh?', 'sitecare-library' ),
+				esc_attr__( 'Cheatin&#8217; huh?', 'sitecare-library' ),
 				'0.1.0'
 			);
 		}
@@ -170,7 +170,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 			// Unserializing instances of the class is forbidden
 			_doing_it_wrong(
 				__FUNCTION__,
-				__( 'Cheatin&#8217; huh?', 'sitecare-library' ),
+				esc_attr__( 'Cheatin&#8217; huh?', 'sitecare-library' ),
 				'0.1.0'
 			);
 		}
