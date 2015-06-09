@@ -212,6 +212,9 @@ function sitecare_post_navigation( $args = array() ) {
  * @return string
  */
 function sitecare_get_post_navigation( $args = array() ) {
+	if ( is_attachment() ) {
+		return;
+	}
 	$obj  = get_post_type_object( get_post_type() );
 	$name = isset( $obj->labels->singular_name ) ? '&nbsp;' . $obj->labels->singular_name : '';
 
@@ -230,8 +233,10 @@ function sitecare_get_post_navigation( $args = array() ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	// Bail if we're not on a single entry. All post types are allowed by default.
-	if ( ! is_singular( $args['post_types'] ) ) {
+	$types = (array) $args['post_types'];
+
+	// Bail if we're not on a single entry. All post types except pages are allowed by default.
+	if ( ! is_singular( $types ) || ( ! in_array( 'page', $types ) && is_page() ) ) {
 		return;
 	}
 
@@ -286,10 +291,6 @@ function sitecare_posts_navigation( $args = array() ) {
  * a loop of multiple entries. This takes care of all the annoying formatting
  * which usually would need to be done within a template.
  *
- * This defaults to a pagination format unless the site is using a version of
- * WordPress older than 4.1. For older sites, we fall back to the next and
- * previous post links by default.
- *
  * @since  0.1.0
  * @access public
  * @param  $args array
@@ -302,7 +303,7 @@ function sitecare_get_posts_navigation( $args = array() ) {
 		return;
 	}
 
-	$defaults = apply_filters( 'sitecare_loop_nav_defaults',
+	$defaults = apply_filters( 'sitecare_posts_navigation_defaults',
 		array(
 			'format'         => 'pagination',
 			'prev_text'      => sprintf( '<span class="screen-reader-text">%s</span>' , __( 'Previous Page', 'sitecare-library' ) ),
@@ -330,7 +331,7 @@ function sitecare_get_posts_navigation( $args = array() ) {
 		);
 	}
 
-	return apply_filters( 'sitecare_loop_nav', $output, $args );
+	return apply_filters( 'sitecare_posts_navigation', $output, $args );
 }
 
 /**
