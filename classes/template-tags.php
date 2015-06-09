@@ -91,17 +91,6 @@ class SiteCare_Template_Tags {
 	}
 
 	/**
-	 * Helper function to determine if we're anywhere within the blog section.
-	 *
-	 * @since  0.1.1
-	 * @access public
-	 * @return bool true if we're on a blog archive page or a singular post.
-	 */
-	public function is_blog() {
-		return $this->is_blog_archive() || is_singular( 'post' );
-	}
-
-	/**
 	 * Display our breadcrumbs based on selections made in the WordPress customizer.
 	 *
 	 * @since  0.1.0
