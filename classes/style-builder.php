@@ -11,7 +11,7 @@
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
- * @since       1.1.1
+ * @since       0.1.0
  */
 
 /**
