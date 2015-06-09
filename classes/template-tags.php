@@ -19,7 +19,7 @@ class SiteCare_Template_Tags {
 	 * 'id' for ID.
 	 *
 	 * @since  0.1.0
-	 * @uses   SiteCare_Site_Logo::get_sitecare_logo
+	 * @uses   SiteCare_Site_Logo::get_site_logo
 	 * @param  string $format the format to return
 	 * @return mixed The URL or ID of our site logo, false if not set
 	 */
@@ -33,7 +33,7 @@ class SiteCare_Template_Tags {
 			}
 			return null;
 		}
-		return sitecare_library()->site_logo->get_sitecare_logo( $format );
+		return sitecare_library()->site_logo->get_site_logo( $format );
 	}
 
 	/**
