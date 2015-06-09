@@ -15,23 +15,23 @@
 class SiteCare_SEO {
 
 	/**
-	* Get our class up and running!
-	*
-	* @since  0.1.0
-	* @access public
-	* @return void
-	*/
+	 * Get our class up and running!
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
 	public function run() {
 		self::wp_hooks();
 	}
 
 	/**
-	* Register our actions and filters.
-	*
-	* @since  0.1.0
-	* @access public
-	* @return void
-	*/
+	 * Register our actions and filters.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
 	private function wp_hooks() {
 		remove_action( 'wp_head', 'hybrid_meta_template', 1 );
 		add_filter( 'hybrid_site_title',       array( $this, 'site_title' ),       10 );

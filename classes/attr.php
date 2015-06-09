@@ -17,23 +17,23 @@
 class SiteCare_Attributes {
 
 	/**
-	* Get our class up and running!
-	*
-	* @since  0.1.0
-	* @access public
-	* @return void
-	*/
+	 * Get our class up and running!
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
 	public function run() {
 		self::wp_hooks();
 	}
 
 	/**
-	* Register our actions and filters.
-	*
-	* @since  0.1.0
-	* @access public
-	* @return void
-	*/
+	 * Register our actions and filters.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
 	private function wp_hooks() {
 		add_filter( 'hybrid_attr_site-container', array( $this, 'site_container' ) );
 		add_filter( 'hybrid_attr_site-inner',     array( $this, 'site_inner' ) );
