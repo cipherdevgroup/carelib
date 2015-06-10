@@ -106,7 +106,9 @@ class CareLib_Author_Box_Admin {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_REQUEST['carelib_author_box_nonce'], 'toggle_author_box' ) ) {
+		$nonce = $_GET['carelib_author_box_nonce'];
+
+		if ( ! isset( $nonce ) || ! wp_verify_nonce( $nonce, 'toggle_author_box' ) ) {
 			return;
 		}
 
