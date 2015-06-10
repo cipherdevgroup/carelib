@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract SiteCare Customizer Base Class
+ * Abstract CareLib Customizer Base Class
  *
  * Rather than writing basic sanitization and registration methods every time we
  * want to hook into the WordPress customizer, we should try to reuse code as
@@ -8,7 +8,7 @@
  * of customizer setting we like and reference our existing methods within the
  * child class.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -16,7 +16,7 @@
  */
 
 /**
- * SiteCare_Customizer_Base
+ * CareLib_Customizer_Base
  *
  * An abstract class to provide basic helper methods to use when registering new
  * customizer sections within a theme.
@@ -24,7 +24,7 @@
  * @since   0.1.0
  * @version 0.1.0
  */
-abstract class SiteCare_Customizer_Base {
+abstract class CareLib_Customizer_Base {
 
 	/**
 	 * An array of choices used for sanitizing multi-select fields.
@@ -55,7 +55,7 @@ abstract class SiteCare_Customizer_Base {
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   SiteCare_Customizer_Base::$customizer_hooks
+	 * @uses   CareLib_Customizer_Base::$customizer_hooks
 	 * @return void
 	 */
 	public function run() {
@@ -73,8 +73,8 @@ abstract class SiteCare_Customizer_Base {
 		// Throw a warning if no register method exists in the child class.
 		if ( ! method_exists( $this, 'register' ) ) {
 			_doing_it_wrong(
-				'SiteCare_Customizer_Base',
-				__( 'When extending SiteCare_Customizer_Base, you must create a register method.', 'sitecare-library' )
+				'CareLib_Customizer_Base',
+				__( 'When extending CareLib_Customizer_Base, you must create a register method.', 'carelib' )
 			);
 		}
 		// Register our customizer sections.

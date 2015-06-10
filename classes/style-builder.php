@@ -7,7 +7,7 @@
  * the final CSS should be. The primary function is `add()`. It allows the
  * caller to add a new rule to be generated in the CSS.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -15,14 +15,14 @@
  */
 
 /**
- * SiteCare Style Builder class.
+ * CareLib Style Builder class.
  *
  * Based on the TTFMAKE_CSS class by The Theme Foundry.
  *
  * @since   0.1.0
  * @version 0.1.0
  */
-class SiteCare_Style_Builder {
+class CareLib_Style_Builder {
 
 	/**
 	 * The array for storing added CSS rule data.
@@ -52,7 +52,7 @@ class SiteCare_Style_Builder {
 	 * Initialize the object.
 	 *
 	 * @since  1.1.1
-	 * @return SiteCare_Style_Builder
+	 * @return CareLib_Style_Builder
 	 */
 	function __construct() {
 		// Set line ending and tab
@@ -67,7 +67,7 @@ class SiteCare_Style_Builder {
 	 *
 	 * Accepts data to eventually be turned into CSS. Usage:
 	 *
-	 * sitecare_style_builder()->add(
+	 * carelib_style_builder()->add(
 	 *     array(
 	 *          'selectors'    => array( '.site-header-main' ),
 	 *          'declarations' => array(
@@ -104,7 +104,7 @@ class SiteCare_Style_Builder {
 		 * @since 1.1.1
 		 * @param array $data The selectors and properties to add to the CSS.
 		 */
-		$data  = apply_filters( 'sitecare_style_builder_add', $data );
+		$data  = apply_filters( 'carelib_style_builder_add', $data );
 
 		// Sanitize selectors
 		$entry['selectors'] = array_map( 'trim', (array) $data['selectors'] );
@@ -227,7 +227,7 @@ class SiteCare_Style_Builder {
 		/**
 		 * Note that when this output is prepared, it is not escaped, sanitized
 		 * or otherwise altered. The sanitization routines are implemented when
-		 * the developer calls `sitecare_style_builder()->add()`. Because every
+		 * the developer calls `carelib_style_builder()->add()`. Because every
 		 * property value has special sanitization needs, it is handled at that
 		 * point.
 		 */
@@ -249,7 +249,7 @@ class SiteCare_Style_Builder {
 			 * @param string    $t               The tab character.
 			 * @param string    $n               The newline character.
 			 */
-			$output .= apply_filters( 'sitecare_parse_declaration', $parsed_value, $property, $value, $t, $n );
+			$output .= apply_filters( 'carelib_parse_declaration', $parsed_value, $property, $value, $t, $n );
 		}
 
 		/**
@@ -260,6 +260,6 @@ class SiteCare_Style_Builder {
 		 * @param array     $declarations    The list of CSS declarations.
 		 * @param string    $tab             The tab character.
 		 */
-		return apply_filters( 'sitecare_css_parse_declarations', $output, $declarations, $tab );
+		return apply_filters( 'carelib_css_parse_declarations', $output, $declarations, $tab );
 	}
 }

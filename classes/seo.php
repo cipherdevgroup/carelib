@@ -2,7 +2,7 @@
 /**
  * SEO Adjustments for the Hybrid Core Framework.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -10,9 +10,9 @@
  */
 
 /**
- * SiteCare SEO class.
+ * CareLib SEO class.
  */
-class SiteCare_SEO {
+class CareLib_SEO {
 
 	/**
 	 * Get our class up and running!

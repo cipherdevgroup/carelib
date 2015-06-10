@@ -1,4 +1,4 @@
-# Changelog for SiteCare Library
+# Changelog for CareLib
 
 ## 0.1.0
 

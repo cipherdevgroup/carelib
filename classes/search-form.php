@@ -6,7 +6,7 @@
  * It also applies some filters which can be used to control the output of the
  * search form.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -14,9 +14,9 @@
  */
 
 /**
- * SiteCare Search Form Class.
+ * CareLib Search Form Class.
  */
-class SiteCare_Search_Form {
+class CareLib_Search_Form {
 
 	protected $id;
 
@@ -65,7 +65,7 @@ class SiteCare_Search_Form {
 	 * @return string
 	 */
 	protected function get_label() {
-		$label = apply_filters( 'sitecare_search_form_label', __( 'Search site', 'sitecare-library' ) );
+		$label = apply_filters( 'carelib_search_form_label', __( 'Search site', 'carelib' ) );
 
 		return sprintf(
 			'<label id="%1$s-label" for="%1$s" class="screen-reader-text">%2$s</label>',
@@ -83,7 +83,7 @@ class SiteCare_Search_Form {
 	 */
 	protected function get_input() {
 		$value = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : '';
-		$placeholder = apply_filters( 'sitecare_search_text', __( 'Search this website', 'sitecare-library' ) );
+		$placeholder = apply_filters( 'carelib_search_text', __( 'Search this website', 'carelib' ) );
 
 		return sprintf(
 			'<input type="search" name="s" id="%s" placeholder="%s" autocomplete="off" value="%s" />',
@@ -103,8 +103,8 @@ class SiteCare_Search_Form {
 	protected function get_button() {
 		return sprintf(
 			'<button type="submit" aria-label="%1$s"><span class="screen-reader-text">%2$s</span></button>',
-			esc_attr( apply_filters( 'sitecare_search_button_label', __( 'Search', 'sitecare-library' ) ) ),
-			esc_attr( apply_filters( 'sitecare_search_button_text', __( 'Search', 'sitecare-library' ) ) )
+			esc_attr( apply_filters( 'carelib_search_button_label', __( 'Search', 'carelib' ) ) ),
+			esc_attr( apply_filters( 'carelib_search_button_text', __( 'Search', 'carelib' ) ) )
 		);
 	}
 

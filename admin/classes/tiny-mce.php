@@ -2,7 +2,7 @@
 /**
  * Modifications to TinyMCE, the default WordPress editor.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -12,16 +12,16 @@
 /**
  * A class to customize the default styleselect options in the WP TinyMCE.
  *
- * @package SiteCareLibrary
+ * @package CareLib
  */
-class SiteCare_TinyMCE_Admin {
+class CareLib_TinyMCE_Admin {
 
 	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   SiteCare_Author_Box::$wp_hooks
+	 * @uses   CareLib_Author_Box::$wp_hooks
 	 * @return void
 	 */
 	public function run() {
@@ -75,7 +75,7 @@ class SiteCare_TinyMCE_Admin {
 	}
 
 	/**
-	 * Add our custom SiteCare styles to the styleselect dropdown button.
+	 * Add our custom CareLib styles to the styleselect dropdown button.
 	 *
 	 * @since  0.1.0
 	 * @access public
@@ -84,72 +84,72 @@ class SiteCare_TinyMCE_Admin {
 	 * @see    http://wordpress.stackexchange.com/a/128950/9844
 	 */
 	public function tinymce_formats( $args ) {
-		$sitecare_formats = apply_filters( 'sitecare_tiny_mce_formats',
+		$carelib_formats = apply_filters( 'carelib_tiny_mce_formats',
 			array(
 				array(
-					'title'    => __( 'Drop Cap', 'sitecare-library' ),
+					'title'    => __( 'Drop Cap', 'carelib' ),
 					'inline'   => 'span',
 					'classes'  => 'dropcap',
 				),
 				array(
-					'title'    => __( 'Pull Quote Left', 'sitecare-library' ),
+					'title'    => __( 'Pull Quote Left', 'carelib' ),
 					'block'    => 'blockquote',
 					'classes'  => 'pullquote alignleft',
 					'wrapper'  => true,
 				),
 				array(
-					'title'    => __( 'Pull Quote Right', 'sitecare-library' ),
+					'title'    => __( 'Pull Quote Right', 'carelib' ),
 					'block'    => 'blockquote',
 					'classes'  => 'pullquote alignright',
 					'wrapper'  => true,
 				),
 				array(
-					'title'    => __( 'Intro Paragraph', 'sitecare-library' ),
+					'title'    => __( 'Intro Paragraph', 'carelib' ),
 					'selector' => 'p',
 					'classes'  => 'intro-pagragraph',
 					'wrapper'  => true,
 				),
 				array(
-					'title'    => __( 'Call to Action', 'sitecare-library' ),
+					'title'    => __( 'Call to Action', 'carelib' ),
 					'block'    => 'div',
 					'classes'  => 'call-to-action',
 					'wrapper'  => true,
 					'exact'    => true,
 				),
 				array(
-					'title'    => __( 'Feature Box', 'sitecare-library' ),
+					'title'    => __( 'Feature Box', 'carelib' ),
 					'block'    => 'div',
 					'classes'  => 'feature-box',
 					'wrapper'  => true,
 					'exact'    => true,
 				),
 				array(
-					'title'    => __( 'Code Block', 'sitecare-library' ),
+					'title'    => __( 'Code Block', 'carelib' ),
 					'format'   => 'pre',
 				),
 				array(
-					'title'    => __( 'Buttons', 'sitecare-library' ),
+					'title'    => __( 'Buttons', 'carelib' ),
 					'items'    => array(
 						array(
-							'title'    => __( 'Standard', 'sitecare-library' ),
+							'title'    => __( 'Standard', 'carelib' ),
 							'selector' => 'a',
 							'classes'  => 'button',
 							'exact'    => true,
 						),
 						array(
-							'title'    => __( 'Standard Block', 'sitecare-library' ),
+							'title'    => __( 'Standard Block', 'carelib' ),
 							'selector' => 'a',
 							'classes'  => 'button block',
 							'exact'    => true,
 						),
 						array(
-							'title'    => __( 'Call to Action', 'sitecare-library' ),
+							'title'    => __( 'Call to Action', 'carelib' ),
 							'selector' => 'a',
 							'classes'  => 'button secondary cta',
 							'exact'    => true,
 						),
 						array(
-							'title'    => __( 'Call to Action Block', 'sitecare-library' ),
+							'title'    => __( 'Call to Action Block', 'carelib' ),
 							'selector' => 'a',
 							'classes'  => 'button secondary cta block',
 							'exact'    => true,
@@ -161,10 +161,10 @@ class SiteCare_TinyMCE_Admin {
 		// Merge with any existing formats which have been added by plugins.
 		if ( ! empty( $args['style_formats'] ) ) {
 			$existing_formats = json_decode( $args['style_formats'] );
-			$sitecare_formats = array_merge( $sitecare_formats, $existing_formats );
+			$carelib_formats = array_merge( $carelib_formats, $existing_formats );
 		}
 
-		$args['style_formats'] = wp_json_encode( $sitecare_formats );
+		$args['style_formats'] = wp_json_encode( $carelib_formats );
 
 		return $args;
 	}

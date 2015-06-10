@@ -2,21 +2,21 @@
 /**
  * Load all required library files.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
  * @since       0.1.0
  */
 
-if ( ! class_exists( 'SiteCare_Library', false ) ) {
+if ( ! class_exists( 'CareLib', false ) ) {
 
 	/**
-	 * Class for common SiteCare theme functionality.
+	 * Class for common CareLib theme functionality.
 	 *
 	 * @version 0.1.0
 	 */
-	class SiteCare_Library {
+	class CareLib {
 
 		/**
 		 * Our library version number.
@@ -48,7 +48,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our style builder class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Style_Builder
+		 * @var   CareLib_Style_Builder
 		 */
 		public $style_builder;
 
@@ -56,7 +56,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our attributes class instance.
 		 *
 		 * @since 0.2.0
-		 * @var   SiteCare_Attributes
+		 * @var   CareLib_Attributes
 		 */
 		public $attr;
 
@@ -64,7 +64,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our author box class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Author_Box
+		 * @var   CareLib_Author_Box
 		 */
 		public $author_box;
 
@@ -72,7 +72,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our breadcrumb display class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Breadcrumb_Display
+		 * @var   CareLib_Breadcrumb_Display
 		 */
 		public $breadcrumb_display;
 
@@ -80,7 +80,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our SEO class instance.
 		 *
 		 * @since 0.2.0
-		 * @var   SiteCare_SEO
+		 * @var   CareLib_SEO
 		 */
 		public $seo;
 
@@ -88,7 +88,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our template tags class instance.
 		 *
 		 * @since 0.2.0
-		 * @var   SiteCare_Template_Tags
+		 * @var   CareLib_Template_Tags
 		 */
 		public $tags;
 
@@ -96,7 +96,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our footer widgets class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Footer_Widgets
+		 * @var   CareLib_Footer_Widgets
 		 */
 		public $footer_widgets;
 
@@ -104,7 +104,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our site logo class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Site_Logo
+		 * @var   CareLib_Site_Logo
 		 */
 		public $site_logo;
 
@@ -112,7 +112,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our author box admin class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Author_Box_Admin
+		 * @var   CareLib_Author_Box_Admin
 		 */
 		public $author_box_admin;
 
@@ -120,7 +120,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Placeholder for our TinyMCE admin class instance.
 		 *
 		 * @since 0.2.0
-		 * @var   SiteCare_TinyMCE_Admin
+		 * @var   CareLib_TinyMCE_Admin
 		 */
 		public $tinymce_admin;
 
@@ -128,7 +128,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Static placeholder for our main class instance.
 		 *
 		 * @since 0.1.0
-		 * @var   SiteCare_Library
+		 * @var   CareLib
 		 */
 		private static $instance;
 
@@ -146,7 +146,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 			// Cloning instances of the class is forbidden
 			_doing_it_wrong(
 				__FUNCTION__,
-				esc_attr__( 'Cheatin&#8217; huh?', 'sitecare-library' ),
+				esc_attr__( 'Cheatin&#8217; huh?', 'carelib' ),
 				'0.1.0'
 			);
 		}
@@ -162,26 +162,26 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 			// Unserializing instances of the class is forbidden
 			_doing_it_wrong(
 				__FUNCTION__,
-				esc_attr__( 'Cheatin&#8217; huh?', 'sitecare-library' ),
+				esc_attr__( 'Cheatin&#8217; huh?', 'carelib' ),
 				'0.1.0'
 			);
 		}
 
 		/**
-		 * Main SiteCare_Library Instance
+		 * Main CareLib Instance
 		 *
-		 * Insures that only one instance of SiteCare_Library exists in memory at any one
+		 * Insures that only one instance of CareLib exists in memory at any one
 		 * time. Also prevents needing to define globals all over the place.
 		 *
 		 * @since 0.1.0
 		 * @static
-		 * @uses   SiteCare_Library::includes() Include the required files
-		 * @return SiteCare_Library
+		 * @uses   CareLib::includes() Include the required files
+		 * @return CareLib
 		 */
 		public static function instance( $args = array() ) {
-			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof SiteCare_Library ) ) {
-				self::$instance = new SiteCare_Library;
-				self::$instance->dir = trailingslashit( self::$instance->get_library_directory() );
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof CareLib ) ) {
+				self::$instance = new CareLib;
+				self::$instance->dir = trailingslashit( self::$instance->get_lib_dir() );
 				self::$instance->prefix = empty( $args['prefix'] ) ? get_template() : sanitize_key( $args['prefix'] );
 				self::$instance->includes();
 				self::$instance->extensions_includes();
@@ -214,22 +214,22 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * @return  bool
 		 */
 		public function is_wpcom() {
-			return apply_filters( 'sitecare_library_is_wpcom', false );
+			return apply_filters( 'carelib_is_wpcom', false );
 		}
 
 		/**
-		 * Return the correct path to the sitecare library directory.
+		 * Return the correct path to thecarelib directory.
 		 *
 		 * @since   0.1.0
 		 * @access  public
 		 * @return  string
 		 */
-		public function get_library_directory() {
+		public function get_lib_dir() {
 			return dirname( __FILE__ );
 		}
 
 		/**
-		 * Return the correct path to the sitecare library directory.
+		 * Return the correct path to thecarelib directory.
 		 *
 		 * Because we don't know where the library is located, we need to
 		 * generate a URI based on the library directory path. In order to do
@@ -240,13 +240,13 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * @access public
 		 * @uses   get_theme_root()
 		 * @uses   get_theme_root_uri()
-		 * @uses   SiteCare_Library::normalize_path()
-		 * @uses   SiteCare_Library::get_library_directory()
+		 * @uses   CareLib::normalize_path()
+		 * @uses   CareLib::get_lib_dir()
 		 * @return string
 		 */
-		public function get_library_uri() {
+		public function get_lib_uri() {
 			$theme_root  = $this->normalize_path( get_theme_root() );
-			$library_dir = $this->normalize_path( $this->get_library_directory() );
+			$library_dir = $this->normalize_path( $this->get_lib_dir() );
 			return str_replace( $theme_root, get_theme_root_uri(), $library_dir );
 		}
 
@@ -270,7 +270,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * Include required library files.
 		 *
 		 * If for some reason you would prefer that a particular file isn't
-		 * loaded you can use the sitecare_library_includes filter to unset it
+		 * loaded you can use the carelib_includes filter to unset it
 		 * before the includes runs.
 		 *
 		 * @since   0.1.0
@@ -295,13 +295,13 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * @return  void
 		 */
 		private function extensions_includes() {
-			if ( current_theme_supports( 'sitecare-author-box' ) ) {
+			if ( current_theme_supports( 'carelib-author-box' ) ) {
 				require_once $this->dir . 'classes/author-box.php';
 			}
 			if ( current_theme_supports( 'breadcrumb-trail' ) ) {
 				require_once $this->dir . 'customizer/classes/breadcrumb-display.php';
 			}
-			if ( current_theme_supports( 'sitecare-footer-widgets' ) ) {
+			if ( current_theme_supports( 'carelib-footer-widgets' ) ) {
 				require_once $this->dir . 'classes/footer-widgets.php';
 			}
 			if ( current_theme_supports( 'site-logo' ) ) {
@@ -310,7 +310,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		}
 
 		/**
-		 * Activate the SiteCare Logo plugin. We need to hook into init in order
+		 * Activate the CareLib Logo plugin. We need to hook into init in order
 		 * to check for the Jetpack/Automattic version of the logo uploader.
 		 *
 		 * @since  0.1.0
@@ -335,7 +335,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * If for some reason you would prefer not to enable the admin features
 		 * in the library, they can be disabled using a filter like so:
 		 *
-		 * add_filter( 'sitecare_library_disable_admin', '__return_true' );
+		 * add_filter( 'carelib_disable_admin', '__return_true' );
 		 *
 		 * @since   0.1.0
 		 * @access  private
@@ -343,7 +343,7 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 */
 		private function admin_includes() {
 			require_once $this->dir . 'admin/classes/tiny-mce.php';
-			if ( current_theme_supports( 'sitecare-author-box' ) ) {
+			if ( current_theme_supports( 'carelib-author-box' ) ) {
 				require_once $this->dir . 'admin/classes/author-box.php';
 			}
 		}
@@ -356,26 +356,26 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * @return  void
 		 */
 		private function instantiate() {
-			$this->style_builder = new SiteCare_Style_Builder;
-			$this->attr          = new SiteCare_Attributes;
-			$search_form         = new SiteCare_Search_Form;
-			$this->seo           = new SiteCare_SEO;
-			$this->tags          = new SiteCare_Template_Tags;
+			$this->style_builder = new CareLib_Style_Builder;
+			$this->attr          = new CareLib_Attributes;
+			$search_form         = new CareLib_Search_Form;
+			$this->seo           = new CareLib_SEO;
+			$this->tags          = new CareLib_Template_Tags;
 
 			$this->attr->run();
 			$search_form->run();
 			$this->seo->run();
 
-			if ( class_exists( 'SiteCare_Author_Box', false ) ) {
-				$this->author_box = new SiteCare_Author_Box;
+			if ( class_exists( 'CareLib_Author_Box', false ) ) {
+				$this->author_box = new CareLib_Author_Box;
 				$this->author_box->run();
 			}
-			if ( class_exists( 'SiteCare_Breadcrumb_Display', false ) ) {
-				$this->breadcrumb_display = new SiteCare_Breadcrumb_Display;
+			if ( class_exists( 'CareLib_Breadcrumb_Display', false ) ) {
+				$this->breadcrumb_display = new CareLib_Breadcrumb_Display;
 				$this->breadcrumb_display->run();
 			}
-			if ( class_exists( 'SiteCare_Footer_Widgets', false ) ) {
-				$this->footer_widgets = new SiteCare_Footer_Widgets;
+			if ( class_exists( 'CareLib_Footer_Widgets', false ) ) {
+				$this->footer_widgets = new CareLib_Footer_Widgets;
 				$this->footer_widgets->run();
 			}
 
@@ -388,14 +388,14 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * one of the other plugins is detected we'll just return.
 		 *
 		 * @since  0.1.0
-		 * @uses   SiteCare_Site_Logo::run()
+		 * @uses   CareLib_Site_Logo::run()
 		 * @return object Site_Logo
 		 */
 		function instantiate_logo() {
-			if ( ! class_exists( 'SiteCare_Site_Logo', false ) ) {
+			if ( ! class_exists( 'CareLib_Site_Logo', false ) ) {
 				return;
 			}
-			$this->site_logo = new SiteCare_Site_Logo;
+			$this->site_logo = new CareLib_Site_Logo;
 			$this->site_logo->run();
 		}
 
@@ -407,11 +407,11 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 		 * @return  void
 		 */
 		private function admin_instantiate() {
-			$this->tinymce_admin = new SiteCare_TinyMCE_Admin;
+			$this->tinymce_admin = new CareLib_TinyMCE_Admin;
 			$this->tinymce_admin->run();
 
-			if ( class_exists( 'SiteCare_Author_Box_Admin', false ) ) {
-				$this->author_box_admin = new SiteCare_Author_Box_Admin;
+			if ( class_exists( 'CareLib_Author_Box_Admin', false ) ) {
+				$this->author_box_admin = new CareLib_Author_Box_Admin;
 				$this->author_box_admin->run();
 			}
 		}
@@ -419,19 +419,19 @@ if ( ! class_exists( 'SiteCare_Library', false ) ) {
 	}
 }
 
-if ( ! function_exists( 'sitecare_library' ) ) {
+if ( ! function_exists( 'carelib' ) ) {
 	/**
 	 * Grab an instance of the main library class. If you need to reference a
 	 * method in the class for some reason, do it using this function.
 	 *
 	 * Example:
 	 *
-	 * <?php sitecare_library()->is_customizer_preview(); ?>
+	 * <?php carelib()->is_customizer_preview(); ?>
 	 *
 	 * @since   0.1.0
-	 * @return  object SiteCare_Library
+	 * @return  object CareLib
 	 */
-	function sitecare_library() {
-		return SiteCare_Library::instance();
+	function carelib() {
+		return CareLib::instance();
 	}
 }

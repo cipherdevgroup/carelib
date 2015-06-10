@@ -3,9 +3,9 @@
  * The default author box template for single entries.
  *
  * If you need to make changes to this template, copy it into your theme or
- * child theme in the following format: '/sitecare/author-box-single.php'.
+ * child theme in the following format: '/carelib/author-box-single.php'.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -21,7 +21,7 @@
 	<div class="author-info">
 
 		<h3 class="author-box-title">
-			<?php _e( 'Written by', 'sitecare-library' ); ?> <?php the_author_posts_link(); ?>
+			<?php _e( 'Written by', 'carelib' ); ?> <?php the_author_posts_link(); ?>
 		</h3>
 
 		<?php if ( get_the_author_meta( 'description' ) ) : ?>
@@ -37,7 +37,7 @@
 		<?php if ( $twitter = get_the_author_meta( 'twitter' ) ) : ?>
 		<li class="social-twitter">
 			<a href="<?php echo esc_url( "https://twitter.com/{$twitter}" ); ?>">
-				<span class="text"><?php _e( 'Twitter', 'sitecare-library' ); ?></span>
+				<span class="text"><?php _e( 'Twitter', 'carelib' ); ?></span>
 			</a>
 		</li>
 		<?php endif; ?>
@@ -45,7 +45,7 @@
 		<?php if ( $gplus = get_the_author_meta( 'googleplus' ) ) : ?>
 		<li class="social-gplus">
 			<a href="<?php echo esc_url( $gplus ); ?>">
-				<span class="text"><?php _e( 'Google+', 'sitecare-library' ); ?></span>
+				<span class="text"><?php _e( 'Google+', 'carelib' ); ?></span>
 			</a>
 		</li>
 		<?php endif; ?>
@@ -53,14 +53,14 @@
 		<?php if ( $facebook = get_the_author_meta( 'facebook' ) ) : ?>
 		<li class="social-facebook">
 			<a href="<?php echo esc_url( $facebook ); ?>">
-				<span class="text"><?php _e( 'Facebook', 'sitecare-library' ); ?></span>
+				<span class="text"><?php _e( 'Facebook', 'carelib' ); ?></span>
 			</a>
 		</li>
 		<?php endif; ?>
 
 		<li class="social-rss">
 			<a href="<?php echo esc_url( get_author_feed_link( get_the_author_meta( 'ID' ) ) ); ?>">
-				<span class="text"><?php _e( 'RSS Feed', 'sitecare-library' ); ?></span>
+				<span class="text"><?php _e( 'RSS Feed', 'carelib' ); ?></span>
 			</a>
 		</li>
 

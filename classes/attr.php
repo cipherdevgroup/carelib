@@ -4,7 +4,7 @@
  * the addition of some markup elements, a change to the entry summary class,
  * and a secondary nav element for non-site nav menus.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -12,9 +12,9 @@
  */
 
 /**
- * SiteCare Attributes class.
+ * CareLib Attributes class.
  */
-class SiteCare_Attributes {
+class CareLib_Attributes {
 
 	/**
 	 * Get our class up and running!

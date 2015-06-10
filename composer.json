@@ -1,17 +1,17 @@
 {
-  "name"       : "wpsitecare/sitecare-library",
-  "description": "A helpful libray of functions and classes for SiteCare themes.",
+  "name"       : "wpcarelib/carelib",
+  "description": "A helpful libray of functions and classes for CareLib themes.",
   "keywords"   : ["wordpress"],
-  "homepage"   : "https://github.com/wpsitecare/sitecare-library",
+  "homepage"   : "https://github.com/wpcarelib/carelib",
   "license"    : "GPL-2.0+",
   "authors"    : [
     {
       "name"    : "Robert Neu",
-      "email"   : "rob@wpsitecare.com",
-      "homepage": "http://www.wpsitecare.com"
+      "email"   : "rob@wpcarelib.com",
+      "homepage": "http://www.wpcarelib.com"
     }
   ],
   "support"    : {
-    "issues": "https://github.com/wpsitecare/sitecare-library/issues"
+    "issues": "https://github.com/wpcarelib/carelib/issues"
   }
 }

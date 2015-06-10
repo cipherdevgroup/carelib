@@ -1,10 +1,10 @@
 <?php
 /**
- * The main SiteCare Site Logo class.
+ * The main CareLib Site Logo class.
  *
  * Based on the Jetpack site logo feature.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -14,9 +14,9 @@
 /**
  * Our Site Logo class for managing a theme-agnostic logo through the Customizer.
  *
- * @package SiteCareLibrary
+ * @package CareLib
  */
-class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
+class CareLib_Site_Logo extends CareLib_Customizer_Base {
 
 	/**
 	 * Stores our current logo settings.
@@ -35,7 +35,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	/**
 	 * Return our instance, creating a new one if necessary.
 	 *
-	 * @return object SiteCare_Site_Logo
+	 * @return object CareLib_Site_Logo
 	 */
 	public function run() {
 		parent::customizer_hooks();
@@ -45,9 +45,9 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	/**
 	 * Register our actions and filters.
 	 *
-	 * @uses SiteCare_Site_Logo::head_text_styles()
-	 * @uses SiteCare_Site_Logo::body_classes()
-	 * @uses SiteCare_Site_Logo::media_manager_image_sizes()
+	 * @uses CareLib_Site_Logo::head_text_styles()
+	 * @uses CareLib_Site_Logo::body_classes()
+	 * @uses CareLib_Site_Logo::media_manager_image_sizes()
 	 * @uses add_action
 	 * @uses add_filter
 	 */
@@ -68,12 +68,12 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 * @uses current_theme_supports()
 	 * @uses WP_Customize_Manager::add_setting()
 	 * @uses WP_Customize_Manager::add_control()
-	 * @uses SiteCare_Site_Logo::sanitize_checkbox()
+	 * @uses CareLib_Site_Logo::sanitize_checkbox()
 	 */
 	public function register( $wp_customize ) {
 
 		//Update the Customizer section title for discoverability.
-		$wp_customize->get_section( 'title_tagline' )->title = __( 'Site Title, Tagline, and Logo', 'sitecare-library' );
+		$wp_customize->get_section( 'title_tagline' )->title = __( 'Site Title, Tagline, and Logo', 'carelib' );
 
 		// Disable the display header text control from the custom header feature.
 		if ( current_theme_supports( 'custom-header' ) ) {
@@ -95,7 +95,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 				$wp_customize,
 				'site_logo_header_text',
 				array(
-					'label'    => __( 'Display Header Text', 'sitecare-library' ),
+					'label'    => __( 'Display Header Text', 'carelib' ),
 					'section'  => 'title_tagline',
 					'settings' => 'site_logo_header_text',
 					'type'     => 'checkbox',
@@ -121,11 +121,11 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 
 		// Add our image uploader.
 		$wp_customize->add_control(
-			new SiteCare_Site_Logo_Image_Control(
+			new CareLib_Site_Logo_Image_Control(
 				$wp_customize,
 				'site_logo',
 				array(
-					'label'    => __( 'Logo', 'sitecare-library' ),
+					'label'    => __( 'Logo', 'carelib' ),
 					'section'  => 'title_tagline',
 					'settings' => 'site_logo',
 				)
@@ -139,11 +139,11 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 * @uses wp_enqueue_script()
 	 * @uses plugins_url()
 	 * @uses current_theme_supports()
-	 * @uses SiteCare_Site_Logo::header_text_classes()
+	 * @uses CareLib_Site_Logo::header_text_classes()
 	 * @uses wp_localize_script()
 	 */
 	public function scripts() {
-		$assets_uri = trailingslashit( sitecare_library()->get_library_uri() ) . 'assets/';
+		$assets_uri = trailingslashit( carelib()->get_lib_uri() ) . 'assets/';
 
 		wp_enqueue_script(
 			'site-logo-preview',
@@ -166,7 +166,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 *
 	 * @uses current_theme_supports()
 	 * @uses get_theme_mod()
-	 * @uses SiteCare_Site_Logo::header_text_classes()
+	 * @uses CareLib_Site_Logo::header_text_classes()
 	 * @uses esc_html()
 	 */
 	public function head_text_styles() {
@@ -196,7 +196,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 * Reset the site logo if the current logo is deleted in the media manager.
 	 *
 	 * @param int $site_id
-	 * @uses SiteCare_Site_Logo::remove_site_logo()
+	 * @uses CareLib_Site_Logo::remove_site_logo()
 	 */
 	public function reset_on_attachment_delete( $post_id ) {
 		// Do nothing if the logo id doesn't match the post id.
@@ -209,7 +209,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	/**
 	 * Adds custom classes to the array of body classes.
 	 *
-	 * @uses SiteCare_Site_Logo::has_site_logo()
+	 * @uses CareLib_Site_Logo::has_site_logo()
 	 * @return array Array of <body> classes
 	 */
 	public function body_classes( $classes ) {
@@ -260,7 +260,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 
 		// If our attachment ID and the site logo ID match, this image is the site logo.
 		if ( $post->ID === $this->logo['id'] ) {
-			$media_states[] = __( 'Site Logo', 'sitecare-library' );
+			$media_states[] = __( 'Site Logo', 'carelib' );
 		}
 		return $media_states;
 	}
@@ -269,7 +269,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 * Determine if a site logo is assigned or not.
 	 *
 	 * @since  0.1.0
-	 * @uses   SiteCare_Logo::$logo
+	 * @uses   CareLib_Logo::$logo
 	 * @return boolean True if there is an active logo, false otherwise
 	 */
 	public function has_site_logo() {
@@ -323,10 +323,10 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 	 * in the theme's add_theme_support() declaration.
 	 *
 	 * @since 0.1.0
-	 * @uses SiteCare_Logo::logo
-	 * @uses SiteCare_Logo::theme_size()
-	 * @uses SiteCare_Logo::has_site_logo()
-	 * @uses SiteCare_Library::is_customizer_preview()
+	 * @uses CareLib_Logo::logo
+	 * @uses CareLib_Logo::theme_size()
+	 * @uses CareLib_Logo::has_site_logo()
+	 * @uses CareLib::is_customizer_preview()
 	 * @uses esc_url()
 	 * @uses home_url()
 	 * @uses esc_attr()
@@ -339,7 +339,7 @@ class SiteCare_Site_Logo extends SiteCare_Customizer_Base {
 
 		// Bail if no logo is set. Leave a placeholder if we're in the Customizer, though (needed for the live preview).
 		if ( ! $this->has_site_logo() ) {
-			if ( sitecare_library()->is_customizer_preview() ) {
+			if ( carelib()->is_customizer_preview() ) {
 				printf( '<a href="%1$s" class="site-logo-link" style="display:none;"><img class="site-logo" data-size="%2$s" /></a>',
 					esc_url( home_url( '/' ) ),
 					esc_attr( $size )

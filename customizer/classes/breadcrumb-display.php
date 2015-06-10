@@ -2,7 +2,7 @@
 /**
  * Options for displaying breadcrumbs for use in the WordPress customizer.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -12,11 +12,11 @@
 /**
  * Our Breadcrumb display class for managing breadcrumbs through the Customizer.
  *
- * @package SiteCareLibrary
+ * @package CareLib
  */
-class SiteCare_Breadcrumb_Display extends SiteCare_Customizer_Base {
+class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 
-	protected $section = 'sitecare_breadcrumbs';
+	protected $section = 'carelib_breadcrumbs';
 
 	/**
 	 * Register our customizer breadcrumb options for the parent class to load.
@@ -31,8 +31,8 @@ class SiteCare_Breadcrumb_Display extends SiteCare_Customizer_Base {
 		$wp_customize->add_section(
 			$this->section,
 			array(
-				'title'       => __( 'Breadcrumbs', 'sitecare-library' ),
-				'description' => __( 'Choose where you would like breadcrumbs to display.', 'sitecare-library' ),
+				'title'       => __( 'Breadcrumbs', 'carelib' ),
+				'description' => __( 'Choose where you would like breadcrumbs to display.', 'carelib' ),
 				'priority'    => 110,
 				'capability'  => $this->capability,
 			)
@@ -70,30 +70,30 @@ class SiteCare_Breadcrumb_Display extends SiteCare_Customizer_Base {
 	 * @return array $breadcrumbs
 	 */
 	protected function get_options() {
-		return apply_filters( 'sitecare_breadcrumb_options', array(
-			'sitecare_breadcrumb_single' => array(
+		return apply_filters( 'carelib_breadcrumb_options', array(
+			'carelib_breadcrumb_single' => array(
 				'default'  => 0,
-				'label'    => __( 'Single Entries', 'sitecare-library' ),
+				'label'    => __( 'Single Entries', 'carelib' ),
 			),
-			'sitecare_breadcrumb_pages' => array(
+			'carelib_breadcrumb_pages' => array(
 				'default'  => 0,
-				'label'    => __( 'Pages', 'sitecare-library' ),
+				'label'    => __( 'Pages', 'carelib' ),
 			),
-			'sitecare_breadcrumb_blog_page' => array(
+			'carelib_breadcrumb_blog_page' => array(
 				'default'  => 0,
-				'label'    => __( 'Blog Page', 'sitecare-library' ),
+				'label'    => __( 'Blog Page', 'carelib' ),
 			),
-			'sitecare_breadcrumb_archive' => array(
+			'carelib_breadcrumb_archive' => array(
 				'default'  => 0,
-				'label'    => __( 'Archives', 'sitecare-library' ),
+				'label'    => __( 'Archives', 'carelib' ),
 			),
-			'sitecare_breadcrumb_404' => array(
+			'carelib_breadcrumb_404' => array(
 				'default'  => 0,
-				'label'    => __( '404 Page', 'sitecare-library' ),
+				'label'    => __( '404 Page', 'carelib' ),
 			),
-			'sitecare_breadcrumb_attachment' => array(
+			'carelib_breadcrumb_attachment' => array(
 				'default'  => 0,
-				'label'    => __( 'Attachment/Media Pages', 'sitecare-library' ),
+				'label'    => __( 'Attachment/Media Pages', 'carelib' ),
 			),
 		) );
 	}
@@ -109,7 +109,7 @@ class SiteCare_Breadcrumb_Display extends SiteCare_Customizer_Base {
 		// Grab our available breadcrumb display options.
 		$options = array_keys( $this->get_options() );
 		// Set up an array of template tags to map to our breadcrumb display options.
-		$tags = apply_filters( 'sitecare_breadcrumb_tags',
+		$tags = apply_filters( 'carelib_breadcrumb_tags',
 			array(
 				is_singular() && ! is_attachment() && ! is_page(),
 				is_page(),

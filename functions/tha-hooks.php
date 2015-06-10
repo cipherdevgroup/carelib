@@ -3,7 +3,7 @@
  * Temporarily adding some placeholder hook locations until they're added to
  * Theme Hook Alliance. Hopefully these won't be in here very long.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+

@@ -2,7 +2,7 @@
 /**
  * General theme helper functions.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -12,16 +12,16 @@
 /**
  * A class to register settings and load templates for author boxes.
  *
- * @package SiteCareLibrary
+ * @package CareLib
  */
-class SiteCare_Author_Box_Admin {
+class CareLib_Author_Box_Admin {
 
 	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   SiteCare_Author_Box::$wp_hooks
+	 * @uses   CareLib_Author_Box::$wp_hooks
 	 * @return void
 	 */
 	public function run() {
@@ -66,9 +66,9 @@ class SiteCare_Author_Box_Admin {
 	 * @return array $contactmethods Modifed contact methods.
 	 */
 	public function user_contactmethods( array $contactmethods ) {
-		$contactmethods['googleplus'] = __( 'Google+', 'sitecare-library' );
-		$contactmethods['twitter']    = __( 'Twitter (Without @)', 'sitecare-library' );
-		$contactmethods['facebook']   = __( 'Facebook', 'sitecare-library' );
+		$contactmethods['googleplus'] = __( 'Google+', 'carelib' );
+		$contactmethods['twitter']    = __( 'Twitter (Without @)', 'carelib' );
+		$contactmethods['facebook']   = __( 'Facebook', 'carelib' );
 		return $contactmethods;
 	}
 
@@ -84,13 +84,13 @@ class SiteCare_Author_Box_Admin {
 		if ( ! current_user_can( 'edit_users', $user->ID ) ) {
 			return false;
 		}
-		$single_box  = get_the_author_meta( 'sitecare_author_box_single',  $user->ID );
-		$archive_box = get_the_author_meta( 'sitecare_author_box_archive', $user->ID );
+		$single_box  = get_the_author_meta( 'carelib_author_box_single',  $user->ID );
+		$archive_box = get_the_author_meta( 'carelib_author_box_archive', $user->ID );
 		// Set the single author box to enabled when no author meta has been set.
 		if ( '' === $single_box ) {
 			$single_box = 1;
 		}
-		require_once sitecare_library()->dir . '/admin/templates/settings-author-box.php';
+		require_once carelib()->dir . '/admin/templates/settings-author-box.php';
 	}
 
 	/**
@@ -106,13 +106,13 @@ class SiteCare_Author_Box_Admin {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_REQUEST['sitecare_author_box_nonce'], 'toggle_author_box' ) ) {
+		if ( ! wp_verify_nonce( $_REQUEST['carelib_author_box_nonce'], 'toggle_author_box' ) ) {
 			return;
 		}
 
 		$defaults = array(
-			'sitecare_author_box_single'  => 0,
-			'sitecare_author_box_archive' => 0,
+			'carelib_author_box_single'  => 0,
+			'carelib_author_box_archive' => 0,
 		);
 
 		if ( ! isset( $_POST['carebox'] ) || ! is_array( $_POST['carebox'] ) ) {

@@ -1,8 +1,8 @@
 <?php
 /**
- * SiteCare Footer Widgets Class.
+ * CareLib Footer Widgets Class.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -12,9 +12,9 @@
 /**
  * A class to register and load templates for footer widget areas.
  *
- * @package SiteCareLibrary
+ * @package CareLib
  */
-class SiteCare_Footer_Widgets {
+class CareLib_Footer_Widgets {
 
 	private $counter = 1;
 
@@ -25,11 +25,11 @@ class SiteCare_Footer_Widgets {
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   SiteCare_Footer_Widgets::$wp_hooks
+	 * @uses   CareLib_Footer_Widgets::$wp_hooks
 	 * @return void
 	 */
 	public function run() {
-		$this->footer_widgets = get_theme_support( 'sitecare-footer-widgets' );
+		$this->footer_widgets = get_theme_support( 'carelib-footer-widgets' );
 		self::wp_hooks();
 	}
 
@@ -38,8 +38,8 @@ class SiteCare_Footer_Widgets {
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   SiteCare_Footer_Widgets::register_footer_widgets()
-	 * @uses   SiteCare_Footer_Widgets::the_footer_widgets()
+	 * @uses   CareLib_Footer_Widgets::register_footer_widgets()
+	 * @uses   CareLib_Footer_Widgets::the_footer_widgets()
 	 * @uses   add_action
 	 * @return void
 	 */
@@ -69,8 +69,8 @@ class SiteCare_Footer_Widgets {
 			hybrid_register_sidebar(
 				array(
 					'id'          => sprintf( 'footer-%d', $counter ),
-					'name'        => sprintf( __( 'Footer %d', 'sitecare-library' ), $counter ),
-					'description' => sprintf( __( 'Footer %d widget area.', 'sitecare-library' ), $counter ),
+					'name'        => sprintf( __( 'Footer %d', 'carelib' ), $counter ),
+					'description' => sprintf( __( 'Footer %d widget area.', 'carelib' ), $counter ),
 				)
 			);
 
@@ -113,9 +113,9 @@ class SiteCare_Footer_Widgets {
 		$counter = $this->counter;
 
 		// Use the theme's footer widgets template if it exists.
-		if ( '' !== locate_template( 'sitecare/footer-widgets.php' ) ) {
-			return require_once locate_template( 'sitecare/footer-widgets.php' );
+		if ( '' !== locate_template( 'carelib/footer-widgets.php' ) ) {
+			return require_once locate_template( 'carelib/footer-widgets.php' );
 		}
-		require_once sitecare_library()->dir . 'templates/footer-widgets.php';
+		require_once carelib()->dir . 'templates/footer-widgets.php';
 	}
 }

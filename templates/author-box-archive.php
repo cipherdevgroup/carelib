@@ -3,9 +3,9 @@
  * The default author box template for archives.
  *
  * If you need to make changes to this template, copy it into your theme or
- * child theme in the following format: '/sitecare/author-box-archive.php'.
+ * child theme in the following format: '/carelib/author-box-archive.php'.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -21,7 +21,7 @@
 	<div class="author-info">
 
 		<h3 class="author-box-title">
-			<?php _e( 'Written by', 'sitecare-library' ); ?> <?php the_author_posts_link(); ?>
+			<?php _e( 'Written by', 'carelib' ); ?> <?php the_author_posts_link(); ?>
 		</h3>
 
 		<?php if ( get_the_author_meta( 'description' ) ) : ?>

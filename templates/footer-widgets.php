@@ -3,9 +3,9 @@
  * The Default Footer Widgets Sidebar Template.
  *
  * If you need to make changes to this template, copy it into your theme or
- * child theme in the following format: '/sitecare/footer-widgets.php'.
+ * child theme in the following format: '/carelib/footer-widgets.php'.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+

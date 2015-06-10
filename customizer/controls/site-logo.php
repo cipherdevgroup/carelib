@@ -1,10 +1,10 @@
 <?php
 /**
- * The SiteCare Logo image control class.
+ * The CareLib Logo image control class.
  *
  * Based on the Jetpack site logo image control.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -14,9 +14,9 @@
 /**
  * Custom logo uploader control for the Customizer.
  *
- * @package SiteCareLibrary
+ * @package CareLib
  */
-class SiteCare_Site_Logo_Image_Control extends WP_Customize_Control {
+class CareLib_Site_Logo_Image_Control extends WP_Customize_Control {
 	/**
 	 * Constructor for our custom control.
 	 *
@@ -28,12 +28,12 @@ class SiteCare_Site_Logo_Image_Control extends WP_Customize_Control {
 	public function __construct( $wp_customize, $control_id, $args = array() ) {
 		// declare these first so they can be overridden
 		$this->l10n = array(
-			'upload'      => __( 'Add logo',    'sitecare-library' ),
-			'set'         => __( 'Set as logo', 'sitecare-library' ),
-			'choose'      => __( 'Choose logo', 'sitecare-library' ),
-			'change'      => __( 'Change logo', 'sitecare-library' ),
-			'remove'      => __( 'Remove logo', 'sitecare-library' ),
-			'placeholder' => __( 'No logo set', 'sitecare-library' ),
+			'upload'      => __( 'Add logo',    'carelib' ),
+			'set'         => __( 'Set as logo', 'carelib' ),
+			'choose'      => __( 'Choose logo', 'carelib' ),
+			'change'      => __( 'Change logo', 'carelib' ),
+			'remove'      => __( 'Remove logo', 'carelib' ),
+			'placeholder' => __( 'No logo set', 'carelib' ),
 		);
 
 		parent::__construct( $wp_customize, $control_id, $args );
@@ -63,7 +63,7 @@ class SiteCare_Site_Logo_Image_Control extends WP_Customize_Control {
 	 * @uses plugins_url()
 	 */
 	public function enqueue() {
-		$assets_uri = trailingslashit( sitecare_library()->get_library_uri() ) . 'assets/';
+		$assets_uri = trailingslashit( carelib()->get_lib_uri() ) . 'assets/';
 		// Enqueues all needed media resources.
 		wp_enqueue_media();
 
@@ -99,10 +99,10 @@ class SiteCare_Site_Logo_Image_Control extends WP_Customize_Control {
 	/**
 	 * Display our custom control in the Customizer.
 	 *
-	 * @uses SiteCare_Logo_Image_Control::l10n()
-	 * @uses SiteCare_Logo_Image_Control::mime_type()
-	 * @uses SiteCare_Logo_Image_Control::label()
-	 * @uses SiteCare_Logo_Image_Control::description()
+	 * @uses CareLib_Logo_Image_Control::l10n()
+	 * @uses CareLib_Logo_Image_Control::mime_type()
+	 * @uses CareLib_Logo_Image_Control::label()
+	 * @uses CareLib_Logo_Image_Control::description()
 	 * @uses esc_attr()
 	 * @uses esc_html()
 	 */

@@ -2,7 +2,7 @@
 /**
  * General template helper functions.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -10,21 +10,21 @@
  */
 
 /**
- * SiteCare Template Tags Class.
+ * CareLib Template Tags Class.
  */
-class SiteCare_Template_Tags {
+class CareLib_Template_Tags {
 
 	/**
 	 * Retrieve the site logo URL or ID (URL by default). Pass in the string
 	 * 'id' for ID.
 	 *
 	 * @since  0.1.0
-	 * @uses   SiteCare_Site_Logo::get_site_logo
+	 * @uses   CareLib_Site_Logo::get_site_logo
 	 * @param  string $format the format to return
 	 * @return mixed The URL or ID of our site logo, false if not set
 	 */
 	public function get_logo( $format = 'url' ) {
-		if ( ! class_exists( 'SiteCare_Site_Logo', false ) ) {
+		if ( ! class_exists( 'CareLib_Site_Logo', false ) ) {
 			if ( function_exists( 'jetpack_the_site_logo' ) ) {
 				return jetpack_get_site_logo( $format );
 			}
@@ -33,18 +33,18 @@ class SiteCare_Template_Tags {
 			}
 			return null;
 		}
-		return sitecare_library()->site_logo->get_site_logo( $format );
+		return carelib()->site_logo->get_site_logo( $format );
 	}
 
 	/**
 	 * Determine if a site logo is assigned or not.
 	 *
 	 * @since  0.1.0
-	 * @uses   SiteCare_Site_Logo::has_site_logo
+	 * @uses   CareLib_Site_Logo::has_site_logo
 	 * @return boolean True if there is an active logo, false otherwise
 	 */
 	public function has_logo() {
-		if ( ! class_exists( 'SiteCare_Site_Logo', false ) ) {
+		if ( ! class_exists( 'CareLib_Site_Logo', false ) ) {
 			if ( function_exists( 'jetpack_the_site_logo' ) ) {
 				return jetpack_has_site_logo();
 			}
@@ -53,7 +53,7 @@ class SiteCare_Template_Tags {
 			}
 			return null;
 		}
-		return sitecare_library()->site_logo->has_site_logo();
+		return carelib()->site_logo->has_site_logo();
 	}
 
 	/**
@@ -61,11 +61,11 @@ class SiteCare_Template_Tags {
 	 * in the theme's add_theme_support() declaration.
 	 *
 	 * @since  0.1.0
-	 * @uses   SiteCare_Site_Logo::the_site_logo
+	 * @uses   CareLib_Site_Logo::the_site_logo
 	 * @return void
 	 */
 	public function the_logo() {
-		if ( ! class_exists( 'SiteCare_Site_Logo', false ) ) {
+		if ( ! class_exists( 'CareLib_Site_Logo', false ) ) {
 			if ( function_exists( 'jetpack_the_site_logo' ) ) {
 				jetpack_the_site_logo();
 				return;
@@ -76,7 +76,7 @@ class SiteCare_Template_Tags {
 			}
 			return;
 		}
-		sitecare_library()->site_logo->the_site_logo();
+		carelib()->site_logo->the_site_logo();
 	}
 
 	/**
@@ -98,7 +98,7 @@ class SiteCare_Template_Tags {
 	 * @return bool true if both our template tag and theme mod return true.
 	 */
 	public function display_breadcrumbs() {
-		$breadcrumbs = sitecare_library()->breadcrumb_display;
+		$breadcrumbs = carelib()->breadcrumb_display;
 		// Return early if our theme doesn't support breadcrumbs.
 		if ( ! is_object( $breadcrumbs ) ) {
 			return false;
@@ -153,7 +153,7 @@ class SiteCare_Template_Tags {
 	 */
 	public function get_entry_title( $args = array() ) {
 		$is_main  = is_singular() && is_main_query();
-		$defaults = apply_filters( 'sitecare_entry_title_defaults',
+		$defaults = apply_filters( 'carelib_entry_title_defaults',
 			array(
 				'tag'     => $is_main ? 'h1' : 'h2',
 				'attr'    => 'entry-title',
@@ -180,7 +180,7 @@ class SiteCare_Template_Tags {
 
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( 'sitecare_entry_title', $output, $args );
+		return apply_filters( 'carelib_entry_title', $output, $args );
 	}
 
 	/**
@@ -195,7 +195,7 @@ class SiteCare_Template_Tags {
 	 * @return string
 	 */
 	public function get_entry_author( $args = array() ) {
-		$defaults = apply_filters( 'sitecare_entry_author_defaults',
+		$defaults = apply_filters( 'carelib_entry_author_defaults',
 			array(
 				'text'   => '%s',
 				'before' => '',
@@ -206,7 +206,7 @@ class SiteCare_Template_Tags {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		return apply_filters( 'sitecare_entry_author', hybrid_get_post_author( $args ), $args );
+		return apply_filters( 'carelib_entry_author', hybrid_get_post_author( $args ), $args );
 	}
 
 	/**
@@ -219,7 +219,7 @@ class SiteCare_Template_Tags {
 	 * @return string
 	 */
 	public function get_entry_published( $args = array() ) {
-		$defaults = apply_filters( 'sitecare_entry_published_defaults',
+		$defaults = apply_filters( 'carelib_entry_published_defaults',
 			array(
 				'before' => '',
 				'after'  => '',
@@ -235,7 +235,7 @@ class SiteCare_Template_Tags {
 		$output .= sprintf( $args['wrap'], hybrid_get_attr( $args['attr'] ), $args['date'] );
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( 'sitecare_entry_published', $output, $args );
+		return apply_filters( 'carelib_entry_published', $output, $args );
 	}
 
 	/**
@@ -250,21 +250,21 @@ class SiteCare_Template_Tags {
 	 * - one (text when there is exactly one comment, default is '1 Comment'),
 	 * - zero (text when there are no comments, default is 'Leave a Comment').
 	 *
-	 * Output passes through 'sitecare_get_entry_comments_link' filter before returning.
+	 * Output passes through 'carelib_get_entry_comments_link' filter before returning.
 	 *
 	 * @since  0.1.0
 	 * @param  $args array Empty array if no arguments.
 	 * @return string output
 	 */
 	public function get_entry_comments_link( $args = array() ) {
-		$defaults = apply_filters( 'sitecare_entry_comments_link_defaults',
+		$defaults = apply_filters( 'carelib_entry_comments_link_defaults',
 			array(
 				'after'       => '',
 				'before'      => '',
 				'hide_if_off' => 'enabled',
-				'more'        => __( '% Comments', 'sitecare-library' ),
-				'one'         => __( '1 Comment', 'sitecare-library' ),
-				'zero'        => __( 'Leave a Comment', 'sitecare-library' ),
+				'more'        => __( '% Comments', 'carelib' ),
+				'one'         => __( '1 Comment', 'carelib' ),
+				'zero'        => __( 'Leave a Comment', 'carelib' ),
 			)
 		);
 		$args = wp_parse_args( $args, $defaults );
@@ -287,7 +287,7 @@ class SiteCare_Template_Tags {
 		$output .= '<span class="entry-comments-link">' . $comments . '</span>';
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( 'sitecare_entry_comments_link', $output, $args );
+		return apply_filters( 'carelib_entry_comments_link', $output, $args );
 	}
 
 	/**
@@ -304,7 +304,7 @@ class SiteCare_Template_Tags {
 		if ( is_singular() ) {
 			$content = apply_filters( 'the_content', get_the_content() );
 		}
-		return apply_filters( 'sitecare_content', $content );
+		return apply_filters( 'carelib_content', $content );
 	}
 
 	/**
@@ -329,13 +329,13 @@ class SiteCare_Template_Tags {
 		$obj  = get_post_type_object( get_post_type() );
 		$name = isset( $obj->labels->singular_name ) ? '&nbsp;' . $obj->labels->singular_name : '';
 
-		$defaults = apply_filters( 'sitecare_post_navigation_defaults',
+		$defaults = apply_filters( 'carelib_post_navigation_defaults',
 			array(
 				'post_types'     => array(),
 				'prev_format'    => '<span class="nav-previous">%link</span>',
 				'next_format'    => '<span class="nav-next">%link</span>',
-				'prev_text'      => __( 'Previous', 'sitecare-library' ) . esc_attr( $name ),
-				'next_text'      => __( 'Next', 'sitecare-library' ) . esc_attr( $name ),
+				'prev_text'      => __( 'Previous', 'carelib' ) . esc_attr( $name ),
+				'next_text'      => __( 'Next', 'carelib' ) . esc_attr( $name ),
 				'in_same_term'   => false,
 				'excluded_terms' => '',
 				'taxonomy'       => 'category',
@@ -402,13 +402,13 @@ class SiteCare_Template_Tags {
 			return;
 		}
 
-		$defaults = apply_filters( 'sitecare_posts_navigation_defaults',
+		$defaults = apply_filters( 'carelib_posts_navigation_defaults',
 			array(
 				'format'         => 'pagination',
-				'prev_text'      => sprintf( '<span class="screen-reader-text">%s</span>' , __( 'Previous Page', 'sitecare-library' ) ),
-				'next_text'      => sprintf( '<span class="screen-reader-text">%s</span>', __( 'Next Page', 'sitecare-library' ) ),
-				'prev_link_text' => __( 'Newer Posts', 'sitecare-library' ),
-				'next_link_text' => __( 'Older Posts', 'sitecare-library' ),
+				'prev_text'      => sprintf( '<span class="screen-reader-text">%s</span>' , __( 'Previous Page', 'carelib' ) ),
+				'next_text'      => sprintf( '<span class="screen-reader-text">%s</span>', __( 'Next Page', 'carelib' ) ),
+				'prev_link_text' => __( 'Newer Posts', 'carelib' ),
+				'next_link_text' => __( 'Older Posts', 'carelib' ),
 			)
 		);
 
@@ -430,7 +430,7 @@ class SiteCare_Template_Tags {
 			);
 		}
 
-		return apply_filters( 'sitecare_posts_navigation', $output, $args );
+		return apply_filters( 'carelib_posts_navigation', $output, $args );
 	}
 
 	/**
@@ -479,11 +479,11 @@ class SiteCare_Template_Tags {
 	 */
 	public function get_credit_link() {
 		$link = sprintf( '<a class="author-link" href="%s" title="%s">%s</a>',
-			'http://www.wpsitecare.com',
-			__( 'Free WordPress Theme by', 'sitecare-library' ) . ' WP Site Care',
+			'http://www.wpcarelib.com',
+			__( 'Free WordPress Theme by', 'carelib' ) . ' WP Site Care',
 			'WP Site Care'
 		);
-		return apply_filters( 'sitecare_credit_link', $link );
+		return apply_filters( 'carelib_credit_link', $link );
 	}
 
 	/**
@@ -500,9 +500,9 @@ class SiteCare_Template_Tags {
 			__( 'Copyright &#169; %1$s %2$s. Free WordPress Theme by %3$s', 'alpha' ),
 			date_i18n( 'Y' ),
 			hybrid_get_site_link(),
-			sitecare_get_credit_link()
+			carelib_get_credit_link()
 		);
 		$info .= '</div>';
-		return apply_filters( 'sitecare_theme_info', $info );
+		return apply_filters( 'carelib_theme_info', $info );
 	}
 }

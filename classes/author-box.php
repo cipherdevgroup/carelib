@@ -2,7 +2,7 @@
 /**
  * General theme helper functions.
  *
- * @package     SiteCareLibrary
+ * @package     CareLib
  * @subpackage  HybridCore
  * @copyright   Copyright (c) 2015, WP Site Care, LLC
  * @license     GPL-2.0+
@@ -12,16 +12,16 @@
 /**
  * A class to register settings and load templates for author boxes.
  *
- * @package SiteCareLibrary
+ * @package CareLib
  */
-class SiteCare_Author_Box {
+class CareLib_Author_Box {
 
 	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   SiteCare_Author_Box::$wp_hooks
+	 * @uses   CareLib_Author_Box::$wp_hooks
 	 * @return void
 	 */
 	public function run() {
@@ -76,11 +76,11 @@ class SiteCare_Author_Box {
 	 * @return void
 	 */
 	public function single() {
-		if ( ! is_singular( apply_filters( 'sitecare_author_box_types', array( 'post' ) ) ) ) {
+		if ( ! is_singular( apply_filters( 'carelib_author_box_types', array( 'post' ) ) ) ) {
 			return;
 		}
 
-		$display = get_the_author_meta( 'sitecare_author_box_single' );
+		$display = get_the_author_meta( 'carelib_author_box_single' );
 
 		// Bail if display is disabled. Continue if no author meta exists.
 		if ( '' !== $display && '0' === "$display" ) {
@@ -88,10 +88,10 @@ class SiteCare_Author_Box {
 		}
 
 		// Use the theme's single author box template if it exists.
-		if ( '' !== locate_template( 'sitecare/author-box-single.php' ) ) {
-			return require_once locate_template( 'sitecare/author-box-single.php' );
+		if ( '' !== locate_template( 'carelib/author-box-single.php' ) ) {
+			return require_once locate_template( 'carelib/author-box-single.php' );
 		}
-		require_once sitecare_library()->dir . 'templates/author-box-single.php';
+		require_once carelib()->dir . 'templates/author-box-single.php';
 	}
 
 	/**
@@ -106,7 +106,7 @@ class SiteCare_Author_Box {
 		if ( ! is_author() || is_paged() ) {
 			return;
 		}
-		$display = get_the_author_meta( 'sitecare_author_box_archive' );
+		$display = get_the_author_meta( 'carelib_author_box_archive' );
 
 		// Bail if display is disabled or no author meta exists.
 		if ( empty( $display ) ) {
@@ -114,10 +114,10 @@ class SiteCare_Author_Box {
 		}
 
 		// Use the theme's archive author box template if it exists.
-		if ( '' !== locate_template( 'sitecare/author-box-archive.php' ) ) {
-			return require_once locate_template( 'sitecare/author-box-archive.php' );
+		if ( '' !== locate_template( 'carelib/author-box-archive.php' ) ) {
+			return require_once locate_template( 'carelib/author-box-archive.php' );
 		}
-		require_once sitecare_library()->dir . 'templates/author-box-archive.php';
+		require_once carelib()->dir . 'templates/author-box-archive.php';
 	}
 
 }
