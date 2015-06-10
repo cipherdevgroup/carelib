@@ -36,7 +36,7 @@ class CareLib_Author_Box {
 	 * @return void
 	 */
 	private function wp_hooks() {
-		add_filter( 'hybrid_attr_author-box', array( $this, 'attr_author_box' ), 10, 2 );
+		add_filter( 'hybrid_attr_author-box', array( $this, 'attributes' ), 10, 2 );
 		add_action( 'tha_entry_after',        array( $this, 'single' ) );
 		add_action( 'tha_content_top',        array( $this, 'archive' ) );
 	}
@@ -50,7 +50,7 @@ class CareLib_Author_Box {
 	 * @param  string $context
 	 * @return array
 	 */
-	public function attr_author_box( $attr, $context ) {
+	public function attributes( $attr, $context ) {
 		$class      = 'author-box';
 		$attr['id'] = 'author-box';
 

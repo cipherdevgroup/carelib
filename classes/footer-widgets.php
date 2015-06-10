@@ -44,9 +44,9 @@ class CareLib_Footer_Widgets {
 	 * @return void
 	 */
 	private function wp_hooks() {
-		add_action( 'widgets_init',               array( $this, 'register_footer_widgets' ) );
-		add_action( 'hybrid_attr_footer-widgets', array( $this, 'attr_footer_widgets' ) );
-		add_action( 'tha_footer_before',          array( $this, 'the_footer_widgets' ) );
+		add_action( 'widgets_init',               array( $this, 'register' ) );
+		add_action( 'hybrid_attr_footer-widgets', array( $this, 'attributes' ) );
+		add_action( 'tha_footer_before',          array( $this, 'template' ) );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class CareLib_Footer_Widgets {
 	 * @uses   register_sidebar() Register footer widget areas.
 	 * @return null Return early if there's no theme support.
 	 */
-	public function register_footer_widgets() {
+	public function register() {
 		// Return early if we don't have any footer widgets to display.
 		if ( ! isset( $this->footer_widgets[0] ) || ! is_numeric( $this->footer_widgets[0] ) ) {
 			return;
@@ -86,7 +86,7 @@ class CareLib_Footer_Widgets {
 	 * @param  array   $attr
 	 * @return array
 	 */
-	function attr_footer_widgets( $attr ) {
+	function attributes( $attr ) {
 		$attr['id']    = 'footer-widgets';
 		$attr['class'] = 'footer-widgets';
 		return $attr;
@@ -99,7 +99,7 @@ class CareLib_Footer_Widgets {
 	 * @uses   locate_template() Load the footer widget template.
 	 * @return null Return early if there's no theme support.
 	 */
-	public function the_footer_widgets() {
+	public function template() {
 		// Return early if we don't have any footer widgets to display.
 		if ( ! isset( $this->footer_widgets[0] ) || ! is_numeric( $this->footer_widgets[0] ) ) {
 			return false;
