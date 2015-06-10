@@ -1,6 +1,6 @@
 {
   "name"       : "wpsitecare/carelib",
-  "description": "A collection of helpful functions and classes to make creating an awesome theme more enjoyable.",
+  "description": "A collection of helpful classes to make creating an awesome theme more enjoyable.",
   "keywords"   : ["wordpress"],
   "homepage"   : "https://github.com/wpsitecare/carelib",
   "license"    : "GPL-2.0+",
