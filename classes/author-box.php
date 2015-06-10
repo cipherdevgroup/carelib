@@ -84,14 +84,15 @@ class CareLib_Author_Box {
 
 		// Bail if display is disabled. Continue if no author meta exists.
 		if ( '' !== $display && '0' === "$display" ) {
-			return;
+			return false;
 		}
 
-		// Use the theme's single author box template if it exists.
-		if ( '' !== locate_template( 'carelib/author-box-single.php' ) ) {
-			return require_once locate_template( 'carelib/author-box-single.php' );
+		$template = locate_template( 'hooked/author-box-single.php' );
+
+		// Use the theme's archive author box template if it exists.
+		if ( ! empty( $template ) ) {
+			require_once $template;
 		}
-		require_once carelib()->dir . 'templates/author-box-single.php';
 	}
 
 	/**
@@ -104,20 +105,21 @@ class CareLib_Author_Box {
 	 */
 	public function archive() {
 		if ( ! is_author() || is_paged() ) {
-			return;
+			return false;
 		}
 		$display = get_the_author_meta( 'carelib_author_box_archive' );
 
 		// Bail if display is disabled or no author meta exists.
 		if ( empty( $display ) ) {
-			return;
+			return false;
 		}
 
+		$template = locate_template( 'hooked/author-box-archive.php' );
+
 		// Use the theme's archive author box template if it exists.
-		if ( '' !== locate_template( 'carelib/author-box-archive.php' ) ) {
-			return require_once locate_template( 'carelib/author-box-archive.php' );
+		if ( ! empty( $template ) ) {
+			require_once $template;
 		}
-		require_once carelib()->dir . 'templates/author-box-archive.php';
 	}
 
 }

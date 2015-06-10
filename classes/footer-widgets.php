@@ -102,20 +102,20 @@ class CareLib_Footer_Widgets {
 	public function the_footer_widgets() {
 		// Return early if we don't have any footer widgets to display.
 		if ( ! isset( $this->footer_widgets[0] ) || ! is_numeric( $this->footer_widgets[0] ) ) {
-			return;
+			return false;
 		}
 
 		// Return early if the first widget area has no widgets.
 		if ( ! is_active_sidebar( 'footer-1' ) ) {
-			return;
+			return false;
 		}
 
-		$counter = $this->counter;
+		$counter  = $this->counter;
+		$template = locate_template( 'hooked/footer-widgets.php' );
 
-		// Use the theme's footer widgets template if it exists.
-		if ( '' !== locate_template( 'carelib/footer-widgets.php' ) ) {
-			return require_once locate_template( 'carelib/footer-widgets.php' );
+		// Use the theme's archive author box template if it exists.
+		if ( ! empty( $template ) ) {
+			require_once $template;
 		}
-		require_once carelib()->dir . 'templates/footer-widgets.php';
 	}
 }
