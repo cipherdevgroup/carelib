@@ -1,6 +1,6 @@
 {
   "name"       : "wpsitecare/carelib",
-  "description": "A helpful libray of functions and classes for CareLib themes.",
+  "description": "A collection of helpful functions and classes to make creating an awesome theme more enjoyable.",
   "keywords"   : ["wordpress"],
   "homepage"   : "https://github.com/wpsitecare/carelib",
   "license"    : "GPL-2.0+",
