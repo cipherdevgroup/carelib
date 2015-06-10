@@ -9,9 +9,9 @@
  * @since       0.1.0
  */
 ?>
-<h3><?php _e( 'Author Box Settings', 'carelib' ); ?></h3>
+<h3><?php esc_attr_e( 'Author Box Settings', 'carelib' ); ?></h3>
 
-<p><span class="description"><?php _e( 'Choose where you would like to display an author box.', 'carelib' ); ?></span></p>
+<p><span class="description"><?php esc_attr_e( 'Choose where you would like to display an author box.', 'carelib' ); ?></span></p>
 
 <?php wp_nonce_field( 'carelib_author_box_nonce', 'toggle_author_box' ); ?>
 
@@ -21,12 +21,12 @@
 			<td>
 				<label for="carebox[carelib_author_box_single]">
 					<input id="carebox[carelib_author_box_single]" name="carebox[carelib_author_box_single]" type="checkbox" value="1" <?php checked( $single_box ); ?> />
-					<?php _e( 'Enable Author Box on this User\'s Posts?', 'carelib' ); ?>
+					<?php esc_attr_e( 'Enable Author Box on this User\'s Posts?', 'carelib' ); ?>
 				</label><br />
 
 				<label for="carebox[carelib_author_box_archive]">
 					<input id="carebox[carelib_author_box_archive]" name="carebox[carelib_author_box_archive]" type="checkbox" value="1" <?php checked( $archive_box ); ?> />
-					<?php _e( 'Enable Author Box on this User\'s Archives?', 'carelib' ); ?>
+					<?php esc_attr_e( 'Enable Author Box on this User\'s Archives?', 'carelib' ); ?>
 				</label>
 			</td>
 		</tr>

@@ -74,7 +74,7 @@ abstract class CareLib_Customizer_Base {
 		if ( ! method_exists( $this, 'register' ) ) {
 			_doing_it_wrong(
 				'CareLib_Customizer_Base',
-				__( 'When extending CareLib_Customizer_Base, you must create a register method.', 'carelib' )
+				esc_attr__( 'When extending CareLib_Customizer_Base, you must create a register method.', 'carelib' )
 			);
 		}
 		// Register our customizer sections.
