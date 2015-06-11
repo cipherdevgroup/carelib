@@ -70,7 +70,7 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 	 * @return array $breadcrumbs
 	 */
 	protected function get_options() {
-		return apply_filters( 'carelib_breadcrumb_options', array(
+		return carelib()->get_prefix() . '_breadcrumb_options', array(
 			'carelib_breadcrumb_single' => array(
 				'default'  => 0,
 				'label'    => __( 'Single Entries', 'carelib' ),
@@ -109,7 +109,7 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 		// Grab our available breadcrumb display options.
 		$options = array_keys( $this->get_options() );
 		// Set up an array of template tags to map to our breadcrumb display options.
-		$tags = apply_filters( 'carelib_breadcrumb_tags',
+		$tags = carelib()->get_prefix() . '_breadcrumb_tags',
 			array(
 				is_singular() && ! is_attachment() && ! is_page(),
 				is_page(),

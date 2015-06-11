@@ -87,7 +87,7 @@ class CareLib_TinyMCE_Admin {
 	 * @see    http://wordpress.stackexchange.com/a/128950/9844
 	 */
 	public function tinymce_formats( $args ) {
-		$carelib_formats = apply_filters( 'carelib_tiny_mce_formats',
+		$carelib_formats = carelib()->get_prefix() . '_tiny_mce_formats',
 			array(
 				array(
 					'title'    => __( 'Drop Cap', 'carelib' ),
