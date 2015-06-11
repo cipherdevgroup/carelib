@@ -87,8 +87,8 @@ class CareLib_Author_Box_Admin {
 		if ( ! current_user_can( 'edit_users', $user->ID ) ) {
 			return false;
 		}
-		$single_box  = get_the_author_meta( 'carelib_author_box_single',  $user->ID );
-		$archive_box = get_the_author_meta( 'carelib_author_box_archive', $user->ID );
+		$single_box  = get_the_author_meta( 'carelib_author_box_singular', $user->ID );
+		$archive_box = get_the_author_meta( 'carelib_author_box_archive',  $user->ID );
 		// Set the single author box to enabled when no author meta has been set.
 		if ( '' === $single_box ) {
 			$single_box = 1;
@@ -109,15 +109,15 @@ class CareLib_Author_Box_Admin {
 			return;
 		}
 
-		$nonce = $_GET['carelib_author_box_nonce'];
+		$no = 'carelib_author_box_nonce';
 
-		if ( ! isset( $nonce ) || ! wp_verify_nonce( $nonce, 'toggle_author_box' ) ) {
+		if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], 'toggle_author_box' ) ) {
 			return;
 		}
 
 		$defaults = array(
-			'carelib_author_box_single'  => 0,
-			'carelib_author_box_archive' => 0,
+			'carelib_author_box_singular' => 0,
+			'carelib_author_box_archive'  => 0,
 		);
 
 		if ( ! isset( $_POST['carebox'] ) || ! is_array( $_POST['carebox'] ) ) {

@@ -13,14 +13,14 @@
 
 <p><span class="description"><?php esc_attr_e( 'Choose where you would like to display an author box.', 'carelib' ); ?></span></p>
 
-<?php wp_nonce_field( 'carelib_author_box_nonce', 'toggle_author_box' ); ?>
+<?php wp_nonce_field( 'toggle_author_box', 'carelib_author_box_nonce' ); ?>
 
 <table class="form-table">
 	<tbody>
 		<tr>
 			<td>
-				<label for="carebox[carelib_author_box_single]">
-					<input id="carebox[carelib_author_box_single]" name="carebox[carelib_author_box_single]" type="checkbox" value="1" <?php checked( $single_box ); ?> />
+				<label for="carebox[carelib_author_box_singular]">
+					<input id="carebox[carelib_author_box_singular]" name="carebox[carelib_author_box_singular]" type="checkbox" value="1" <?php checked( $single_box ); ?> />
 					<?php esc_attr_e( 'Enable Author Box on this User\'s Posts?', 'carelib' ); ?>
 				</label><br />
 
