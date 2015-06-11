@@ -185,7 +185,7 @@ if ( ! class_exists( 'CareLib', false ) ) {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof CareLib ) ) {
 				self::$instance = new CareLib;
 				self::$instance->dir = trailingslashit( self::$instance->get_lib_dir() );
-				self::$instance->prefix = empty( $args['prefix'] ) ? get_template() : sanitize_key( $args['prefix'] );
+				self::$instance->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
 				self::$instance->includes();
 				self::$instance->extensions_includes();
 				self::$instance->instantiate();
@@ -218,6 +218,17 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 */
 		public function is_wpcom() {
 			return apply_filters( 'carelib_is_wpcom', false );
+		}
+
+		/**
+		 * Getter method for reading the protected prefix variable.
+		 *
+		 * @since   0.2.0
+		 * @access  public
+		 * @return  bool
+		 */
+		public function get_prefix() {
+			return $this->prefix;
 		}
 
 		/**
@@ -434,7 +445,7 @@ if ( ! function_exists( 'carelib' ) ) {
 	 * @since   0.1.0
 	 * @return  object CareLib
 	 */
-	function carelib() {
-		return CareLib::instance();
+	function carelib( $args = array() ) {
+		return CareLib::instance( $args );
 	}
 }
