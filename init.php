@@ -45,7 +45,7 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @since 0.1.0
 		 * @type  string
 		 */
-		public $dir;
+		protected $dir;
 
 		/**
 		 * Placeholder for our style builder class instance.
@@ -184,7 +184,7 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		public static function instance( $args = array() ) {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof CareLib ) ) {
 				self::$instance = new CareLib;
-				self::$instance->dir = trailingslashit( self::$instance->get_lib_dir() );
+				self::$instance->dir = trailingslashit( dirname( __FILE__ ) );
 				self::$instance->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
 				self::$instance->includes();
 				self::$instance->extensions_includes();
@@ -232,18 +232,18 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		}
 
 		/**
-		 * Return the correct path to thecarelib directory.
+		 * Return the path to the CareLib directory with a trailing slash.
 		 *
 		 * @since   0.1.0
 		 * @access  public
 		 * @return  string
 		 */
 		public function get_lib_dir() {
-			return dirname( __FILE__ );
+			return $this->dir;
 		}
 
 		/**
-		 * Return the correct path to thecarelib directory.
+		 * Return the URI to the CareLib directory with a trailing slash.
 		 *
 		 * Because we don't know where the library is located, we need to
 		 * generate a URI based on the library directory path. In order to do
@@ -255,13 +255,13 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @uses   get_theme_root()
 		 * @uses   get_theme_root_uri()
 		 * @uses   CareLib::normalize_path()
-		 * @uses   CareLib::get_lib_dir()
+		 * @uses   CareLib::$dir
 		 * @return string
 		 */
 		public function get_lib_uri() {
-			$theme_root  = $this->normalize_path( get_theme_root() );
-			$library_dir = $this->normalize_path( $this->get_lib_dir() );
-			return str_replace( $theme_root, get_theme_root_uri(), $library_dir );
+			$root = $this->normalize_path( get_theme_root() );
+			$dir  = $this->normalize_path( $this->dir );
+			return trailingslashit( str_replace( $root, get_theme_root_uri(), $dir ) );
 		}
 
 		/**
