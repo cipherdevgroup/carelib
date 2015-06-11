@@ -323,6 +323,22 @@ class CareLib_Template_Tags {
 	}
 
 	/**
+	 * Retrieves the singular name label for a given post object.
+	 *
+	 * @since  0.2.0
+	 * @access private
+	 * @param  $object object a post object to use for retrieving the name
+	 * @return mixed null if no object is provided, otherwise the label string
+	 */
+	private function get_post_type_name( $object ) {
+		if ( ! is_object( $object ) ) {
+			return null;
+		}
+		$obj = get_post_type_object( $object->post_type );
+		return isset( $obj->labels->singular_name ) ? '&nbsp;' . $obj->labels->singular_name : null;
+	}
+
+	/**
 	 * Helper function to build a next and previous post navigation element on
 	 * single entries. This takes care of all the annoying formatting which usually
 	 * would need to be done within a template.
@@ -338,11 +354,11 @@ class CareLib_Template_Tags {
 	 * @return string
 	 */
 	public function get_post_navigation( $args = array() ) {
-		if ( is_attachment() ) {
+		if ( is_attachment() || ! is_singular() ) {
 			return;
 		}
-		$obj  = get_post_type_object( get_post_type() );
-		$name = isset( $obj->labels->singular_name ) ? '&nbsp;' . $obj->labels->singular_name : '';
+
+		$name = $this->get_post_type_name( get_queried_object() );
 
 		$defaults = apply_filters( "{$this->prefix}_post_navigation_defaults",
 			array(
@@ -420,10 +436,16 @@ class CareLib_Template_Tags {
 		$defaults = apply_filters( "{$this->prefix}_posts_navigation_defaults",
 			array(
 				'format'         => 'pagination',
-				'prev_text'      => sprintf( '<span class="screen-reader-text">%s</span>' , __( 'Previous Page', 'carelib' ) ),
-				'next_text'      => sprintf( '<span class="screen-reader-text">%s</span>', __( 'Next Page', 'carelib' ) ),
 				'prev_link_text' => __( 'Newer Posts', 'carelib' ),
 				'next_link_text' => __( 'Older Posts', 'carelib' ),
+				'prev_text'      => sprintf(
+					'<span class="screen-reader-text">%s</span>' ,
+					__( 'Previous Page', 'carelib' )
+				),
+				'next_text'      => sprintf(
+					'<span class="screen-reader-text">%s</span>',
+					__( 'Next Page', 'carelib' )
+				),
 			)
 		);
 
@@ -432,8 +454,16 @@ class CareLib_Template_Tags {
 		$output = '';
 
 		$output .= '<nav ' . hybrid_get_attr( 'nav', 'archive' ) . '>';
-		$output .= sprintf( '<span class="nav-previous">%s</span>', get_previous_posts_link( $args['prev_link_text'] ) );
-		$output .= sprintf( '<span class="nav-next">%s</span>', get_next_posts_link( $args['next_link_text'] ) );
+		$output .= sprintf(
+			'<span class="nav-previous">%s</span>',
+			get_previous_posts_link( $args['prev_link_text'] )
+		);
+
+		$output .= sprintf(
+			'<span class="nav-next">%s</span>',
+			get_next_posts_link( $args['next_link_text'] )
+		);
+
 		$output .= '</nav><!-- .nav-archive -->';
 
 		if ( function_exists( 'the_posts_pagination' ) && 'pagination' === $args['format'] ) {
