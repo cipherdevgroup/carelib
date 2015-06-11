@@ -346,11 +346,6 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		/**
 		 * Include admin library files.
 		 *
-		 * If for some reason you would prefer not to enable the admin features
-		 * in the library, they can be disabled using a filter like so:
-		 *
-		 * add_filter( 'carelib_disable_admin', '__return_true' );
-		 *
 		 * @since   0.1.0
 		 * @access  private
 		 * @return  void
