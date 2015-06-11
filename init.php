@@ -292,10 +292,11 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @return  void
 		 */
 		private function includes() {
+			require_once $this->dir . 'inc/class-attr.php';
+			require_once $this->dir . 'inc/class-author-box.php';
 			require_once $this->dir . 'inc/class-customizer-base.php';
 			require_once $this->dir . 'inc/class-search-form.php';
 			require_once $this->dir . 'inc/class-style-builder.php';
-			require_once $this->dir . 'inc/class-attr.php';
 			require_once $this->dir . 'inc/class-seo.php';
 			require_once $this->dir . 'inc/class-template-tags.php';
 			require_once $this->dir . 'inc/tha-hooks.php';
@@ -309,9 +310,6 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @return  void
 		 */
 		private function extensions_includes() {
-			if ( current_theme_supports( $this->prefix . '-author-box' ) ) {
-				require_once $this->dir . 'inc/class-author-box.php';
-			}
 			if ( current_theme_supports( 'breadcrumb-trail' ) ) {
 				require_once $this->dir . 'inc/class-breadcrumb-display.php';
 			}
@@ -337,10 +335,9 @@ if ( ! class_exists( 'CareLib', false ) ) {
 				return;
 			}
 			require_once $this->dir . 'inc/class-site-logo.php';
-			if ( ! $this->is_customizer_preview() ) {
-				return;
+			if ( $this->is_customizer_preview() ) {
+				require_once $this->dir . 'inc/class-site-logo.php';
 			}
-			require_once $this->dir . 'inc/class-site-logo.php';
 		}
 
 		/**
@@ -352,9 +349,7 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 */
 		private function admin_includes() {
 			require_once $this->dir . 'admin/class-tiny-mce.php';
-			if ( current_theme_supports( 'carelib-author-box' ) ) {
-				require_once $this->dir . 'admin/class-author-box.php';
-			}
+			require_once $this->dir . 'admin/class-author-box.php';
 		}
 
 		/**
@@ -365,20 +360,18 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @return  void
 		 */
 		private function instantiate() {
-			$this->style_builder = new CareLib_Style_Builder;
+			$this->author_box    = new CareLib_Author_Box;
 			$this->attr          = new CareLib_Attributes;
 			$search_form         = new CareLib_Search_Form;
 			$this->seo           = new CareLib_SEO;
+			$this->style_builder = new CareLib_Style_Builder;
 			$this->tags          = new CareLib_Template_Tags;
 
 			$this->attr->run();
+			$this->author_box->run();
 			$search_form->run();
 			$this->seo->run();
 
-			if ( class_exists( 'CareLib_Author_Box', false ) ) {
-				$this->author_box = new CareLib_Author_Box;
-				$this->author_box->run();
-			}
 			if ( class_exists( 'CareLib_Breadcrumb_Display', false ) ) {
 				$this->breadcrumb_display = new CareLib_Breadcrumb_Display;
 				$this->breadcrumb_display->run();
@@ -416,13 +409,11 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @return  void
 		 */
 		private function admin_instantiate() {
-			$this->tinymce_admin = new CareLib_TinyMCE_Admin;
-			$this->tinymce_admin->run();
+			$this->author_box_admin = new CareLib_Author_Box_Admin;
+			$this->tinymce_admin    = new CareLib_TinyMCE_Admin;
 
-			if ( class_exists( 'CareLib_Author_Box_Admin', false ) ) {
-				$this->author_box_admin = new CareLib_Author_Box_Admin;
-				$this->author_box_admin->run();
-			}
+			$this->author_box_admin->run();
+			$this->tinymce_admin->run();
 		}
 
 	}
