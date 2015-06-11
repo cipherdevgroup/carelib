@@ -93,7 +93,7 @@ class CareLib_Author_Box_Admin {
 		if ( '' === $single_box ) {
 			$single_box = 1;
 		}
-		require_once carelib()->dir . '/admin/templates/settings-author-box.php';
+		require_once carelib()->get_lib_dir() . 'admin/templates/settings-author-box.php';
 	}
 
 	/**
