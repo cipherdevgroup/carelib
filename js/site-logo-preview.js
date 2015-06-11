@@ -1,8 +1,8 @@
 /**
  * JS for handling the Site Logo real-time display in the Customizer preview frame.
  */
-(function($){
-	var api = wp.customize,
+(function($) {
+	var api  = wp.customize,
 		$body, $anchor, $logo, size;
 
 	function cacheSelectors() {
@@ -12,8 +12,8 @@
 		size    = $logo.attr( 'data-size' );
 	}
 
-	api( 'site_logo', function( value ){
-		value.bind( function( newVal ){
+	api( 'site_logo', function( value ) {
+		value.bind( function( newVal ) {
 			// grab selectors the first time through
 			if ( ! $body ) {
 				cacheSelectors();
@@ -38,6 +38,16 @@
 				$anchor.hide();
 				$body.removeClass( 'has-site-logo' );
 			}
+		});
+	});
+
+	/**
+	 * Handle the "Display Header Text" setting's realtime preview.
+	 */
+	api( 'site_logo_header_text', function( value ) {
+		var $ids = $( '#site-title, #site-description' );
+		value.bind( function() {
+			$ids.toggleClass( 'screen-reader-text' );
 		});
 	});
 })(jQuery);

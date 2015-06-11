@@ -143,18 +143,11 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 	 * @uses wp_localize_script()
 	 */
 	public function scripts() {
-		$assets_uri = carelib()->get_lib_uri() . 'assets/';
+		$uri = carelib()->get_lib_uri();
 
 		wp_enqueue_script(
 			'site-logo-preview',
-			esc_url( $assets_uri ) . 'js/site-logo/preview.js',
-			array( 'media-views' ),
-			'',
-			true
-		);
-		wp_enqueue_script(
-			'site-logo-header-text',
-			esc_url( $assets_uri ) . 'js/site-logo/header-text.js',
+			esc_url( "{$uri}js/site-logo-preview.js" ),
 			array( 'media-views' ),
 			'',
 			true

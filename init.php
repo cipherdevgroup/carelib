@@ -292,13 +292,13 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @return  void
 		 */
 		private function includes() {
-			require_once $this->dir . 'customizer/classes/customizer-base.php';
-			require_once $this->dir . 'classes/search-form.php';
-			require_once $this->dir . 'classes/style-builder.php';
-			require_once $this->dir . 'classes/attr.php';
-			require_once $this->dir . 'classes/seo.php';
-			require_once $this->dir . 'classes/template-tags.php';
-			require_once $this->dir . 'functions/tha-hooks.php';
+			require_once $this->dir . 'inc/class-customizer-base.php';
+			require_once $this->dir . 'inc/class-search-form.php';
+			require_once $this->dir . 'inc/class-style-builder.php';
+			require_once $this->dir . 'inc/class-attr.php';
+			require_once $this->dir . 'inc/class-seo.php';
+			require_once $this->dir . 'inc/class-template-tags.php';
+			require_once $this->dir . 'inc/tha-hooks.php';
 		}
 
 		/**
@@ -310,13 +310,13 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 */
 		private function extensions_includes() {
 			if ( current_theme_supports( 'carelib-author-box' ) ) {
-				require_once $this->dir . 'classes/author-box.php';
+				require_once $this->dir . 'inc/class-author-box.php';
 			}
 			if ( current_theme_supports( 'breadcrumb-trail' ) ) {
-				require_once $this->dir . 'customizer/classes/breadcrumb-display.php';
+				require_once $this->dir . 'inc/class-breadcrumb-display.php';
 			}
 			if ( current_theme_supports( 'carelib-footer-widgets' ) ) {
-				require_once $this->dir . 'classes/footer-widgets.php';
+				require_once $this->dir . 'inc/class-footer-widgets.php';
 			}
 			if ( current_theme_supports( 'site-logo' ) ) {
 				add_action( 'init', array( $this, 'logo_includes' ), 12 );
@@ -336,11 +336,11 @@ if ( ! class_exists( 'CareLib', false ) ) {
 			if ( class_exists( 'Site_Logo', false ) ) {
 				return;
 			}
-			require_once $this->dir . 'customizer/classes/site-logo.php';
+			require_once $this->dir . 'inc/class-site-logo.php';
 			if ( ! $this->is_customizer_preview() ) {
 				return;
 			}
-			require_once $this->dir . 'customizer/controls/site-logo.php';
+			require_once $this->dir . 'inc/class-site-logo.php';
 		}
 
 		/**
@@ -351,9 +351,9 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @return  void
 		 */
 		private function admin_includes() {
-			require_once $this->dir . 'admin/classes/tiny-mce.php';
+			require_once $this->dir . 'admin/class-tiny-mce.php';
 			if ( current_theme_supports( 'carelib-author-box' ) ) {
-				require_once $this->dir . 'admin/classes/author-box.php';
+				require_once $this->dir . 'admin/class-author-box.php';
 			}
 		}
 

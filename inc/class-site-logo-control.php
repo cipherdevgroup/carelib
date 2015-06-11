@@ -63,18 +63,18 @@ class CareLib_Site_Logo_Image_Control extends WP_Customize_Control {
 	 * @uses plugins_url()
 	 */
 	public function enqueue() {
-		$assets_uri = carelib()->get_lib_uri() . 'assets/';
+		$uri = carelib()->get_lib_uri();
 		// Enqueues all needed media resources.
 		wp_enqueue_media();
 
 		// Enqueue our control script and styles.
 		wp_enqueue_style(
 			'site-logo-control',
-			esc_url( $assets_uri ) . 'css/site-logo/control.css'
+			esc_url( "${uri}css/site-logo-control.css" )
 		);
 		wp_enqueue_script(
 			'site-logo-control',
-			esc_url( $assets_uri ) . 'js/site-logo/control.js',
+			esc_url( "{$uri}js/site-logo-control.js" ),
 			array( 'media-views', 'customize-controls', 'underscore' ),
 			'',
 			true
