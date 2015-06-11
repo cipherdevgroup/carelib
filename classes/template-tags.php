@@ -524,7 +524,7 @@ class CareLib_Template_Tags {
 	 */
 	public function get_credit_link() {
 		$link = sprintf( '<a class="author-link" href="%s" title="%s">%s</a>',
-			'http://www.wpcarelib.com',
+			'http://www.wpsitecare.com',
 			__( 'Free WordPress Theme by', 'carelib' ) . ' WP Site Care',
 			'WP Site Care'
 		);
@@ -545,7 +545,7 @@ class CareLib_Template_Tags {
 			__( 'Copyright &#169; %1$s %2$s. Free WordPress Theme by %3$s', 'alpha' ),
 			date_i18n( 'Y' ),
 			hybrid_get_site_link(),
-			carelib_get_credit_link()
+			$this->get_credit_link()
 		);
 		$info .= '</div>';
 		return apply_filters( "{$this->prefix}_theme_info", $info );
