@@ -107,7 +107,7 @@ class CareLib_Style_Builder {
 		 * @since 1.1.1
 		 * @param array $data The selectors and properties to add to the CSS.
 		 */
-		$data  = carelib()->get_prefix() . '_style_builder_add', $data );
+		$data  = apply_filters( carelib()->get_prefix() . '_style_builder_add', $data );
 
 		// Sanitize selectors
 		$entry['selectors'] = array_map( 'trim', (array) $data['selectors'] );
@@ -252,7 +252,7 @@ class CareLib_Style_Builder {
 			 * @param string    $t               The tab character.
 			 * @param string    $n               The newline character.
 			 */
-			$output .= carelib()->get_prefix() . '_parse_declaration', $parsed_value, $property, $value, $t, $n );
+			$output .= apply_filters( carelib()->get_prefix() . '_parse_declaration', $parsed_value, $property, $value, $t, $n );
 		}
 
 		/**
@@ -263,6 +263,6 @@ class CareLib_Style_Builder {
 		 * @param array     $declarations    The list of CSS declarations.
 		 * @param string    $tab             The tab character.
 		 */
-		return carelib()->get_prefix() . '_css_parse_declarations', $output, $declarations, $tab );
+		return apply_filters( carelib()->get_prefix() . '_css_parse_declarations', $output, $declarations, $tab );
 	}
 }

@@ -79,7 +79,7 @@ class CareLib_Author_Box {
 	 * @return void
 	 */
 	public function single() {
-		if ( ! is_singular( carelib()->get_prefix() . '_author_box_types', array( 'post' ) ) ) ) {
+		if ( ! is_singular( apply_filters( carelib()->get_prefix() . '_author_box_types', array( 'post' ) ) ) ) {
 			return;
 		}
 
