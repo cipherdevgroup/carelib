@@ -143,7 +143,7 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 	 * @uses wp_localize_script()
 	 */
 	public function scripts() {
-		$assets_uri = trailingslashit( carelib()->get_lib_uri() ) . 'assets/';
+		$assets_uri = carelib()->get_lib_uri() . 'assets/';
 
 		wp_enqueue_script(
 			'site-logo-preview',
