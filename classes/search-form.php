@@ -13,6 +13,9 @@
  * @since       0.1.0
  */
 
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
 /**
  * CareLib Search Form Class.
  */

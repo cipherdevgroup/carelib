@@ -9,6 +9,9 @@
  * @since       0.1.0
  */
 
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
 /**
  * A class to customize the default styleselect options in the WP TinyMCE.
  *
