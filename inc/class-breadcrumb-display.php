@@ -16,7 +16,7 @@
  */
 class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 
-	protected $section = 'carelib_breadcrumbs';
+	protected $section;
 
 	/**
 	 * Register our customizer breadcrumb options for the parent class to load.
@@ -27,6 +27,8 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 	 * @return void
 	 */
 	public function register( $wp_customize ) {
+
+		$this->section = "{$this->prefix}_breadcrumbs";
 
 		$wp_customize->add_section(
 			$this->section,
@@ -70,28 +72,29 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 	 * @return array $breadcrumbs
 	 */
 	protected function get_options() {
-		return apply_filters( carelib()->get_prefix() . '_breadcrumb_options', array(
-			'carelib_breadcrumb_single' => array(
+		$prefix = $this->prefix;
+		return apply_filters( "{$prefix}_breadcrumb_options", array(
+			"{$prefix}_breadcrumb_single" => array(
 				'default'  => 0,
 				'label'    => __( 'Single Entries', 'carelib' ),
 			),
-			'carelib_breadcrumb_pages' => array(
+			"{$prefix}_breadcrumb_pages" => array(
 				'default'  => 0,
 				'label'    => __( 'Pages', 'carelib' ),
 			),
-			'carelib_breadcrumb_blog_page' => array(
+			"{$prefix}_breadcrumb_blog_page" => array(
 				'default'  => 0,
 				'label'    => __( 'Blog Page', 'carelib' ),
 			),
-			'carelib_breadcrumb_archive' => array(
+			"{$prefix}_breadcrumb_archive" => array(
 				'default'  => 0,
 				'label'    => __( 'Archives', 'carelib' ),
 			),
-			'carelib_breadcrumb_404' => array(
+			"{$prefix}_breadcrumb_404" => array(
 				'default'  => 0,
 				'label'    => __( '404 Page', 'carelib' ),
 			),
-			'carelib_breadcrumb_attachment' => array(
+			"{$prefix}_breadcrumb_attachment" => array(
 				'default'  => 0,
 				'label'    => __( 'Attachment/Media Pages', 'carelib' ),
 			),
@@ -109,7 +112,7 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 		// Grab our available breadcrumb display options.
 		$options = array_keys( $this->get_options() );
 		// Set up an array of template tags to map to our breadcrumb display options.
-		$tags = apply_filters( carelib()->get_prefix() . '_breadcrumb_tags',
+		$tags = apply_filters( "{$this->prefix}_breadcrumb_tags",
 			array(
 				is_singular() && ! is_attachment() && ! is_page(),
 				is_page(),

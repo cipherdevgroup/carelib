@@ -51,6 +51,18 @@ abstract class CareLib_Customizer_Base {
 	protected $capability = 'edit_theme_options';
 
 	/**
+	 * Filter prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $prefix;
+
+	public function __construct() {
+		$this->prefix = carelib()->get_prefix();
+	}
+
+	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.1.0

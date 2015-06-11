@@ -19,9 +19,9 @@ defined( 'ABSPATH' ) || exit;
  */
 class CareLib_Footer_Widgets {
 
-	private $counter = 1;
+	protected $counter = 1;
 
-	private $footer_widgets;
+	protected $footer_widgets;
 
 	/**
 	 * Get our class up and running!
@@ -32,7 +32,7 @@ class CareLib_Footer_Widgets {
 	 * @return void
 	 */
 	public function run() {
-		$this->footer_widgets = get_theme_support( 'carelib-footer-widgets' );
+		$this->footer_widgets = get_theme_support( carelib()->get_prefix() . '-footer-widgets' );
 		self::wp_hooks();
 	}
 

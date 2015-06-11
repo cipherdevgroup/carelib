@@ -309,13 +309,13 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		 * @return  void
 		 */
 		private function extensions_includes() {
-			if ( current_theme_supports( 'carelib-author-box' ) ) {
+			if ( current_theme_supports( $this->prefix . '-author-box' ) ) {
 				require_once $this->dir . 'inc/class-author-box.php';
 			}
 			if ( current_theme_supports( 'breadcrumb-trail' ) ) {
 				require_once $this->dir . 'inc/class-breadcrumb-display.php';
 			}
-			if ( current_theme_supports( 'carelib-footer-widgets' ) ) {
+			if ( current_theme_supports( $this->prefix . '-footer-widgets' ) ) {
 				require_once $this->dir . 'inc/class-footer-widgets.php';
 			}
 			if ( current_theme_supports( 'site-logo' ) ) {
