@@ -69,26 +69,26 @@ class CareLib_Author_Box {
 	}
 
 	/**
-	 * Displays the single author box using a template.
+	 * Displays the singular author box using a template.
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   locate_template() Load the single author box template.
+	 * @uses   locate_template() Load the singular author box template.
 	 * @return void
 	 */
-	public function single() {
+	public function singular() {
 		if ( ! is_singular( apply_filters( carelib()->get_prefix() . '_author_box_types', array( 'post' ) ) ) ) {
 			return;
 		}
 
-		$display = get_the_author_meta( 'carelib_author_box_single' );
+		$display = get_the_author_meta( 'carelib_author_box_singular' );
 
 		// Bail if display is disabled. Continue if no author meta exists.
 		if ( '' !== $display && '0' === "$display" ) {
 			return false;
 		}
 
-		$template = locate_template( 'hooked/author-box-single.php' );
+		$template = locate_template( 'hooked/author-box-singular.php' );
 
 		// Use the theme's archive author box template if it exists.
 		if ( ! empty( $template ) ) {
@@ -97,7 +97,7 @@ class CareLib_Author_Box {
 	}
 
 	/**
-	* Displays the archive author box using a template.
+	 * Displays the archive author box using a template.
 	 *
 	 * @since  0.1.0
 	 * @access public
