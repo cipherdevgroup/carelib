@@ -18,6 +18,18 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Template_Tags {
 
 	/**
+	 * Filter prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $prefix;
+
+	public function __construct() {
+		$this->prefix = carelib()->get_prefix();
+	}
+
+	/**
 	 * Retrieve the site logo URL or ID (URL by default). Pass in the string
 	 * 'id' for ID.
 	 *
@@ -156,7 +168,7 @@ class CareLib_Template_Tags {
 	 */
 	public function get_entry_title( $args = array() ) {
 		$is_main  = is_singular() && is_main_query();
-		$defaults = apply_filters( carelib()->get_prefix() . '_entry_title_defaults',
+		$defaults = apply_filters( "{$this->prefix}_entry_title_defaults",
 			array(
 				'tag'     => $is_main ? 'h1' : 'h2',
 				'attr'    => 'entry-title',
@@ -183,7 +195,7 @@ class CareLib_Template_Tags {
 
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( carelib()->get_prefix() . '_entry_title', $output, $args );
+		return apply_filters( "{$this->prefix}_entry_title", $output, $args );
 	}
 
 	/**
@@ -198,7 +210,7 @@ class CareLib_Template_Tags {
 	 * @return string
 	 */
 	public function get_entry_author( $args = array() ) {
-		$defaults = apply_filters( carelib()->get_prefix() . '_entry_author_defaults',
+		$defaults = apply_filters( "{$this->prefix}_entry_author_defaults",
 			array(
 				'text'   => '%s',
 				'before' => '',
@@ -209,7 +221,7 @@ class CareLib_Template_Tags {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		return apply_filters( carelib()->get_prefix() . '_entry_author', hybrid_get_post_author( $args ), $args );
+		return apply_filters( "{$this->prefix}_entry_author", hybrid_get_post_author( $args ), $args );
 	}
 
 	/**
@@ -222,7 +234,7 @@ class CareLib_Template_Tags {
 	 * @return string
 	 */
 	public function get_entry_published( $args = array() ) {
-		$defaults = apply_filters( carelib()->get_prefix() . '_entry_published_defaults',
+		$defaults = apply_filters( "{$this->prefix}_entry_published_defaults",
 			array(
 				'before' => '',
 				'after'  => '',
@@ -238,7 +250,7 @@ class CareLib_Template_Tags {
 		$output .= sprintf( $args['wrap'], hybrid_get_attr( $args['attr'] ), $args['date'] );
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( carelib()->get_prefix() . '_entry_published', $output, $args );
+		return apply_filters( "{$this->prefix}_entry_published", $output, $args );
 	}
 
 	/**
@@ -260,7 +272,7 @@ class CareLib_Template_Tags {
 	 * @return string output
 	 */
 	public function get_entry_comments_link( $args = array() ) {
-		$defaults = apply_filters( carelib()->get_prefix() . '_entry_comments_link_defaults',
+		$defaults = apply_filters( "{$this->prefix}_entry_comments_link_defaults",
 			array(
 				'after'       => '',
 				'before'      => '',
@@ -290,7 +302,7 @@ class CareLib_Template_Tags {
 		$output .= '<span class="entry-comments-link">' . $comments . '</span>';
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( carelib()->get_prefix() . '_entry_comments_link', $output, $args );
+		return apply_filters( "{$this->prefix}_entry_comments_link", $output, $args );
 	}
 
 	/**
@@ -307,7 +319,7 @@ class CareLib_Template_Tags {
 		if ( is_singular() ) {
 			$content = apply_filters( 'the_content', get_the_content() );
 		}
-		return apply_filters( carelib()->get_prefix() . '_content', $content );
+		return apply_filters( "{$this->prefix}_content", $content );
 	}
 
 	/**
@@ -332,7 +344,7 @@ class CareLib_Template_Tags {
 		$obj  = get_post_type_object( get_post_type() );
 		$name = isset( $obj->labels->singular_name ) ? '&nbsp;' . $obj->labels->singular_name : '';
 
-		$defaults = apply_filters( carelib()->get_prefix() . '_post_navigation_defaults',
+		$defaults = apply_filters( "{$this->prefix}_post_navigation_defaults",
 			array(
 				'post_types'     => array(),
 				'prev_format'    => '<span class="nav-previous">%link</span>',
@@ -405,7 +417,7 @@ class CareLib_Template_Tags {
 			return;
 		}
 
-		$defaults = apply_filters( carelib()->get_prefix() . '_posts_navigation_defaults',
+		$defaults = apply_filters( "{$this->prefix}_posts_navigation_defaults",
 			array(
 				'format'         => 'pagination',
 				'prev_text'      => sprintf( '<span class="screen-reader-text">%s</span>' , __( 'Previous Page', 'carelib' ) ),
@@ -433,7 +445,7 @@ class CareLib_Template_Tags {
 			);
 		}
 
-		return apply_filters( carelib()->get_prefix() . '_posts_navigation', $output, $args );
+		return apply_filters( "{$this->prefix}_posts_navigation", $output, $args );
 	}
 
 	/**
@@ -486,7 +498,7 @@ class CareLib_Template_Tags {
 			__( 'Free WordPress Theme by', 'carelib' ) . ' WP Site Care',
 			'WP Site Care'
 		);
-		return apply_filters( carelib()->get_prefix() . '_credit_link', $link );
+		return apply_filters( "{$this->prefix}_credit_link", $link );
 	}
 
 	/**
@@ -506,6 +518,6 @@ class CareLib_Template_Tags {
 			carelib_get_credit_link()
 		);
 		$info .= '</div>';
-		return apply_filters( carelib()->get_prefix() . '_theme_info', $info );
+		return apply_filters( "{$this->prefix}_theme_info", $info );
 	}
 }

@@ -30,7 +30,7 @@ class CareLib_Style_Builder {
 	/**
 	 * The array for storing added CSS rule data.
 	 *
-	 * @since 1.1.1
+	 * @since 0.1.0
 	 * @var   array Holds the data to be printed out.
 	 */
 	public $data = array();
@@ -38,7 +38,7 @@ class CareLib_Style_Builder {
 	/**
 	 * Optional line ending character for debug mode.
 	 *
-	 * @since 1.1.1
+	 * @since 0.1.0
 	 * @var   string Line ending character used to better style the CSS.
 	 */
 	private $line_ending = '';
@@ -46,10 +46,18 @@ class CareLib_Style_Builder {
 	/**
 	 * Optional tab character for debug mode.
 	 *
-	 * @since 1.1.1
+	 * @since 0.1.0
 	 * @var   string Line ending character used to better style the CSS.
 	 */
 	private $tab = '';
+
+	/**
+	 * Filter prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $prefix;
 
 	/**
 	 * Initialize the object.
@@ -58,6 +66,7 @@ class CareLib_Style_Builder {
 	 * @return CareLib_Style_Builder
 	 */
 	function __construct() {
+		$this->prefix = carelib()->get_prefix();
 		// Set line ending and tab
 		if ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) {
 			$this->line_ending = "\n";
@@ -107,7 +116,7 @@ class CareLib_Style_Builder {
 		 * @since 1.1.1
 		 * @param array $data The selectors and properties to add to the CSS.
 		 */
-		$data  = apply_filters( carelib()->get_prefix() . '_style_builder_add', $data );
+		$data  = apply_filters( "{$this->prefix}_style_builder_add", $data );
 
 		// Sanitize selectors
 		$entry['selectors'] = array_map( 'trim', (array) $data['selectors'] );
@@ -252,7 +261,7 @@ class CareLib_Style_Builder {
 			 * @param string    $t               The tab character.
 			 * @param string    $n               The newline character.
 			 */
-			$output .= apply_filters( carelib()->get_prefix() . '_parse_declaration', $parsed_value, $property, $value, $t, $n );
+			$output .= apply_filters( "{$this->prefix}_parse_declaration", $parsed_value, $property, $value, $t, $n );
 		}
 
 		/**
@@ -263,6 +272,6 @@ class CareLib_Style_Builder {
 		 * @param array     $declarations    The list of CSS declarations.
 		 * @param string    $tab             The tab character.
 		 */
-		return apply_filters( carelib()->get_prefix() . '_css_parse_declarations', $output, $declarations, $tab );
+		return apply_filters( "{$this->prefix}_css_parse_declarations", $output, $declarations, $tab );
 	}
 }
