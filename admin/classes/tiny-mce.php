@@ -87,7 +87,7 @@ class CareLib_TinyMCE_Admin {
 	 * @see    http://wordpress.stackexchange.com/a/128950/9844
 	 */
 	public function tinymce_formats( $args ) {
-		$carelib_formats = apply_filters( carelib()->get_prefix() . '_tiny_mce_formats',
+		$formats = apply_filters( carelib()->get_prefix() . '_tiny_mce_formats',
 			array(
 				array(
 					'title'    => __( 'Drop Cap', 'carelib' ),
@@ -164,10 +164,10 @@ class CareLib_TinyMCE_Admin {
 		// Merge with any existing formats which have been added by plugins.
 		if ( ! empty( $args['style_formats'] ) ) {
 			$existing_formats = json_decode( $args['style_formats'] );
-			$carelib_formats = array_merge( $carelib_formats, $existing_formats );
+			$formats = array_merge( $formats, $existing_formats );
 		}
 
-		$args['style_formats'] = wp_json_encode( $carelib_formats );
+		$args['style_formats'] = wp_json_encode( $formats );
 
 		return $args;
 	}
