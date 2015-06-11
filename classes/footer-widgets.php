@@ -49,7 +49,6 @@ class CareLib_Footer_Widgets {
 	private function wp_hooks() {
 		add_action( 'widgets_init',               array( $this, 'register' ) );
 		add_action( 'hybrid_attr_footer-widgets', array( $this, 'attributes' ) );
-		add_action( 'tha_footer_before',          array( $this, 'template' ) );
 	}
 
 	/**

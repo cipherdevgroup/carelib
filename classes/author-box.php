@@ -40,8 +40,6 @@ class CareLib_Author_Box {
 	 */
 	private function wp_hooks() {
 		add_filter( 'hybrid_attr_author-box', array( $this, 'attributes' ), 10, 2 );
-		add_action( 'tha_entry_after',        array( $this, 'single' ) );
-		add_action( 'tha_content_top',        array( $this, 'archive' ) );
 	}
 
 	/**

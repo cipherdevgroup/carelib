@@ -134,7 +134,6 @@ class CareLib_Search_Form {
 		if ( ! isset( $this->id ) ) {
 			$this->id = uniqid( 'searchform-' );
 		}
-
 		return $this->id;
 	}
 }
