@@ -20,7 +20,7 @@
 		<tr>
 			<td>
 				<label for="carebox[carelib_author_box_singular]">
-					<input id="carebox[carelib_author_box_singular]" name="carebox[carelib_author_box_singular]" type="checkbox" value="1" <?php checked( $single_box ); ?> />
+					<input id="carebox[carelib_author_box_singular]" name="carebox[carelib_author_box_singular]" type="checkbox" value="1" <?php checked( $singular_box ); ?> />
 					<?php esc_attr_e( 'Enable Author Box on this User\'s Posts?', 'carelib' ); ?>
 				</label><br />
 

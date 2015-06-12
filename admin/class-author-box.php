@@ -87,11 +87,11 @@ class CareLib_Author_Box_Admin {
 		if ( ! current_user_can( 'edit_users', $user->ID ) ) {
 			return false;
 		}
-		$single_box  = get_the_author_meta( 'carelib_author_box_singular', $user->ID );
-		$archive_box = get_the_author_meta( 'carelib_author_box_archive',  $user->ID );
+		$singular_box = get_the_author_meta( 'carelib_author_box_singular', $user->ID );
+		$archive_box  = get_the_author_meta( 'carelib_author_box_archive',  $user->ID );
 		// Set the single author box to enabled when no author meta has been set.
-		if ( '' === $single_box ) {
-			$single_box = 1;
+		if ( '' === $singular_box ) {
+			$singular_box = 1;
 		}
 		require_once carelib()->get_lib_dir() . 'admin/templates/settings-author-box.php';
 	}
