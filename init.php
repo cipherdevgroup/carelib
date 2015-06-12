@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'CareLib', false ) ) {
 
 	/**
-	 * Class for common CareLib theme functionality.
+	 * Class for common theme functionality.
 	 *
 	 * @version 0.1.0
 	 */
@@ -336,7 +336,7 @@ if ( ! class_exists( 'CareLib', false ) ) {
 			}
 			require_once $this->dir . 'inc/class-site-logo.php';
 			if ( $this->is_customizer_preview() ) {
-				require_once $this->dir . 'inc/class-site-logo.php';
+				require_once $this->dir . 'inc/class-site-logo-control.php';
 			}
 		}
 
