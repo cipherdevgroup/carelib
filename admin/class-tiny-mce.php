@@ -109,7 +109,7 @@ class CareLib_TinyMCE_Admin {
 				array(
 					'title'    => __( 'Intro Paragraph', 'carelib' ),
 					'selector' => 'p',
-					'classes'  => 'intro-pagragraph',
+					'classes'  => 'intro-paragraph',
 					'wrapper'  => true,
 				),
 				array(
