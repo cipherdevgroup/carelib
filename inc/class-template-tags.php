@@ -306,20 +306,27 @@ class CareLib_Template_Tags {
 	}
 
 	/**
+	 * Helper function to determine whether we should display the full content
+	 * or an excerpt.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return booleen true on singular entries by default
+	 */
+	protected function is_full_content() {
+		return apply_filters( "{$this->prefix}_is_full_content", is_singular() );
+	}
+
+	/**
 	 * Returns either an excerpt or the content depending on what page the user is
 	 * currently viewing.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  $args array
-	 * @return void
+	 * @return string the desired content
 	 */
 	public function get_content() {
-		$content = get_the_excerpt();
-		if ( is_singular() ) {
-			$content = apply_filters( 'the_content', get_the_content() );
-		}
-		return apply_filters( "{$this->prefix}_content", $content );
+		return apply_filters( 'the_content', $this->is_full_content() ? get_the_content() : get_the_excerpt() );
 	}
 
 	/**
