@@ -20,14 +20,14 @@
 			<?php do_action( "{$this->prefix}_dashboard_menu_items" ); ?>
 		</ul><!-- #dashboard-menu -->
 
-		<section id="dashboard-content" class="dashboard-content visible">
+		<section id="dashboard-content" class="dashboard-content">
 			<?php do_action( "{$this->prefix}_dashboard_content" ); ?>
 		</section><!-- #dashboard-content -->
 
-		<section id="dashboard-sidebar" class="dashboard-sidebar">
-			<?php do_action( "{$this->prefix}_dashboard_sidebar" ); ?>
-		</section><!-- #dashboard-sidebar -->
-
 	</div><!-- #dashboard-container -->
+
+	<section id="dashboard-sidebar" class="dashboard-sidebar">
+		<?php do_action( "{$this->prefix}_dashboard_sidebar" ); ?>
+	</section><!-- #dashboard-sidebar -->
 
 </div><!-- #carelib-dashboard -->
