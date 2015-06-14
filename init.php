@@ -112,20 +112,12 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		public $site_logo;
 
 		/**
-		 * Placeholder for our author box admin class instance.
+		 * Placeholder for our main admin class instance.
 		 *
 		 * @since 0.1.0
 		 * @var   CareLib_Author_Box_Admin
 		 */
-		public $author_box_admin;
-
-		/**
-		 * Placeholder for our TinyMCE admin class instance.
-		 *
-		 * @since 0.2.0
-		 * @var   CareLib_TinyMCE_Admin
-		 */
-		public $tinymce_admin;
+		public $admin;
 
 		/**
 		 * Static placeholder for our main class instance.
@@ -189,10 +181,6 @@ if ( ! class_exists( 'CareLib', false ) ) {
 				self::$instance->includes();
 				self::$instance->extensions_includes();
 				self::$instance->instantiate();
-				if ( is_admin() ) {
-					self::$instance->admin_includes();
-					self::$instance->admin_instantiate();
-				}
 			}
 			return self::$instance;
 		}
@@ -300,6 +288,9 @@ if ( ! class_exists( 'CareLib', false ) ) {
 			require_once $this->dir . 'inc/class-seo.php';
 			require_once $this->dir . 'inc/class-template-tags.php';
 			require_once $this->dir . 'inc/tha-hooks.php';
+			if ( is_admin() ) {
+				require_once $this->dir . 'inc/admin/init.php';
+			}
 		}
 
 		/**
@@ -341,19 +332,7 @@ if ( ! class_exists( 'CareLib', false ) ) {
 		}
 
 		/**
-		 * Include admin library files.
-		 *
-		 * @since   0.1.0
-		 * @access  private
-		 * @return  void
-		 */
-		private function admin_includes() {
-			require_once $this->dir . 'admin/class-tiny-mce.php';
-			require_once $this->dir . 'admin/class-author-box.php';
-		}
-
-		/**
-		* Spin up instances of our front-end classes once they've been included.
+		 * Spin up instances of our classes once they've been included.
 		 *
 		 * @since   0.1.0
 		 * @access  private
@@ -371,6 +350,10 @@ if ( ! class_exists( 'CareLib', false ) ) {
 			$this->author_box->run();
 			$search_form->run();
 			$this->seo->run();
+
+			if ( is_admin() ) {
+				$this->admin = new CareLib_Admin;
+			}
 
 			if ( class_exists( 'CareLib_Breadcrumb_Display', false ) ) {
 				$this->breadcrumb_display = new CareLib_Breadcrumb_Display;
@@ -399,21 +382,6 @@ if ( ! class_exists( 'CareLib', false ) ) {
 			}
 			$this->site_logo = new CareLib_Site_Logo;
 			$this->site_logo->run();
-		}
-
-		/**
-		 * Spin up instances of our admin classes once they've been included.
-		 *
-		 * @since   0.1.0
-		 * @access  private
-		 * @return  void
-		 */
-		private function admin_instantiate() {
-			$this->author_box_admin = new CareLib_Author_Box_Admin;
-			$this->tinymce_admin    = new CareLib_TinyMCE_Admin;
-
-			$this->author_box_admin->run();
-			$this->tinymce_admin->run();
 		}
 
 	}
