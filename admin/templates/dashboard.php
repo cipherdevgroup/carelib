@@ -8,7 +8,7 @@
  * @since     0.2.0
  */
 ?>
-<div id="carelib-dashboard" class="wrap carelib-dashboard">
+<div id="theme-dashboard" class="wrap theme-dashboard">
 
 	<section id="dashboard-top" class="dashboard-top">
 		<?php do_action( "{$this->prefix}_dashboard_top" ); ?>
@@ -30,4 +30,4 @@
 		<?php do_action( "{$this->prefix}_dashboard_sidebar" ); ?>
 	</section><!-- #dashboard-sidebar -->
 
-</div><!-- #carelib-dashboard -->
+</div><!-- #theme-dashboard -->

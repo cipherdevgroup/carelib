@@ -1,27 +1,27 @@
-.carelib-dashboard * {
+.theme-dashboard * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
-.carelib-dashboard {
+.theme-dashboard {
 	margin: 20px 20px 0 2px;
 	overflow: hidden;
 }
 
-.carelib-dashboard .dashboard-top {
+.theme-dashboard .dashboard-top {
 	clear: both;
 	overflow: hidden;
 }
 
-.carelib-dashboard .dashboard-top h2 {
+.theme-dashboard .dashboard-top h2 {
 	font-size: 38px;
 	line-height: 1.2;
 	font-weight: 300;
 	padding: 0 0 15px;
 }
 
-.carelib-dashboard .dashboard-top h3 {
+.theme-dashboard .dashboard-top h3 {
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 1.6;
@@ -29,7 +29,7 @@
 	max-width: 880px;
 }
 
-.carelib-dashboard .featured-image {
+.theme-dashboard .featured-image {
 	padding: 0;
 	display: block;
 	float: left;
@@ -39,19 +39,19 @@
 	margin-left: -20px;
 }
 
-.carelib-dashboard .visible {
+.theme-dashboard .visible {
 	display: block;
 }
 
-.carelib-dashboard .success {
+.theme-dashboard .success {
 	color: #00A66C;
 }
 
-.carelib-dashboard .error {
+.theme-dashboard .error {
 	color: #C25046;
 }
 
-.carelib-dashboard .dashboard-contaner {
+.theme-dashboard .dashboard-contaner {
 	border: 1px solid #eaeaea;
 	border-radius: 5px;
 	display: inline-block;
@@ -59,27 +59,27 @@
 	width: 68%;
 }
 
-.carelib-dashboard .dashboard-menu {
+.theme-dashboard .dashboard-menu {
 	background: #f8f8f8;
 	border-bottom: 1px solid #eaeaea;
 	margin: 0;
 }
 
-.carelib-dashboard .dashboard-menu li,
-.carelib-dashboard .dashboard-menu span {
+.theme-dashboard .dashboard-menu li,
+.theme-dashboard .dashboard-menu span {
 	border-right: 1px solid #eaeaea;
 	display: inline-block;
 	margin-bottom: 0;
 	margin-right: 10px;
 }
 
-.carelib-dashboard .dashboard-menu li:last-child,
-.carelib-dashboard .dashboard-menu span:last-child {
+.theme-dashboard .dashboard-menu li:last-child,
+.theme-dashboard .dashboard-menu span:last-child {
 	margin-right: 0;
 	padding-right: 0;
 }
 
-.carelib-dashboard .dashboard-menu a {
+.theme-dashboard .dashboard-menu a {
 	display: block;
 	font-size: 18px;
 	text-decoration: none;
@@ -87,38 +87,38 @@
 	padding: 15px 20px;
 }
 
-.carelib-dashboard .dashboard-menu .current a {
+.theme-dashboard .dashboard-menu .current a {
 	background: #fcfcfc;
 }
 
-.carelib-dashboard .dashboard-menu a:active,
-.carelib-dashboard .dashboard-menu a:focus {
+.theme-dashboard .dashboard-menu a:active,
+.theme-dashboard .dashboard-menu a:focus {
 	box-shadow: none;
 	outline: none;
 	border: 0;
 }
 
-.carelib-dashboard .panel-content {
+.theme-dashboard .panel-content {
 	padding: 30px;
 	background: #f8f8f8;
 	font-size: 16px;
 }
 
-.carelib-dashboard .panel-title {
+.theme-dashboard .panel-title {
 	padding: 0px 0 10px;
 	font-size: 32px;
 }
 
-.carelib-dashboard .panel-content p {
+.theme-dashboard .panel-content p {
 	font-size: 16px;
 	line-height: 1.7;
 }
 
-.carelib-dashboard .panel-content a {
+.theme-dashboard .panel-content a {
 	text-decoration: none;
 }
 
-.carelib-dashboard .panel-content hr {
+.theme-dashboard .panel-content hr {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-top: 20px;
@@ -129,8 +129,8 @@
 	-webkit-margin-after: 0;
 }
 
-.carelib-dashboard .panel-content ul,
-.carelib-dashboard .panel-content ol {
+.theme-dashboard .panel-content ul,
+.theme-dashboard .panel-content ol {
 	margin: 1em 0;
 	padding-left: 20px;
 	padding-top: 10px;
@@ -139,61 +139,61 @@
 	line-height: 1.5;
 }
 
-.carelib-dashboard .panel-content ul li,
-.carelib-dashboard .panel-content ol li {
+.theme-dashboard .panel-content ul li,
+.theme-dashboard .panel-content ol li {
 	border-bottom: 1px solid #eaeaea;
 	margin-bottom: 15px;
 	padding-bottom: 15px;
 }
 
-.carelib-dashboard .panel-content ul li:last-child,
-.carelib-dashboard .panel-content ol li:last-child {
+.theme-dashboard .panel-content ul li:last-child,
+.theme-dashboard .panel-content ol li:last-child {
 	border: none;
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
 
-.carelib-dashboard .panel-content h3,
-.carelib-dashboard .dashboard-sidebar p:first-child {
+.theme-dashboard .panel-content h3,
+.theme-dashboard .dashboard-sidebar p:first-child {
 	margin-top: 0;
 }
 
-.carelib-dashboard .dashboard-sidebar {
+.theme-dashboard .dashboard-sidebar {
 	display: block;
 	width: 30%;
 	float: right;
 }
 
-.carelib-dashboard .dashboard-widget {
+.theme-dashboard .dashboard-widget {
 	border-radius: 5px;
 	margin-bottom: 25px;
 	overflow: hidden;
 }
 
-.carelib-dashboard .widget-header {
+.theme-dashboard .widget-header {
 	background: #e0e0e0;
 	line-height: 1.3;
 	margin: 0;
 	padding: 30px;
 }
 
-.carelib-dashboard .theme-support .widget-header,
-.carelib-dashboard .site-support .widget-header {
+.theme-dashboard .theme-support .widget-header,
+.theme-dashboard .site-support .widget-header {
 	color: #fff;
 	text-transform: uppercase;
 	font-size: 26px;
 	font-weight: 800;
 }
 
-.carelib-dashboard .theme-support .widget-header {
+.theme-dashboard .theme-support .widget-header {
 	background: #f4a920;
 }
 
-.carelib-dashboard .site-support .widget-header {
+.theme-dashboard .site-support .widget-header {
 	background: #15bbc7;
 }
 
-.carelib-dashboard .widget-content {
+.theme-dashboard .widget-content {
 	border: 1px solid #d6d7d9;
 	border-top: 0;
 	border-radius: 0 0 5px 5px;
@@ -201,17 +201,17 @@
 	padding: 30px;
 }
 
-.carelib-dashboard .widget-content,
-.carelib-dashboard .widget-content p {
+.theme-dashboard .widget-content,
+.theme-dashboard .widget-content p {
 	font-size: 16px;
 	line-height: 1.7;
 }
 
-.carelib-dashboard .dashboard-widget:last-child {
+.theme-dashboard .dashboard-widget:last-child {
 	margin-bottom: 0;
 }
 
-.carelib-dashboard .widget-content .button {
+.theme-dashboard .widget-content .button {
 	background: transparent;
 	box-shadow: none;
 	text-transform: uppercase;
@@ -222,48 +222,48 @@
 	font-size: 14px;
 }
 
-.carelib-dashboard .theme-support .button {
+.theme-dashboard .theme-support .button {
 	border-color: #f4a920;
 	color: #f4a920;
 }
 
-.carelib-dashboard .theme-support .button:hover,
-.carelib-dashboard .theme-support .button:focus {
+.theme-dashboard .theme-support .button:hover,
+.theme-dashboard .theme-support .button:focus {
 	background: #f4a920;
 	color: #fff;
 }
 
-.carelib-dashboard .site-support .button {
+.theme-dashboard .site-support .button {
 	border-color: #15bbc7;
 	color: #15bbc7;
 }
 
-.carelib-dashboard .site-support .button:hover,
-.carelib-dashboard .site-support .button:focus {
+.theme-dashboard .site-support .button:hover,
+.theme-dashboard .site-support .button:focus {
 	background: #15bbc7;
 	color: #fff;
 }
 
 @media only screen and (max-width:768px) {
-	.carelib-dashboard .panel-content,
-	.carelib-dashboard .dashboard-sidebar {
+	.theme-dashboard .panel-content,
+	.theme-dashboard .dashboard-sidebar {
 		width: 100%;
 		float: none;
 	}
 
-	.carelib-dashboard .dashboard-top h2 {
+	.theme-dashboard .dashboard-top h2 {
 		font-size: 34px;
 	}
 
-	.carelib-dashboard .dashboard-top h3 {
+	.theme-dashboard .dashboard-top h3 {
 		margin-bottom: 0;
 	}
 
-	.carelib-dashboard .dashboard-menu li {
+	.theme-dashboard .dashboard-menu li {
 		width: 100%;
 	}
 
-	.carelib-dashboard .dashboard-menu a {
+	.theme-dashboard .dashboard-menu a {
 		width: 100%;
 		display: block;
 	}
