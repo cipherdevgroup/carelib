@@ -289,7 +289,7 @@ if ( ! class_exists( 'CareLib', false ) ) {
 			require_once $this->dir . 'inc/class-template-tags.php';
 			require_once $this->dir . 'inc/tha-hooks.php';
 			if ( is_admin() ) {
-				require_once $this->dir . 'inc/admin/init.php';
+				require_once $this->dir . 'admin/init.php';
 			}
 		}
 

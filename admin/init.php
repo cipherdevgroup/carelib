@@ -57,7 +57,7 @@ class CareLib_Admin {
 	 * @uses get_option()
 	 */
 	public function __construct() {
-		$this->$dir = carelib()->get_lib_dir() . 'admin/';
+		$this->dir = carelib()->get_lib_dir() . 'admin/';
 		self::includes();
 		self::instantiate();
 	}
@@ -81,9 +81,9 @@ class CareLib_Admin {
 	 * @return  void
 	 */
 	private function includes() {
-		require_once $this->dir . 'admin/class-tiny-mce.php';
-		require_once $this->dir . 'admin/class-dashboard.php';
-		require_once $this->dir . 'admin/class-author-box.php';
+		require_once $this->dir . 'class-tiny-mce.php';
+		require_once $this->dir . 'class-dashboard.php';
+		require_once $this->dir . 'class-author-box.php';
 	}
 
 	/**
