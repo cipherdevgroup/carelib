@@ -2,11 +2,10 @@
 /**
  * A template part for the author box settings on the user profile screens.
  *
- * @package     CareLib
- * @subpackage  HybridCore
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.1.0
  */
 ?>
 <h3><?php esc_attr_e( 'Author Box Settings', 'carelib' ); ?></h3>

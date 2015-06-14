@@ -3,11 +3,10 @@
  * Temporarily adding some placeholder hook locations until they're added to
  * Theme Hook Alliance. Hopefully these won't be in here very long.
  *
- * @package     CareLib
- * @subpackage  HybridCore
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 if ( ! function_exists( 'tha_content_while_before' ) ) {

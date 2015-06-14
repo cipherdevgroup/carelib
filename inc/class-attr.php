@@ -4,11 +4,11 @@
  * the addition of some markup elements, a change to the entry summary class,
  * and a secondary nav element for non-site nav menus.
  *
- * @package     CareLib
- * @subpackage  HybridCore
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.2.0
+ * @package    CareLib
+ * @subpackage HybridCore
+ * @copyright  Copyright (c) 2015, WP Site Care, LLC
+ * @license    GPL-2.0+
+ * @since      0.2.0
  */
 
 // Exit if accessed directly

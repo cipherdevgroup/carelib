@@ -2,11 +2,11 @@
 /**
  * SEO Adjustments for the Hybrid Core Framework.
  *
- * @package     CareLib
- * @subpackage  HybridCore
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.2.0
+ * @package    CareLib
+ * @subpackage HybridCore
+ * @copyright  Copyright (c) 2015, WP Site Care, LLC
+ * @license    GPL-2.0+
+ * @since      0.2.0
  */
 
 // Exit if accessed directly
@@ -37,6 +37,7 @@ class CareLib_SEO {
 	 */
 	private function wp_hooks() {
 		remove_action( 'wp_head', 'hybrid_meta_template', 1 );
+
 		add_filter( 'hybrid_site_title',       array( $this, 'site_title' ),       10 );
 		add_filter( 'hybrid_site_description', array( $this, 'site_description' ), 10 );
 		add_filter( 'excerpt_more',            array( $this, 'excerpt_more' ),     99 );

@@ -7,11 +7,10 @@
  * the final CSS should be. The primary function is `add()`. It allows the
  * caller to add a new rule to be generated in the CSS.
  *
- * @package     CareLib
- * @subpackage  HybridCore
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.1.0
  */
 
 // Exit if accessed directly

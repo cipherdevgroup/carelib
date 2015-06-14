@@ -2,11 +2,10 @@
 /**
  * Load all required library files.
  *
- * @package     CareLib
- * @subpackage  HybridCore
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 // Exit if accessed directly
@@ -22,7 +21,7 @@ class CareLib_Admin {
 	/**
 	 * Placeholder for our author box admin class instance.
 	 *
-	 * @since 0.1.0
+	 * @since 0.2.0
 	 * @var   CareLib_Author_Box_Admin
 	 */
 	public $author_box;
@@ -46,7 +45,7 @@ class CareLib_Admin {
 	/**
 	 * Slashed directory path to the admin directory.
 	 *
-	 * @since 0.1.0
+	 * @since 0.2.0
 	 * @type  string
 	 */
 	protected $dir;
@@ -65,7 +64,7 @@ class CareLib_Admin {
 	/**
 	 * Return the path to the CareLib directory with a trailing slash.
 	 *
-	 * @since   0.1.0
+	 * @since   0.2.0
 	 * @access  public
 	 * @return  string
 	 */
@@ -76,7 +75,7 @@ class CareLib_Admin {
 	/**
 	 * Include admin library files.
 	 *
-	 * @since   0.1.0
+	 * @since   0.2.0
 	 * @access  private
 	 * @return  void
 	 */
@@ -89,7 +88,7 @@ class CareLib_Admin {
 	/**
 	 * Spin up instances of our admin classes once they've been included.
 	 *
-	 * @since   0.1.0
+	 * @since   0.2.0
 	 * @access  private
 	 * @return  void
 	 */
