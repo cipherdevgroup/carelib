@@ -1,22 +1,12 @@
-window.flagshipDashboard = window.flagshipDashboard || {};
-
 (function( window, $, undefined ) {
 	'use strict';
 
-	var flagshipDashboard = window.flagshipDashboard;
+	// Load global JS features.
+	function dashboardInit() {
+		$( '#dashboard-container' ).tabs();
+	}
 
-	$.extend( flagshipDashboard, {
-
-		// Load global JS features.
-		init: function() {
-			$( '#dashboard-tabs' ).tabs();
-		}
-
+	$( document ).ready(function() {
+		dashboardInit();
 	});
-
-	// Document ready.
-	jQuery(function() {
-		flagshipDashboard.init();
-	});
-
 })( this, jQuery );

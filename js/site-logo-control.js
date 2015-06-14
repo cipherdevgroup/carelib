@@ -1,9 +1,11 @@
 /**
  * JS for handling the Site Logo Customizer control.
  */
-(function( wp, $ ){
-	// nice shortcut
+(function( wp, $ ) {
+	'use strict';
+
 	var api = wp.customize;
+
 	/**
 	 * The Customizer looks for wp.customizer.controlConstructor[type] functions
 	 * where type == the type member of a WP_Customize_Control
@@ -105,7 +107,7 @@
 					'url'
 				],
 				output = {};
-			$.each( desired, function( i, key ){
+			$.each( desired, function( i, key ) {
 				output[key] = attachment[key];
 			});
 			return output;
@@ -150,5 +152,4 @@
 		}
 
 	});
-
 })( this.wp, jQuery );
