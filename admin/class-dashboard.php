@@ -35,18 +35,9 @@ class CareLib_Dashboard {
 	 */
 	protected $asset_prefix;
 
-	/**
-	 * The current theme object.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $theme;
-
 	public function __construct() {
 		$this->prefix       = carelib()->get_prefix();
 		$this->asset_prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$this->theme        = wp_get_theme();
 	}
 
 	/**
@@ -196,9 +187,10 @@ class CareLib_Dashboard {
 	 * @return  void
 	 */
 	function dashboard_menu() {
+		$theme = wp_get_theme();
 		add_dashboard_page(
-			$this->theme['Name'],
-			$this->theme['Name'],
+			$theme['Name'],
+			$theme['Name'],
 			'manage_options',
 			"{$this->prefix}-dashboard",
 			array( $this, 'dashboard_page' )
