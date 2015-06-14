@@ -75,7 +75,12 @@ class CareLib_Author_Box_Admin {
 	}
 
 	/**
-	 * Add fields for author box settings to the user edit screen.
+	 * Add fields for author box settings to the user edit screen. These use
+	 * the carelib prefix rather than a variable prefix because the data is
+	 * stored in author meta.
+	 *
+	 * This means if anyone switches from one theme using CareLib to another,
+	 * their settings will carry through.
 	 *
 	 * @since  0.1.0
 	 * @access public
