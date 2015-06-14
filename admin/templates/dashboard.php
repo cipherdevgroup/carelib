@@ -10,24 +10,24 @@
 ?>
 <div id="carelib-dashboard" class="wrap carelib-dashboard">
 
-	<div id="top-container" class="top-wrap">
+	<section id="dashboard-top" class="dashboard-top">
 		<?php do_action( "{$this->prefix}_dashboard_top" ); ?>
-	</div>
+	</section><!-- #dashboard-top -->
 
-	<div id="dashboard-tabs" class="panels">
+	<div id="dashboard-container" class="dashboard-contaner">
 
-		<ul id="panel-menu" class="inline-list">
+		<ul id="dashboard-menu" class="dashboard-menu">
 			<?php do_action( "{$this->prefix}_dashboard_menu_items" ); ?>
-		</ul>
+		</ul><!-- #dashboard-menu -->
 
-		<div id="panel" class="panel visible clearfix">
+		<section id="dashboard-content" class="dashboard-content visible">
 			<?php do_action( "{$this->prefix}_dashboard_content" ); ?>
-		</div><!-- #main-panel -->
+		</section><!-- #dashboard-content -->
 
-		<div id="panel-sidebar" class="sidebar">
+		<section id="dashboard-sidebar" class="dashboard-sidebar">
 			<?php do_action( "{$this->prefix}_dashboard_sidebar" ); ?>
-		</div><!-- #panel-sidebar -->
+		</section><!-- #dashboard-sidebar -->
 
-	</div><!-- #dashboard-tabs -->
+	</div><!-- #dashboard-container -->
 
 </div><!-- #carelib-dashboard -->
