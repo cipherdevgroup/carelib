@@ -82,6 +82,7 @@ class CareLib_Admin {
 	 */
 	private function includes() {
 		require_once $this->dir . 'admin/class-tiny-mce.php';
+		require_once $this->dir . 'admin/class-dashboard.php';
 		require_once $this->dir . 'admin/class-author-box.php';
 	}
 
@@ -94,9 +95,11 @@ class CareLib_Admin {
 	 */
 	private function instantiate() {
 		$this->author_box = new CareLib_Author_Box_Admin;
+		$this->dashboard  = new CareLib_Dashboard;
 		$this->tinymce    = new CareLib_TinyMCE_Admin;
 
 		$this->author_box->run();
+		$this->dashboard->run();
 		$this->tinymce->run();
 	}
 
