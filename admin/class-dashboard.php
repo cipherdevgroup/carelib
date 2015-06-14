@@ -213,7 +213,7 @@ class CareLib_Dashboard {
 	 * @return  void
 	 */
 	public function dashboard_page() {
-		require_once carelib()->get_lib_dir() . 'admin/templates/dashboard.php';
+		require_once carelib()->admin->get_dir() . 'templates/dashboard.php';
 	}
 
 }
