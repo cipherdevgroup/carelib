@@ -120,7 +120,7 @@ class CareLib_Dashboard {
 	 * @return  void
 	 */
 	function dashboard_cleanup() {
-		delete_option( 'carelib_dashboard_redirect' );
+		delete_option( "{$this->prefix}_dashboard_redirect" );
 	}
 
 	/**
