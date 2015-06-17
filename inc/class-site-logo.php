@@ -57,7 +57,6 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 		add_filter( 'body_class',              array( $this, 'body_classes' ) );
 		add_filter( 'image_size_names_choose', array( $this, 'media_manager_image_sizes' ) );
 		add_filter( 'display_media_states',    array( $this, 'add_media_state' ) );
-		add_filter( 'upload_mimes',            array( $this, 'add_svg_mime_type' ) );
 	}
 
 	/**
@@ -394,20 +393,6 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 
 		// If the new setting doesn't point to a valid attachment, reset it.
 		return array( 'id' => 0, 'sizes' => array(), 'url' => '' );
-	}
-
-	/**
-	 * Enable support for administrators to add SVG uploads.
-	 *
-	 * @param  $mimes array
-	 * @return $mimes array modified mimes
-	 */
-	function add_svg_mime_type( $mimes ) {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return $mimes;
-		}
-		$mimes['svg'] = 'image/svg+xml';
-		return $mimes;
 	}
 
 }
