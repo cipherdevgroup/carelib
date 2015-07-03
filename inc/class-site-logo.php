@@ -84,7 +84,7 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 			'site_logo_header_text',
 			array(
 				'default'           => 1,
-				'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
+				'sanitize_callback' => 'absint',
 				'transport'         => 'postMessage',
 			)
 		);

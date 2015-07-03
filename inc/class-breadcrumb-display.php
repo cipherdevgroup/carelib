@@ -47,7 +47,7 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 				$breadcrumb,
 				array(
 					'default'           => $setting['default'],
-					'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
+					'sanitize_callback' => 'absint',
 				)
 			);
 
