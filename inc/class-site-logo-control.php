@@ -124,5 +124,6 @@ class CareLib_Site_Logo_Image_Control extends WP_Customize_Control {
 
 		<div class="current"></div>
 		<div class="actions"></div>
-	<?php }
+		<?php
+	}
 }

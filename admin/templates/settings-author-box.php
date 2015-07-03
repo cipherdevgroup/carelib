@@ -12,8 +12,6 @@
 
 <p><span class="description"><?php esc_attr_e( 'Choose where you would like to display an author box.', 'carelib' ); ?></span></p>
 
-<?php wp_nonce_field( 'toggle_author_box', 'carelib_author_box_nonce' ); ?>
-
 <table class="form-table">
 	<tbody>
 		<tr>
@@ -31,3 +29,4 @@
 		</tr>
 	</tbody>
 </table>
+<?php wp_nonce_field( 'toggle_author_box', 'carelib_author_box_nonce' ); ?>
