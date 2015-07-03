@@ -98,30 +98,6 @@ abstract class CareLib_Customizer_Base {
 	}
 
 	/**
-	 * Sanitize a string to allow only tags in the allowedtags array.
-	 *
-	 * @since  0.1.0
-	 * @param  string $string The unsanitized string.
-	 * @return string The sanitized string.
-	 */
-	public function sanitize_text( $string ) {
-		global $allowedtags;
-		return wp_kses( $string , $allowedtags );
-	}
-
-	/**
-	 * Sanitize a checkbox to only allow 0 or 1
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $input
-	 * @return int
-	 */
-	public function sanitize_checkbox( $input ) {
-		return ( 1 === absint( $input ) ) ? 1 : 0;
-	}
-
-	/**
 	 * Sanitize the url of uploaded media.
 	 *
 	 * @since  0.1.0
@@ -138,30 +114,6 @@ abstract class CareLib_Customizer_Base {
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Sanitizes a hex color.
-	 *
-	 * Returns either '', a 3 or 6 digit hex color (with #), or null.
-	 * For sanitizing values without a #, see sanitize_hex_color_no_hash().
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  string $color
-	 * @return string|null
-	 */
-	public function sanitize_hex_color( $color ) {
-		if ( '' === $color ) {
-			return '';
-		}
-
-		// 3 or 6 hex digits, or the empty string.
-		if ( preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
-			return $color;
-		}
-
-		return null;
 	}
 
 	/**
