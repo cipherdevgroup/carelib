@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_TinyMCE_Admin {
+class CareLib_Admin_TinyMCE {
 
 	/**
 	 * Get our class up and running!

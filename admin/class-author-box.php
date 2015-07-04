@@ -16,14 +16,14 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Author_Box_Admin {
+class CareLib_Admin_Author_Box {
 
 	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @uses   CareLib_Author_Box::$wp_hooks
+	 * @uses   CareLib_Admin_Author_Box::$wp_hooks
 	 * @return void
 	 */
 	public function run() {
@@ -97,7 +97,7 @@ class CareLib_Author_Box_Admin {
 		if ( '' === $singular_box ) {
 			$singular_box = 1;
 		}
-		require_once carelib()->get_lib_dir() . 'admin/templates/settings-author-box.php';
+		require_once carelib()->get_dir() . 'admin/templates/settings-author-box.php';
 	}
 
 	/**

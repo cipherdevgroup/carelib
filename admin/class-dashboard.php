@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * @package CareLibDashboard
  * @version 0.1.0
  */
-class CareLib_Dashboard {
+class CareLib_Admin_Dashboard {
 
 	/**
 	 * Filter prefix which can be set within themes.
@@ -152,7 +152,7 @@ class CareLib_Dashboard {
 		if ( ! $this->is_dashboard_page() ) {
 			return;
 		}
-		$dir = carelib()->get_lib_uri();
+		$dir = carelib()->get_uri();
 		wp_enqueue_script(
 			'carelib',
 			$dir . "js/carelib-dashboard{$this->asset_prefix}.js",

@@ -62,7 +62,7 @@ class CareLib_Site_Logo_Image_Control extends WP_Customize_Control {
 	 * @uses plugins_url()
 	 */
 	public function enqueue() {
-		$uri = carelib()->get_lib_uri();
+		$uri = carelib()->get_uri();
 		// Enqueues all needed media resources.
 		wp_enqueue_media();
 
@@ -119,7 +119,9 @@ class CareLib_Site_Logo_Image_Control extends WP_Customize_Control {
 
 		// Control description
 		if ( ! empty( $this->description ) ) : ?>
-			<span class="description customize-control-description"><?php echo $this->description; ?></span>
+			<span class="description customize-control-description">
+				<?php echo $this->description; ?>
+			</span>
 		<?php endif; ?>
 
 		<div class="current"></div>
