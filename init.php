@@ -168,13 +168,13 @@ class CareLib {
 	 * this, we are replacing the theme root directory portion of the
 	 * library directory with the theme root URI.
 	 *
-	 * @since   0.1.0
-	 * @access  private
+	 * @since  0.1.0
+	 * @access protected
 	 * @uses   get_theme_root()
 	 * @uses   get_theme_root_uri()
-	 * @return  void
+	 * @return void
 	 */
-	private function normalize_uri( $path ) {
+	protected function normalize_uri( $path ) {
 		return str_replace(
 			str_replace( '\\', '/', get_theme_root() ),
 			get_theme_root_uri(),
@@ -224,7 +224,7 @@ class CareLib {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	private function instantiate( $factory ) {
+	protected function instantiate( $factory ) {
 		if ( is_admin() ) {
 			$runnable_classes = array(
 				'admin-author-box',
