@@ -26,7 +26,7 @@ class CareLib_Template_Tags {
 	protected $lib;
 
 	/**
-	 * Filter prefix which can be set within themes.
+	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
 	 * @var   string

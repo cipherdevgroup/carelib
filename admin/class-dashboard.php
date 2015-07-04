@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Admin_Dashboard {
 
 	/**
-	 * Filter prefix which can be set within themes.
+	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
 	 * @var   string

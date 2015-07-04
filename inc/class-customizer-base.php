@@ -50,7 +50,7 @@ abstract class CareLib_Customizer_Base {
 	protected $capability = 'edit_theme_options';
 
 	/**
-	 * Filter prefix which can be set within themes.
+	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
 	 * @var   string

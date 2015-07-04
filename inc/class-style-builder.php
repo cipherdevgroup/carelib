@@ -51,7 +51,7 @@ class CareLib_Style_Builder {
 	private $tab = '';
 
 	/**
-	 * Filter prefix which can be set within themes.
+	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
 	 * @var   string
