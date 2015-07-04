@@ -100,6 +100,7 @@ class CareLib {
 	 */
 	public function run() {
 		spl_autoload_register( array( $this, 'autoloader' ) );
+		self::includes();
 		self::instantiate( 'CareLib_Factory' );
 	}
 
@@ -190,7 +191,7 @@ class CareLib {
 	 */
 	protected function autoloader( $class ) {
 		$class = strtolower( str_replace( '_', '-', str_replace( __CLASS__ . '_', '', $class ) ) );
-		$file  = "{$this->dir}includes/class-{$class}.php";
+		$file  = "{$this->dir}inc/class-{$class}.php";
 
 		if ( false !== strpos( $class, 'admin' ) ) {
 			$class = str_replace( 'admin-', '', $class );
@@ -202,6 +203,17 @@ class CareLib {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Load all library functions.
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @return void
+	 */
+	protected function includes() {
+		require_once "{$this->dir}inc/tha-hooks.php";
 	}
 
 	/**
