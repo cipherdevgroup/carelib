@@ -9,6 +9,9 @@
  * @since     0.2.0
  */
 
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
 if ( ! function_exists( 'tha_content_while_before' ) ) {
 	function tha_content_while_before() {
 		do_action( 'tha_content_while_before' );
