@@ -27,7 +27,7 @@ class CareLib_Factory {
 	 * @throws InvalidArgumentException If the specified class does not exist.
 	 * @return mixed
 	 */
-	public static function build( $object, $name = 'canonical' ) {
+	public static function build( $object, $name = 'canonical', $args = array() ) {
 		if ( empty( self::$objects[ $object ] ) ) {
 			self::$objects[ $object ] = array();
 		}
@@ -45,7 +45,7 @@ class CareLib_Factory {
 		}
 
 		if ( empty( self::$objects[ $object ][ $name ] ) ) {
-			self::$objects[ $object ][ $name ] = new $class_name;
+			self::$objects[ $object ][ $name ] = new $class_name( $args );
 		}
 
 		return self::$objects[ $object ][ $name ];
