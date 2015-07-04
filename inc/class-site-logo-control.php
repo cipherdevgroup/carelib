@@ -15,7 +15,7 @@
  *
  * @package CareLib
  */
-class CareLib_Site_Logo_Image_Control extends WP_Customize_Control {
+class CareLib_Site_Logo_Control extends WP_Customize_Control {
 	/**
 	 * Constructor for our custom control.
 	 *
@@ -62,7 +62,7 @@ class CareLib_Site_Logo_Image_Control extends WP_Customize_Control {
 	 * @uses plugins_url()
 	 */
 	public function enqueue() {
-		$uri = carelib()->get_uri();
+		$uri = CareLib::instance()->get_uri();
 		// Enqueues all needed media resources.
 		wp_enqueue_media();
 

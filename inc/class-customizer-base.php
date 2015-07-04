@@ -57,8 +57,13 @@ abstract class CareLib_Customizer_Base {
 	 */
 	protected $prefix;
 
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.1.0
+	 */
 	public function __construct() {
-		$this->prefix = carelib()->get_prefix();
+		$this->prefix = CareLib::instance()->get_prefix();
 	}
 
 	/**

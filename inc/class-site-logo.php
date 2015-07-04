@@ -21,7 +21,7 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 	/**
 	 * Stores our current logo settings.
 	 */
-	public $logo;
+	protected $logo;
 
 	/**
 	 * Get our current logo settings stored in options.
@@ -142,7 +142,7 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 	 * @uses wp_localize_script()
 	 */
 	public function scripts() {
-		$uri = carelib()->get_uri();
+		$uri = CareLib::instance()->get_uri();
 
 		wp_enqueue_script(
 			'site-logo-preview',
@@ -331,7 +331,7 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 
 		// Bail if no logo is set. Leave a placeholder if we're in the Customizer, though (needed for the live preview).
 		if ( ! $this->has_site_logo() ) {
-			if ( carelib()->is_customizer_preview() ) {
+			if ( CareLib::instance()->is_customizer_preview() ) {
 				printf( '<a href="%1$s" class="site-logo-link" style="display:none;"><img class="site-logo" data-size="%2$s" /></a>',
 					esc_url( home_url( '/' ) ),
 					esc_attr( $size )

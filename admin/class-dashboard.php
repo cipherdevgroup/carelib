@@ -36,7 +36,7 @@ class CareLib_Admin_Dashboard {
 	protected $asset_prefix;
 
 	public function __construct() {
-		$this->prefix       = carelib()->get_prefix();
+		$this->prefix       = CareLib::instance()->get_prefix();
 		$this->asset_prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}
 
@@ -152,7 +152,7 @@ class CareLib_Admin_Dashboard {
 		if ( ! $this->is_dashboard_page() ) {
 			return;
 		}
-		$dir = carelib()->get_uri();
+		$dir = CareLib::instance()->get_uri();
 		wp_enqueue_script(
 			'carelib',
 			$dir . "js/carelib-dashboard{$this->asset_prefix}.js",
@@ -205,7 +205,7 @@ class CareLib_Admin_Dashboard {
 	 * @return  void
 	 */
 	public function dashboard_page() {
-		require_once carelib()->admin->get_dir() . 'templates/dashboard.php';
+		require_once CareLib::instance()->admin->get_dir() . 'templates/dashboard.php';
 	}
 
 }

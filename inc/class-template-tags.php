@@ -18,6 +18,14 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Template_Tags {
 
 	/**
+	 * The library object.
+	 *
+	 * @since 0.1.0
+	 * @type CareLib
+	 */
+	protected $lib;
+
+	/**
 	 * Filter prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
@@ -25,8 +33,14 @@ class CareLib_Template_Tags {
 	 */
 	protected $prefix;
 
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.1.0
+	 */
 	public function __construct() {
-		$this->prefix = carelib()->get_prefix();
+		$this->lib    = CareLib::instance();
+		$this->prefix = $this->lib->get_prefix();
 	}
 
 	/**
@@ -48,7 +62,7 @@ class CareLib_Template_Tags {
 			}
 			return null;
 		}
-		return carelib()->site_logo->get_site_logo( $format );
+		return $this->lib->site_logo->get_site_logo( $format );
 	}
 
 	/**
@@ -68,7 +82,7 @@ class CareLib_Template_Tags {
 			}
 			return null;
 		}
-		return carelib()->site_logo->has_site_logo();
+		return $this->lib->site_logo->has_site_logo();
 	}
 
 	/**
@@ -91,7 +105,7 @@ class CareLib_Template_Tags {
 			}
 			return;
 		}
-		carelib()->site_logo->the_site_logo();
+		$this->lib->site_logo->the_site_logo();
 	}
 
 	/**
@@ -113,7 +127,7 @@ class CareLib_Template_Tags {
 	 * @return bool true if both our template tag and theme mod return true.
 	 */
 	public function display_breadcrumbs() {
-		$breadcrumbs = carelib()->breadcrumb_display;
+		$breadcrumbs = $this->lib->breadcrumb_display;
 		// Return early if our theme doesn't support breadcrumbs.
 		if ( ! is_object( $breadcrumbs ) ) {
 			return false;

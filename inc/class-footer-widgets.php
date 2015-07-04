@@ -24,6 +24,17 @@ class CareLib_Footer_Widgets {
 	protected $footer_widgets;
 
 	/**
+	 * Constructor method.
+	 *
+	 * @since 0.1.0
+	 */
+	public function __construct() {
+		$this->footer_widgets = get_theme_support(
+			CareLib::instance()->get_prefix() . '-footer-widgets'
+		);
+	}
+
+	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.1.0
@@ -32,8 +43,9 @@ class CareLib_Footer_Widgets {
 	 * @return void
 	 */
 	public function run() {
-		$this->footer_widgets = get_theme_support( carelib()->get_prefix() . '-footer-widgets' );
-		self::wp_hooks();
+		if ( $this->footer_widgets ) {
+			self::wp_hooks();
+		}
 	}
 
 	/**
