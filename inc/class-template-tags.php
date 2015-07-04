@@ -53,16 +53,12 @@ class CareLib_Template_Tags {
 	 * @return mixed The URL or ID of our site logo, false if not set
 	 */
 	public function get_logo( $format = 'url' ) {
-		if ( ! class_exists( 'CareLib_Site_Logo', false ) ) {
-			if ( function_exists( 'jetpack_the_site_logo' ) ) {
-				return jetpack_get_site_logo( $format );
-			}
-			if ( function_exists( 'the_site_logo' ) ) {
-				return get_site_logo( $format );
-			}
-			return null;
+		if ( class_exists( 'CareLib_Site_Logo', false ) ) {
+			return CareLib_Factory::get( 'site-logo' )->get_site_logo( $format );
 		}
-		return $this->lib->site_logo->get_site_logo( $format );
+		if ( function_exists( 'jetpack_the_site_logo' ) ) {
+			return jetpack_get_site_logo( $format );
+		}
 	}
 
 	/**
@@ -73,16 +69,12 @@ class CareLib_Template_Tags {
 	 * @return boolean True if there is an active logo, false otherwise
 	 */
 	public function has_logo() {
-		if ( ! class_exists( 'CareLib_Site_Logo', false ) ) {
-			if ( function_exists( 'jetpack_the_site_logo' ) ) {
-				return jetpack_has_site_logo();
-			}
-			if ( function_exists( 'the_site_logo' ) ) {
-				return has_site_logo();
-			}
-			return null;
+		if ( class_exists( 'CareLib_Site_Logo', false ) ) {
+			return CareLib_Factory::get( 'site-logo' )->has_site_logo();
 		}
-		return $this->lib->site_logo->has_site_logo();
+		if ( function_exists( 'jetpack_the_site_logo' ) ) {
+			return jetpack_has_site_logo();
+		}
 	}
 
 	/**
@@ -94,18 +86,13 @@ class CareLib_Template_Tags {
 	 * @return void
 	 */
 	public function the_logo() {
-		if ( ! class_exists( 'CareLib_Site_Logo', false ) ) {
-			if ( function_exists( 'jetpack_the_site_logo' ) ) {
-				jetpack_the_site_logo();
-				return;
-			}
-			if ( function_exists( 'the_site_logo' ) ) {
-				the_site_logo();
-				return;
-			}
+		if ( class_exists( 'CareLib_Site_Logo', false ) ) {
+			CareLib_Factory::get( 'site-logo' )->the_site_logo();
 			return;
 		}
-		$this->lib->site_logo->the_site_logo();
+		if ( function_exists( 'jetpack_the_site_logo' ) ) {
+			jetpack_the_site_logo();
+		}
 	}
 
 	/**
@@ -127,7 +114,7 @@ class CareLib_Template_Tags {
 	 * @return bool true if both our template tag and theme mod return true.
 	 */
 	public function display_breadcrumbs() {
-		$breadcrumbs = $this->lib->breadcrumb_display;
+		$breadcrumbs = CareLib_Factory::get( 'breadcrumb-display' );
 		// Return early if our theme doesn't support breadcrumbs.
 		if ( ! is_object( $breadcrumbs ) ) {
 			return false;
