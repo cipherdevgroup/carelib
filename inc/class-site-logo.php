@@ -11,6 +11,9 @@
  * @since      0.1.0
  */
 
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Our Site Logo class for managing a theme-agnostic logo through the Customizer.
  *
@@ -119,17 +122,17 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 		);
 
 		// Add our image uploader.
-		$wp_customize->add_control(
-			new CareLib_Site_Logo_Image_Control(
+		$wp_customize->add_control( CareLib_Factory::build( 'site-logo-control', '',
+			array(
 				$wp_customize,
 				'site_logo',
 				array(
 					'label'    => __( 'Logo', 'carelib' ),
 					'section'  => 'title_tagline',
 					'settings' => 'site_logo',
-				)
+				),
 			)
-		);
+		) );
 	}
 
 	/**

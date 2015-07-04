@@ -10,6 +10,9 @@
  * @since     0.1.0
  */
 
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Custom logo uploader control for the Customizer.
  *
@@ -24,7 +27,7 @@ class CareLib_Site_Logo_Control extends WP_Customize_Control {
 	 * @param array $args
 	 * @uses Site_Logo_Image_Control::l10n()
 	 */
-	public function __construct( $wp_customize, $control_id, $args = array() ) {
+	public function __construct( $args = array() ) {
 		// declare these first so they can be overridden
 		$this->l10n = array(
 			'upload'      => __( 'Add logo',    'carelib' ),
@@ -35,7 +38,7 @@ class CareLib_Site_Logo_Control extends WP_Customize_Control {
 			'placeholder' => __( 'No logo set', 'carelib' ),
 		);
 
-		parent::__construct( $wp_customize, $control_id, $args );
+		parent::__construct( $args[0], $args[1], $args[2] );
 	}
 
 	/**
