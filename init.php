@@ -101,7 +101,8 @@ class CareLib {
 	public function run() {
 		spl_autoload_register( array( $this, 'autoloader' ) );
 		self::includes();
-		self::instantiate( 'CareLib_Factory' );
+		self::build( 'CareLib_Factory' );
+		self::build_extensions( 'CareLib_Factory' );
 	}
 
 	/**
@@ -213,7 +214,9 @@ class CareLib {
 	 * @return void
 	 */
 	protected function includes() {
-		require_once "{$this->dir}inc/tha-hooks.php";
+		if ( ! is_admin() ) {
+			require_once "{$this->dir}inc/tha-hooks.php";
+		}
 	}
 
 	/**
@@ -224,24 +227,47 @@ class CareLib {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	protected function instantiate( $factory ) {
+	protected function build( $factory ) {
+		$runnable_classes = array(
+			'breadcrumb-display',
+		);
 		if ( is_admin() ) {
-			$runnable_classes = array(
-				'admin-author-box',
-				'admin-dashboard',
-				'admin-tinymce',
-			);
+			$runnable_classes[] = 'admin-author-box';
+			$runnable_classes[] = 'admin-dashboard';
+			$runnable_classes[] = 'admin-tinymce';
 		} else {
 			$factory::build( 'style-builder' );
 			$factory::build( 'template-tags' );
-			$runnable_classes = array(
-				'attributes',
-				'author-box',
-				'breadcrumb-display',
-				'footer-widgets',
-				'search-form',
-				'seo',
-			);
+			$runnable_classes[] = 'attributes';
+			$runnable_classes[] = 'author-box';
+			$runnable_classes[] = 'search-form';
+			$runnable_classes[] = 'seo';
+		}
+
+		foreach ( $runnable_classes as $class ) {
+			$factory::build( $class );
+			$factory::get( $class )->run();
+		}
+	}
+
+	/**
+	 * Store a reference to our optional classes and get them running.
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @param  $factory string the name of our factory class
+	 * @return void
+	 */
+	protected function build_extensions( $factory ) {
+		$prefix  = $this->prefix;
+		$runnable_classes = array();
+
+		if ( current_theme_supports( "{$prefix}-footer-widgets" ) && ! is_admin() ) {
+			$runnable_classes[] = 'footer-widgets';
+		}
+
+		if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
+			$runnable_classes[] = 'site-logo';
 		}
 
 		foreach ( $runnable_classes as $class ) {
