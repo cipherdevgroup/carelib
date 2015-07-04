@@ -16,11 +16,11 @@ class CareLib_Factory {
 	protected static $objects = array();
 
 	/**
-	 * Build a named multiton object and return it. Keep a reference when
-	 * building so we can reuse it later.
+	 * Build a named object and return it. Keep a reference when building
+	 * so we can reuse it later.
 	 *
-	 * If you pass something like "my object" or "my-object" to $object, the
-	 * Factory will instantiate "CareLib_My_Object"
+	 * If you pass 'my-object' to $object, the Factory will instantiate
+	 * 'CareLib_My_Object'.
 	 *
 	 * @param  string $object Object name.
 	 * @param  string $name Optional. Name of the object.
@@ -32,15 +32,11 @@ class CareLib_Factory {
 			self::$objects[ $object ] = array();
 		}
 
-		$class_name = 'CareLib_' . ucwords(
-			str_replace(
-				array( ' ', '-' ), '_', $object
-			)
-		);
+		$class_name = 'CareLib_' . ucwords( str_replace( '-', '_', $object ) );
 
 		if ( ! class_exists( $class_name ) ) {
 			throw new InvalidArgumentException(
-				'No class exists for the "' . $object . '" object.'
+				"No class exists for the '{$object}' object."
 			);
 		}
 
