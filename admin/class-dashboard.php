@@ -205,7 +205,7 @@ class CareLib_Admin_Dashboard {
 	 * @return  void
 	 */
 	public function dashboard_page() {
-		require_once CareLib::instance()->admin->get_dir() . 'templates/dashboard.php';
+		require_once CareLib::instance()->get_dir() . 'admin/templates/dashboard.php';
 	}
 
 }
