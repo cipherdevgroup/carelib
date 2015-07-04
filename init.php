@@ -252,19 +252,17 @@ class CareLib {
 
 }
 
-if ( ! function_exists( 'carelib' ) ) {
-	/**
-	 * Grab an instance of the main library class. If you need to reference a
-	 * method in the class for some reason, do it using this function.
-	 *
-	 * Example:
-	 *
-	 * <?php carelib()->is_customizer_preview(); ?>
-	 *
-	 * @since   0.1.0
-	 * @return  object CareLib
-	 */
-	function carelib( $args = array() ) {
-		return CareLib::instance( $args );
-	}
+/**
+ * Grab an instance of the main library class. If you need to reference a
+ * method in the class for some reason, do it using this function.
+ *
+ * Example:
+ *
+ * <?php carelib()->is_customizer_preview(); ?>
+ *
+ * @since   0.1.0
+ * @return  object CareLib
+ */
+function carelib( $args = array() ) {
+	return CareLib::instance( $args );
 }
