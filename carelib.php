@@ -177,9 +177,9 @@ class CareLib {
 	 */
 	protected function normalize_uri( $path ) {
 		return str_replace(
-			str_replace( '\\', '/', get_theme_root() ),
+			wp_normalize_path( get_theme_root() ),
 			get_theme_root_uri(),
-			str_replace( '\\', '/', $path )
+			wp_normalize_path( $path )
 		);
 	}
 
@@ -228,25 +228,26 @@ class CareLib {
 	 * @return void
 	 */
 	protected function build( $factory ) {
-		$runnable_classes = array(
-			'breadcrumb-display',
+		$classes = array(
+			'breadcrumb-display' => true,
 		);
 		if ( is_admin() ) {
-			$runnable_classes[] = 'admin-author-box';
-			$runnable_classes[] = 'admin-dashboard';
-			$runnable_classes[] = 'admin-tinymce';
+			$classes['admin-author-box'] = true;
+			$classes['admin-dashboard']  = true;
+			$classes['admin-tinymce']    = true;
 		} else {
-			$factory::build( 'style-builder' );
-			$factory::build( 'template-tags' );
-			$runnable_classes[] = 'attributes';
-			$runnable_classes[] = 'author-box';
-			$runnable_classes[] = 'search-form';
-			$runnable_classes[] = 'seo';
+			$classes['style-builder']    = false;
+			$classes['template-tags']    = false;
+			$classes['attributes']       = true;
+			$classes['author-box']       = true;
+			$classes['search-form']      = true;
+			$classes['seo']              = true;
 		}
-
-		foreach ( $runnable_classes as $class ) {
+		foreach ( $classes as $class => $runnable ) {
 			$factory::build( $class );
-			$factory::get( $class )->run();
+			if ( $runnable ) {
+				$factory::get( $class )->run();
+			}
 		}
 	}
 
@@ -259,20 +260,18 @@ class CareLib {
 	 * @return void
 	 */
 	protected function build_extensions( $factory ) {
-		$prefix  = $this->prefix;
-		$runnable_classes = array();
-
-		if ( current_theme_supports( "{$prefix}-footer-widgets" ) && ! is_admin() ) {
-			$runnable_classes[] = 'footer-widgets';
+		$classes = array();
+		if ( current_theme_supports( "{$this->prefix}-footer-widgets" ) && ! is_admin() ) {
+			$classes['footer-widgets'] = true;
 		}
-
 		if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
-			$runnable_classes[] = 'site-logo';
+			$classes['site-logo'] = true;
 		}
-
-		foreach ( $runnable_classes as $class ) {
+		foreach ( $classes as $class => $runnable ) {
 			$factory::build( $class );
-			$factory::get( $class )->run();
+			if ( $runnable ) {
+				$factory::get( $class )->run();
+			}
 		}
 	}
 
