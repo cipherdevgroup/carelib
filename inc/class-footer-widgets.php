@@ -43,9 +43,7 @@ class CareLib_Footer_Widgets {
 	 * @return void
 	 */
 	public function run() {
-		if ( $this->footer_widgets ) {
-			self::wp_hooks();
-		}
+		self::wp_hooks();
 	}
 
 	/**
