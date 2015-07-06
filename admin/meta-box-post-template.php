@@ -37,8 +37,16 @@ function carelib_meta_box_post_add_template( $post_type, $post ) {
 	$templates = carelib_get_post_templates( $post_type );
 
 	// If there's templates, add the meta box.
-	if ( ! empty( $templates ) && 'page' !== $post_type )
-		add_meta_box( 'hybrid-post-template', esc_html__( 'Template', 'carelib' ), 'carelib_meta_box_post_display_template', $post_type, 'side', 'default' );
+	if ( ! empty( $templates ) && 'page' !== $post_type ) {
+		add_meta_box(
+			'hybrid-post-template',
+			esc_html__( 'Template', 'carelib' ),
+			'carelib_meta_box_post_display_template',
+			$post_type,
+			'side',
+			'default'
+		);
+	}
 }
 
 /**
