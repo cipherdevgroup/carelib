@@ -7,9 +7,9 @@
  * attributes.
  *
  * This is sort of like `body_class()`, `post_class()`, and `comment_class()` on
- * steroids.  Plus, it handles attributes for many more elements.  The biggest
+ * steroids. Plus, it handles attributes for many more elements. The biggest
  * benefit of using this is to provide richer microdata while being forward
- * compatible with the ever-changing Web.  Currently, the default microdata
+ * compatible with the ever-changing Web. Currently, the default microdata
  * vocabulary supported is Schema.org.
  *
  * @package   CareLib
@@ -121,7 +121,7 @@ class CareLib_Attributes {
 	 * This function is actually meant to be filtered by theme authors, plugins,
 	 * or advanced child theme users. The purpose is to allow folks to modify,
 	 * remove, or add any attributes they want without having to edit every
-	 * template file in the theme.  So, one could support microformats instead
+	 * template file in the theme. So, one could support microformats instead
 	 * of microdata, if desired.
 	 *
 	 * @since  0.2.0

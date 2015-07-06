@@ -1,8 +1,8 @@
 <?php
 /**
  * The framework has its own template hierarchy that can be used instead of the default WordPress
- * template hierarchy.  It is not much different than the default.  It was built to extend the default by
- * making it smarter and more flexible.  The goal is to give theme developers and end users an
+ * template hierarchy. It is not much different than the default. It was built to extend the default by
+ * making it smarter and more flexible. The goal is to give theme developers and end users an
  * easy-to-override system that doesn't involve massive amounts of conditional tags within files.
  *
  * @package   CareLib
@@ -155,7 +155,7 @@ function carelib_taxonomy_template( $template ) {
 }
 
 /**
- * Overrides the default single (singular post) template.  Post templates can be loaded using a custom
+ * Overrides the default single (singular post) template. Post templates can be loaded using a custom
  * post template, by slug, or by ID.
  *
  * Attachment templates are handled slightly differently. Rather than look for the slug or ID, templates
@@ -218,9 +218,9 @@ function carelib_singular_template( $template ) {
 
 /**
  * Fix for the front page template handling in WordPress core. Its handling is not logical because it
- * forces devs to account for both a page on the front page and posts on the front page.  Theme devs
- * must handle both scenarios if they've created a "front-page.php" template.  This filter overwrites
- * that and disables the "front-page.php" template if posts are to be shown on the front page.  This
+ * forces devs to account for both a page on the front page and posts on the front page. Theme devs
+ * must handle both scenarios if they've created a "front-page.php" template. This filter overwrites
+ * that and disables the "front-page.php" template if posts are to be shown on the front page. This
  * way, the "front-page.php" template will only ever be used if an actual page is supposed to be
  * shown on the front.
  *
@@ -236,8 +236,8 @@ function carelib_front_page_template( $template ) {
 }
 
 /**
- * Overrides the default comments template.  This filter allows for a "comments-{$post_type}.php"
- * template based on the post type of the current single post view.  If this template is not found, it falls
+ * Overrides the default comments template. This filter allows for a "comments-{$post_type}.php"
+ * template based on the post type of the current single post view. If this template is not found, it falls
  * back to the default "comments.php" template.
  *
  * @since  1.5.0

@@ -3,10 +3,10 @@
  * Get the Image - An advanced post image script for WordPress.
  *
  * Get the Image was created to be a highly-intuitive image script that displays post-specific images (an
- * image-based representation of a post).  The script handles old-style post images via custom fields for
- * backwards compatibility.  It also supports WordPress' built-in featured image functionality.  On top of
+ * image-based representation of a post). The script handles old-style post images via custom fields for
+ * backwards compatibility. It also supports WordPress' built-in featured image functionality. On top of
  * those things, it can automatically set attachment images as the post image or scan the post content for
- * the first image element used.  It can also fall back to a given default image.
+ * the first image element used. It can also fall back to a given default image.
  *
  * @package   GetTheImage
  * @version   1.1.0
@@ -17,9 +17,9 @@
  */
 
 /**
- * Class for getting images related to a post.  Only use this class in your projects if you absolutely know
- * what you're doing and expect your code to break in future versions.  Use the the `get_the_image()`
- * wrapper function instead.  That's the reason it exists.
+ * Class for getting images related to a post. Only use this class in your projects if you absolutely know
+ * what you're doing and expect your code to break in future versions. Use the the `get_the_image()`
+ * wrapper function instead. That's the reason it exists.
  *
  * @since  1.0.0
  * @access public
@@ -36,8 +36,8 @@ class CareLib_Image_Grabber {
 	public $args  = array();
 
 	/**
-	 * Image arguments array filled by the class.  This is used to store data about the image (src,
-	 * width, height, etc.).  In some scenarios, it may not be set, particularly when getting the
+	 * Image arguments array filled by the class. This is used to store data about the image (src,
+	 * width, height, etc.). In some scenarios, it may not be set, particularly when getting the
 	 * raw image HTML.
 	 *
 	 * @since  1.0.0
@@ -56,7 +56,7 @@ class CareLib_Image_Grabber {
 	public $image = '';
 
 	/**
-	 * Original image HTML.  This is set when splitting an image from the content.  By default, this
+	 * Original image HTML. This is set when splitting an image from the content. By default, this
 	 * is only used when 'scan_raw' is set.
 	 *
 	 * @since  1.0.0
@@ -122,7 +122,7 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Constructor method.  This sets up and runs the show.
+	 * Constructor method. This sets up and runs the show.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -297,7 +297,7 @@ class CareLib_Image_Grabber {
 
 	/**
 	 * Figures out if we have an image related to the post. Runs through the various methods of getting
-	 * an image.  If there's a cached image, we'll just use that.
+	 * an image. If there's a cached image, we'll just use that.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -428,8 +428,8 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Gets the first image attached to the post.  If the post itself is an attachment image, that will
-	 * be the image used.  This method also works with sub-attachments (images for audio/video attachments
+	 * Gets the first image attached to the post. If the post itself is an attachment image, that will
+	 * be the image used. This method also works with sub-attachments (images for audio/video attachments
 	 * are a good example).
 	 *
 	 * @since  1.0.0
@@ -467,8 +467,8 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Scans the post content for an image.  It first scans and checks for an image with the
-	 * "wp-image-xxx" ID.  If that exists, it'll grab the actual image attachment.  If not, it looks
+	 * Scans the post content for an image. It first scans and checks for an image with the
+	 * "wp-image-xxx" ID. If that exists, it'll grab the actual image attachment. If not, it looks
 	 * for the image source.
 	 *
 	 * @since  1.0.0
@@ -507,17 +507,17 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Scans the post content for a complete image.  This method will attempt to grab the complete
-	 * HTML for an image.  If an image is found, pretty much all arguments passed in may be ignored
-	 * in favor of getting the actual image used in the post content.  It works with both captions
-	 * and linked images.  However, it can't account for all possible HTML wrappers for images used
+	 * Scans the post content for a complete image. This method will attempt to grab the complete
+	 * HTML for an image. If an image is found, pretty much all arguments passed in may be ignored
+	 * in favor of getting the actual image used in the post content. It works with both captions
+	 * and linked images. However, it can't account for all possible HTML wrappers for images used
 	 * in all setups.
 	 *
 	 * This method was created for use with the WordPress "image" post format where theme authors
-	 * might want to pull the whole image from the content as the user added it.  It's also meant
+	 * might want to pull the whole image from the content as the user added it. It's also meant
 	 * to be used (not required) with the `split_content` option.
 	 *
-	 * Note: This option should not be used if returning the image as an array.  If that's desired,
+	 * Note: This option should not be used if returning the image as an array. If that's desired,
 	 * use the `scan` option instead.
 	 *
 	 * @since  1.0.0
@@ -600,8 +600,8 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Allows developers to create a custom callback function.  If the `callback` argument is set, theme
-	 * developers are expected to **always** return an array.  Even if nothing is found, return an empty
+	 * Allows developers to create a custom callback function. If the `callback` argument is set, theme
+	 * developers are expected to **always** return an array. Even if nothing is found, return an empty
 	 * array.
 	 *
 	 * @since  1.0.0
@@ -624,7 +624,7 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Handles an image attachment.  Other methods rely on this method for
+	 * Handles an image attachment. Other methods rely on this method for
 	 * getting the image data since most images are actually attachments.
 	 *
 	 * @since  1.0.0
@@ -688,7 +688,7 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Formats the image HTML.  This method is only called if the `$image` property isn't set.  It uses
+	 * Formats the image HTML. This method is only called if the `$image` property isn't set. It uses
 	 * the `$image_args` property to set up the image.
 	 *
 	 * @since  1.0.0
@@ -711,7 +711,7 @@ class CareLib_Image_Grabber {
 		// Empty classes array.
 		$classes = array();
 
-		// If there is alt text, set it.  Otherwise, default to the post title.
+		// If there is alt text, set it. Otherwise, default to the post title.
 		$image_alt = ! empty( $this->image_args['alt'] ) ? $this->image_args['alt'] : get_post_field( 'post_title', $this->args['post_id'] );
 
 		// If there's a width/height for the image.
@@ -728,7 +728,7 @@ class CareLib_Image_Grabber {
 		}
 
 		// If there is a width or height, set them as HMTL-ready attributes.
-		$width  = $this->args['width']  ? ' width="' .  esc_attr( $this->args['width']  ) . '"' : '';
+		$width  = $this->args['width']  ? ' width="' . esc_attr( $this->args['width']  ) . '"' : '';
 		$height = $this->args['height'] ? ' height="' . esc_attr( $this->args['height'] ) . '"' : '';
 
 		// srcset attribute
@@ -791,10 +791,10 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Saves the image source as metadata.  Saving the image as meta is actually quite a bit quicker
-	 * if the user doesn't have a persistent caching plugin available.  However, it doesn't play as
+	 * Saves the image source as metadata. Saving the image as meta is actually quite a bit quicker
+	 * if the user doesn't have a persistent caching plugin available. However, it doesn't play as
 	 * nicely with custom image sizes used across multiple themes where one might want to resize images.
-	 * This option should be reserved for advanced users only.  Don't use in publicly-distributed
+	 * This option should be reserved for advanced users only. Don't use in publicly-distributed
 	 * themes.
 	 *
 	 * @since  1.0.0
@@ -831,8 +831,8 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Saves the image attachment as the WordPress featured image.  This is useful for setting the
-	 * featured image for the post in the case that the user forgot to (win for client work!).  It
+	 * Saves the image attachment as the WordPress featured image. This is useful for setting the
+	 * featured image for the post in the case that the user forgot to (win for client work!). It
 	 * should not be used in publicly-distributed themes where you don't know how the user will be
 	 * setting up their site.
 	 *

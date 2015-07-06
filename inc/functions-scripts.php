@@ -1,6 +1,6 @@
 <?php
 /**
- * Functions for handling JavaScript in the framework.  Themes can add support for the
+ * Functions for handling JavaScript in the framework. Themes can add support for the
  * 'hybrid-core-scripts' feature to allow the framework to handle loading the stylesheets into
  * the theme header or footer at an appropriate time.
  *
@@ -45,8 +45,8 @@ function carelib_enqueue_scripts() {
 }
 
 /**
- * Registers stylesheets for the framework.  This function merely registers styles with WordPress using
- * the wp_register_style() function.  It does not load any stylesheets on the site.  If a theme wants to
+ * Registers stylesheets for the framework. This function merely registers styles with WordPress using
+ * the wp_register_style() function. It does not load any stylesheets on the site. If a theme wants to
  * register its own custom styles, it should do so on the 'wp_enqueue_scripts' hook.
  *
  * @since  1.5.0
@@ -59,7 +59,7 @@ function carelib_register_styles() {
 }
 
 /**
- * Returns the parent theme stylesheet URI.  Will return the active theme's stylesheet URI if no child
+ * Returns the parent theme stylesheet URI. Will return the active theme's stylesheet URI if no child
  * theme is active. Be sure to check `is_child_theme()` when using.
  *
  * @since  0.2.0
@@ -83,7 +83,7 @@ function carelib_get_parent_stylesheet_uri() {
 
 /**
  * Filters the 'stylesheet_uri' to allow theme developers to offer a minimized version of their main
- * 'style.css' file.  It will detect if a 'style.min.css' file is available and use it if SCRIPT_DEBUG
+ * 'style.css' file. It will detect if a 'style.min.css' file is available and use it if SCRIPT_DEBUG
  * is disabled.
  *
  * @since  1.5.0
@@ -131,9 +131,9 @@ function carelib_locale_stylesheet_uri( $stylesheet_uri ) {
 }
 
 /**
- * Searches for a locale stylesheet.  This function looks for stylesheets in the `css` folder in the following
- * order:  1) $lang-$region.css, 2) $region.css, 3) $lang.css, and 4) $text_direction.css.  It first checks
- * the child theme for these files.  If they are not present, it will check the parent theme.  This is much
+ * Searches for a locale stylesheet. This function looks for stylesheets in the `css` folder in the following
+ * order:  1) $lang-$region.css, 2) $region.css, 3) $lang.css, and 4) $text_direction.css. It first checks
+ * the child theme for these files. If they are not present, it will check the parent theme. This is much
  * more robust than the WordPress locale stylesheet, allowing for multiple variations and a more flexible
  * hierarchy.
  *

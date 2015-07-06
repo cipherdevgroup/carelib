@@ -1,10 +1,10 @@
 <?php
 /**
  * Media metadata class. This class is for getting and formatting attachment media file metadata. This
- * is for metadata about the actual file and not necessarily any post metadata.  Currently, only
+ * is for metadata about the actual file and not necessarily any post metadata. Currently, only
  * image, audio, and video files are handled.
  *
- * Theme authors need not access this class directly.  Instead, utilize the template tags in the
+ * Theme authors need not access this class directly. Instead, utilize the template tags in the
  * `/inc/template-media.php` file.
  *
  * @package   CareLib
@@ -17,10 +17,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Gets attachment media file metadata.  Each piece of meta will be escaped and formatted when
+ * Gets attachment media file metadata. Each piece of meta will be escaped and formatted when
  * returned so that theme authors can properly utilize it within their themes.
  *
- * Theme authors shouldn't access this class directly.  Instead, utilize the `carelib_media_meta()`
+ * Theme authors shouldn't access this class directly. Instead, utilize the `carelib_media_meta()`
  * and `carelib_get_media_meta()` functions.
  *
  * @since  0.2.0
@@ -89,7 +89,7 @@ class CareLib_Media_Meta {
 	}
 
 	/**
-	 * Magic method for getting media object properties.  Let's keep from failing if a theme
+	 * Magic method for getting media object properties. Let's keep from failing if a theme
 	 * author attempts to access a property that doesn't exist.
 	 *
 	 * @since  0.2.0
@@ -246,7 +246,7 @@ class CareLib_Media_Meta {
 	}
 
 	/**
-	 * Image meta.  Date the image was created.
+	 * Image meta. Date the image was created.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -267,7 +267,7 @@ class CareLib_Media_Meta {
 	}
 
 	/**
-	 * Image meta.  Camera aperture in the form of `f/{$aperture}`.
+	 * Image meta. Camera aperture in the form of `f/{$aperture}`.
 	 *
 	 * @since  0.2.0
 	 * @access public

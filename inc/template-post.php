@@ -1,6 +1,6 @@
 <?php
 /**
- * Template functions related to posts.  The functions in this file are for handling template tags or features
+ * Template functions related to posts. The functions in this file are for handling template tags or features
  * of template tags that WordPress core does not currently handle.
  *
  * @package   CareLib
@@ -50,7 +50,7 @@ function carelib_delete_post_template( $post_id ) {
 }
 
 /**
- * Checks if a post of any post type has a custom template.  This is the equivalent of WordPress'
+ * Checks if a post of any post type has a custom template. This is the equivalent of WordPress'
  * `is_page_template()` function with the exception that it works for all post types.
  *
  * @since  0.2.0
@@ -116,7 +116,7 @@ function carelib_post_author( $args = array() ) {
 /**
  * Function for getting the current post's author in The Loop and linking to the author archive page.
  * This function was created because core WordPress does not have template tags with proper translation
- * and RTL support for this.  An equivalent getter function for `the_author_posts_link()` would
+ * and RTL support for this. An equivalent getter function for `the_author_posts_link()` would
  * instantly solve this issue.
  *
  * @since  0.2.0
@@ -141,7 +141,7 @@ function carelib_get_post_author( $args = array() ) {
 	ob_start();
 	the_author_posts_link();
 	$link = ob_get_clean();
-	// A small piece of my soul just died.  Kittens no longer purr.  Dolphins lost the ability to swim with grace.
+	// A small piece of my soul just died. Kittens no longer purr. Dolphins lost the ability to swim with grace.
 
 	if ( $link ) {
 		$html .= $args['before'];
@@ -165,12 +165,12 @@ function carelib_post_terms( $args = array() ) {
 }
 
 /**
- * This template tag is meant to replace template tags like `the_category()`, `the_terms()`, etc.  These core
+ * This template tag is meant to replace template tags like `the_category()`, `the_terms()`, etc. These core
  * WordPress template tags don't offer proper translation and RTL support without having to write a lot of
- * messy code within the theme's templates.  This is why theme developers often have to resort to custom
- * functions to handle this (even the default WordPress themes do this).  Particularly, the core functions
+ * messy code within the theme's templates. This is why theme developers often have to resort to custom
+ * functions to handle this (even the default WordPress themes do this). Particularly, the core functions
  * don't allow for theme developers to add the terms as placeholders in the accompanying text (ex: "Posted in %s").
- * This funcion is a wrapper for the WordPress `get_the_terms_list()` function.  It uses that to build a
+ * This funcion is a wrapper for the WordPress `get_the_terms_list()` function. It uses that to build a
  * better post terms list.
  *
  * @since  0.2.0
@@ -207,9 +207,9 @@ function carelib_get_post_terms( $args = array() ) {
 }
 
 /**
- * Gets the gallery *item* count.  This is different from getting the gallery *image* count.  By default,
- * WordPress only allows attachments with the 'image' mime type in galleries.  However, some scripts such
- * as Cleaner Gallery allow for other mime types.  This is a more accurate count than the
+ * Gets the gallery *item* count. This is different from getting the gallery *image* count. By default,
+ * WordPress only allows attachments with the 'image' mime type in galleries. However, some scripts such
+ * as Cleaner Gallery allow for other mime types. This is a more accurate count than the
  * carelib_get_gallery_image_count() function since it will count all gallery items regardless of mime type.
  *
  * @todo Check for the [gallery] shortcode with the 'mime_type' parameter and use that in get_posts().

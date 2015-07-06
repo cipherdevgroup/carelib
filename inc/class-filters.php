@@ -4,7 +4,7 @@
  *
  * These filters are for handling adding or modifying the output of common
  * WordPress template tags to make for a richer theme development experience
- * without having to resort to custom template tags.  Many of the filters are
+ * without having to resort to custom template tags. Many of the filters are
  * simply for adding HTML5 microdata.
  *
  * @package   CareLib
@@ -121,7 +121,7 @@ class CareLib_Filters {
 
 	/**
 	 * Wraps page "links" that aren't actually links (just text) with `<span class="page-numbers">` so that they
-	 * can also be styled.  This makes `wp_link_pages()` consistent with the output of `paginate_links()`.
+	 * can also be styled. This makes `wp_link_pages()` consistent with the output of `paginate_links()`.
 	 *
 	 * @since  0.2.0
 	 * @access public

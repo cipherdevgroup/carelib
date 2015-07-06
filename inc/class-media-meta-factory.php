@@ -3,7 +3,7 @@
  * Media metadata factory class. This is a singleton factory class for creating and storing
  * `CareLib_Media_Meta` objects.
  *
- * Theme authors need not access this class directly.  Instead, utilize the template tags in the
+ * Theme authors need not access this class directly. Instead, utilize the template tags in the
  * `/inc/template-media.php` file.
  *
  * @package   CareLib

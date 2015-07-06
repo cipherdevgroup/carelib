@@ -1,6 +1,6 @@
 <?php
 /**
- * General template functions.  These functions are for use throughout the theme's various template files.
+ * General template functions. These functions are for use throughout the theme's various template files.
  * Their main purpose is to handle many of the template tags that are currently lacking in core WordPress.
  *
  * @package   CareLib
@@ -137,8 +137,8 @@ function carelib_get_child_theme_link() {
 }
 
 /**
- * Gets the "blog" (posts page) page URL.  `home_url()` will not always work for this because it
- * returns the front page URL.  Sometimes the blog page URL is set to a different page.  This
+ * Gets the "blog" (posts page) page URL. `home_url()` will not always work for this because it
+ * returns the front page URL. Sometimes the blog page URL is set to a different page. This
  * function handles both scenarios.
  *
  * @since  0.2.0
@@ -218,8 +218,8 @@ function carelib_get_site_description() {
 }
 
 /**
- * Function for figuring out if we're viewing a "plural" page.  In WP, these pages are archives,
- * search results, and the home/blog posts index.  Note that this is similar to, but not quite
+ * Function for figuring out if we're viewing a "plural" page. In WP, these pages are archives,
+ * search results, and the home/blog posts index. Note that this is similar to, but not quite
  * the same as `!is_singular()`, which wouldn't account for the 404 page.
  *
  * @since  0.2.0

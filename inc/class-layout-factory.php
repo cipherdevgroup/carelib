@@ -1,7 +1,7 @@
 <?php
 /**
- * Layout factory class.  This is a singleton factory class for handling the registering and
- * storing of `CareLib_Layout` objects.  Theme authors should utilize the API functions found
+ * Layout factory class. This is a singleton factory class for handling the registering and
+ * storing of `CareLib_Layout` objects. Theme authors should utilize the API functions found
  * in `inc/layouts.php`.
  *
  * @package   CareLib
@@ -14,7 +14,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hybrid Layout Factory class. This is the backbone of the Layouts API.  Theme authors should
+ * Hybrid Layout Factory class. This is the backbone of the Layouts API. Theme authors should
  * utilize the appropriate functions for accessing the `CareLib_Layout_Factory` object.
  *
  * @since  0.2.0

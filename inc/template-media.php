@@ -13,7 +13,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Prints media meta directly to the screen.  The `$property` parameter can be any of the public
+ * Prints media meta directly to the screen. The `$property` parameter can be any of the public
  * properties in the `CareLib_Media_Meta` object.
  *
  * @see    CareLib_Media_Meta
@@ -28,7 +28,7 @@ function carelib_media_meta( $property, $args = array() ) {
 }
 
 /**
- * Returns media meta from a media meta object.  The `$property` parameter can be any of the public
+ * Returns media meta from a media meta object. The `$property` parameter can be any of the public
  * properties in the `CareLib_Media_Meta` object.
  *
  * @see    CareLib_Media_Meta
@@ -58,7 +58,7 @@ function carelib_get_media_meta( $property, $args = array() ) {
 }
 
 /**
- * Returns an instance of the `CareLib_Media_Meta_Factory` singleton.  While theme authors can access
+ * Returns an instance of the `CareLib_Media_Meta_Factory` singleton. While theme authors can access
  * this function directly, it's best to use the `carelib_media_meta()` and `carelib_get_media_meta()`
  * functions for printing/getting media meta object data.
  *
@@ -91,7 +91,7 @@ function carelib_get_attachment_types( $post_id = 0 ) {
 }
 
 /**
- * Returns the main attachment mime type.  For example, `image` when the file has an `image / jpeg`
+ * Returns the main attachment mime type. For example, `image` when the file has an `image / jpeg`
  * mime type.
  *
  * @since  0.2.0
@@ -104,7 +104,7 @@ function carelib_get_attachment_type( $post_id = 0 ) {
 }
 
 /**
- * Returns the attachment mime subtype.  For example, `jpeg` when the file has an `image / jpeg`
+ * Returns the attachment mime subtype. For example, `jpeg` when the file has an `image / jpeg`
  * mime type.
  *
  * @since  0.2.0
@@ -181,7 +181,7 @@ function carelib_get_image_size_links() {
 }
 
 /**
- * Gets the "transcript" for an audio attachment.  This is typically saved as "unsynchronised_lyric", which is
+ * Gets the "transcript" for an audio attachment. This is typically saved as "unsynchronised_lyric", which is
  * the ID3 tag sanitized by WordPress.
  *
  * @since  0.2.0
@@ -194,8 +194,8 @@ function carelib_get_audio_transcript( $post_id = 0 ) {
 }
 
 /**
- * Loads the correct function for handling attachments.  Checks the attachment mime type to call
- * correct function. Image attachments are not loaded with this function.  The functionality for them
+ * Loads the correct function for handling attachments. Checks the attachment mime type to call
+ * correct function. Image attachments are not loaded with this function. The functionality for them
  * should be handled by the theme's attachment or image attachment file.
  *
  * Ideally, all attachments would be appropriately handled within their templates. However, this could
@@ -215,7 +215,7 @@ function carelib_attachment() {
 }
 
 /**
- * Handles application attachments on their attachment pages.  Uses the `<object>` tag to embed media
+ * Handles application attachments on their attachment pages. Uses the `<object>` tag to embed media
  * on those pages.
  *
  * @since  0.3.0
@@ -237,7 +237,7 @@ function carelib_application_attachment( $mime = '', $file = '' ) {
 }
 
 /**
- * Handles text attachments on their attachment pages.  Uses the `<object>` element to embed media
+ * Handles text attachments on their attachment pages. Uses the `<object>` element to embed media
  * in the pages.
  *
  * @since  0.3.0

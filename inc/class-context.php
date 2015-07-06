@@ -38,13 +38,13 @@ class CareLib_Context {
 	}
 
 	/**
-	 * Hybrid's main contextual function.  This allows code to be used more than once without running
-	 * hundreds of conditional checks within the theme.  It returns an array of contexts based on what
-	 * page a visitor is currently viewing on the site.  This function is useful for making dynamic/contextual
+	 * Hybrid's main contextual function. This allows code to be used more than once without running
+	 * hundreds of conditional checks within the theme. It returns an array of contexts based on what
+	 * page a visitor is currently viewing on the site. This function is useful for making dynamic/contextual
 	 * classes, action and filter hooks, and handling the templating system.
 	 *
 	 * Note that time and date can be tricky because any of the conditionals may be true on time-/date-
-	 * based archives depending on several factors.  For example, one could load an archive for a specific
+	 * based archives depending on several factors. For example, one could load an archive for a specific
 	 * second during a specific minute within a specific hour on a specific day and so on.
 	 *
 	 * @since  0.7.0

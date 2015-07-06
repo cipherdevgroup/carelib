@@ -2,9 +2,9 @@
 /**
  * Hybrid Core - A WordPress theme development framework.
  *
- * Hybrid Core is a framework for developing WordPress themes.  The framework allows theme developers
+ * Hybrid Core is a framework for developing WordPress themes. The framework allows theme developers
  * to quickly build themes without having to handle all of the "logic" behind the theme or having to
- * code complex functionality for features that are often needed in themes.  The framework does these
+ * code complex functionality for features that are often needed in themes. The framework does these
  * things for developers to allow them to get back to what matters the most:  developing and designing
  * themes. Themes handle all the markup, style, and scripts while the framework handles the logic.
  *
@@ -29,17 +29,17 @@
 if ( ! class_exists( 'Hybrid', false ) ) {
 
 	/**
-	 * The Hybrid class launches the framework.  It's the organizational structure behind the
-	 * entire framework.  This class should be loaded and initialized before anything else within
+	 * The Hybrid class launches the framework. It's the organizational structure behind the
+	 * entire framework. This class should be loaded and initialized before anything else within
 	 * the theme is called to properly use the framework.
 	 *
 	 * After parent themes call the Hybrid class, they should perform a theme setup function on
-	 * the `after_setup_theme` hook with a priority no later than 11.  This allows the class to
+	 * the `after_setup_theme` hook with a priority no later than 11. This allows the class to
 	 * load theme-supported features at the appropriate time, which is on the `after_setup_theme`
 	 * hook with a priority of 12.
 	 *
 	 * Note that while it is possible to extend this class, it's not usually recommended unless
-	 * you absolutely know what you're doing and expect your sub-class to break on updates.  This
+	 * you absolutely know what you're doing and expect your sub-class to break on updates. This
 	 * class often gets modifications between versions.
 	 *
 	 * @since  0.7.0
@@ -48,8 +48,8 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 	class Hybrid {
 
 		/**
-		 * Constructor method for the Hybrid class.  This method adds other methods of the
-		 * class to specific hooks within WordPress.  It controls the load order of the
+		 * Constructor method for the Hybrid class. This method adds other methods of the
+		 * class to specific hooks within WordPress. It controls the load order of the
 		 * required files for running the framework.
 		 *
 		 * @since  1.0.0
@@ -57,16 +57,12 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-			// Set up an empty object to work with.
-			$GLOBALS['hybrid'] = new stdClass;
-
-			// Set up the load order.
-			add_action( 'after_setup_theme', array( $this, 'constants'     ), -95 );
-			add_action( 'after_setup_theme', array( $this, 'core'          ), -95 );
+			add_action( 'after_setup_theme', array( $this, 'constants' ),     -95 );
+			add_action( 'after_setup_theme', array( $this, 'core' ),          -95 );
 			add_action( 'after_setup_theme', array( $this, 'theme_support' ),  12 );
-			add_action( 'after_setup_theme', array( $this, 'includes'      ),  13 );
-			add_action( 'after_setup_theme', array( $this, 'extensions'    ),  14 );
-			add_action( 'after_setup_theme', array( $this, 'admin'         ),  95 );
+			add_action( 'after_setup_theme', array( $this, 'includes' ),       13 );
+			add_action( 'after_setup_theme', array( $this, 'extensions' ),     14 );
+			add_action( 'after_setup_theme', array( $this, 'admin' ),          95 );
 		}
 
 		/**
@@ -111,8 +107,8 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 		}
 
 		/**
-		 * Loads the core framework files.  These files are needed before loading anything
-		 * else in the framework because they have required functions for use.  Many of the
+		 * Loads the core framework files. These files are needed before loading anything
+		 * else in the framework because they have required functions for use. Many of the
 		 * files run filters that theme authors may wish to remove in their theme setup
 		 * functions.
 		 *
@@ -161,7 +157,7 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 		}
 
 		/**
-		 * Loads the framework files supported by themes.  Functionality in these files should
+		 * Loads the framework files supported by themes. Functionality in these files should
 		 * not be expected within the theme setup function.
 		 *
 		 * @since  0.2.0
@@ -179,10 +175,10 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 		}
 
 		/**
-		 * Load extensions (external projects).  Extensions are projects that are included
-		 * within the framework but are not a part of it.  They are external projects
-		 * developed outside of the framework.  Themes must use `add_theme_support( $extension )`
-		 * to use a specific extension within the theme.  This should be declared on
+		 * Load extensions (external projects). Extensions are projects that are included
+		 * within the framework but are not a part of it. They are external projects
+		 * developed outside of the framework. Themes must use `add_theme_support( $extension )`
+		 * to use a specific extension within the theme. This should be declared on
 		 * `after_setup_theme` no later than a priority of 11.
 		 *
 		 * @since  0.7.0

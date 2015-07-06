@@ -2,9 +2,9 @@
 /**
  * Breadcrumb Trail - A breadcrumb menu script for WordPress.
  *
- * Breadcrumb Trail is a script for showing a breadcrumb trail for any type of page.  It tries to
+ * Breadcrumb Trail is a script for showing a breadcrumb trail for any type of page. It tries to
  * anticipate any type of structure and display the best possible trail that matches your site's
- * permalink structure.  While not perfect, it attempts to fill in the gaps left by many other
+ * permalink structure. While not perfect, it attempts to fill in the gaps left by many other
  * breadcrumb scripts.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
@@ -202,7 +202,7 @@ class CareLib_Breadcrumbs {
 	}
 
 	/**
-	 * Runs through the various WordPress conditional tags to check the current page being viewed.  Once
+	 * Runs through the various WordPress conditional tags to check the current page being viewed. Once
 	 * a condition is met, a specific method is launched to add items to the $items array.
 	 *
 	 * @since  0.6.0
@@ -498,7 +498,7 @@ class CareLib_Breadcrumbs {
 	}
 
 	/**
-	 * Adds a specific post's hierarchy to the items array.  The hierarchy is determined by post type's
+	 * Adds a specific post's hierarchy to the items array. The hierarchy is determined by post type's
 	 * rewrite arguments and whether it has an archive page.
 	 *
 	 * @since  0.6.0
@@ -545,7 +545,7 @@ class CareLib_Breadcrumbs {
 	}
 
 	/**
-	 * Gets post types by slug.  This is needed because the get_post_types() function doesn't exactly
+	 * Gets post types by slug. This is needed because the get_post_types() function doesn't exactly
 	 * match the 'has_archive' argument when it's set as a string instead of a boolean.
 	 *
 	 * @since  0.6.0
@@ -914,9 +914,9 @@ class CareLib_Breadcrumbs {
 	}
 
 	/**
-	 * Get parent posts by path.  Currently, this method only supports getting parents of the 'page'
-	 * post type.  The goal of this function is to create a clear path back to home given what would
-	 * normally be a "ghost" directory.  If any page matches the given path, it'll be added.
+	 * Get parent posts by path. Currently, this method only supports getting parents of the 'page'
+	 * post type. The goal of this function is to create a clear path back to home given what would
+	 * normally be a "ghost" directory. If any page matches the given path, it'll be added.
 	 *
 	 * @since  0.6.0
 	 * @access public
@@ -973,7 +973,7 @@ class CareLib_Breadcrumbs {
 	}
 
 	/**
-	 * Searches for term parents of hierarchical taxonomies.  This function is similar to the WordPress
+	 * Searches for term parents of hierarchical taxonomies. This function is similar to the WordPress
 	 * function get_category_parents() but handles any type of taxonomy.
 	 *
 	 * @since  0.6.0
@@ -1005,9 +1005,9 @@ class CareLib_Breadcrumbs {
 	}
 
 	/**
-	 * Turns %tag% from permalink structures into usable links for the breadcrumb trail.  This feels kind of
+	 * Turns %tag% from permalink structures into usable links for the breadcrumb trail. This feels kind of
 	 * hackish for now because we're checking for specific %tag% examples and only doing it for the 'post'
-	 * post type.  In the future, maybe it'll handle a wider variety of possibilities, especially for custom post
+	 * post type. In the future, maybe it'll handle a wider variety of possibilities, especially for custom post
 	 * types.
 	 *
 	 * @since  0.6.0

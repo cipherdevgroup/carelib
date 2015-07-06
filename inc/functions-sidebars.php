@@ -1,6 +1,6 @@
 <?php
 /**
- * Helper functions for working with the WordPress sidebar system.  Currently, the framework creates a
+ * Helper functions for working with the WordPress sidebar system. Currently, the framework creates a
  * simple function for registering HTML5-ready sidebars instead of the default WordPress unordered lists.
  *
  * @package   CareLib
@@ -13,9 +13,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Wrapper function for WordPress' register_sidebar() function.  This function exists so that theme authors
+ * Wrapper function for WordPress' register_sidebar() function. This function exists so that theme authors
  * can more quickly register sidebars with an HTML5 structure instead of having to write the same code
- * over and over.  Theme authors are also expected to pass in the ID, name, and description of the sidebar.
+ * over and over. Theme authors are also expected to pass in the ID, name, and description of the sidebar.
  * This function can handle the rest at that point.
  *
  * @since  0.2.0

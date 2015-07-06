@@ -1,6 +1,6 @@
 <?php
 /**
- * The main image function for displaying an image.  This is a wrapper for the Get_The_Image class. Use this
+ * The main image function for displaying an image. This is a wrapper for the Get_The_Image class. Use this
  * function in themes rather than the class.
  *
  * @since  0.1.0
@@ -14,7 +14,7 @@ function get_the_image( $args = array() ) {
 }
 
 /**
- * Shows a breadcrumb for all types of pages.  This is a wrapper function for the Breadcrumb_Trail class,
+ * Shows a breadcrumb for all types of pages. This is a wrapper function for the Breadcrumb_Trail class,
  * which should be used in theme templates.
  *
  * @since  0.1.0

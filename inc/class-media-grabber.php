@@ -3,9 +3,9 @@
  * Hybrid Media Grabber - A script for grabbing media related to a post.
  *
  * Hybrid Media Grabber is a script for pulling media either from the post content or attached to the
- * post.  It's an attempt to consolidate the various methods that users have used over the years to
- * embed media into their posts.  This script was written so that theme developers could grab that
- * media and use it in interesting ways within their themes.  For example, a theme could get a video
+ * post. It's an attempt to consolidate the various methods that users have used over the years to
+ * embed media into their posts. This script was written so that theme developers could grab that
+ * media and use it in interesting ways within their themes. For example, a theme could get a video
  * and display it on archive pages alongside the post excerpt or pull it out of the content to display
  * it above the post on single post views.
  *
@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Wrapper function for the CareLib_Media_Grabber class.  Returns the HTML output for the found media.
+ * Wrapper function for the CareLib_Media_Grabber class. Returns the HTML output for the found media.
  *
  * @since  1.6.0
  * @access public
@@ -59,7 +59,7 @@ class CareLib_Media_Grabber {
 	public $original_media = '';
 
 	/**
-	 * The type of media to get.  Current supported types are 'audio' and 'video'.
+	 * The type of media to get. Current supported types are 'audio' and 'video'.
 	 *
 	 * @since  1.6.0
 	 * @access public
@@ -86,7 +86,7 @@ class CareLib_Media_Grabber {
 	public $content = '';
 
 	/**
-	 * Constructor method.  Sets up the media grabber.
+	 * Constructor method. Sets up the media grabber.
 	 *
 	 * @since  1.6.0
 	 * @access public
@@ -124,7 +124,7 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Destructor method.  Removes filters we needed to add.
+	 * Destructor method. Removes filters we needed to add.
 	 *
 	 * @since  1.6.0
 	 * @access public
@@ -148,7 +148,7 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Tries several methods to find media related to the post.  Returns the found media.
+	 * Tries several methods to find media related to the post. Returns the found media.
 	 *
 	 * @since  1.6.0
 	 * @access public
@@ -197,8 +197,8 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * WordPress has a few shortcodes for handling embedding media:  [audio], [video], and [embed].  This
-	 * method figures out the shortcode used in the content.  Once it's found, the appropriate method for
+	 * WordPress has a few shortcodes for handling embedding media:  [audio], [video], and [embed]. This
+	 * method figures out the shortcode used in the content. Once it's found, the appropriate method for
 	 * the shortcode is executed.
 	 *
 	 * @since  1.6.0
@@ -231,7 +231,7 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Handles the output of the WordPress playlist feature.  This searches for the [playlist] shortcode
+	 * Handles the output of the WordPress playlist feature. This searches for the [playlist] shortcode
 	 * if it's used in the content.
 	 *
 	 * @since  0.2.0
@@ -354,7 +354,7 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Gets media attached to the post.  Then, uses the WordPress [audio] or [video] shortcode to handle
+	 * Gets media attached to the post. Then, uses the WordPress [audio] or [video] shortcode to handle
 	 * the HTML output of the media.
 	 *
 	 * @since  1.6.0
@@ -397,7 +397,7 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Removes the found media from the content.  The purpose of this is so that themes can retrieve the
+	 * Removes the found media from the content. The purpose of this is so that themes can retrieve the
 	 * media from the content and display it elsewhere on the page based on its design.
 	 *
 	 * @since  1.6.0
@@ -482,7 +482,7 @@ class CareLib_Media_Grabber {
 
 	/**
 	 * Fix for Spotify embeds because they're the only embeddable service that doesn't work that well
-	 * with custom-sized embeds.  So, we need to adjust this the best we can.  Right now, the only
+	 * with custom-sized embeds. So, we need to adjust this the best we can. Right now, the only
 	 * embed size that works for full-width embeds is the "compact" player (height of 80).
 	 *
 	 * @since  1.6.0

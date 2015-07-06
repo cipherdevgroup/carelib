@@ -1,9 +1,9 @@
 <?php
 /**
- * Adds the template meta box to the post editing screen for public post types.  This feature allows users and
- * devs to create custom templates for any post type, not just pages as default in WordPress core.  The
+ * Adds the template meta box to the post editing screen for public post types. This feature allows users and
+ * devs to create custom templates for any post type, not just pages as default in WordPress core. The
  * functions in this file create the template meta box and save the template chosen by the user when the
- * post is saved.  This file is only used if the theme supports the 'hybrid-core-template-hierarchy' feature.
+ * post is saved. This file is only used if the theme supports the 'hybrid-core-template-hierarchy' feature.
  *
  * @package    HybridCore
  * @subpackage Admin

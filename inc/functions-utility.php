@@ -1,6 +1,6 @@
 <?php
 /**
- * Additional helper functions that the framework or themes may use.  The functions in this file are functions
+ * Additional helper functions that the framework or themes may use. The functions in this file are functions
  * that don't really have a home within any other parts of the framework.
  *
  * @package   CareLib
@@ -24,8 +24,8 @@ add_filter( 'get_the_archive_description', 'carelib_archive_description_filter',
 
 /**
  * This function is for adding extra support for features not default to the core post types.
- * Excerpts are added to the 'page' post type.  Comments and trackbacks are added for the
- * 'attachment' post type.  Technically, these are already used for attachments in core, but
+ * Excerpts are added to the 'page' post type. Comments and trackbacks are added for the
+ * 'attachment' post type. Technically, these are already used for attachments in core, but
  * they're not registered.
  *
  * @since 0.8.0
@@ -54,7 +54,7 @@ function carelib_add_post_type_support() {
 }
 
 /**
- * Function for setting the content width of a theme.  This does not check if a content width has been set; it
+ * Function for setting the content width of a theme. This does not check if a content width has been set; it
  * simply overwrites whatever the content width is.
  *
  * @since  0.2.0
@@ -79,7 +79,7 @@ function carelib_get_content_width() {
 
 /**
  * The WordPress.org theme review requires that a link be provided to the single post page for untitled
- * posts.  This is a filter on 'the_title' so that an '(Untitled)' title appears in that scenario, allowing
+ * posts. This is a filter on 'the_title' so that an '(Untitled)' title appears in that scenario, allowing
  * for the normal method to work.
  *
  * @since  1.6.0
@@ -97,8 +97,8 @@ function carelib_untitled_post( $title ) {
 }
 
 /**
- * Retrieves the file with the highest priority that exists.  The function searches both the stylesheet
- * and template directories.  This function is similar to the locate_template() function in WordPress
+ * Retrieves the file with the highest priority that exists. The function searches both the stylesheet
+ * and template directories. This function is similar to the locate_template() function in WordPress
  * but returns the file name with the URI path instead of the directory path.
  *
  * @since  1.5.0
@@ -131,7 +131,7 @@ function carelib_locate_theme_file( $file_names ) {
 }
 
 /**
- * Converts a hex color to RGB.  Returns the RGB values as an array.
+ * Converts a hex color to RGB. Returns the RGB values as an array.
  *
  * @since  0.2.0
  * @access public
@@ -198,8 +198,8 @@ function carelib_get_min_suffix() {
 }
 
 /**
- * Utility function for including a file if a theme feature is supported and the file exists.  Note
- * that this should not be used in place of the core `require_if_theme_supports()` function.  We need
+ * Utility function for including a file if a theme feature is supported and the file exists. Note
+ * that this should not be used in place of the core `require_if_theme_supports()` function. We need
  * this particular function for checking if the file exists first, which the core function does not
  * handle at the moment.
  *

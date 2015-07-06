@@ -112,7 +112,7 @@ function carelib_get_layouts() {
 }
 
 /**
- * Returns a layout object if it exists.  Otherwise, `FALSE`.
+ * Returns a layout object if it exists. Otherwise, `FALSE`.
  *
  * @see    CareLib_Layout_Factory::get_layout()
  * @see    CareLib_Layout
@@ -126,7 +126,7 @@ function carelib_get_layout( $name ) {
 }
 
 /**
- * Gets the theme layout.  This is the global theme layout defined. Other functions filter the
+ * Gets the theme layout. This is the global theme layout defined. Other functions filter the
  * available `theme_mod_theme_layout` hook to overwrite this.
  *
  * @since  0.2.0
@@ -258,8 +258,8 @@ function carelib_has_user_layout( $layout, $user_id = '' ) {
 }
 
 /**
- * Default filter on the `theme_mod_theme_layout` hook.  By default, we'll check for per-post
- * or per-author layouts saved as metadata.  If set, we'll filter.  Else, just return the
+ * Default filter on the `theme_mod_theme_layout` hook. By default, we'll check for per-post
+ * or per-author layouts saved as metadata. If set, we'll filter. Else, just return the
  * global layout.
  *
  * @since  0.2.0

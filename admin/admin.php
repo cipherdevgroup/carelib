@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme administration functions used with other components of the framework admin.  This file is for
+ * Theme administration functions used with other components of the framework admin. This file is for
  * setting up any basic features and holding additional admin helper functions.
  *
  * @package    HybridCore
@@ -19,7 +19,7 @@ add_action( 'load-post-new.php', 'carelib_admin_load_post_meta_boxes' );
 add_action( 'admin_enqueue_scripts', 'carelib_admin_register_styles',  0 );
 
 /**
- * Loads the core post meta box files on the 'load-post.php' action hook.  Each meta box file is only loaded if
+ * Loads the core post meta box files on the 'load-post.php' action hook. Each meta box file is only loaded if
  * the theme declares support for the feature.
  *
  * @since  0.2.0
@@ -51,7 +51,7 @@ function carelib_admin_register_styles() {
 
 /**
  * Function for getting an array of available custom templates with a specific header. Ideally, this function
- * would be used to grab custom singular post (any post type) templates.  It is a recreation of the WordPress
+ * would be used to grab custom singular post (any post type) templates. It is a recreation of the WordPress
  * page templates function because it doesn't allow for other types of templates.
  *
  * @since  0.7.0

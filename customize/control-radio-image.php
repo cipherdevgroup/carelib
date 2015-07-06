@@ -1,6 +1,6 @@
 <?php
 /**
- * The radio image customize control extends the WP_Customize_Control class.  This class allows
+ * The radio image customize control extends the WP_Customize_Control class. This class allows
  * developers to create a list of image radio inputs.
  *
  * Note, the `$choices` array is slightly different than normal and should be in the form of
