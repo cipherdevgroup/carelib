@@ -102,7 +102,6 @@ class CareLib {
 		spl_autoload_register( array( $this, 'autoloader' ) );
 		self::includes();
 		self::build( 'CareLib_Factory' );
-		self::build_extensions( 'CareLib_Factory' );
 	}
 
 	/**
@@ -230,41 +229,20 @@ class CareLib {
 	protected function build( $factory ) {
 		$classes = array(
 			'breadcrumb-display' => true,
+			'site-logo'          => true,
 		);
 		if ( is_admin() ) {
 			$classes['admin-author-box'] = true;
 			$classes['admin-dashboard']  = true;
 			$classes['admin-tinymce']    = true;
 		} else {
-			$classes['style-builder']    = false;
-			$classes['template-tags']    = false;
 			$classes['attributes']       = true;
 			$classes['author-box']       = true;
+			$classes['footer-widgets']   = true;
+			$classes['style-builder']    = false;
+			$classes['template-tags']    = false;
 			$classes['search-form']      = true;
-		}
-		foreach ( $classes as $class => $runnable ) {
-			$factory::build( $class );
-			if ( $runnable ) {
-				$factory::get( $class )->run();
-			}
-		}
-	}
 
-	/**
-	 * Store a reference to our optional classes and get them running.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @param  $factory string the name of our factory class
-	 * @return void
-	 */
-	protected function build_extensions( $factory ) {
-		$classes = array();
-		if ( current_theme_supports( "{$this->prefix}-footer-widgets" ) && ! is_admin() ) {
-			$classes['footer-widgets'] = true;
-		}
-		if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
-			$classes['site-logo'] = true;
 		}
 		foreach ( $classes as $class => $runnable ) {
 			$factory::build( $class );
