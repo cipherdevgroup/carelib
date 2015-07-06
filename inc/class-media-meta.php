@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
  * Theme authors shouldn't access this class directly.  Instead, utilize the `carelib_media_meta()`
  * and `carelib_get_media_meta()` functions.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  */
 class CareLib_Media_Meta {
@@ -31,7 +31,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Arguments passed in.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -40,7 +40,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Metadata from the wp_get_attachment_metadata() function.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -49,7 +49,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Type of media for the current attachment.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @var    string  image|audio|video
 	 */
@@ -58,7 +58,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Allowed media types.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @var    array
 	 */
@@ -67,7 +67,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Sets up and runs the functionality for getting the attachment meta.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $args
 	 * @return void
@@ -92,7 +92,7 @@ class CareLib_Media_Meta {
 	 * Magic method for getting media object properties.  Let's keep from failing if a theme
 	 * author attempts to access a property that doesn't exist.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $property
 	 * @return mixed
@@ -107,7 +107,7 @@ class CareLib_Media_Meta {
 	 * Function for escaping properties when there is not a specific method for handling them
 	 * within the class.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @param  string|int  $value
 	 * @param  string      $property
@@ -126,7 +126,7 @@ class CareLib_Media_Meta {
 	 *
 	 * Properties: file_name, filesize, file_type, mime_type
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return void
 	 */
@@ -144,7 +144,7 @@ class CareLib_Media_Meta {
 	 * Properties: aperture, camera, caption, copyright, credit, created_timestamp, dimensions,
 	 *             focal_length, iso, shutter_speed
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return void
 	 */
@@ -162,7 +162,7 @@ class CareLib_Media_Meta {
 	 *
 	 * Properties: album, artist, composer, genre, length_formatted, lyrics, track_number, year
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return void
 	 */
@@ -182,7 +182,7 @@ class CareLib_Media_Meta {
 	 *
 	 * Properties: dimensions, length-formatted
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return void
 	 */
@@ -195,7 +195,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Method for grabbing meta formatted metadata by key.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $property
 	 * @return mixed
@@ -224,7 +224,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Image/Video meta. Media width + height dimensions.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $dimensions
 	 * @return string
@@ -248,7 +248,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Image meta.  Date the image was created.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $timestamp
 	 * @return string
@@ -269,7 +269,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Image meta.  Camera aperture in the form of `f/{$aperture}`.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $aperture
 	 * @return string
@@ -287,7 +287,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Image meta. Camera shutter speed in seconds (i18n number format).
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $shutter
 	 * @return string
@@ -316,7 +316,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Audio meta. Lyrics/transcript for an audio file.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -334,7 +334,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Name of the file linked to the permalink for the file.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return string
 	 */
@@ -349,7 +349,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Audio/Video meta. Size of the file.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  int    $file_size
 	 * @return int
@@ -361,7 +361,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Type of file.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $file_type
 	 * @return string
@@ -377,7 +377,7 @@ class CareLib_Media_Meta {
 	/**
 	 * Mime type for the file.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $mime_type
 	 * @return string

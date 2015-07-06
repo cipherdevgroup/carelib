@@ -25,7 +25,7 @@ add_action( 'edit_attachment', 'carelib_meta_box_post_save_template'        );
  * Adds the post template meta box for all public post types, excluding the 'page' post type since WordPress
  * core already handles page templates.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @param  string  $post_type
  * @param  object  $post
@@ -44,7 +44,7 @@ function carelib_meta_box_post_add_template( $post_type, $post ) {
 /**
  * Displays the post template meta box.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @param  object  $object
  * @param  array   $box
@@ -74,7 +74,7 @@ function carelib_meta_box_post_display_template( $post, $box ) {
  * Saves the post template meta box settings as post metadata. Note that this meta is sanitized using the
  * carelib_sanitize_meta() callback function prior to being saved.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @param  int      $post_id The ID of the current post being saved.
  * @param  object   $post    The post object currently being saved.

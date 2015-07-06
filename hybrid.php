@@ -19,7 +19,7 @@
  * write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package   HybridCore
- * @version   3.0.0-dev
+ * @version   0.2.0-dev
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2008 - 2015, Justin Tadlock
  * @link      http://themehybrid.com/hybrid-core
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 		 */
 		public function constants() {
 			// Sets the framework version number.
-			define( 'HYBRID_VERSION', '3.0.0' );
+			define( 'HYBRID_VERSION', '0.2.0' );
 
 			// Theme directory paths.
 			define( 'HYBRID_PARENT', trailingslashit( get_template_directory()   ) );
@@ -151,7 +151,7 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 		 * Removes theme supported features from themes in the case that a user has a plugin
 		 * installed that handles the functionality.
 		 *
-		 * @since  1.3.0
+		 * @since  0.2.0
 		 * @access public
 		 * @return void
 		 */
@@ -164,7 +164,7 @@ if ( ! class_exists( 'Hybrid', false ) ) {
 		 * Loads the framework files supported by themes.  Functionality in these files should
 		 * not be expected within the theme setup function.
 		 *
-		 * @since  2.0.0
+		 * @since  0.2.0
 		 * @access public
 		 * @return void
 		 */

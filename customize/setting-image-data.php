@@ -15,7 +15,7 @@
 /**
  * Saves image data in addition to the URL.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  */
 class CareLib_Customize_Setting_Image_Data extends WP_Customize_Setting {
@@ -23,7 +23,7 @@ class CareLib_Customize_Setting_Image_Data extends WP_Customize_Setting {
 	/**
 	 * Overwrites the `update()` method so we can save some extra data.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $value
 	 * @return string

@@ -234,7 +234,7 @@ class CareLib_Media_Grabber {
 	 * Handles the output of the WordPress playlist feature.  This searches for the [playlist] shortcode
 	 * if it's used in the content.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -298,7 +298,7 @@ class CareLib_Media_Grabber {
 	 * Handles the output of audio/video shortcodes included with the Jetpack plugin (or Jetpack
 	 * Slim) via the Shortcode Embeds feature.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -383,7 +383,7 @@ class CareLib_Media_Grabber {
 	/**
 	 * If the post type itself is an attachment, run the shortcode for the media type.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */

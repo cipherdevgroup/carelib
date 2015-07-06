@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  * over and over.  Theme authors are also expected to pass in the ID, name, and description of the sidebar.
  * This function can handle the rest at that point.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  array   $args
  * @return string  Sidebar ID.
@@ -52,7 +52,7 @@ add_action( 'widgets_init', '__return_false', 95 );
 /**
  * Function for grabbing a dynamic sidebar name.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @global array   $wp_registered_sidebars
  * @param  string  $sidebar_id

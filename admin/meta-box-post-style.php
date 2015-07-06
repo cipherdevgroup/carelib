@@ -21,7 +21,7 @@ add_action( 'edit_attachment', 'carelib_save_post_style'        );
 /**
  * Adds the style meta box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $post_type
  * @param  object  $post
@@ -38,7 +38,7 @@ function carelib_add_post_style_meta_box( $post_type, $post ) {
 /**
  * Callback function for displaying the style meta box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  object  $object
  * @param  array   $box
@@ -67,7 +67,7 @@ function carelib_post_style_meta_box( $post, $box ) {
 /**
  * Saves the post style when submitted via the style meta box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int      $post_id The ID of the current post being saved.
  * @param  object   $post    The post object currently being saved.

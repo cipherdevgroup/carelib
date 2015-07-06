@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Outputs the link back to the site.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -26,7 +26,7 @@ function carelib_site_link() {
 /**
  * Returns a link back to the site.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -40,7 +40,7 @@ function carelib_get_site_link() {
 /**
  * Displays a link to WordPress.org.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -51,7 +51,7 @@ function carelib_wp_link() {
 /**
  * Returns a link to WordPress.org.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -65,7 +65,7 @@ function carelib_get_wp_link() {
 /**
  * Displays a link to the parent theme URI.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -76,7 +76,7 @@ function carelib_theme_link() {
 /**
  * Returns a link to the parent theme URI.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -100,7 +100,7 @@ function carelib_get_theme_link() {
 /**
  * Displays a link to the child theme URI.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -111,7 +111,7 @@ function carelib_child_theme_link() {
 /**
  * Returns a link to the child theme URI.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -141,7 +141,7 @@ function carelib_get_child_theme_link() {
  * returns the front page URL.  Sometimes the blog page URL is set to a different page.  This
  * function handles both scenarios.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -171,7 +171,7 @@ function carelib_site_title() {
 /**
  * Returns the linked site title wrapped in an `<h1>` tag.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -202,7 +202,7 @@ function carelib_site_description() {
 /**
  * Returns the site description wrapped in an `<h2>` tag.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -222,7 +222,7 @@ function carelib_get_site_description() {
  * search results, and the home/blog posts index.  Note that this is similar to, but not quite
  * the same as `!is_singular()`, which wouldn't account for the 404 page.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return bool
  */
@@ -233,7 +233,7 @@ function carelib_is_plural() {
 /**
  * Print the general archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -244,7 +244,7 @@ function carelib_single_archive_title() {
 /**
  * Retrieve the general archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -255,7 +255,7 @@ function carelib_get_single_archive_title() {
 /**
  * Print the author archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -266,7 +266,7 @@ function carelib_single_author_title() {
 /**
  * Retrieve the author archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -277,7 +277,7 @@ function carelib_get_single_author_title() {
 /**
  * Print the year archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -288,7 +288,7 @@ function carelib_single_year_title() {
 /**
  * Retrieve the year archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -299,7 +299,7 @@ function carelib_get_single_year_title() {
 /**
  * Print the week archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -310,7 +310,7 @@ function carelib_single_week_title() {
 /**
  * Retrieve the week archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -323,7 +323,7 @@ function carelib_get_single_week_title() {
 /**
  * Print the day archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -334,7 +334,7 @@ function carelib_single_day_title() {
 /**
  * Retrieve the day archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -345,7 +345,7 @@ function carelib_get_single_day_title() {
 /**
  * Print the hour archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -356,7 +356,7 @@ function carelib_single_hour_title() {
 /**
  * Retrieve the hour archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -367,7 +367,7 @@ function carelib_get_single_hour_title() {
 /**
  * Print the minute archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -378,7 +378,7 @@ function carelib_single_minute_title() {
 /**
  * Retrieve the minute archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -391,7 +391,7 @@ function carelib_get_single_minute_title() {
 /**
  * Print the minute + hour archive title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -402,7 +402,7 @@ function carelib_single_minute_hour_title() {
 /**
  * Retrieve the minute + hour archive title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -413,7 +413,7 @@ function carelib_get_single_minute_hour_title() {
 /**
  * Print the search results title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -424,7 +424,7 @@ function carelib_search_title() {
 /**
  * Retrieve the search results title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -437,7 +437,7 @@ function carelib_get_search_title() {
 /**
  * Retrieve the 404 page title.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -448,7 +448,7 @@ function carelib_404_title() {
 /**
  * Retrieve the 404 page title.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */

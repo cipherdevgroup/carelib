@@ -12,7 +12,7 @@
 /**
  * Handles an array of values by running the `sanitize_callback` through `array_map()`.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  */
 class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
@@ -20,7 +20,7 @@ class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 	/**
 	 * The sanitize callback function to run over each element of the array.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @var    string
 	 */
@@ -31,7 +31,7 @@ class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 	 * runs `array_map()` over the multiple values.  Expected input is an array of values or
 	 * a comma-separated list of values.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array|string  $values
 	 * @return array
@@ -47,7 +47,7 @@ class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 	 * Callback function for `array_map()`.  Uses the defined `sanitize_callback` to filter
 	 * each element of the array.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  mixed  $value
 	 * @return mixed

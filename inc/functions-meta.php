@@ -18,7 +18,7 @@ add_action( 'init', 'carelib_register_meta', 15 );
 /**
  * Registers the framework's custom metadata keys and sets up the sanitize callback function.
  *
- * @since  1.3.0
+ * @since  0.2.0
  * @access public
  * @return void
  */

@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Gets a post template.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -27,7 +27,7 @@ function carelib_get_post_template( $post_id ) {
 /**
  * Sets a post template.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @param  string  $template
@@ -40,7 +40,7 @@ function carelib_set_post_template( $post_id, $template ) {
 /**
  * Deletes a post template.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -53,7 +53,7 @@ function carelib_delete_post_template( $post_id ) {
  * Checks if a post of any post type has a custom template.  This is the equivalent of WordPress'
  * `is_page_template()` function with the exception that it works for all post types.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @param  string  $template  The name of the template to check for.
  * @param  int     $post_id
@@ -78,7 +78,7 @@ function carelib_has_post_template( $template = '', $post_id = '' ) {
 /**
  * Returns the post template meta key.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return string
@@ -104,7 +104,7 @@ function carelib_post_has_content( $post_id = 0 ) {
 /**
  * Outputs a post's author.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  array   $args
  * @return void
@@ -119,7 +119,7 @@ function carelib_post_author( $args = array() ) {
  * and RTL support for this.  An equivalent getter function for `the_author_posts_link()` would
  * instantly solve this issue.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  array   $args
  * @return string
@@ -155,7 +155,7 @@ function carelib_get_post_author( $args = array() ) {
 /**
  * Outputs a post's taxonomy terms.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  array   $args
  * @return void
@@ -173,7 +173,7 @@ function carelib_post_terms( $args = array() ) {
  * This funcion is a wrapper for the WordPress `get_the_terms_list()` function.  It uses that to build a
  * better post terms list.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  array   $args
  * @return string

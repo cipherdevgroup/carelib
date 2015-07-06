@@ -33,7 +33,7 @@ remove_action( 'wp_print_styles', 'print_emoji_styles' );
  * Tells WordPress to load the scripts needed for the framework using the
  * wp_enqueue_script() function.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -62,7 +62,7 @@ function carelib_register_styles() {
  * Returns the parent theme stylesheet URI.  Will return the active theme's stylesheet URI if no child
  * theme is active. Be sure to check `is_child_theme()` when using.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -120,7 +120,7 @@ function carelib_min_stylesheet_uri( $stylesheet_uri, $stylesheet_dir_uri ) {
  * Filters `locale_stylesheet_uri` with a more robust version for checking locale/language/region/direction
  * stylesheets.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $stylesheet_uri
  * @return string
@@ -137,7 +137,7 @@ function carelib_locale_stylesheet_uri( $stylesheet_uri ) {
  * more robust than the WordPress locale stylesheet, allowing for multiple variations and a more flexible
  * hierarchy.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -168,7 +168,7 @@ function carelib_get_locale_style() {
  * Filters the 'stylesheet_uri' and checks if a post has a style that should overwrite the theme's
  * primary `style.css`.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $stylesheet_uri
  * @return string
@@ -189,7 +189,7 @@ function carelib_style_filter( $stylesheet_uri ) {
 /**
  * Gets a post style.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -201,7 +201,7 @@ function carelib_get_post_style( $post_id ) {
 /**
  * Sets a post style.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @param  string  $layout
@@ -214,7 +214,7 @@ function carelib_set_post_style( $post_id, $style ) {
 /**
  * Deletes a post style.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -226,7 +226,7 @@ function carelib_delete_post_style( $post_id ) {
 /**
  * Checks a post if it has a specific style.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -241,7 +241,7 @@ function carelib_has_post_style( $style, $post_id = '' ) {
 /**
  * Wrapper function for returning the metadata key used for objects that can use styles.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */

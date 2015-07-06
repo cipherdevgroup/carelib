@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Creates new layout objects.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  */
 class CareLib_Layout {
@@ -24,7 +24,7 @@ class CareLib_Layout {
 	/**
 	 * Arguments for creating the layout object.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -35,7 +35,7 @@ class CareLib_Layout {
 	/**
 	 * Magic method for getting layout object properties.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $property
 	 * @return mixed
@@ -48,7 +48,7 @@ class CareLib_Layout {
 	/**
 	 * Magic method for setting layout object properties.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $property
 	 * @param  mixed   $value
@@ -62,7 +62,7 @@ class CareLib_Layout {
 	/**
 	 * Magic method for checking if a layout property is set.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $property
 	 * @return bool
@@ -75,7 +75,7 @@ class CareLib_Layout {
 	/**
 	 * Don't allow properties to be unset.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $property
 	 * @return void
@@ -86,7 +86,7 @@ class CareLib_Layout {
 	 * Magic method to use in case someone tries to output the layout object as a string.
 	 * We'll just return the layout name.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return string
 	 */
@@ -97,7 +97,7 @@ class CareLib_Layout {
 	/**
 	 * Register a new layout object
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args  {
@@ -139,7 +139,7 @@ class CareLib_Layout {
 	 * Adds post type support for `theme-layouts` in the event that the layout has been
 	 * explicitly set for one or more post types.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return void
 	 */

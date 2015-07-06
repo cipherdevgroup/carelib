@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * Hybrid Layout Factory class. This is the backbone of the Layouts API.  Theme authors should
  * utilize the appropriate functions for accessing the `CareLib_Layout_Factory` object.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  */
 class CareLib_Layout_Factory {
@@ -25,7 +25,7 @@ class CareLib_Layout_Factory {
 	/**
 	 * Array of layout objects.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @var    array
 	 */
@@ -35,7 +35,7 @@ class CareLib_Layout_Factory {
 	 * Register a new layout object
 	 *
 	 * @see    CareLib_Layout::__construct()
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args
@@ -53,7 +53,7 @@ class CareLib_Layout_Factory {
 	/**
 	 * Unregisters a layout object.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $name
 	 * @return void
@@ -67,7 +67,7 @@ class CareLib_Layout_Factory {
 	/**
 	 * Checks if a layout exists.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $name
 	 * @return bool
@@ -79,7 +79,7 @@ class CareLib_Layout_Factory {
 	/**
 	 * Gets a layout object.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $name
 	 * @return object|bool
@@ -91,7 +91,7 @@ class CareLib_Layout_Factory {
 	/**
 	 * Returns the instance.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return object
 	 */

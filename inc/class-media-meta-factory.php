@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  * Singleton factory class that registers and instantiates `CareLib_Media_Meta` classes. Use the
  * `carelib_media_factory()` function to get the instance.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -28,7 +28,7 @@ class CareLib_Media_Meta_Factory {
 	/**
 	 * Array of media meta objects created via `CareLib_Media_Meta`.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -38,7 +38,7 @@ class CareLib_Media_Meta_Factory {
 	 * Creates a new `CareLib_Media_Meta` object and stores it in the `$media` array by
 	 * post ID.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @param  int       $post_id
 	 */
@@ -49,7 +49,7 @@ class CareLib_Media_Meta_Factory {
 	/**
 	 * Gets a specific `CareLib_Media_Meta` object by post (attachment) ID.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  int     $post_id
 	 * @return object
@@ -66,7 +66,7 @@ class CareLib_Media_Meta_Factory {
 	/**
 	 * Returns the instance of the `CareLib_Media_Meta_Factory`.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return object
 	 */

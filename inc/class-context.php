@@ -144,7 +144,7 @@ class CareLib_Context {
 	 * are backwards compatible with the original body class functionality that existed prior to WordPress
 	 * core adopting this feature.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array        $classes
 	 * @param  string|array $class
@@ -257,7 +257,7 @@ class CareLib_Context {
 	 * are backwards compatible with the original post class functionality that existed prior to WordPress
 	 * core adopting this feature.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array        $classes
 	 * @param  string|array $class
@@ -318,7 +318,7 @@ class CareLib_Context {
 	/**
 	 * Adds custom classes to the WordPress comment class.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array        $classes
 	 * @param  string|array $class

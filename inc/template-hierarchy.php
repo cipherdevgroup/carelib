@@ -225,7 +225,7 @@ function carelib_singular_template( $template ) {
  * shown on the front.
  *
  * @link   http://www.chipbennett.net/2013/09/14/home-page-and-front-page-and-templates-oh-my/
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $template
  * @return string

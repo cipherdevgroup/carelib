@@ -57,7 +57,7 @@ function carelib_add_post_type_support() {
  * Function for setting the content width of a theme.  This does not check if a content width has been set; it
  * simply overwrites whatever the content width is.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @param  int    $width
  * @return void
@@ -69,7 +69,7 @@ function carelib_set_content_width( $width = '' ) {
 /**
  * Function for getting the theme's content width.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @return int
  */
@@ -133,7 +133,7 @@ function carelib_locate_theme_file( $file_names ) {
 /**
  * Converts a hex color to RGB.  Returns the RGB values as an array.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $hex
  * @return array
@@ -159,7 +159,7 @@ function carelib_hex_to_rgb( $hex ) {
 /**
  * Function for grabbing a WP nav menu theme location name.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $location
  * @return string
@@ -174,7 +174,7 @@ function carelib_get_menu_location_name( $location ) {
 /**
  * Function for grabbing a WP nav menu name based on theme location.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $location
  * @return string
@@ -189,7 +189,7 @@ function carelib_get_menu_name( $location ) {
 /**
  * Helper function for getting the script/style `.min` suffix for minified files.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -203,7 +203,7 @@ function carelib_get_min_suffix() {
  * this particular function for checking if the file exists first, which the core function does not
  * handle at the moment.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $feature
  * @param  string  $file
@@ -218,7 +218,7 @@ function carelib_require_if_theme_supports( $feature, $file ) {
 /**
  * Filters `get_the_archve_title` to add better archive titles than core.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $title
  * @return string
@@ -275,7 +275,7 @@ function carelib_archive_title_filter( $title ) {
 /**
  * Filters `get_the_archve_description` to add better archive descriptions than core.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $desc
  * @return string

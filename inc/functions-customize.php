@@ -32,7 +32,7 @@ add_action( 'customize_preview_init', 'carelib_customize_preview_enqueue_scripts
  * These are classes that extend the core `WP_Customize_*` classes to provide
  * theme authors access to functionality that core doesn't handle out of the box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -59,7 +59,7 @@ function carelib_load_customize_classes( $wp_customize ) {
 /**
  * Register customizer panels, sections, controls, and/or settings.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -100,7 +100,7 @@ function carelib_customize_register( $wp_customize ) {
 /**
  * Register customizer controls scripts.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -117,7 +117,7 @@ function carelib_customize_controls_register_scripts() {
 /**
  * Register customizer controls styles.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -131,7 +131,7 @@ function carelib_customize_controls_register_styles() {
 /**
  * Register customizer preview scripts.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -148,7 +148,7 @@ function carelib_customize_preview_register_scripts() {
 /**
  * Register customizer preview scripts.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */

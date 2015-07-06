@@ -15,7 +15,7 @@
 /**
  * Multiple select customize control class.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  */
 class CareLib_Customize_Control_Select_Group extends WP_Customize_Control {
@@ -23,7 +23,7 @@ class CareLib_Customize_Control_Select_Group extends WP_Customize_Control {
 	/**
 	 * The type of customize control being rendered.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @var    string
 	 */
@@ -32,7 +32,7 @@ class CareLib_Customize_Control_Select_Group extends WP_Customize_Control {
 	/**
 	 * Enqueue scripts/styles.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -43,7 +43,7 @@ class CareLib_Customize_Control_Select_Group extends WP_Customize_Control {
 	/**
 	 * Add custom parameters to pass to the JS via JSON.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -70,7 +70,7 @@ class CareLib_Customize_Control_Select_Group extends WP_Customize_Control {
 	/**
 	 * Underscore JS template to handle the control's output.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */

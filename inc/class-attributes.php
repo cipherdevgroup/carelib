@@ -105,7 +105,7 @@ class CareLib_Attributes {
 	/**
 	 * Output an HTML element's attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $slug     The slug/ID of the element (e.g., 'sidebar').
 	 * @param  string  $context  A specific context (e.g., 'primary').
@@ -124,7 +124,7 @@ class CareLib_Attributes {
 	 * template file in the theme.  So, one could support microformats instead
 	 * of microdata, if desired.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $slug     The slug/ID of the element (e.g., 'sidebar').
 	 * @param  string  $context  A specific context (e.g., 'primary').
@@ -164,7 +164,7 @@ class CareLib_Attributes {
 	/**
 	 * <body> element attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -188,7 +188,7 @@ class CareLib_Attributes {
 	/**
 	 * Page <header> element attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -234,7 +234,7 @@ class CareLib_Attributes {
 	/**
 	 * Page <footer> element attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -252,7 +252,7 @@ class CareLib_Attributes {
 	/**
 	 * Main content container of the page attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -272,7 +272,7 @@ class CareLib_Attributes {
 	/**
 	 * Sidebar attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -304,7 +304,7 @@ class CareLib_Attributes {
 	/**
 	 * Nav menu attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -360,7 +360,7 @@ class CareLib_Attributes {
 	/**
 	 * <head> attributes.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -375,7 +375,7 @@ class CareLib_Attributes {
 	/**
 	 * Branding (usually a wrapper for title and tagline) attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -390,7 +390,7 @@ class CareLib_Attributes {
 	/**
 	 * Site title attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -407,7 +407,7 @@ class CareLib_Attributes {
 	/**
 	 * Site description attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -424,7 +424,7 @@ class CareLib_Attributes {
 	/**
 	 * Archive header attributes.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -441,7 +441,7 @@ class CareLib_Attributes {
 	/**
 	 * Archive title attributes.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -457,7 +457,7 @@ class CareLib_Attributes {
 	/**
 	 * Archive description attributes.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -473,7 +473,7 @@ class CareLib_Attributes {
 	/**
 	 * Post <article> element attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -512,7 +512,7 @@ class CareLib_Attributes {
 	/**
 	 * Post title attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -527,7 +527,7 @@ class CareLib_Attributes {
 	/**
 	 * Post author attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -544,7 +544,7 @@ class CareLib_Attributes {
 	/**
 	 * Post time/published attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -563,7 +563,7 @@ class CareLib_Attributes {
 	/**
 	 * Post content (not excerpt) attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -582,7 +582,7 @@ class CareLib_Attributes {
 	/**
 	 * Post summary/excerpt attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -597,7 +597,7 @@ class CareLib_Attributes {
 	/**
 	 * Post terms (tags, categories, etc.) attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @param  string  $context
@@ -621,7 +621,7 @@ class CareLib_Attributes {
 	/**
 	 * Comment wrapper attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -643,7 +643,7 @@ class CareLib_Attributes {
 	/**
 	 * Comment author attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -660,7 +660,7 @@ class CareLib_Attributes {
 	/**
 	 * Comment time/published attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -679,7 +679,7 @@ class CareLib_Attributes {
 	/**
 	 * Comment permalink attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array
@@ -695,7 +695,7 @@ class CareLib_Attributes {
 	/**
 	 * Comment content/text attributes.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array   $attr
 	 * @return array

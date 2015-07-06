@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * properties in the `CareLib_Media_Meta` object.
  *
  * @see    CareLib_Media_Meta
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $property
  * @param  array   $args
@@ -32,7 +32,7 @@ function carelib_media_meta( $property, $args = array() ) {
  * properties in the `CareLib_Media_Meta` object.
  *
  * @see    CareLib_Media_Meta
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $property
  * @param  array   $args
@@ -63,7 +63,7 @@ function carelib_get_media_meta( $property, $args = array() ) {
  * functions for printing/getting media meta object data.
  *
  * @see    CareLib_Media_Meta_Factory
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return object
  */
@@ -75,7 +75,7 @@ function carelib_media_meta_factory() {
  * Splits the attachment mime type into two distinct parts: type / subtype (e.g., image / png).
  * Returns an array of the parts.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int    $post_id
  * @return array
@@ -94,7 +94,7 @@ function carelib_get_attachment_types( $post_id = 0 ) {
  * Returns the main attachment mime type.  For example, `image` when the file has an `image / jpeg`
  * mime type.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int    $post_id
  * @return string
@@ -107,7 +107,7 @@ function carelib_get_attachment_type( $post_id = 0 ) {
  * Returns the attachment mime subtype.  For example, `jpeg` when the file has an `image / jpeg`
  * mime type.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int    $post_id
  * @return string
@@ -143,7 +143,7 @@ function carelib_attachment_is_video( $post_id = 0 ) {
 /**
  * Returns a set of image attachment links based on size.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -184,7 +184,7 @@ function carelib_get_image_size_links() {
  * Gets the "transcript" for an audio attachment.  This is typically saved as "unsynchronised_lyric", which is
  * the ID3 tag sanitized by WordPress.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return string

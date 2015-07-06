@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Outputs the comment reply link.  Only use outside of `wp_list_comments()`.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  array   $args
  * @return void
@@ -28,7 +28,7 @@ function carelib_comment_reply_link( $args = array() ) {
  * `wp_list_comments()` without passing in the proper arguments (it isn't meant to).  This function is just a
  * wrapper for `get_comment_reply_link()`, which adds in the arguments automatically.
  *
- * @since  2.0.0
+ * @since  0.2.0
  * @access public
  * @param  array  $args
  * @return string

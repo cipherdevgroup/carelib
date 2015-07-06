@@ -27,7 +27,7 @@ add_filter( 'theme_mod_theme_layout', 'carelib_filter_layout', 5 );
  * Returns the instance of the `CareLib_Layout_Factory` object. Use this function to access the object.
  *
  * @see    CareLib_Layout_Factory
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return object
  */
@@ -38,7 +38,7 @@ function carelib_layouts() {
 /**
  * Registers the default theme layouts.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -63,7 +63,7 @@ function carelib_register_layouts() {
  * Function for registering a layout.
  *
  * @see    CareLib_Layout_Factory::register_layout()
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $name
  * @param  array   $args
@@ -77,7 +77,7 @@ function carelib_register_layout( $name, $args = array() ) {
  * Unregisters a layout.
  *
  * @see    CareLib_Layout_Factory::unregister_layout()
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $name
  * @return void
@@ -90,7 +90,7 @@ function carelib_unregister_layout( $name ) {
  * Checks if a layout exists.
  *
  * @see    CareLib_Layout_Factory::layout_exists()
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $name
  * @return bool
@@ -103,7 +103,7 @@ function carelib_layout_exists( $name ) {
  * Returns an array of registered layout objects.
  *
  * @see    CareLib_Layout_Factory::layout
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return array
  */
@@ -116,7 +116,7 @@ function carelib_get_layouts() {
  *
  * @see    CareLib_Layout_Factory::get_layout()
  * @see    CareLib_Layout
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string      $name
  * @return object|bool
@@ -129,7 +129,7 @@ function carelib_get_layout( $name ) {
  * Gets the theme layout.  This is the global theme layout defined. Other functions filter the
  * available `theme_mod_theme_layout` hook to overwrite this.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -140,7 +140,7 @@ function carelib_get_theme_layout() {
 /**
  * Returns the default layout defined by the theme.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */
@@ -153,7 +153,7 @@ function carelib_get_default_layout() {
 /**
  * Gets a post layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -165,7 +165,7 @@ function carelib_get_post_layout( $post_id ) {
 /**
  * Sets a post layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @param  string  $layout
@@ -178,7 +178,7 @@ function carelib_set_post_layout( $post_id, $layout ) {
 /**
  * Deletes a post layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -190,7 +190,7 @@ function carelib_delete_post_layout( $post_id ) {
 /**
  * Checks a post if it has a specific layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -206,7 +206,7 @@ function carelib_has_post_layout( $layout, $post_id = '' ) {
 /**
  * Gets a user layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $user_id
  * @return bool
@@ -218,7 +218,7 @@ function carelib_get_user_layout( $user_id ) {
 /**
  * Sets a user layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $user_id
  * @param  string  $layout
@@ -231,7 +231,7 @@ function carelib_set_user_layout( $user_id, $layout ) {
 /**
  * Deletes user layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int     $user_id
  * @return bool
@@ -243,7 +243,7 @@ function carelib_delete_user_layout( $user_id ) {
 /**
  * Checks if a user/author has a specific layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $layout
  * @param  int     $user_id
@@ -262,7 +262,7 @@ function carelib_has_user_layout( $layout, $user_id = '' ) {
  * or per-author layouts saved as metadata.  If set, we'll filter.  Else, just return the
  * global layout.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $theme_layout
  * @return string
@@ -282,7 +282,7 @@ function carelib_filter_layout( $theme_layout ) {
 /**
  * Returns an array of the available theme layouts.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  bool   $supports
  * @param  array  $args
@@ -304,7 +304,7 @@ function carelib_theme_layouts_support( $supports, $args, $feature ) {
 /**
  * Wrapper function for returning the metadata key used for objects that can use layouts.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return string
  */

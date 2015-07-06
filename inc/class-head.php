@@ -40,7 +40,7 @@ class CareLib_Head {
 	/**
 	 * Adds the meta charset to the header.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class CareLib_Head {
 	/**
 	 * Adds the meta viewport to the header.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 */
 	public function meta_viewport() {
@@ -61,7 +61,7 @@ class CareLib_Head {
 	/**
 	 * Adds the pingback link to the header.
 	 *
-	 * @since  2.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */

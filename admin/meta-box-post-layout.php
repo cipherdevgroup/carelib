@@ -21,7 +21,7 @@ add_action( 'edit_attachment', 'carelib_save_post_layout'        );
 /**
  * Adds the layout meta box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  string  $post_type
  * @param  object  $post
@@ -42,7 +42,7 @@ function carelib_add_post_layout_meta_box( $post_type ) {
 /**
  * Loads the scripts/styles for the layout meta box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -53,7 +53,7 @@ function carelib_post_layout_enqueue() {
 /**
  * Callback function for displaying the layout meta box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  object  $object
  * @param  array   $box
@@ -91,7 +91,7 @@ function carelib_post_layout_meta_box( $post, $box ) {
 /**
  * Saves the post layout when submitted via the layout meta box.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @param  int      $post_id The ID of the current post being saved.
  * @param  object   $post    The post object currently being saved.

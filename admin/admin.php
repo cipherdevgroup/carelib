@@ -22,7 +22,7 @@ add_action( 'admin_enqueue_scripts', 'carelib_admin_register_styles',  0 );
  * Loads the core post meta box files on the 'load-post.php' action hook.  Each meta box file is only loaded if
  * the theme declares support for the feature.
  *
- * @since  1.2.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -41,7 +41,7 @@ function carelib_admin_load_post_meta_boxes() {
 /**
  * Registers admin styles.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @return void
  */
@@ -99,7 +99,7 @@ function carelib_get_post_templates( $post_type = 'post' ) {
  * Gets the stylesheet files within the parent or child theme and checks if they have the 'Style Name'
  * header. If any files are found, they are returned in an array.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  * @global object  $hybrid
  * @return array

@@ -14,7 +14,7 @@
 /**
  * Theme Layout customize control class.
  *
- * @since  3.0.0
+ * @since  0.2.0
  * @access public
  */
 class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_Image {
@@ -22,7 +22,7 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	/**
 	 * The default customizer section this control is attached to.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @var    string
 	 */
@@ -31,7 +31,7 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	/**
 	 * Set up our control.
 	 *
-	 * @since  3.0.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  object  $manager
 	 * @param  string  $id
