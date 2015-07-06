@@ -33,6 +33,8 @@ class CareLib_Template_Tags {
 	 */
 	protected $prefix;
 
+	protected $attr;
+
 	/**
 	 * Constructor method.
 	 *
@@ -41,6 +43,7 @@ class CareLib_Template_Tags {
 	public function __construct() {
 		$this->lib    = CareLib::instance();
 		$this->prefix = $this->lib->get_prefix();
+		$this->attr   = CareLib_Factory::get( 'attributes' );
 	}
 
 	/**
@@ -183,7 +186,7 @@ class CareLib_Template_Tags {
 		$args = wp_parse_args( $args, $defaults );
 
 		$id   = isset( $args['post_id'] ) ? $args['post_id'] : '';
-		$attr = isset( $args['attr'] ) ? hybrid_get_attr( $args['attr'] ) : '';
+		$attr = isset( $args['attr'] ) ? $this->attr->get_attr( $args['attr'] ) : '';
 		$link = isset( $args['link'] ) ? $args['link'] : '';
 
 		$output = isset( $args['before'] ) ? $args['before'] : '';
@@ -200,7 +203,7 @@ class CareLib_Template_Tags {
 	}
 
 	/**
-	 * This is simply a wrapper function for hybrid_get_post_author which adds a few
+	 * This is simply a wrapper function for carelib_get_post_author which adds a few
 	 * filters to make the function a bit more flexible. This will allow us to avoid
 	 * passing args into the function by default in our templates. Instead, we can
 	 * filter the defaults globally which gives us a cleaner template file.
@@ -222,7 +225,7 @@ class CareLib_Template_Tags {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		return apply_filters( "{$this->prefix}_entry_author", hybrid_get_post_author( $args ), $args );
+		return apply_filters( "{$this->prefix}_entry_author", carelib_get_post_author( $args ), $args );
 	}
 
 	/**
@@ -248,7 +251,7 @@ class CareLib_Template_Tags {
 		$args = wp_parse_args( $args, $defaults );
 
 		$output  = isset( $args['before'] ) ? $args['before'] : '';
-		$output .= sprintf( $args['wrap'], hybrid_get_attr( $args['attr'] ), $args['date'] );
+		$output .= sprintf( $args['wrap'], $this->attr->get_attr( $args['attr'] ), $args['date'] );
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
 		return apply_filters( "{$this->prefix}_entry_published", $output, $args );
@@ -417,7 +420,7 @@ class CareLib_Template_Tags {
 
 		$output = '';
 
-		$output .= '<nav ' . hybrid_get_attr( 'nav', 'single' ) . '>';
+		$output .= '<nav ' . $this->attr->get_attr( 'nav', 'single' ) . '>';
 		$output .= $links;
 		$output .= '</nav><!-- .nav-single -->';
 
@@ -461,7 +464,7 @@ class CareLib_Template_Tags {
 
 		$output = '';
 
-		$output .= '<nav ' . hybrid_get_attr( 'nav', 'archive' ) . '>';
+		$output .= '<nav ' . $this->attr->get_attr( 'nav', 'archive' ) . '>';
 		$output .= sprintf(
 			'<span class="nav-previous">%s</span>',
 			get_previous_posts_link( $args['prev_link_text'] )
@@ -552,7 +555,7 @@ class CareLib_Template_Tags {
 			// Translators: 1 is current year, 2 is site name/link, 3 is the theme author name/link.
 			__( 'Copyright &#169; %1$s %2$s. Free WordPress Theme by %3$s', 'alpha' ),
 			date_i18n( 'Y' ),
-			hybrid_get_site_link(),
+			carelib_get_site_link(),
 			$this->get_credit_link()
 		);
 		$info .= '</div>';
