@@ -241,7 +241,6 @@ class CareLib {
 			$classes['attributes']       = true;
 			$classes['author-box']       = true;
 			$classes['search-form']      = true;
-			$classes['seo']              = true;
 		}
 		foreach ( $classes as $class => $runnable ) {
 			$factory::build( $class );
