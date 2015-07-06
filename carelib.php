@@ -96,12 +96,43 @@ class CareLib {
 	 * Method to initialize the plugin.
 	 *
 	 * @since  0.1.0
+	 * @access public
 	 * @return void
 	 */
 	public function run() {
+		add_action( 'after_setup_theme', array( $this, 'core' ),          -95 );
+		add_action( 'after_setup_theme', array( $this, 'theme_support' ),  12 );
+	}
+
+	/**
+	 * Loads and instantiates all library functionality.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function core() {
 		spl_autoload_register( array( $this, 'autoloader' ) );
 		self::includes();
 		self::build( 'CareLib_Factory' );
+	}
+
+	/**
+	* Sets up default theme support.
+	*
+	* @since  0.2.0
+	* @access public
+	* @return void
+	*/
+	public function theme_support() {
+		add_theme_support( 'title-tag' );
+		add_theme_support( 'html5', array(
+			'caption',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'search-form',
+		) );
 	}
 
 	/**
@@ -229,22 +260,46 @@ class CareLib {
 	protected function build( $factory ) {
 		$classes = array(
 			'breadcrumb-display' => true,
+			'layout'             => false,
+			'layout-factory'     => false,
+			'layouts'            => true,
 			'site-logo'          => true,
+			'i18n'               => true,
+			'sidebars'           => true,
 		);
 		if ( is_admin() ) {
 			$classes['admin-author-box'] = true;
 			$classes['admin-dashboard']  = true;
 			$classes['admin-tinymce']    = true;
 		} else {
-			$classes['attributes']       = true;
-			$classes['author-box']       = true;
-			$classes['footer-widgets']   = true;
-			$classes['style-builder']    = false;
-			$classes['template-tags']    = false;
-			$classes['search-form']      = true;
-
+			$classes['attributes']         = true;
+			$classes['author-box']         = true;
+			$classes['breadcrumb']         = true;
+			$classes['footer-widgets']     = true;
+			$classes['style-builder']      = false;
+			$classes['template-tags']      = false;
+			$classes['search-form']        = true;
+			$classes['media-meta']         = false;
+			$classes['media-meta-factory'] = false;
+			$classes['media-grabber']      = false;
+			$classes['context']            = true;
+			$classes['customize']          = true;
+			$classes['filters']            = true;
+			$classes['head']               = true;
+			$classes['image-grabber']      = false;
+			$classes['meta']               = true;
+			$classes['sidebars']           = true;
+			$classes['scripts']            = true;
+			$classes['styles']             = true;
+			$classes['template']           = true;
+			$classes['template-comments']  = true;
+			$classes['template-general']   = true;
+			$classes['template-media']     = true;
+			$classes['template-post']      = true;
+			$classes['template-hierarchy'] = true;
 		}
-		foreach ( $classes as $class => $runnable ) {
+		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
+		foreach ( (array) $classes as $class => $runnable ) {
 			$factory::build( $class );
 			if ( $runnable ) {
 				$factory::get( $class )->run();
