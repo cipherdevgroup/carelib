@@ -160,7 +160,7 @@ class CareLib_Context {
 
 		// Locale and language.
 		$locale = get_locale();
-		$lang   = get_language( $locale );
+		$lang   = CareLib_Factory::get( 'i18n' )->get_language( $locale );
 
 		if ( $locale !== $lang ) {
 			$classes[] = $lang;
