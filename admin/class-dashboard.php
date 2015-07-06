@@ -58,7 +58,7 @@ class CareLib_Admin_Dashboard {
 	 * @access public
 	 * @return void
 	 */
-	private function wp_hooks() {
+	protected function wp_hooks() {
 		add_action( 'admin_init',            array( $this, 'register_settings' ),  10 );
 		add_action( 'admin_menu',            array( $this, 'dashboard_menu' ),     10 );
 		add_action( 'after_switch_theme',    array( $this, 'dashboard_setup' ),    10 );

@@ -37,7 +37,7 @@ class CareLib_Admin_TinyMCE {
 	 * @access public
 	 * @return void
 	 */
-	private function wp_hooks() {
+	protected function wp_hooks() {
 		add_filter( 'mce_buttons',          array( $this, 'add_styleselect' ),     99 );
 		add_filter( 'mce_buttons_2',        array( $this, 'disable_styleselect' ), 99 );
 		add_filter( 'tiny_mce_before_init', array( $this, 'tinymce_formats' ),     99 );

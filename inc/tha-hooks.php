@@ -9,7 +9,7 @@
  * @since     0.2.0
  */
 
-// Exit if accessed directly
+// Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'tha_content_while_before' ) ) {

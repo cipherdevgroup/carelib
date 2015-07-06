@@ -37,7 +37,7 @@ class CareLib_Admin_Author_Box {
 	 * @access public
 	 * @return void
 	 */
-	private function wp_hooks() {
+	protected function wp_hooks() {
 		add_filter( 'user_contactmethods',      array( $this, 'user_contactmethods' ) );
 		add_action( 'show_user_profile',        array( $this, 'user_fields' ) );
 		add_action( 'edit_user_profile',        array( $this, 'user_fields' ) );

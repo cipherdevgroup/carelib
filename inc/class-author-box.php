@@ -2,14 +2,13 @@
 /**
  * General theme helper functions.
  *
- * @package    CareLib
- * @subpackage HybridCore
- * @copyright  Copyright (c) 2015, WP Site Care, LLC
- * @license    GPL-2.0+
- * @since      0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
-// Exit if accessed directly
+// Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -38,8 +37,8 @@ class CareLib_Author_Box {
 	 * @access public
 	 * @return void
 	 */
-	private function wp_hooks() {
-		add_filter( 'hybrid_attr_author-box', array( $this, 'attributes' ), 10, 2 );
+	protected function wp_hooks() {
+		add_filter( 'carelib_attr_author-box', array( $this, 'attributes' ), 10, 2 );
 	}
 
 	/**
