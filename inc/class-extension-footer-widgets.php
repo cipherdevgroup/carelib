@@ -2,14 +2,13 @@
 /**
  * CareLib Footer Widgets Class.
  *
- * @package    CareLib
- * @subpackage HybridCore
- * @copyright  Copyright (c) 2015, WP Site Care, LLC
- * @license    GPL-2.0+
- * @since      0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
-// Exit if accessed directly
+// Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -17,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Footer_Widgets {
+class CareLib_Extension_Footer_Widgets {
 
 	protected $counter = 1;
 
@@ -56,9 +55,9 @@ class CareLib_Footer_Widgets {
 	 * @uses   add_action
 	 * @return void
 	 */
-	private function wp_hooks() {
+	protected function wp_hooks() {
 		add_action( 'widgets_init',               array( $this, 'register' ) );
-		add_action( 'hybrid_attr_footer-widgets', array( $this, 'attributes' ) );
+		add_action( 'carelib_attr_footer-widgets', array( $this, 'attributes' ) );
 	}
 
 	/**
@@ -78,7 +77,7 @@ class CareLib_Footer_Widgets {
 		$counter = $this->counter;
 
 		while ( $counter <= absint( $this->footer_widgets[0] ) ) {
-			hybrid_register_sidebar(
+			carelib_register_sidebar(
 				array(
 					'id'          => sprintf( 'footer-%d', $counter ),
 					'name'        => sprintf( __( 'Footer %d', 'carelib' ), $counter ),

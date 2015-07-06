@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Site_Logo extends CareLib_Customizer_Base {
+class CareLib_Extension_Site_Logo extends CareLib_Customizer_Base {
 
 	/**
 	 * Stores our current logo settings.
@@ -170,8 +170,8 @@ class CareLib_Site_Logo extends CareLib_Customizer_Base {
 			return;
 		}
 		// hide our header text if display Header Text is unchecked.
-		add_filter( 'hybrid_attr_site-title',       array( $this, 'hide_text' ) );
-		add_filter( 'hybrid_attr_site-description', array( $this, 'hide_text' ) );
+		add_filter( 'carelib_attr_site-title',       array( $this, 'hide_text' ) );
+		add_filter( 'carelib_attr_site-description', array( $this, 'hide_text' ) );
 	}
 
 	/**

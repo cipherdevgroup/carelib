@@ -2,18 +2,21 @@
 /**
  * Options for displaying breadcrumbs for use in the WordPress customizer.
  *
- * @package     CareLib
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
+
+// Prevent direct access.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Our Breadcrumb display class for managing breadcrumbs through the Customizer.
  *
  * @package CareLib
  */
-class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
+class CareLib_Extension_Breadcrumb_Display extends CareLib_Customizer_Base {
 
 	protected $section;
 
