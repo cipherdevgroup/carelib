@@ -2,13 +2,13 @@
 /**
  * Build and store references to our plugin objects.
  *
- * @package     CareLib
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
-// Exit if accessed directly
+// Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Factory {

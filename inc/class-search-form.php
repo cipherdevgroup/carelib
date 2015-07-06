@@ -52,7 +52,7 @@ class CareLib_Search_Form {
 	 * @access public
 	 * @return void
 	 */
-	private function wp_hooks() {
+	protected function wp_hooks() {
 		add_filter( 'get_search_form', array( $this, 'get_form' ), 99 );
 	}
 
