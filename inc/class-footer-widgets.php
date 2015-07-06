@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Extension_Footer_Widgets {
+class CareLib_Footer_Widgets {
 
 	protected $counter = 1;
 

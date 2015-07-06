@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Extension_Site_Logo extends CareLib_Customizer_Base {
+class CareLib_Site_Logo extends CareLib_Customizer_Base {
 
 	/**
 	 * Stores our current logo settings.

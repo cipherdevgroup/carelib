@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Extension_Breadcrumb_Display extends CareLib_Customizer_Base {
+class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 
 	protected $section;
 

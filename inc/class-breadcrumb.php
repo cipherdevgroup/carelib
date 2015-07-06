@@ -27,7 +27,7 @@
  *
  * @since 0.6.0
  */
-class CareLib_Extension_Breadcrumbs {
+class CareLib_Breadcrumbs {
 
 	/**
 	 * Array of items belonging to the current breadcrumb trail.
