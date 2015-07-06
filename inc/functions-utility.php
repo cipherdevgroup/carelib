@@ -88,73 +88,14 @@ function carelib_get_content_width() {
  * @return string
  */
 function carelib_untitled_post( $title ) {
-
 	// Translators: Used as a placeholder for untitled posts on non-singular views.
-	if ( ! $title && !is_singular() && in_the_loop() && !is_admin() )
+	if ( ! $title && ! is_singular() && in_the_loop() && ! is_admin() ) {
 		$title = esc_html__( '(Untitled)', 'carelib' );
+	}
 
 	return $title;
 }
 
-/**
- * Retrieves the file with the highest priority that exists. The function searches both the stylesheet
- * and template directories. This function is similar to the locate_template() function in WordPress
- * but returns the file name with the URI path instead of the directory path.
- *
- * @since  1.5.0
- * @access public
- * @link   http://core.trac.wordpress.org/ticket/18302
- * @param  array  $file_names The files to search for.
- * @return string
- */
-function carelib_locate_theme_file( $file_names ) {
-
-	$located = '';
-
-	// Loops through each of the given file names.
-	foreach ( (array) $file_names as $file ) {
-
-		// If the file exists in the stylesheet (child theme) directory.
-		if ( is_child_theme() && file_exists( HYBRID_CHILD . $file ) ) {
-			$located = HYBRID_CHILD_URI . $file;
-			break;
-		}
-
-		// If the file exists in the template (parent theme) directory.
-		elseif ( file_exists( HYBRID_PARENT . $file ) ) {
-			$located = HYBRID_PARENT_URI . $file;
-			break;
-		}
-	}
-
-	return $located;
-}
-
-/**
- * Converts a hex color to RGB. Returns the RGB values as an array.
- *
- * @since  0.2.0
- * @access public
- * @param  string  $hex
- * @return array
- */
-function carelib_hex_to_rgb( $hex ) {
-	// Remove "#" if it was added.
-	$color = trim( $hex, '#' );
-
-	// If the color is three characters, convert it to six.
-	if ( 3 === strlen( $color ) ) {
-		$color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
-	}
-
-	// Get the red, green, and blue values.
-	$red   = hexdec( $color[0] . $color[1] );
-	$green = hexdec( $color[2] . $color[3] );
-	$blue  = hexdec( $color[4] . $color[5] );
-
-	// Return the RGB colors as an array.
-	return array( 'r' => $red, 'g' => $green, 'b' => $blue );
-}
 
 /**
  * Function for grabbing a WP nav menu theme location name.
@@ -184,35 +125,6 @@ function carelib_get_menu_name( $location ) {
 	$locations = get_nav_menu_locations();
 
 	return isset( $locations[ $location ] ) ? wp_get_nav_menu_object( $locations[ $location ] )->name : '';
-}
-
-/**
- * Helper function for getting the script/style `.min` suffix for minified files.
- *
- * @since  0.2.0
- * @access public
- * @return string
- */
-function carelib_get_min_suffix() {
-	return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-}
-
-/**
- * Utility function for including a file if a theme feature is supported and the file exists. Note
- * that this should not be used in place of the core `require_if_theme_supports()` function. We need
- * this particular function for checking if the file exists first, which the core function does not
- * handle at the moment.
- *
- * @since  0.2.0
- * @access public
- * @param  string  $feature
- * @param  string  $file
- * @return void
- */
-function carelib_require_if_theme_supports( $feature, $file ) {
-	if ( current_theme_supports( $feature ) && file_exists( $file ) ) {
-		require_once( $file );
-	}
 }
 
 /**
