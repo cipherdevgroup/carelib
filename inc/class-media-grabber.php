@@ -19,19 +19,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Wrapper function for the CareLib_Media_Grabber class. Returns the HTML output for the found media.
- *
- * @since  1.6.0
- * @access public
- * @param  array
- * @return string
- */
-function carelib_media_grabber( $args = array() ) {
-	$media = new CareLib_Media_Grabber( $args );
-	return $media->get_media();
-}
-
-/**
  * Grabs media related to the post.
  *
  * @since  1.6.0
@@ -427,12 +414,14 @@ class CareLib_Media_Grabber {
 		$atts = wp_kses_hair( $_html, array( 'http', 'https' ) );
 
 		// Loop through the media attributes and add them in key/value pairs.
-		foreach ( $atts as $att )
+		foreach ( $atts as $att ) {
 			$media_atts[ $att['name'] ] = $att['value'];
+		}
 
 		// If no dimensions are found, just return the HTML.
-		if ( empty( $media_atts ) || !isset( $media_atts['width'] ) || !isset( $media_atts['height'] ) )
+		if ( empty( $media_atts ) || ! isset( $media_atts['width'] ) || ! isset( $media_atts['height'] ) ) {
 			return $html;
+		}
 
 		// Set the max width.
 		$max_width = $this->args['width'];
@@ -441,8 +430,9 @@ class CareLib_Media_Grabber {
 		$max_height = round( $max_width / ( $media_atts['width'] / $media_atts['height'] ) );
 
 		// Fix for Spotify embeds.
-		if ( ! empty( $media_atts['src'] ) && preg_match( '#https?://(embed)\.spotify\.com/.*#i', $media_atts['src'], $matches ) )
+		if ( ! empty( $media_atts['src'] ) && preg_match( '#https?://(embed)\.spotify\.com/.*#i', $media_atts['src'], $matches ) ) {
 			list( $max_width, $max_height ) = $this->spotify_dimensions( $media_atts );
+		}
 
 		// Calculate new media dimensions.
 		$dimensions = wp_expand_dimensions(
@@ -491,13 +481,12 @@ class CareLib_Media_Grabber {
 	 * @return array
 	 */
 	public function spotify_dimensions( $media_atts ) {
-
 		$max_width  = $media_atts['width'];
 		$max_height = $media_atts['height'];
 
-		if ( 80 == $media_atts['height'] )
+		if ( 80 === absint( $media_atts['height'] ) ) {
 			$max_width  = $this->args['width'];
-
+		}
 		return array( $max_width, $max_height );
 	}
 }
