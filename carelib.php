@@ -293,9 +293,9 @@ class CareLib {
 			$classes['styles']             = true;
 			$classes['template']           = true;
 			$classes['template-comments']  = true;
+			$classes['template-entry']     = true;
 			$classes['template-general']   = true;
 			$classes['template-media']     = true;
-			$classes['template-post']      = true;
 			$classes['template-hierarchy'] = true;
 		}
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
