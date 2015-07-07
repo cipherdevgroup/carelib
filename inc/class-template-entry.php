@@ -49,19 +49,19 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	* This is a private helper function used to format the entry title's display.
-	* If a link is passed into it, the title will be wrapped in an anchor tag which
-	* links to the desired URI.
-	*
-	* This technically can be used by theme developers, but it isn't recommended as
-	* we make no guarantee of backwards compatibility in the future.
-	*
-	* @since  0.2.0
-	* @access private
-	* @param  $id mixed the desired title's post id
-	* @param  $link string the desired title's link URI
-	* @return string
-	*/
+	 * This is a private helper function used to format the entry title's display.
+	 * If a link is passed into it, the title will be wrapped in an anchor tag which
+	 * links to the desired URI.
+	 *
+	 * This technically can be used by theme developers, but it isn't recommended as
+	 * we make no guarantee of backwards compatibility in the future.
+	 *
+	 * @since  0.2.0
+	 * @access private
+	 * @param  $id mixed the desired title's post id
+	 * @param  $link string the desired title's link URI
+	 * @return string
+	 */
 	private function get_formatted_title( $id = '', $link = '' ) {
 		$post_id = empty( $id ) ? get_the_ID() : $id;
 		$title   = get_the_title( absint( $post_id ) );
@@ -81,18 +81,18 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	* This is a wrapper function for get_the_title which allows theme developers to
-	* grab a formatted version of the post title without needing to add a lot of
-	* extra markup in template files.
-	*
-	* By default, all entry titles except the main title on single entries are
-	* wrapped in an anchor tag pointed to the post's permalink.
-	*
-	* @since  0.2.0
-	* @access public
-	* @param  $args array
-	* @return string
-	*/
+	 * This is a wrapper function for get_the_title which allows theme developers to
+	 * grab a formatted version of the post title without needing to add a lot of
+	 * extra markup in template files.
+	 *
+	 * By default, all entry titles except the main title on single entries are
+	 * wrapped in an anchor tag pointed to the post's permalink.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  $args array
+	 * @return string
+	 */
 	public function get_entry_title( $args = array() ) {
 		$is_main  = is_singular() && is_main_query();
 		$defaults = apply_filters( "{$this->prefix}_entry_title_defaults",
@@ -126,14 +126,14 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	* Helper function for getting a post's published date and formatting it to be
-	* displayed in a template.
-	*
-	* @since  0.1.0
-	* @access public
-	* @param  $args array
-	* @return string
-	*/
+	 * Helper function for getting a post's published date and formatting it to be
+	 * displayed in a template.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  $args array
+	 * @return string
+	 */
 	public function get_entry_published( $args = array() ) {
 		$defaults = apply_filters( "{$this->prefix}_entry_published_defaults",
 			array(
@@ -155,23 +155,23 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	* Produces a formatted link to the current entry comments.
-	*
-	* Supported arguments are:
-	* - after (output after link, default is empty string),
-	* - before (output before link, default is empty string),
-	* - hide_if_off (hide link if comments are off, default is 'enabled' (true)),
-	* - more (text when there is more than 1 comment, use % character as placeholder
-	*   for actual number, default is '% Comments')
-	* - one (text when there is exactly one comment, default is '1 Comment'),
-	* - zero (text when there are no comments, default is 'Leave a Comment').
-	*
-	* Output passes through 'carelib_get_entry_comments_link' filter before returning.
-	*
-	* @since  0.1.0
-	* @param  $args array Empty array if no arguments.
-	* @return string output
-	*/
+	 * Produces a formatted link to the current entry comments.
+	 *
+	 * Supported arguments are:
+	 * - after (output after link, default is empty string),
+	 * - before (output before link, default is empty string),
+	 * - hide_if_off (hide link if comments are off, default is 'enabled' (true)),
+	 * - more (text when there is more than 1 comment, use % character as placeholder
+	 *   for actual number, default is '% Comments')
+	 * - one (text when there is exactly one comment, default is '1 Comment'),
+	 * - zero (text when there are no comments, default is 'Leave a Comment').
+	 *
+	 * Output passes through 'carelib_get_entry_comments_link' filter before returning.
+	 *
+	 * @since  0.1.0
+	 * @param  $args array Empty array if no arguments.
+	 * @return string output
+	 */
 	public function get_entry_comments_link( $args = array() ) {
 		$defaults = apply_filters( "{$this->prefix}_entry_comments_link_defaults",
 			array(
@@ -207,102 +207,27 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	* Helper function to determine whether we should display the full content
-	* or an excerpt.
-	*
-	* @since  0.2.0
-	* @access public
-	* @return booleen true on singular entries by default
-	*/
+	 * Helper function to determine whether we should display the full content
+	 * or an excerpt.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return booleen true on singular entries by default
+	 */
 	protected function is_full_content() {
 		return apply_filters( "{$this->prefix}_is_full_content", is_singular() );
 	}
 
 	/**
-	* Returns either an excerpt or the content depending on what page the user is
-	* currently viewing.
-	*
-	* @since  0.2.0
-	* @access public
-	* @return string the desired content
-	*/
+	 * Returns either an excerpt or the content depending on what page the user is
+	 * currently viewing.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string the desired content
+	 */
 	public function get_content() {
 		return apply_filters( 'the_content', $this->is_full_content() ? get_the_content() : get_the_excerpt() );
-	}
-	/**
-	 * Gets a post template.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @return bool
-	 */
-	public function get_post_template( $post_id ) {
-		return get_post_meta( $post_id, $this->get_post_template_meta_key( $post_id ), true );
-	}
-
-	/**
-	 * Sets a post template.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @param  string  $template
-	 * @return bool
-	 */
-	public function set_post_template( $post_id, $template ) {
-		return update_post_meta( $post_id, $this->get_post_template_meta_key( $post_id ), $template );
-	}
-
-	/**
-	 * Deletes a post template.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @return bool
-	 */
-	public function delete_post_template( $post_id ) {
-		return delete_post_meta( $post_id, $this->get_post_template_meta_key( $post_id ) );
-	}
-
-	/**
-	 * Checks if a post of any post type has a custom template. This is the equivalent of WordPress'
-	 * `is_page_template()` function with the exception that it works for all post types.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $template  The name of the template to check for.
-	 * @param  int     $post_id
-	 * @return bool
-	 */
-	public function has_post_template( $template = '', $post_id = '' ) {
-		if ( ! $post_id ) {
-			$post_id = get_the_ID();
-		}
-
-		// Get the post template, which is saved as metadata.
-		$post_template = $this->get_post_template( $post_id );
-
-		// If a specific template was input, check that the post template matches.
-		if ( $template && $template === $post_template ) {
-			return true;
-		}
-
-		// Return whether we have a post template.
-		return ! empty( $post_template );
-	}
-
-	/**
-	 * Returns the post template meta key.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @return string
-	 */
-	public function get_post_template_meta_key( $post_id ) {
-		return sprintf( '_wp_%s_template', get_post_type( $post_id ) );
 	}
 
 	/**
