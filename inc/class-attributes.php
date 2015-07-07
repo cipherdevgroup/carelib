@@ -37,7 +37,7 @@ class CareLib_Attributes {
 	/**
 	 * Constructor method.
 	 *
-	 * @since 0.1.0
+	 * @since 0.2.0
 	 */
 	public function __construct() {
 		$this->prefix = CareLib::instance()->get_prefix();
@@ -46,7 +46,7 @@ class CareLib_Attributes {
 	/**
 	 * Get our class up and running!
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -57,7 +57,7 @@ class CareLib_Attributes {
 	/**
 	 * Register our actions and filters.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
