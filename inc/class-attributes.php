@@ -302,6 +302,19 @@ class CareLib_Attributes {
 	}
 
 	/**
+	 * Function for grabbing a WP nav menu theme location name.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string  $location
+	 * @return string
+	 */
+	protected function get_menu_location_name( $location ) {
+		$locations = get_registered_nav_menus();
+		return isset( $locations[ $location ] ) ? $locations[ $location ] : '';
+	}
+
+	/**
 	 * Nav menu attributes.
 	 *
 	 * @since  0.2.0
@@ -319,7 +332,7 @@ class CareLib_Attributes {
 			$attr['class'] .= " menu-{$context}";
 			$attr['id']     = "menu-{$context}";
 
-			$menu_name = carelib_get_menu_location_name( $context );
+			$menu_name = $this->get_menu_location_name( $context );
 
 			if ( ! empty( $menu_name ) ) {
 				// Translators: The %s is the menu name. This is used for the 'aria-label' attribute.
