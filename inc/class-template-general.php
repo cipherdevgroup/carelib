@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * CareLib Template Tags Class.
  */
-class CareLib_Template_Tags {
+class CareLib_Template_General {
 
 	/**
 	 * The library object.
@@ -123,214 +123,6 @@ class CareLib_Template_Tags {
 			return false;
 		}
 		return $breadcrumbs->display_breadcrumbs();
-	}
-
-	/**
-	 * This is a private helper function used to format the entry title's display.
-	 * If a link is passed into it, the title will be wrapped in an anchor tag which
-	 * links to the desired URI.
-	 *
-	 * This technically can be used by theme developers, but it isn't recommended as
-	 * we make no guarantee of backwards compatibility in the future.
-	 *
-	 * @since  0.2.0
-	 * @access private
-	 * @param  $id mixed the desired title's post id
-	 * @param  $link string the desired title's link URI
-	 * @return string
-	 */
-	private function get_formatted_title( $id = '', $link = '' ) {
-		$post_id = empty( $id ) ? get_the_ID() : $id;
-		$title   = get_the_title( absint( $post_id ) );
-
-		if ( empty( $link ) ) {
-			return $title;
-		}
-
-		if ( get_permalink() === $link && get_the_ID() !== $post_id ) {
-			$link = get_permalink( absint( $post_id ) );
-		}
-
-		return sprintf( '<a href="%s" rel="bookmark" itemprop="url">%s</a>',
-			esc_url( $link ),
-			$title
-		);
-	}
-
-	/**
-	 * This is a wrapper function for get_the_title which allows theme developers to
-	 * grab a formatted version of the post title without needing to add a lot of
-	 * extra markup in template files.
-	 *
-	 * By default, all entry titles except the main title on single entries are
-	 * wrapped in an anchor tag pointed to the post's permalink.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  $args array
-	 * @return string
-	 */
-	public function get_entry_title( $args = array() ) {
-		$is_main  = is_singular() && is_main_query();
-		$defaults = apply_filters( "{$this->prefix}_entry_title_defaults",
-			array(
-				'tag'     => $is_main ? 'h1' : 'h2',
-				'attr'    => 'entry-title',
-				'link'    => $is_main ? '' : get_permalink(),
-				'post_id' => get_the_ID(),
-				'before'  => '',
-				'after'   => '',
-			)
-		);
-
-		$args = wp_parse_args( $args, $defaults );
-
-		$id   = isset( $args['post_id'] ) ? $args['post_id'] : '';
-		$attr = isset( $args['attr'] ) ? $this->attr->get_attr( $args['attr'] ) : '';
-		$link = isset( $args['link'] ) ? $args['link'] : '';
-
-		$output = isset( $args['before'] ) ? $args['before'] : '';
-
-		$output .= sprintf( '<%1$s %2$s>%3$s</%1$s>',
-			$args['tag'],
-			$attr,
-			$this->get_formatted_title( $id, $link )
-		);
-
-		$output .= isset( $args['after'] ) ? $args['after'] : '';
-
-		return apply_filters( "{$this->prefix}_entry_title", $output, $args );
-	}
-
-	/**
-	 * This is simply a wrapper function for carelib_get_post_author which adds a few
-	 * filters to make the function a bit more flexible. This will allow us to avoid
-	 * passing args into the function by default in our templates. Instead, we can
-	 * filter the defaults globally which gives us a cleaner template file.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array
-	 * @return string
-	 */
-	public function get_entry_author( $args = array() ) {
-		$defaults = apply_filters( "{$this->prefix}_entry_author_defaults",
-			array(
-				'text'   => '%s',
-				'before' => '',
-				'after'  => '',
-				'wrap'   => '<span %s>%s</span>',
-			)
-		);
-
-		$args = wp_parse_args( $args, $defaults );
-
-		return apply_filters( "{$this->prefix}_entry_author", carelib_get_post_author( $args ), $args );
-	}
-
-	/**
-	 * Helper function for getting a post's published date and formatting it to be
-	 * displayed in a template.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  $args array
-	 * @return string
-	 */
-	public function get_entry_published( $args = array() ) {
-		$defaults = apply_filters( "{$this->prefix}_entry_published_defaults",
-			array(
-				'before' => '',
-				'after'  => '',
-				'attr'   => 'entry-published',
-				'date'   => get_the_date(),
-				'wrap'   => '<time %s>%s</time>',
-			)
-		);
-
-		$args = wp_parse_args( $args, $defaults );
-
-		$output  = isset( $args['before'] ) ? $args['before'] : '';
-		$output .= sprintf( $args['wrap'], $this->attr->get_attr( $args['attr'] ), $args['date'] );
-		$output .= isset( $args['after'] ) ? $args['after'] : '';
-
-		return apply_filters( "{$this->prefix}_entry_published", $output, $args );
-	}
-
-	/**
-	 * Produces a formatted link to the current entry comments.
-	 *
-	 * Supported arguments are:
-	 * - after (output after link, default is empty string),
-	 * - before (output before link, default is empty string),
-	 * - hide_if_off (hide link if comments are off, default is 'enabled' (true)),
-	 * - more (text when there is more than 1 comment, use % character as placeholder
-	 *   for actual number, default is '% Comments')
-	 * - one (text when there is exactly one comment, default is '1 Comment'),
-	 * - zero (text when there are no comments, default is 'Leave a Comment').
-	 *
-	 * Output passes through 'carelib_get_entry_comments_link' filter before returning.
-	 *
-	 * @since  0.1.0
-	 * @param  $args array Empty array if no arguments.
-	 * @return string output
-	 */
-	public function get_entry_comments_link( $args = array() ) {
-		$defaults = apply_filters( "{$this->prefix}_entry_comments_link_defaults",
-			array(
-				'after'       => '',
-				'before'      => '',
-				'hide_if_off' => 'enabled',
-				'more'        => __( '% Comments', 'carelib' ),
-				'one'         => __( '1 Comment', 'carelib' ),
-				'zero'        => __( 'Leave a Comment', 'carelib' ),
-			)
-		);
-		$args = wp_parse_args( $args, $defaults );
-
-		if ( ! comments_open() && 'enabled' === $args['hide_if_off'] ) {
-			return;
-		}
-
-		// I really would rather not do this, but WordPress is forcing me to.
-		ob_start();
-		comments_number( $args['zero'], $args['one'], $args['more'] );
-		$comments = ob_get_clean();
-
-		$comments = sprintf( '<a rel="nofollow" href="%s">%s</a>',
-			get_comments_link(),
-			$comments
-		);
-
-		$output  = isset( $args['before'] ) ? $args['before'] : '';
-		$output .= '<span class="entry-comments-link">' . $comments . '</span>';
-		$output .= isset( $args['after'] ) ? $args['after'] : '';
-
-		return apply_filters( "{$this->prefix}_entry_comments_link", $output, $args );
-	}
-
-	/**
-	 * Helper function to determine whether we should display the full content
-	 * or an excerpt.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return booleen true on singular entries by default
-	 */
-	protected function is_full_content() {
-		return apply_filters( "{$this->prefix}_is_full_content", is_singular() );
-	}
-
-	/**
-	 * Returns either an excerpt or the content depending on what page the user is
-	 * currently viewing.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string the desired content
-	 */
-	public function get_content() {
-		return apply_filters( 'the_content', $this->is_full_content() ? get_the_content() : get_the_excerpt() );
 	}
 
 	/**
@@ -561,4 +353,276 @@ class CareLib_Template_Tags {
 		$info .= '</div>';
 		return apply_filters( "{$this->prefix}_theme_info", $info );
 	}
+
+	/**
+	 * Returns a link back to the site.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_site_link() {
+		return sprintf( '<a class="site-link" href="%s" rel="home">%s</a>',
+			esc_url( home_url() ),
+			get_bloginfo( 'name' )
+		);
+	}
+
+	/**
+	 * Returns a link to WordPress.org.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_wp_link() {
+		return sprintf( '<a class="wp-link" href="%s">%s</a>',
+			esc_url( __( 'http://wordpress.org', 'carelib' ) ),
+			esc_html__( 'WordPress', 'carelib' )
+		);
+	}
+
+	/**
+	 * Returns a link to the parent theme URI.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_theme_link() {
+		$theme   = wp_get_theme( get_template() );
+		$allowed = array(
+			'abbr'    => array( 'title' => true ),
+			'acronym' => array( 'title' => true ),
+			'code'    => true,
+			'em'      => true,
+			'strong'  => true,
+		);
+
+		// Note: URI is escaped via `WP_Theme::markup_header()`.
+		return sprintf( '<a class="theme-link" href="%s">%s</a>',
+			$theme->display( 'ThemeURI' ),
+			wp_kses( $theme->display( 'Name' ), $allowed )
+		);
+	}
+
+	/**
+	 * Returns a link to the child theme URI.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_child_theme_link() {
+		if ( ! is_child_theme() ) {
+			return '';
+		}
+
+		$theme   = wp_get_theme();
+		$allowed = array(
+			'abbr'    => array( 'title' => true ),
+			'acronym' => array( 'title' => true ),
+			'code'    => true,
+			'em'      => true,
+			'strong'  => true,
+		);
+
+		// Note: URI is escaped via `WP_Theme::markup_header()`.
+		return sprintf( '<a class="child-link" href="%s">%s</a>',
+			$theme->display( 'ThemeURI' ),
+			wp_kses( $theme->display( 'Name' ),	$allowed )
+		);
+	}
+
+	/**
+	 * Gets the "blog" (posts page) page URL. `home_url()` will not always work for this because it
+	 * returns the front page URL. Sometimes the blog page URL is set to a different page. This
+	 * function handles both scenarios.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_blog_url() {
+		if ( 'posts' === get_option( 'show_on_front' ) ) {
+			$blog_url = home_url();
+		}
+
+		if ( 0 < ( $page_for_posts = get_option( 'page_for_posts' ) ) ) {
+			$blog_url = get_permalink( $page_for_posts );
+		}
+
+		return empty( $blog_url ) ? '' : esc_url( $blog_url );
+	}
+
+	/**
+	 * Returns the linked site title wrapped in an `<h1>` tag.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_site_title() {
+		if ( $title = get_bloginfo( 'name' ) ) {
+			$title = sprintf( '<%1$s %2$s><a href="%2$s" rel="home">%4$s</a></%1$s>',
+				is_front_page() || is_home() ? 'h1' : 'p',
+				$this->get_attr( 'site-title' ),
+				esc_url( home_url() ),
+				$title
+			);
+		}
+
+		return apply_filters( 'carelib_site_title', $title );
+	}
+
+	/**
+	 * Returns the site description wrapped in an `<h2>` tag.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_site_description() {
+		if ( $desc = get_bloginfo( 'description' ) ) {
+			$desc = sprintf( '<p %s>%s</p>',
+				$this->get_attr( 'site-description' ),
+				$desc
+			);
+		}
+
+		return apply_filters( 'carelib_site_description', $desc );
+	}
+
+	/**
+	 * Function for figuring out if we're viewing a "plural" page. In WP, these pages are archives,
+	 * search results, and the home/blog posts index. Note that this is similar to, but not quite
+	 * the same as `!is_singular()`, which wouldn't account for the 404 page.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function is_plural() {
+		return apply_filters( 'carelib_is_plural', is_home() || is_archive() || is_search() );
+	}
+
+	/**
+	 * Retrieve the general archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_archive_title() {
+		return esc_html__( 'Archives', 'carelib' );
+	}
+
+	/**
+	 * Retrieve the author archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function get_single_author_title() {
+		return get_the_author_meta( 'display_name', absint( get_query_var( 'author' ) ) );
+	}
+
+	/**
+	 * Retrieve the year archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_year_title() {
+		return get_the_date( esc_html_x( 'Y', 'yearly archives date format', 'carelib' ) );
+	}
+
+	/**
+	 * Retrieve the week archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_week_title() {
+		// Translators: 1 is the week number and 2 is the year.
+		return sprintf(
+			esc_html__( 'Week %1$s of %2$s', 'carelib' ),
+			get_the_time( esc_html_x( 'W', 'weekly archives date format', 'carelib' ) ),
+			get_the_time( esc_html_x( 'Y', 'yearly archives date format', 'carelib' ) )
+		);
+	}
+
+	/**
+	 * Retrieve the day archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_day_title() {
+		return get_the_date( esc_html_x( 'F j, Y', 'daily archives date format', 'carelib' ) );
+	}
+
+	/**
+	 * Retrieve the hour archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_hour_title() {
+		return get_the_time( esc_html_x( 'g a', 'hour archives time format', 'carelib' ) );
+	}
+
+	/**
+	 * Retrieve the minute archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_minute_title() {
+
+		// Translators: Minute archive title. %s is the minute time format.
+		return sprintf( esc_html__( 'Minute %s', 'carelib' ), get_the_time( esc_html_x( 'i', 'minute archives time format', 'carelib' ) ) );
+	}
+
+	/**
+	 * Retrieve the minute + hour archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_minute_hour_title() {
+		return get_the_time( esc_html_x( 'g:i a', 'minute and hour archives time format', 'carelib' ) );
+	}
+
+	/**
+	 * Retrieve the search results title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_search_title() {
+
+		// Translators: %s is the search query. The HTML entities are opening and closing curly quotes.
+		return sprintf( esc_html__( 'Search results for &#8220;%s&#8221;', 'carelib' ), get_search_query() );
+	}
+
+	/**
+	 * Retrieve the 404 page title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_404_title() {
+		return esc_html__( '404 Not Found', 'carelib' );
+	}
+
 }
