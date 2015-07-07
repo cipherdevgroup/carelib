@@ -100,8 +100,7 @@ class CareLib {
 	 * @return void
 	 */
 	public function run() {
-		add_action( 'after_setup_theme', array( $this, 'core' ),          -95 );
-		add_action( 'after_setup_theme', array( $this, 'theme_support' ),  12 );
+		add_action( 'after_setup_theme', array( $this, 'core' ), -95 );
 	}
 
 	/**
@@ -115,24 +114,6 @@ class CareLib {
 		spl_autoload_register( array( $this, 'autoloader' ) );
 		self::includes();
 		self::build( 'CareLib_Factory' );
-	}
-
-	/**
-	* Sets up default theme support.
-	*
-	* @since  0.2.0
-	* @access public
-	* @return void
-	*/
-	public function theme_support() {
-		add_theme_support( 'title-tag' );
-		add_theme_support( 'html5', array(
-			'caption',
-			'comment-form',
-			'comment-list',
-			'gallery',
-			'search-form',
-		) );
 	}
 
 	/**
@@ -291,6 +272,7 @@ class CareLib {
 			$classes['sidebars']           = true;
 			$classes['scripts']            = true;
 			$classes['styles']             = true;
+			$classes['support']            = true;
 			$classes['template']           = true;
 			$classes['template-comments']  = true;
 			$classes['template-entry']     = true;
