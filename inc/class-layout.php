@@ -1,8 +1,9 @@
 <?php
 /**
- * Layout class. This class is for creating new layout objects. Layout registration is handled via
- * the `CareLib_Layout_Factory` class in `class-layout-factory.php`. Theme authors should utilize
- * the API functions in `inc/layouts.php`.
+ * Layout class for creating new layout objects.
+ *
+ * Layout registration is handled via the `CareLib_Layout` class in
+ * `class-layout.php`.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
@@ -146,4 +147,5 @@ class CareLib_Layout {
 			}
 		}
 	}
+
 }
