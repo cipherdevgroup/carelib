@@ -56,12 +56,10 @@ class CareLib_Template_General {
 	 * @return mixed The URL or ID of our site logo, false if not set
 	 */
 	public function get_logo( $format = 'url' ) {
-		if ( class_exists( 'CareLib_Site_Logo', false ) ) {
-			return CareLib_Factory::get( 'site-logo' )->get_site_logo( $format );
-		}
 		if ( function_exists( 'jetpack_the_site_logo' ) ) {
 			return jetpack_get_site_logo( $format );
 		}
+		return CareLib_Factory::get( 'site-logo' )->get_site_logo( $format );
 	}
 
 	/**
@@ -72,12 +70,10 @@ class CareLib_Template_General {
 	 * @return boolean True if there is an active logo, false otherwise
 	 */
 	public function has_logo() {
-		if ( class_exists( 'CareLib_Site_Logo', false ) ) {
-			return CareLib_Factory::get( 'site-logo' )->has_site_logo();
-		}
 		if ( function_exists( 'jetpack_the_site_logo' ) ) {
 			return jetpack_has_site_logo();
 		}
+		return CareLib_Factory::get( 'site-logo' )->has_site_logo();
 	}
 
 	/**
@@ -89,13 +85,11 @@ class CareLib_Template_General {
 	 * @return void
 	 */
 	public function the_logo() {
-		if ( class_exists( 'CareLib_Site_Logo', false ) ) {
-			CareLib_Factory::get( 'site-logo' )->the_site_logo();
-			return;
-		}
 		if ( function_exists( 'jetpack_the_site_logo' ) ) {
 			jetpack_the_site_logo();
+			return;
 		}
+		CareLib_Factory::get( 'site-logo' )->the_site_logo();
 	}
 
 	/**
