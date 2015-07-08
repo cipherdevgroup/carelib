@@ -222,28 +222,30 @@ class CareLib_Image_Grabber {
 			$atts = wp_kses_hair( $image_html, array( 'http', 'https' ) );
 
 			// Loop through the image attributes and add them in key/value pairs for the return array.
-			foreach ( $atts as $att )
+			foreach ( $atts as $att ) {
 				$out[ $att['name'] ] = $att['value'];
+			}
 
 			// Return the array of attributes.
 			return $out;
 		}
 
 		// Or, if $echo is set to false, return the formatted image.
-		elseif ( false === $this->args['echo'] ) {
+		if ( false === $this->args['echo'] ) {
 			return ! empty( $image_html ) ? $this->args['before'] . $image_html . $this->args['after'] : $image_html;
 		}
 
 		// If there is a $post_thumbnail_id, do the actions associated with get_the_post_thumbnail().
-		if ( isset( $this->image_args['post_thumbnail_id'] ) )
+		if ( isset( $this->image_args['post_thumbnail_id'] ) ) {
 			do_action( 'begin_fetch_post_thumbnail_html', $this->args['post_id'], $this->image_args['post_thumbnail_id'], $this->args['size'] );
-
+		}
 		// Display the image if we get to this point.
 		echo ! empty( $image_html ) ? $this->args['before'] . $image_html . $this->args['after'] : $image_html;
 
 		// If there is a $post_thumbnail_id, do the actions associated with get_the_post_thumbnail().
-		if ( isset( $this->image_args['post_thumbnail_id'] ) )
+		if ( isset( $this->image_args['post_thumbnail_id'] ) ) {
 			do_action( 'end_fetch_post_thumbnail_html', $this->args['post_id'], $this->image_args['post_thumbnail_id'], $this->args['size'] );
+		}
 	}
 
 	/**
@@ -255,66 +257,72 @@ class CareLib_Image_Grabber {
 	 * @return void
 	 */
 	public function find() {
-
 		// Get cache key based on $this->args.
 		$key = md5( serialize( compact( array_keys( $this->args ) ) ) );
 
 		// Check for a cached image.
 		$image_cache = wp_cache_get( $this->args['post_id'], 'get_the_image' );
 
-		if ( !is_array( $image_cache ) )
+		if ( ! is_array( $image_cache ) ) {
 			$image_cache = array();
-
-		// If there is no cached image, let's see if one exists.
-		if ( ! isset( $image_cache[ $key ] ) || empty( $cache ) ) {
-
-			foreach ( $this->args['order'] as $method ) {
-
-				if ( ! empty( $this->image ) || ! empty( $this->image_args ) )
-					break;
-
-				if ( 'meta_key' === $method && ! empty( $this->args['meta_key'] ) )
-					$this->get_meta_key_image();
-
-				elseif ( 'featured' === $method && true === $this->args['featured'] )
-					$this->get_featured_image();
-
-				elseif ( 'attachment' === $method && true === $this->args['attachment'] )
-					$this->get_attachment_image();
-
-				elseif ( 'scan' === $method && true === $this->args['scan'] )
-					$this->get_scan_image();
-
-				elseif ( 'scan_raw' === $method && true === $this->args['scan_raw'])
-					$this->get_scan_raw_image();
-
-				elseif ( 'callback' === $method && ! is_null( $this->args['callback'] ) )
-					$this->get_callback_image();
-
-				elseif ( 'default' === $method && ! empty( $this->args['default'] ) )
-					$this->get_default_image();
-			}
-
-			// Format the image HTML.
-			if ( empty( $this->image ) && ! empty( $this->image_args ) )
-				$this->format_image();
-
-			// If we have image HTML.
-			if ( ! empty( $this->image ) ) {
-
-				// Save the image as metadata.
-				if ( ! empty( $this->args['meta_key_save'] ) )
-					$this->meta_key_save();
-
-				// Set the image cache for the specific post.
-				$image_cache[ $key ] = $this->image;
-				wp_cache_set( $this->args['post_id'], $image_cache, 'get_the_image' );
-			}
 		}
 
 		// If an image was already cached for the post and arguments, use it.
-		else {
+		if ( isset( $image_cache[ $key ] ) && ! empty( $image_cache ) ) {
 			$this->image = $image_cache[ $key ];
+			return;
+		}
+
+		foreach ( $this->args['order'] as $method ) {
+			if ( ! empty( $this->image ) || ! empty( $this->image_args ) ) {
+				break;
+			}
+
+			if ( 'meta_key' === $method && ! empty( $this->args['meta_key'] ) ) {
+				$this->get_meta_key_image();
+			}
+
+			if ( 'featured' === $method && true === $this->args['featured'] ) {
+				$this->get_featured_image();
+			}
+
+			if ( 'attachment' === $method && true === $this->args['attachment'] ) {
+				$this->get_attachment_image();
+			}
+
+			if ( 'scan' === $method && true === $this->args['scan'] ) {
+				$this->get_scan_image();
+			}
+
+			if ( 'scan_raw' === $method && true === $this->args['scan_raw'] ) {
+				$this->get_scan_raw_image();
+			}
+
+			if ( 'callback' === $method && ! is_null( $this->args['callback'] ) ) {
+				$this->get_callback_image();
+			}
+
+			if ( 'default' === $method && ! empty( $this->args['default'] ) ) {
+				$this->get_default_image();
+			}
+		}
+
+		// Format the image HTML.
+		if ( empty( $this->image ) && ! empty( $this->image_args ) ) {
+			$this->format_image();
+		}
+
+		// If we have image HTML.
+		if ( ! empty( $this->image ) ) {
+
+			// Save the image as metadata.
+			if ( ! empty( $this->args['meta_key_save'] ) ) {
+				$this->meta_key_save();
+			}
+
+			// Set the image cache for the specific post.
+			$image_cache[ $key ] = $this->image;
+			wp_cache_set( $this->args['post_id'], $image_cache, 'get_the_image' );
 		}
 	}
 
@@ -342,13 +350,16 @@ class CareLib_Image_Grabber {
 			}
 		}
 
+		if ( empty( $image ) ) {
+			return;
+		}
+
 		// If there's an image and it is numeric, assume it is an attachment ID.
-		if ( ! empty( $image ) && is_numeric( $image ) ) {
+		if ( is_numeric( $image ) ) {
 			$this->_get_image_attachment( absint( $image ) );
 		}
 
-		// Else, assume the image is a file URL.
-		elseif ( ! empty( $image ) ) {
+		if ( is_string( $image ) ) {
 			$this->image_args = array( 'src' => $image );
 		}
 	}
@@ -365,8 +376,9 @@ class CareLib_Image_Grabber {
 		$post_thumbnail_id = get_post_thumbnail_id( $this->args['post_id'] );
 
 		// If no post image ID is found, return.
-		if ( empty( $post_thumbnail_id ) )
+		if ( empty( $post_thumbnail_id ) ) {
 			return;
+		}
 
 		// Apply filters on post_thumbnail_size because this is a default WP filter used with its image feature.
 		$this->args['size'] = apply_filters( 'post_thumbnail_size', $this->args['size'] );
@@ -503,16 +515,18 @@ class CareLib_Image_Grabber {
 						if ( ! empty( $image_src ) ) {
 
 							// Old-style captions.
-							if ( preg_match( '#.*?[\s]caption=[\'"](.+?)[\'"]#i', $shortcode[0], $caption_matches ) )
+							if ( preg_match( '#.*?[\s]caption=[\'"](.+?)[\'"]#i', $shortcode[0], $caption_matches ) ) {
 								$image_caption = trim( $caption_matches[1] );
+							}
 
 							$caption_args = array(
 								'width'   => $image_src[1],
-								'align'   => 'center'
+								'align'   => 'center',
 							);
 
-							if ( ! empty( $image_caption ) )
+							if ( ! empty( $image_caption ) ) {
 								$caption_args['caption'] = $image_caption;
+							}
 
 							// Set up the patterns for the 'src', 'width', and 'height' attributes.
 							$patterns = array(
@@ -648,16 +662,19 @@ class CareLib_Image_Grabber {
 	 */
 	public function format_image() {
 		// If there is no image URL, return false.
-		if ( empty( $this->image_args['src'] ) )
+		if ( empty( $this->image_args['src'] ) ) {
 			return;
+		}
 
 		// Check against min. width. If the image width is too small return.
-		if ( 0 < $this->args['min_width'] && isset( $this->image_args['width'] ) && $this->image_args['width'] < $this->args['min_width'] )
+		if ( 0 < $this->args['min_width'] && isset( $this->image_args['width'] ) && $this->image_args['width'] < $this->args['min_width'] ) {
 			return;
+		}
 
 		// Check against min. height. If the image height is too small return.
-		if ( 0 < $this->args['min_height'] && isset( $this->image_args['height'] ) && $this->image_args['height'] < $this->args['min_height'] )
+		if ( 0 < $this->args['min_height'] && isset( $this->image_args['height'] ) && $this->image_args['height'] < $this->args['min_height'] ) {
 			return;
+		}
 
 		// Empty classes array.
 		$classes = array();
@@ -679,15 +696,16 @@ class CareLib_Image_Grabber {
 		}
 
 		// If there is a width or height, set them as HMTL-ready attributes.
-		$width  = $this->args['width']  ? ' width="' . esc_attr( $this->args['width']  ) . '"' : '';
+		$width  = $this->args['width']  ? ' width="' . esc_attr( $this->args['width'] ) . '"' : '';
 		$height = $this->args['height'] ? ' height="' . esc_attr( $this->args['height'] ) . '"' : '';
 
 		// srcset attribute
 		$srcset = ! empty( $this->srcsets ) ? sprintf( ' srcset="%s"', esc_attr( join( ', ', $this->srcsets ) ) ) : '';
 
 		// Add the meta key(s) to the classes array.
-		if ( ! empty( $this->args['meta_key'] ) )
-			$classes = array_merge( $classes, (array)$this->args['meta_key'] );
+		if ( ! empty( $this->args['meta_key'] ) ) {
+			$classes = array_merge( $classes, (array) $this->args['meta_key'] );
+		}
 
 		// Add the $size to the class.
 		$classes[] = $this->args['size'];
@@ -695,8 +713,9 @@ class CareLib_Image_Grabber {
 		// Get the custom image class.
 		if ( ! empty( $this->args['image_class'] ) ) {
 
-			if ( !is_array( $this->args['image_class'] ) )
+			if ( ! is_array( $this->args['image_class'] ) ) {
 				$this->args['image_class'] = preg_split( '#\s+#', $this->args['image_class'] );
+			}
 
 			$classes = array_merge( $classes, $this->args['image_class'] );
 		}
@@ -708,22 +727,25 @@ class CareLib_Image_Grabber {
 		$class = join( ' ', $classes );
 
 		// Add the image attributes to the <img /> element.
-		$html = sprintf( '<img src="%s"%s alt="%s" class="%s"%s itemprop="image" />', esc_attr( $this->image_args['src'] ), $srcset, esc_attr( strip_tags( $image_alt ) ), $class, $width . $height );
+		$html = sprintf( '<img src="%s"%s alt="%s" class="%s"%s itemprop="image" />',
+			esc_attr( $this->image_args['src'] ),
+			$srcset, esc_attr( strip_tags( $image_alt ) ),
+			$class,
+			$width . $height
+		);
 
 		// If $link is set to true, link the image to its post.
 		if ( false !== $this->args['link'] ) {
 
-			if ( 'post' === $this->args['link'] || true === $this->args['link'] )
+			if ( 'post' === $this->args['link'] || true === $this->args['link'] ) {
 				$url = get_permalink( $this->args['post_id'] );
-
-			elseif ( 'file' === $this->args['link'] )
+			} elseif ( 'file' === $this->args['link'] ) {
 				$url = $this->image_args['src'];
-
-			elseif ( 'attachment' === $this->args['link'] && isset( $this->image_args['id'] ) )
+			} elseif ( 'attachment' === $this->args['link'] && isset( $this->image_args['id'] ) ) {
 				$url = get_permalink( $this->image_args['id'] );
+			}
 
 			if ( ! empty( $url ) ) {
-
 				$link_class = $this->args['link_class'] ? sprintf( ' class="%s"', esc_attr( $this->args['link_class'] ) ) : '';
 
 				$html = sprintf( '<a href="%s"%s>%s</a>', esc_url( $url ), $link_class, $html );
@@ -731,13 +753,19 @@ class CareLib_Image_Grabber {
 		}
 
 		// If there is a $post_thumbnail_id, apply the WP filters normally associated with get_the_post_thumbnail().
-		if ( ! empty( $this->image_args['post_thumbnail_id'] ) )
+		if ( ! empty( $this->image_args['post_thumbnail_id'] ) ) {
 			$html = apply_filters( 'post_thumbnail_html', $html, $this->args['post_id'], $this->image_args['post_thumbnail_id'], $this->args['size'], '' );
-
+		}
 		// If we're showing a caption.
-		if ( true === $this->args['caption'] && ! empty( $this->image_args['caption'] ) )
-			$html = img_caption_shortcode( array( 'caption' => $this->image_args['caption'], 'width' => $this->args['width'] ), $html );
-
+		if ( true === $this->args['caption'] && ! empty( $this->image_args['caption'] ) ) {
+			$html = img_caption_shortcode(
+				array(
+					'caption' => $this->image_args['caption'],
+					'width'   => $this->args['width'],
+				),
+				$html
+			);
+		}
 		$this->image = $html;
 	}
 
