@@ -1,7 +1,9 @@
 <?php
 /**
- * Metadata functions used in the core framework. This file registers meta keys for use in WordPress
- * in a safe manner by setting up a custom sanitize callback.
+ * Metadata functions used in the core framework.
+ *
+ * This file registers meta keys for use in WordPress in a safe manner by
+ * setting up a custom sanitize callback.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
@@ -12,20 +14,66 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-# Register meta on the 'init' hook.
-add_action( 'init', 'carelib_register_meta', 15 );
+class CareLib_Meta {
 
-/**
- * Registers the framework's custom metadata keys and sets up the sanitize callback function.
- *
- * @since  0.2.0
- * @access public
- * @return void
- */
-function carelib_register_meta() {
-	// Register meta if the theme supports the 'hybrid-core-template-hierarchy' feature.
-	if ( current_theme_supports( 'hybrid-core-template-hierarchy' ) ) {
+	/**
+	 * The layouts class object.
+	 *
+	 * @since 0.2.0
+	 * @var   CareLib_Layouts
+	 */
+	protected $layouts;
 
+	/**
+	 * The scripts class object.
+	 *
+	 * @since 0.2.0
+	 * @var   CareLib_Scripts
+	 */
+	protected $scripts;
+
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.1.0
+	 */
+	public function __construct() {
+		$this->layouts = CareLib_Factory::get( 'layouts' );
+		$this->scripts = CareLib_Factory::get( 'scripts' );
+	}
+
+	/**
+	 * Get our class up and running!
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function run() {
+		self::wp_hooks();
+	}
+
+	/**
+	 * Register our actions and filters.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	protected function wp_hooks() {
+		add_action( 'init', array( $this, 'register_meta' ), 15 );
+	}
+
+	/**
+	 * Registers the framework's custom metadata keys and sets up the sanitize
+	 * callback function.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function register_meta() {
+		// Post templates meta.
 		foreach ( get_post_types( array( 'public' => true ) ) as $post_type ) {
 			if ( 'page' !== $post_type ) {
 				register_meta(
@@ -36,14 +84,27 @@ function carelib_register_meta() {
 				);
 			}
 		}
-	}
 
-	// Theme layouts meta.
-	if ( current_theme_supports( 'theme-layouts' ) ) {
-		register_meta( 'post', carelib_get_layout_meta_key(), 'sanitize_key', '__return_false' );
-		register_meta( 'user', carelib_get_layout_meta_key(), 'sanitize_key', '__return_false' );
-	}
+		// Theme layouts meta.
+		register_meta(
+			'post',
+			$this->layouts->get_meta_key(),
+			'sanitize_key',
+			'__return_false'
+		);
+		register_meta(
+			'user',
+			$this->layouts->get_meta_key(),
+			'sanitize_key',
+			'__return_false'
+		);
 
-	// Post styles meta.
-	register_meta( 'post', carelib_get_style_meta_key(), 'sanitize_text_field', '__return_false' );
+		// Post styles meta.
+		register_meta(
+			'post',
+			$this->scripts->get_style_meta_key(),
+			'sanitize_text_field',
+			'__return_false'
+		);
+	}
 }
