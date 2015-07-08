@@ -1,15 +1,14 @@
 <?php
 /**
- * The multiple select customize control extends the WP_Customize_Control class. This class allows
- * developers to create a `<select>` form field with the `multiple` attribute within the WordPress
- * theme customizer.
+ * The multiple select customize control extends the WP_Customize_Control class.
  *
- * @package    Hybrid
- * @subpackage Classes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2008 - 2015, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * This class allows developers to create a `<select>` form field with the
+ * `multiple` attribute within the WordPress theme customizer.
+ *
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
@@ -70,7 +69,6 @@ class CareLib_Customize_Control_Select_Multiple extends WP_Customize_Control {
 		} #>
 
 		<label>
-
 			<# if ( data.label ) { #>
 				<span class="customize-control-title">{{ data.label }}</span>
 			<# } #>

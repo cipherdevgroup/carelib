@@ -9,12 +9,10 @@
  *	$value => array( 'url' => $image_url, 'label' => $text_label ),
  * )`
  *
- * @package    Hybrid
- * @subpackage Classes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2008 - 2015, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
@@ -73,8 +71,8 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	 * @access public
 	 * @return void
 	 */
-	public function content_template() { ?>
-
+	public function content_template() {
+		?>
 		<# if ( ! data.choices ) {
 			return;
 		} #>
@@ -96,5 +94,6 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 				<img src="{{ args.url }}" alt="{{ args.label }}" />
 			</label>
 		<# } ) #>
-	<?php }
+		<?php
+	}
 }

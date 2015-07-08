@@ -1,14 +1,14 @@
 <?php
 /**
- * Customize control class to handle theme layouts. By default, it simply outputs a custom set of
- * radio inputs. Theme authors can extend this class and do something even cooler.
+ * Customize control class to handle theme layouts.
  *
- * @package    Hybrid
- * @subpackage Classes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2008 - 2015, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * By default, it simply outputs a custom set of radio inputs. Theme authors
+ * can extend this class and do something even cooler.
+ *
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
@@ -50,7 +50,7 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 
 				$args['choices'][ $layout->name ] = array(
 					'label' => $layout->label,
-					'url'   => sprintf( $layout->image, get_template_directory_uri(), get_stylesheet_directory_uri() )
+					'url'   => sprintf( $layout->image, get_template_directory_uri(), get_stylesheet_directory_uri() ),
 				);
 			}
 		}

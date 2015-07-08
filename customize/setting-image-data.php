@@ -1,15 +1,19 @@
 <?php
 /**
- * Custom class for saving image data in an array. Only supports the 'theme_mod' type. This is for use
- * with an image setting in which the image URL is saved. This customizer setting class uses the theme
- * mod name and appends `_data` to the end. So, if the theme mod is `example_image`, an additional
- * theme mod will be created called `example_image_data`. The original will have the URL, but the new
- * mod will be an array of data for the image.
+ * Custom class for saving image data in an array.
  *
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2015, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * Only supports the 'theme_mod' type. This is for use with an image setting in
+ * which the image URL is saved. This customizer setting class uses the theme
+ * mod name and appends `_data` to the end.
+ *
+ * So, if the theme mod is `example_image`, an additional theme mod will be
+ * created called `example_image_data`. The original will have the URL, but the
+ * new mod will be an array of data for the image.
+ *
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
@@ -29,7 +33,6 @@ class CareLib_Customize_Setting_Image_Data extends WP_Customize_Setting {
 	 * @return string
 	 */
 	protected function update( $value ) {
-
 		if ( $value ) {
 
 			$post_id = attachment_url_to_postid( $value );

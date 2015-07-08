@@ -1,17 +1,18 @@
 <?php
 /**
- * The multiple checkbox customize control allows theme authors to add theme options that have
- * multiple choices. Note that the value returned is a comma-delineated string rather than
- * an array of values. In your `sanitize_callback` function for the specific customize setting,
- * you can turn that back into an array with `explode( ',', $value )` before it gets saved into
- * the DB. The same goes or the JS as well. You'll get a comma-delineated string.
+ * The multiple checkbox customize control allows theme authors to add theme
+ * options that have multiple choices.
  *
- * @package    Hybrid
- * @subpackage Classes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2008 - 2015, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * Note that the value returned is a comma-delineated string rather than an
+ * array of values. In your `sanitize_callback` function for the specific
+ * customize setting, you can turn that back into an array with
+ * `explode( ',', $value )` before it gets saved into the DB. The same goes for
+ * the JS as well. You'll get a comma-delineated string.
+ *
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
@@ -52,7 +53,7 @@ class CareLib_Customize_Control_Checkbox_Multiple extends WP_Customize_Control {
 	public function to_json() {
 		parent::to_json();
 
-		$this->json['value']   = !is_array( $this->value() ) ? explode( ',', $this->value() ) : $this->value();
+		$this->json['value']   = ! is_array( $this->value() ) ? explode( ',', $this->value() ) : $this->value();
 		$this->json['choices'] = $this->choices;
 		$this->json['link']    = $this->get_link();
 		$this->json['id']      = $this->id;
@@ -65,8 +66,8 @@ class CareLib_Customize_Control_Checkbox_Multiple extends WP_Customize_Control {
 	 * @access public
 	 * @return void
 	 */
-	public function content_template() { ?>
-
+	public function content_template() {
+		?>
 		<# if ( ! data.choices ) {
 			return;
 		} #>
@@ -89,5 +90,6 @@ class CareLib_Customize_Control_Checkbox_Multiple extends WP_Customize_Control {
 				</li>
 			<# } ) #>
 		</ul>
-	<?php }
+		<?php
+	}
 }

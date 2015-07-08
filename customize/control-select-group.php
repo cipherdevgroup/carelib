@@ -4,12 +4,10 @@
  * developers to create a `<select>` form field with the `<optgroup>` elements mixed in. They
  * can also utilize regular `<option>` choices.
  *
- * @package    Hybrid
- * @subpackage Classes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2008 - 2015, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
@@ -74,14 +72,13 @@ class CareLib_Customize_Control_Select_Group extends WP_Customize_Control {
 	 * @access public
 	 * @return void
 	 */
-	public function content_template() { ?>
-
+	public function content_template() {
+		?>
 		<# if ( ! data.choices && ! data.group ) {
 			return;
 		} #>
 
 		<label>
-
 			<# if ( data.label ) { #>
 				<span class="customize-control-title">{{ data.label }}</span>
 			<# } #>
@@ -112,5 +109,6 @@ class CareLib_Customize_Control_Select_Group extends WP_Customize_Control {
 				<# } ) #>
 			</select>
 		</label>
-	<?php }
+		<?php
+	}
 }

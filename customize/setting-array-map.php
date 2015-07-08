@@ -1,12 +1,14 @@
 <?php
 /**
- * Customizer setting class for handling an array or comma-separated list of values. This takes the
- * given `sanitize_callback` and runs it over each element in the array via the `array_map()` function.
+ * Customizer setting for handling an array or comma-separated list of values.
  *
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2015, Justin Tadlock
- * @link       http://themehybrid.com/hybrid-core
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * This takes the given `sanitize_callback` and runs it over each element in the
+ * array via the `array_map()` function.
+ *
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
@@ -54,4 +56,5 @@ class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 	public function map( $value ) {
 		return apply_filters( "customize_sanitize_{$this->id}", $value, $this );
 	}
+
 }
