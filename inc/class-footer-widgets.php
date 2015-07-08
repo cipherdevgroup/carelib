@@ -40,7 +40,7 @@ class CareLib_Footer_Widgets {
 	 * @since 0.2.0
 	 * @var   CareLib_Layouts
 	 */
-	protected $sidebars;
+	protected $sidebar;
 
 	/**
 	 * The number of footer widget areas to display.
@@ -64,10 +64,10 @@ class CareLib_Footer_Widgets {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->lib      = CareLib::instance();
-		$this->prefix   = $this->lib->get_prefix();
-		$this->sidebars = CareLib_Factory::get( 'sidebars' );
-		$this->widgets  = apply_filters( "{$this->prefix}_footer_widgets", 3 );
+		$this->lib     = CareLib::instance();
+		$this->prefix  = $this->lib->get_prefix();
+		$this->sidebar = CareLib_Factory::get( 'sidebar' );
+		$this->widgets = apply_filters( "{$this->prefix}_footer_widgets", 3 );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class CareLib_Footer_Widgets {
 		$counter = $this->counter;
 
 		while ( $counter <= absint( $this->widgets[0] ) ) {
-			$this->sidebars->register_sidebar(
+			$this->sidebar->register_sidebar(
 				array(
 					'id'          => sprintf( 'footer-%d', $counter ),
 					'name'        => sprintf( __( 'Footer %d', 'carelib' ), $counter ),
