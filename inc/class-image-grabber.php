@@ -173,15 +173,6 @@ class CareLib_Image_Grabber {
 			// Return/echo image.
 			'format'             => 'img',
 			'echo'               => true,
-
-			// Deprecated arguments.
-			'custom_key'         => null, // @deprecated 0.6.0 Use 'meta_key'.
-			'default_size'       => null, // @deprecated 0.5.0 Use 'size'.
-			'the_post_thumbnail' => null, // @deprecated 1.0.0 Use 'featured'.
-			'image_scan'         => null, // @deprecated 1.0.0 Use 'scan' or 'scan_raw'.
-			'default_image'      => null, // @deprecated 1.0.0 Use 'default'.
-			'order_of_image'     => null, // @deprecated 1.0.0 No replacement.
-			'link_to_post'       => null, // @deprecated 1.1.0 Use 'link'.
 		);
 
 		// Allow plugins/themes to filter the arguments.
@@ -194,40 +185,6 @@ class CareLib_Image_Grabber {
 		if ( empty( $this->args['post_id'] ) ) {
 			return false;
 		}
-
-		/* === Handle deprecated arguments. === */
-
-		// If $default_size is given, overwrite $size.
-		if ( ! is_null( $this->args['default_size'] ) ) {
-			$this->args['size'] = $this->args['default_size'];
-		}
-
-		// If $custom_key is set, overwrite $meta_key.
-		if ( ! is_null( $this->args['custom_key'] ) ) {
-			$this->args['meta_key'] = $this->args['custom_key'];
-		}
-
-		// If 'the_post_thumbnail' is set, overwrite 'featured'.
-		if ( ! is_null( $this->args['the_post_thumbnail'] ) ) {
-			$this->args['featured'] = $this->args['the_post_thumbnail'];
-		}
-
-		// If 'image_scan' is set, overwrite 'scan'.
-		if ( ! is_null( $this->args['image_scan'] ) ) {
-			$this->args['scan'] = $this->args['image_scan'];
-		}
-
-		// If 'default_image' is set, overwrite 'default'.
-		if ( ! is_null( $this->args['default_image'] ) ) {
-			$this->args['default'] = $this->args['default_image'];
-		}
-
-		// If 'link_to_post' is set, overwrite 'link'.
-		if ( ! is_null( $this->args['link_to_post'] ) ) {
-			$this->args['link'] = true === $this->args['link_to_post'] ? 'post' : false;
-		}
-
-		/* === End deprecated arguments. === */
 
 		// If $format is set to 'array', don't link to the post.
 		if ( 'array' === $this->args['format'] ) {
