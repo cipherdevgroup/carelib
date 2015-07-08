@@ -20,9 +20,6 @@ defined( 'ABSPATH' ) || exit;
  * Gets attachment media file metadata. Each piece of meta will be escaped and formatted when
  * returned so that theme authors can properly utilize it within their themes.
  *
- * Theme authors shouldn't access this class directly. Instead, utilize the `carelib_media_meta()`
- * and `carelib_get_media_meta()` functions.
- *
  * @since  0.2.0
  * @access public
  */
