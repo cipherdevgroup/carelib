@@ -111,7 +111,7 @@ class CareLib_Attributes {
 	 * @param  string  $context  A specific context (e.g., 'primary').
 	 * @return void
 	 */
-	function attr( $slug, $context = '' ) {
+	public function attr( $slug, $context = '' ) {
 		echo $this->get_attr( $slug, $context );
 	}
 
@@ -130,7 +130,7 @@ class CareLib_Attributes {
 	 * @param  string  $context  A specific context (e.g., 'primary').
 	 * @return string
 	 */
-	function get_attr( $slug, $context = '' ) {
+	public function get_attr( $slug, $context = '' ) {
 		$out  = '';
 		$attr = apply_filters( "{$this->prefix}_attr_{$slug}", array(), $context );
 
