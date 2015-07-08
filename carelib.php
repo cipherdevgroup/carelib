@@ -254,9 +254,7 @@ class CareLib {
 			$classes['breadcrumb']         = true;
 			$classes['footer-widgets']     = true;
 			$classes['style-builder']      = false;
-			$classes['template-tags']      = false;
 			$classes['search-form']        = true;
-			$classes['media-grabber']      = false;
 			$classes['context']            = true;
 			$classes['customize']          = true;
 			$classes['filters']            = true;
@@ -267,10 +265,10 @@ class CareLib {
 			$classes['scripts']            = true;
 			$classes['support']            = true;
 			$classes['template']           = true;
-			$classes['template-comments']  = true;
-			$classes['template-entry']     = true;
-			$classes['template-general']   = true;
-			$classes['template-media']     = true;
+			$classes['template-comments']  = false;
+			$classes['template-entry']     = false;
+			$classes['template-general']   = false;
+			$classes['template-media']     = false;
 			$classes['template-hierarchy'] = true;
 		}
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
