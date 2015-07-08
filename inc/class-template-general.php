@@ -466,7 +466,7 @@ class CareLib_Template_General {
 		if ( $title = get_bloginfo( 'name' ) ) {
 			$title = sprintf( '<%1$s %2$s><a href="%2$s" rel="home">%4$s</a></%1$s>',
 				is_front_page() || is_home() ? 'h1' : 'p',
-				$this->get_attr( 'site-title' ),
+				$this->attr->get_attr( 'site-title' ),
 				esc_url( home_url() ),
 				$title
 			);
@@ -485,7 +485,7 @@ class CareLib_Template_General {
 	public function get_site_description() {
 		if ( $desc = get_bloginfo( 'description' ) ) {
 			$desc = sprintf( '<p %s>%s</p>',
-				$this->get_attr( 'site-description' ),
+				$this->attr->get_attr( 'site-description' ),
 				$desc
 			);
 		}
