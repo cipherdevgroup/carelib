@@ -219,8 +219,8 @@ class CareLib_Template_Hierarchy {
 		// If viewing an attachment page, handle the files by mime type.
 		if ( is_attachment() ) {
 			// Split the mime_type into two distinct parts.
-			$type    = carelib_get_attachment_type();
-			$subtype = carelib_get_attachment_subtype();
+			$type    = CareLib_Factory::get( 'template-media' )->get_attachment_type();
+			$subtype = CareLib_Factory::get( 'template-media' )->get_attachment_subtype();
 
 			if ( $subtype ) {
 				$templates[] = "attachment-{$type}-{$subtype}.php";

@@ -72,7 +72,7 @@ class CareLib_Media_Meta {
 	public function __construct( $post_id ) {
 		$this->post_id  = $post_id;
 		$this->meta     = wp_get_attachment_metadata( $this->post_id );
-		$this->type     = carelib_get_attachment_type();
+		$this->type     = CareLib_Factory::get( 'template-media' )->get_attachment_type();
 
 		// If we have a type that's in the whitelist, run filters.
 		if ( $this->type && in_array( $this->type, $this->allowed_types ) ) {
