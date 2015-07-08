@@ -294,3 +294,7 @@ class CareLib {
 function carelib( $args = array() ) {
 	return CareLib::instance( $args );
 }
+
+function carelib_get_class( $object, $name = 'canonical' ) {
+	return CareLib_Factory::get( $object, $name );
+}
