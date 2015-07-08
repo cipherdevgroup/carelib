@@ -245,7 +245,7 @@ class CareLib_Template_Entry {
 	 * @param  int    $post_id
 	 * @return bool
 	 */
-	public function post_has_content( $post_id = 0 ) {
+	public function entry_has_content( $post_id = 0 ) {
 		$post = get_post( $post_id );
 		return ! empty( $post->post_content );
 	}
@@ -261,7 +261,7 @@ class CareLib_Template_Entry {
 	 * @param  array   $args
 	 * @return string
 	 */
-	public function get_post_author( $args = array() ) {
+	public function get_entry_author( $args = array() ) {
 		$defaults = apply_filters( "{$this->prefix}_entry_author_defaults",
 			array(
 				'text'   => '%s',
@@ -303,7 +303,7 @@ class CareLib_Template_Entry {
 	 * @param  array   $args
 	 * @return string
 	 */
-	public function get_post_terms( $args = array() ) {
+	public function get_entry_terms( $args = array() ) {
 		$html = '';
 
 		$defaults = array(
