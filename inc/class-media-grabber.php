@@ -1,6 +1,6 @@
 <?php
 /**
- * Hybrid Media Grabber - A script for grabbing media related to a post.
+ * Media Grabber - A script for grabbing media related to a post.
  *
  * Hybrid Media Grabber is a script for pulling media either from the post content or attached to the
  * post. It's an attempt to consolidate the various methods that users have used over the years to
