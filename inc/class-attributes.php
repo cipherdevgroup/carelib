@@ -62,44 +62,45 @@ class CareLib_Attributes {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_filter( "{$this->prefix}_body",           array( $this, 'body' ),           5 );
-		add_filter( "{$this->prefix}_header",         array( $this, 'header' ),         5 );
-		add_filter( "{$this->prefix}_site-container", array( $this, 'site_container' ), 5 );
-		add_filter( "{$this->prefix}_site-inner",     array( $this, 'site_inner' ),     5 );
-		add_filter( "{$this->prefix}_footer",         array( $this, 'footer' ),         5 );
-		add_filter( "{$this->prefix}_content",        array( $this, 'content' ),        5 );
-		add_filter( "{$this->prefix}_sidebar",        array( $this, 'sidebar' ),        5, 2 );
-		add_filter( "{$this->prefix}_menu",           array( $this, 'menu' ),           5, 2 );
-		add_filter( "{$this->prefix}_nav",            array( $this, 'nav' ),            5, 2 );
-		add_filter( "{$this->prefix}_wrap",           array( $this, 'wrap' ),           5, 2 );
+		$prefix = "{$this->prefix}_attr";
+		add_filter( "{$prefix}_body",           array( $this, 'body' ),           5 );
+		add_filter( "{$prefix}_header",         array( $this, 'header' ),         5 );
+		add_filter( "{$prefix}_site-container", array( $this, 'site_container' ), 5 );
+		add_filter( "{$prefix}_site-inner",     array( $this, 'site_inner' ),     5 );
+		add_filter( "{$prefix}_footer",         array( $this, 'footer' ),         5 );
+		add_filter( "{$prefix}_content",        array( $this, 'content' ),        5 );
+		add_filter( "{$prefix}_sidebar",        array( $this, 'sidebar' ),        5, 2 );
+		add_filter( "{$prefix}_menu",           array( $this, 'menu' ),           5, 2 );
+		add_filter( "{$prefix}_nav",            array( $this, 'nav' ),            5, 2 );
+		add_filter( "{$prefix}_wrap",           array( $this, 'wrap' ),           5, 2 );
 
 		# Header attributes.
-		add_filter( "{$this->prefix}_head",             array( $this, 'head' ),             5 );
-		add_filter( "{$this->prefix}_branding",         array( $this, 'branding' ),         5 );
-		add_filter( "{$this->prefix}_site-title",       array( $this, 'site_title' ),       5 );
-		add_filter( "{$this->prefix}_site-description", array( $this, 'site_description' ), 5 );
+		add_filter( "{$prefix}_head",             array( $this, 'head' ),             5 );
+		add_filter( "{$prefix}_branding",         array( $this, 'branding' ),         5 );
+		add_filter( "{$prefix}_site-title",       array( $this, 'site_title' ),       5 );
+		add_filter( "{$prefix}_site-description", array( $this, 'site_description' ), 5 );
 
 		# Archive page header attributes.
-		add_filter( "{$this->prefix}_archive-header",      array( $this, 'archive_header' ),      5 );
-		add_filter( "{$this->prefix}_archive-title",       array( $this, 'archive_title' ),       5 );
-		add_filter( "{$this->prefix}_archive-description", array( $this, 'archive_description' ), 5 );
+		add_filter( "{$prefix}_archive-header",      array( $this, 'archive_header' ),      5 );
+		add_filter( "{$prefix}_archive-title",       array( $this, 'archive_title' ),       5 );
+		add_filter( "{$prefix}_archive-description", array( $this, 'archive_description' ), 5 );
 
 		# Post-specific attributes.
-		add_filter( "{$this->prefix}_post",            array( $this, 'post' ),            5 );
-		add_filter( "{$this->prefix}_entry",           array( $this, 'post' ),            5 ); // Alternate for "post".
-		add_filter( "{$this->prefix}_entry-title",     array( $this, 'entry_title' ),     5 );
-		add_filter( "{$this->prefix}_entry-author",    array( $this, 'entry_author' ),    5 );
-		add_filter( "{$this->prefix}_entry-published", array( $this, 'entry_published' ), 5 );
-		add_filter( "{$this->prefix}_entry-content",   array( $this, 'entry_content' ),   5 );
-		add_filter( "{$this->prefix}_entry-summary",   array( $this, 'entry_summary' ),   5 );
-		add_filter( "{$this->prefix}_entry-terms",     array( $this, 'entry_terms' ),     5, 2 );
+		add_filter( "{$prefix}_post",            array( $this, 'post' ),            5 );
+		add_filter( "{$prefix}_entry",           array( $this, 'post' ),            5 ); // Alternate for "post".
+		add_filter( "{$prefix}_entry-title",     array( $this, 'entry_title' ),     5 );
+		add_filter( "{$prefix}_entry-author",    array( $this, 'entry_author' ),    5 );
+		add_filter( "{$prefix}_entry-published", array( $this, 'entry_published' ), 5 );
+		add_filter( "{$prefix}_entry-content",   array( $this, 'entry_content' ),   5 );
+		add_filter( "{$prefix}_entry-summary",   array( $this, 'entry_summary' ),   5 );
+		add_filter( "{$prefix}_entry-terms",     array( $this, 'entry_terms' ),     5, 2 );
 
 		# Comment specific attributes.
-		add_filter( "{$this->prefix}_comment",           array( $this, 'comment' ),           5 );
-		add_filter( "{$this->prefix}_comment-author",    array( $this, 'comment_author' ),    5 );
-		add_filter( "{$this->prefix}_comment-published", array( $this, 'comment_published' ), 5 );
-		add_filter( "{$this->prefix}_comment-permalink", array( $this, 'comment_permalink' ), 5 );
-		add_filter( "{$this->prefix}_comment-content",   array( $this, 'comment_content' ),   5 );
+		add_filter( "{$prefix}_comment",           array( $this, 'comment' ),           5 );
+		add_filter( "{$prefix}_comment-author",    array( $this, 'comment_author' ),    5 );
+		add_filter( "{$prefix}_comment-published", array( $this, 'comment_published' ), 5 );
+		add_filter( "{$prefix}_comment-permalink", array( $this, 'comment_permalink' ), 5 );
+		add_filter( "{$prefix}_comment-content",   array( $this, 'comment_content' ),   5 );
 	}
 
 	/**
@@ -132,7 +133,7 @@ class CareLib_Attributes {
 	 */
 	function get_attr( $slug, $context = '' ) {
 		$out  = '';
-		$attr = apply_filters( "{$this->prefix}_{$slug}", array(), $context );
+		$attr = apply_filters( "{$this->prefix}_attr_{$slug}", array(), $context );
 
 		if ( empty( $attr ) ) {
 			$attr['class'] = $slug;
