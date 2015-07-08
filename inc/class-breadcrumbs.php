@@ -1,6 +1,6 @@
 <?php
 /**
- * Breadcrumb Trail - A breadcrumb menu script for WordPress.
+ * Breadcrumbs - Based on Breadcrumb Trail by Justin Tadlock.
  *
  * Breadcrumb Trail is a script for showing a breadcrumb trail for any type of page. It tries to
  * anticipate any type of structure and display the best possible trail that matches your site's
@@ -30,6 +30,14 @@
 class CareLib_Breadcrumbs {
 
 	/**
+	* Library prefix which can be set within themes.
+	*
+	* @since 0.2.0
+	* @var   string
+	*/
+	protected $prefix;
+
+	/**
 	 * Array of items belonging to the current breadcrumb trail.
 	 *
 	 * @since  0.1.0
@@ -48,6 +56,15 @@ class CareLib_Breadcrumbs {
 	public $args = array();
 
 	/**
+	* Constructor method.
+	*
+	* @since 0.2.0
+	*/
+	public function __construct() {
+		$this->prefix = CareLib::instance()->get_prefix();
+	}
+
+	/**
 	 * Sets up the breadcrumb trail.
 	 *
 	 * @since  0.6.0
@@ -55,8 +72,7 @@ class CareLib_Breadcrumbs {
 	 * @param  array  $args The arguments for how to build the breadcrumb trail.
 	 * @return void
 	 */
-	public function __construct( $args = array() ) {
-
+	public function run( $args = array() ) {
 		$defaults = array(
 			'container'       => 'div',
 			'before'          => '',
@@ -75,7 +91,7 @@ class CareLib_Breadcrumbs {
 			),
 
 			/* Labels for text used (see Breadcrumb_Trail::default_labels). */
-			'labels' => array()
+			'labels' => array(),
 		);
 
 		$this->args = apply_filters( 'breadcrumb_trail_args', wp_parse_args( $args, $defaults ) );
@@ -84,6 +100,75 @@ class CareLib_Breadcrumbs {
 		$this->args['labels'] = wp_parse_args( $this->args['labels'], $this->default_labels() );
 
 		$this->do_trail_items();
+	}
+
+	/**
+	 * An array of breadcrumb locations.
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @return array $breadcrumbs
+	 */
+	protected function get_options() {
+		$prefix = $this->prefix;
+		return apply_filters( "{$prefix}_breadcrumb_options", array(
+			"{$prefix}_breadcrumb_single" => array(
+				'default'  => 0,
+				'label'    => __( 'Single Entries', 'carelib' ),
+			),
+			"{$prefix}_breadcrumb_pages" => array(
+				'default'  => 0,
+				'label'    => __( 'Pages', 'carelib' ),
+			),
+			"{$prefix}_breadcrumb_blog_page" => array(
+				'default'  => 0,
+				'label'    => __( 'Blog Page', 'carelib' ),
+			),
+			"{$prefix}_breadcrumb_archive" => array(
+				'default'  => 0,
+				'label'    => __( 'Archives', 'carelib' ),
+			),
+			"{$prefix}_breadcrumb_404" => array(
+				'default'  => 0,
+				'label'    => __( '404 Page', 'carelib' ),
+			),
+			"{$prefix}_breadcrumb_attachment" => array(
+				'default'  => 0,
+				'label'    => __( 'Attachment/Media Pages', 'carelib' ),
+			),
+		) );
+	}
+
+	/**
+	 * Display our breadcrumbs based on selections made in the WordPress customizer.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return bool true if both our template tag and theme mod return true.
+	 */
+	public function display() {
+		// Grab our available breadcrumb display options.
+		$options = array_keys( $this->get_options() );
+		// Set up an array of template tags to map to our breadcrumb display options.
+		$tags = apply_filters( "{$this->prefix}_breadcrumb_tags",
+			array(
+				is_singular() && ! is_attachment() && ! is_page(),
+				is_page(),
+				is_home() && ! is_front_page(),
+				is_archive(),
+				is_404(),
+				is_attachment(),
+			)
+		);
+
+		// Loop through our theme mods to see if we have a match.
+		foreach ( array_combine( $options, $tags ) as $mod => $tag ) {
+			// Return true if we find an enabled theme mod within the correct section.
+			if ( 1 === absint( get_theme_mod( $mod, 0 ) ) && true === $tag ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -1084,4 +1169,5 @@ class CareLib_Breadcrumbs {
 			}
 		}
 	}
+
 }
