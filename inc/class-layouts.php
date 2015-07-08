@@ -81,7 +81,7 @@ class CareLib_Layouts {
 	 */
 	public function register_layout( $name, $args = array() ) {
 		if ( ! $this->layout_exists( $name ) ) {
-			$this->layouts[ $name ] = CareLib_Factory::build( 'layout', $name, $args );
+			self::$layouts[ $name ] = CareLib_Factory::build( 'layout', $name, $args );
 		}
 	}
 
