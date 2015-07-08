@@ -151,7 +151,7 @@ class CareLib_Context {
 	 * @return array
 	 */
 	function body_class_filter( $classes, $class ) {
-
+		$factory = 'CareLib_Factory';
 		// WordPress class for uses when WordPress isn't always the only system on the site.
 		$classes = array( 'wordpress' );
 
@@ -160,7 +160,7 @@ class CareLib_Context {
 
 		// Locale and language.
 		$locale = get_locale();
-		$lang   = CareLib_Factory::get( 'i18n' )->get_language( $locale );
+		$lang   = $factory::get( 'i18n' )->get_language( $locale );
 
 		if ( $locale !== $lang ) {
 			$classes[] = $lang;
@@ -205,7 +205,7 @@ class CareLib_Context {
 		}
 
 		// Plural/multiple-post view (opposite of singular).
-		if ( is_plural() ) {
+		if ( $factory::get( 'template-general' )->is_plural() ) {
 			$classes[] = 'plural';
 		}
 
@@ -216,10 +216,18 @@ class CareLib_Context {
 		if ( is_singular() ) {
 
 			// Get the queried post object.
-			$post = get_queried_object();
+			$post      = get_queried_object();
+			$hierarchy = $factory::get( 'template-hierarchy' );
 
 			// Checks for custom template.
-			$template = str_replace( array( "{$post->post_type}-template-", "{$post->post_type}-" ), '', basename( get_post_template( $post->ID ), '.php' ) );
+			$template = str_replace(
+				array(
+					"{$post->post_type}-template-",
+					"{$post->post_type}-",
+				),
+				'',
+				basename( $hierarchy->get_post_template( $post->ID ), '.php' )
+			);
 			if ( $template ) {
 				$classes[] = "{$post->post_type}-template-{$template}";
 			}
@@ -233,14 +241,14 @@ class CareLib_Context {
 		}
 
 		// Paged views.
-		if ( is_paged() || s_singular() && 1 < get_query_var( 'page' ) ) {
+		if ( is_paged() || is_singular() && 1 < get_query_var( 'page' ) ) {
 			$classes[] = 'paged';
 			$classes[] = 'paged-' . intval( get_query_var( 'paged' ) );
 		}
 
 		// Theme layouts.
 		if ( current_theme_supports( 'theme-layouts' ) ) {
-			$classes[] = sanitize_html_class( 'layout-' . get_theme_layout() );
+			$classes[] = sanitize_html_class( 'layout-' . $factory::get( 'layouts' )->get_theme_layout() );
 		}
 
 		// Input class.
