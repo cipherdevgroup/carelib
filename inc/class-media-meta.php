@@ -101,8 +101,6 @@ class CareLib_Media_Meta {
 		return isset( $this->property ) ? $this->property : $this->get( $property );
 	}
 
-	/* ====== Protected Methods ====== */
-
 	/**
 	 * Function for escaping properties when there is not a specific method for handling them
 	 * within the class.
@@ -189,8 +187,6 @@ class CareLib_Media_Meta {
 	protected function video_filters() {
 		add_filter( 'carelib_media_meta_escape_dimensions', array( $this, 'dimensions' ), 5 );
 	}
-
-	/* ====== Public Methods ====== */
 
 	/**
 	 * Method for grabbing meta formatted metadata by key.

@@ -256,8 +256,6 @@ class CareLib {
 			$classes['style-builder']      = false;
 			$classes['template-tags']      = false;
 			$classes['search-form']        = true;
-			$classes['media-meta']         = false;
-			$classes['media-meta-factory'] = false;
 			$classes['media-grabber']      = false;
 			$classes['context']            = true;
 			$classes['customize']          = true;
