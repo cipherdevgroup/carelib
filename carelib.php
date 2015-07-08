@@ -240,10 +240,7 @@ class CareLib {
 	protected function build( $factory ) {
 		$classes = array(
 			'breadcrumb-display' => true,
-			'layout'             => false,
-			'layout-factory'     => false,
 			'layouts'            => true,
-			'site-logo'          => true,
 			'i18n'               => true,
 			'sidebars'           => true,
 		);
