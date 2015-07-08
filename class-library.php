@@ -1,6 +1,6 @@
 <?php
 /**
- * Load all required library files.
+ * The main CareLib library class.
  *
  * @package    CareLib
  * @copyright  Copyright (c) 2015, WP Site Care, LLC
@@ -70,25 +70,6 @@ class CareLib {
 		$this->dir    = trailingslashit( dirname( __FILE__ ) );
 		$this->uri    = trailingslashit( $this->normalize_uri( dirname( __FILE__ ) ) );
 		$this->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
-	}
-
-	/**
-	 * Main CareLib Instance
-	 *
-	 * Insures that only one instance of CareLib exists in memory at any one
-	 * time. Also prevents needing to define globals all over the place.
-	 *
-	 * @since 0.1.0
-	 * @static
-	 * @uses   CareLib::includes() Include the required files
-	 * @return CareLib
-	 */
-	public static function instance( $args = array() ) {
-		static $instance;
-		if ( null === $instance ) {
-			$instance = new self( $args );
-		}
-		return $instance;
 	}
 
 	/**
@@ -278,23 +259,23 @@ class CareLib {
 		}
 	}
 
-}
+	/**
+	 * Main CareLib Instance
+	 *
+	 * Insures that only one instance of CareLib exists in memory at any one
+	 * time. Also prevents needing to define globals all over the place.
+	 *
+	 * @since 0.1.0
+	 * @static
+	 * @uses   CareLib::includes() Include the required files
+	 * @return CareLib
+	 */
+	public static function instance( $args = array() ) {
+		static $instance;
+		if ( null === $instance ) {
+			$instance = new self( $args );
+		}
+		return $instance;
+	}
 
-/**
- * Grab an instance of the main library class. If you need to reference a
- * method in the class for some reason, do it using this function.
- *
- * Example:
- *
- * <?php carelib()->is_customizer_preview(); ?>
- *
- * @since   0.1.0
- * @return  object CareLib
- */
-function carelib( $args = array() ) {
-	return CareLib::instance( $args );
-}
-
-function carelib_get_class( $object, $name = 'canonical' ) {
-	return CareLib_Factory::get( $object, $name );
 }
