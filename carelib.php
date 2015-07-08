@@ -242,7 +242,8 @@ class CareLib {
 			'breadcrumb-display' => true,
 			'layouts'            => true,
 			'i18n'               => true,
-			'sidebars'           => true,
+			'scripts'            => true,
+			'sidebar'            => true,
 		);
 		if ( is_admin() ) {
 			$classes['admin-author-box'] = true;
@@ -251,7 +252,7 @@ class CareLib {
 		} else {
 			$classes['attributes']         = true;
 			$classes['author-box']         = true;
-			$classes['breadcrumb']         = true;
+			$classes['breadcrumbs']        = false;
 			$classes['footer-widgets']     = true;
 			$classes['style-builder']      = false;
 			$classes['search-form']        = true;
@@ -261,10 +262,7 @@ class CareLib {
 			$classes['head']               = true;
 			$classes['image-grabber']      = false;
 			$classes['meta']               = true;
-			$classes['sidebar']            = true;
-			$classes['scripts']            = true;
 			$classes['support']            = true;
-			$classes['template']           = true;
 			$classes['template-comments']  = false;
 			$classes['template-entry']     = false;
 			$classes['template-general']   = false;
