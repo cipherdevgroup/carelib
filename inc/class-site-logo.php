@@ -49,7 +49,9 @@ class CareLib_Site_Logo {
 	 * @return object CareLib_Site_Logo
 	 */
 	public function run() {
-		self::wp_hooks();
+		if ( ! function_exists( 'jetpack_the_site_logo' ) ) {
+			self::wp_hooks();
+		}
 	}
 
 	/**
