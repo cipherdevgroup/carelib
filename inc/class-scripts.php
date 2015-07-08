@@ -146,8 +146,8 @@ class CareLib_Scripts {
 	 * @return void
 	 */
 	public function register_styles() {
-		wp_register_style( 'hybrid-parent', $this->get_parent_stylesheet_uri() );
-		wp_register_style( 'hybrid-style',  get_stylesheet_uri() );
+		wp_register_style( "{$this->prefix}-parent", $this->get_parent_stylesheet_uri() );
+		wp_register_style( "{$this->prefix}-style",  get_stylesheet_uri() );
 	}
 
 	/**
