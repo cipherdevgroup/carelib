@@ -103,19 +103,6 @@ class CareLib_Attributes {
 	}
 
 	/**
-	 * Output an HTML element's attributes.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $slug     The slug/ID of the element (e.g., 'sidebar').
-	 * @param  string  $context  A specific context (e.g., 'primary').
-	 * @return void
-	 */
-	public function attr( $slug, $context = '' ) {
-		echo $this->get_attr( $slug, $context );
-	}
-
-	/**
 	 * Get an HTML element's attributes.
 	 *
 	 * This function is actually meant to be filtered by theme authors, plugins,
