@@ -22,7 +22,7 @@ class CareLib_Template_Entry {
 	/**
 	 * The library object.
 	 *
-	 * @since 0.1.0
+	 * @since 0.2.0
 	 * @type CareLib
 	 */
 	protected $lib;
@@ -35,6 +35,12 @@ class CareLib_Template_Entry {
 	 */
 	protected $prefix;
 
+	/**
+	 * The CareLib attributes class.
+	 *
+	 * @since 0.2.0
+	 * @var   CareLib_Attributes
+	 */
 	protected $attr;
 
 	/**
