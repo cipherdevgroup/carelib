@@ -458,7 +458,7 @@ class CareLib_Template_General {
 	 */
 	public function get_site_title() {
 		if ( $title = get_bloginfo( 'name' ) ) {
-			$title = sprintf( '<%1$s %2$s><a href="%2$s" rel="home">%4$s</a></%1$s>',
+			$title = sprintf( '<%1$s %2$s><a href="%3$s" rel="home">%4$s</a></%1$s>',
 				is_front_page() || is_home() ? 'h1' : 'p',
 				$this->attr->get_attr( 'site-title' ),
 				esc_url( home_url() ),
