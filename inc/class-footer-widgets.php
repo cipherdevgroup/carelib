@@ -18,9 +18,45 @@ defined( 'ABSPATH' ) || exit;
  */
 class CareLib_Footer_Widgets {
 
-	protected $counter = 1;
+	/**
+	 * The library object.
+	 *
+	 * @since 0.1.0
+	 * @type CareLib
+	 */
+	protected $lib;
 
-	protected $footer_widgets;
+	/**
+	 * Library prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $prefix;
+
+	/**
+	 * The CareLib layouts class.
+	 *
+	 * @since 0.2.0
+	 * @var   CareLib_Layouts
+	 */
+	protected $sidebars;
+
+	/**
+	 * The number of footer widget areas to display.
+	 *
+	 * @since 0.2.0
+	 * @var   integer
+	 */
+	protected $widgets;
+
+	/**
+	 * Counter to use when iterating through footer widget areas.
+	 *
+	 * @since 0.2.0
+	 * @var   integer
+	 */
+	protected $counter = 1;
 
 	/**
 	 * Constructor method.
@@ -28,9 +64,10 @@ class CareLib_Footer_Widgets {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->footer_widgets = get_theme_support(
-			CareLib::instance()->get_prefix() . '-footer-widgets'
-		);
+		$this->lib      = CareLib::instance();
+		$this->prefix   = $this->lib->get_prefix();
+		$this->sidebars = CareLib_Factory::get( 'sidebars' );
+		$this->widgets  = apply_filters( "{$this->prefix}_footer_widgets", 3 );
 	}
 
 	/**
@@ -56,8 +93,8 @@ class CareLib_Footer_Widgets {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_action( 'widgets_init',               array( $this, 'register' ) );
-		add_action( 'carelib_attr_footer-widgets', array( $this, 'attributes' ) );
+		add_action( 'widgets_init',                        array( $this, 'register' ) );
+		add_action( "{$this->prefix}_attr_footer-widgets", array( $this, 'attributes' ) );
 	}
 
 	/**
@@ -70,14 +107,14 @@ class CareLib_Footer_Widgets {
 	 */
 	public function register() {
 		// Return early if we don't have any footer widgets to display.
-		if ( ! isset( $this->footer_widgets[0] ) || ! is_numeric( $this->footer_widgets[0] ) ) {
+		if ( ! isset( $this->widgets[0] ) || ! is_numeric( $this->widgets[0] ) ) {
 			return;
 		}
 
 		$counter = $this->counter;
 
-		while ( $counter <= absint( $this->footer_widgets[0] ) ) {
-			carelib_register_sidebar(
+		while ( $counter <= absint( $this->widgets[0] ) ) {
+			$this->sidebars->register_sidebar(
 				array(
 					'id'          => sprintf( 'footer-%d', $counter ),
 					'name'        => sprintf( __( 'Footer %d', 'carelib' ), $counter ),
@@ -112,7 +149,7 @@ class CareLib_Footer_Widgets {
 	 */
 	public function template() {
 		// Return early if we don't have any footer widgets to display.
-		if ( ! isset( $this->footer_widgets[0] ) || ! is_numeric( $this->footer_widgets[0] ) ) {
+		if ( ! isset( $this->widgets[0] ) || ! is_numeric( $this->widgets[0] ) ) {
 			return false;
 		}
 
@@ -129,4 +166,5 @@ class CareLib_Footer_Widgets {
 			require_once $template;
 		}
 	}
+
 }
