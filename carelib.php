@@ -239,11 +239,12 @@ class CareLib {
 	 */
 	protected function build( $factory ) {
 		$classes = array(
-			'breadcrumb-display' => true,
+			'customize'          => true,
 			'layouts'            => true,
 			'i18n'               => true,
 			'scripts'            => true,
 			'sidebar'            => true,
+			'style-builder'      => false,
 		);
 		if ( is_admin() ) {
 			$classes['admin-author-box'] = true;
@@ -254,14 +255,13 @@ class CareLib {
 			$classes['author-box']         = true;
 			$classes['breadcrumbs']        = false;
 			$classes['footer-widgets']     = true;
-			$classes['style-builder']      = false;
 			$classes['search-form']        = true;
 			$classes['context']            = true;
-			$classes['customize']          = true;
 			$classes['filters']            = true;
 			$classes['head']               = true;
 			$classes['image-grabber']      = false;
 			$classes['meta']               = true;
+			$classes['site-logo']          = true;
 			$classes['support']            = true;
 			$classes['template-comments']  = false;
 			$classes['template-entry']     = false;

@@ -99,8 +99,11 @@ class CareLib_Customize  {
 	 * @return void
 	 */
 	public function load_customize_classes( $wp_customize ) {
+		require_once $this->get_dir( 'setting-base.php' );
+		require_once $this->get_dir( 'setting-breadcrumbs.php' );
 		require_once $this->get_dir( 'setting-array-map.php' );
 		require_once $this->get_dir( 'setting-image-data.php' );
+		require_once $this->get_dir( 'setting-site-logo.php' );
 		require_once $this->get_dir( 'control-checkbox-multiple.php' );
 		require_once $this->get_dir( 'control-dropdown-terms.php' );
 		require_once $this->get_dir( 'control-layout.php' );
