@@ -156,8 +156,8 @@ class CareLib {
 	 * @access  public
 	 * @return  string
 	 */
-	public function get_dir() {
-		return $this->dir;
+	public function get_dir( $path = '' ) {
+		return $this->dir . $path;
 	}
 
 	/**
@@ -167,8 +167,8 @@ class CareLib {
 	 * @access public
 	 * @return string
 	 */
-	public function get_uri() {
-		return $this->uri;
+	public function get_uri( $path = '' ) {
+		return $this->uri . $path;
 	}
 
 	/**
