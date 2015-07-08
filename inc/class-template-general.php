@@ -117,12 +117,12 @@ class CareLib_Template_General {
 	 * @return bool true if both our template tag and theme mod return true.
 	 */
 	public function display_breadcrumbs() {
-		$breadcrumbs = CareLib_Factory::get( 'breadcrumb-display' );
+		$breadcrumbs = CareLib_Factory::get( 'breadcrumbs' );
 		// Return early if our theme doesn't support breadcrumbs.
 		if ( ! is_object( $breadcrumbs ) ) {
 			return false;
 		}
-		return $breadcrumbs->display_breadcrumbs();
+		return $breadcrumbs->display();
 	}
 
 	/**
