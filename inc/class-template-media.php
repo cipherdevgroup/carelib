@@ -55,7 +55,7 @@ class CareLib_Template_Media {
 	 * @access public
 	 * @return string
 	 */
-	public function audio_attachment() {
+	public function get_audio_attachment() {
 		return $this->media_grabber( array( 'type' => 'audio' ) );
 	}
 
@@ -67,7 +67,7 @@ class CareLib_Template_Media {
 	 * @access public
 	 * @return string
 	 */
-	public function video_attachment() {
+	public function get_video_attachment() {
 		return $this->media_grabber( array( 'type' => 'video' ) );
 	}
 
