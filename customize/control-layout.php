@@ -28,6 +28,8 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	 */
 	public $section = 'layout';
 
+	protected $layouts;
+
 	/**
 	 * Set up our control.
 	 *
@@ -39,12 +41,13 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	 * @return void
 	 */
 	public function __construct( $manager, $id, $args = array() ) {
+		$this->layouts = CareLib_Factory::get( 'layouts' );
 
 		// Array of allowed layouts. Pass via `$args['layouts']`.
-		$allowed = ! empty( $args['layouts'] ) ? $args['layouts'] : array_keys( carelib_get_layouts() );
+		$allowed = ! empty( $args['layouts'] ) ? $args['layouts'] : array_keys( $this->layouts->get_layouts() );
 
 		// Loop through each of the layouts and add it to the choices array with proper key/value pairs.
-		foreach ( carelib_get_layouts() as $layout ) {
+		foreach ( $this->layouts->get_layouts() as $layout ) {
 
 			if ( in_array( $layout->name, $allowed ) && ! ( 'theme_layout' === $id && false === $layout->is_global_layout ) && $layout->image ) {
 
