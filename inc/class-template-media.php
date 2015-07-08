@@ -1,7 +1,7 @@
 <?php
 /**
- * Media template functions. These functions are meant to handle various features needed in theme templates
- * for media and attachments.
+ * Media template functions. These functions are meant to handle various
+ * features needed in theme templates for media and attachments.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
