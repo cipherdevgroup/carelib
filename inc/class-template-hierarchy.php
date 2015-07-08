@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * CareLib Filters class.
  */
-class CareLib_Template_Heirarchy {
+class CareLib_Template_Hierarchy {
 
 	/**
 	 * Library prefix which can be set within themes.
