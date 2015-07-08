@@ -1,25 +1,19 @@
 <?php
 /**
- * Get the Image - An advanced post image script for WordPress.
+ * A Helper class for retrieving images.
  *
- * Get the Image was created to be a highly-intuitive image script that displays post-specific images (an
- * image-based representation of a post). The script handles old-style post images via custom fields for
- * backwards compatibility. It also supports WordPress' built-in featured image functionality. On top of
- * those things, it can automatically set attachment images as the post image or scan the post content for
- * the first image element used. It can also fall back to a given default image.
+ * Based on Get the Image by Justin Tadlock.
  *
- * @package   GetTheImage
- * @version   1.1.0
+ * @package   CareLib
  * @author    Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2008 - 2014, Justin Tadlock
- * @link      http://justintadlock.com/archives/2008/05/27/get-the-image-wordpress-plugin
- * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @author    Robert Neu <rob@wpsitecare.com>
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
 
 /**
- * Class for getting images related to a post. Only use this class in your projects if you absolutely know
- * what you're doing and expect your code to break in future versions. Use the the `get_the_image()`
- * wrapper function instead. That's the reason it exists.
+ * Class for getting images related to a post.
  *
  * @since  1.0.0
  * @access public
@@ -315,7 +309,7 @@ class CareLib_Image_Grabber {
 			$image_cache = array();
 
 		// If there is no cached image, let's see if one exists.
-		if ( !isset( $image_cache[ $key ] ) || empty( $cache ) ) {
+		if ( ! isset( $image_cache[ $key ] ) || empty( $cache ) ) {
 
 			foreach ( $this->args['order'] as $method ) {
 
