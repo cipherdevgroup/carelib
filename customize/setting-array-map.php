@@ -37,8 +37,7 @@ class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 	 * @return array
 	 */
 	public function sanitize( $values ) {
-
-		$multi_values = !is_array( $values ) ? explode( ',', $values ) : $values;
+		$multi_values = ! is_array( $values ) ? explode( ',', $values ) : $values;
 
 		return ! empty( $multi_values ) ? array_map( array( $this, 'map' ), $multi_values ) : array();
 	}
@@ -53,7 +52,6 @@ class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 	 * @return mixed
 	 */
 	public function map( $value ) {
-
 		return apply_filters( "customize_sanitize_{$this->id}", $value, $this );
 	}
 }

@@ -45,7 +45,7 @@ class CareLib_Customize_Setting_Image_Data extends WP_Customize_Setting {
 						'url'    => esc_url_raw( $image[0] ),
 						'width'  => absint( $image[1] ),
 						'height' => absint( $image[2] ),
-						'id'     => absint( $post_id )
+						'id'     => absint( $post_id ),
 					);
 
 					set_theme_mod( "{$this->id_data[ 'base' ]}_data", $data );
@@ -54,8 +54,9 @@ class CareLib_Customize_Setting_Image_Data extends WP_Customize_Setting {
 		}
 
 		// No media? Remove the data mod.
-		if ( empty( $value ) || empty( $post_id ) || empty( $image ) )
+		if ( empty( $value ) || empty( $post_id ) || empty( $image ) ) {
 			remove_theme_mod( "{$this->id_data[ 'base' ]}_data" );
+		}
 
 		// Let's send this back up and let the parent class do its thing.
 		return parent::update( $value );

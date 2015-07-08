@@ -30,8 +30,6 @@ class CareLib_Layout {
 	 */
 	protected $args = array();
 
-	/* ====== Magic Methods ====== */
-
 	/**
 	 * Magic method for getting layout object properties.
 	 *
@@ -41,7 +39,6 @@ class CareLib_Layout {
 	 * @return mixed
 	 */
 	public function __get( $property ) {
-
 		return isset( $this->args[ $property ] ) ? $this->args[ $property ] : null;
 	}
 
@@ -55,7 +52,6 @@ class CareLib_Layout {
 	 * @return void
 	 */
 	public function __set( $property, $value ) {
-
 		$this->args[ $property ] = $value;
 	}
 
@@ -68,7 +64,6 @@ class CareLib_Layout {
 	 * @return bool
 	 */
 	public function __isset( $property ) {
-
 		return isset( $this->args[ $property ] );
 	}
 
@@ -112,7 +107,6 @@ class CareLib_Layout {
 	 * @return void
 	 */
 	public function __construct( $name, $args = array() ) {
-
 		$name = sanitize_key( $name );
 
 		$defaults = array(
@@ -133,8 +127,6 @@ class CareLib_Layout {
 		$this->add_post_type_support();
 	}
 
-	/* ====== Protected Methods ====== */
-
 	/**
 	 * Adds post type support for `theme-layouts` in the event that the layout has been
 	 * explicitly set for one or more post types.
@@ -144,13 +136,13 @@ class CareLib_Layout {
 	 * @return void
 	 */
 	protected function add_post_type_support() {
+		if ( empty( $this->post_types ) ) {
+			return;
+		}
 
-		if ( ! empty( $this->post_types ) ) {
-
-			foreach ( $this->post_types as $post_type ) {
-
-				if ( !post_type_supports( $post_type, 'theme-layouts' ) )
-					add_post_type_support( $post_type, 'theme-layouts' );
+		foreach ( $this->post_types as $post_type ) {
+			if ( ! post_type_supports( $post_type, 'theme-layouts' ) ) {
+				add_post_type_support( $post_type, 'theme-layouts' );
 			}
 		}
 	}
