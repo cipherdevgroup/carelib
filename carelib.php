@@ -268,9 +268,8 @@ class CareLib {
 			$classes['head']               = true;
 			$classes['image-grabber']      = false;
 			$classes['meta']               = true;
-			$classes['sidebars']           = true;
+			$classes['sidebar']            = true;
 			$classes['scripts']            = true;
-			$classes['styles']             = true;
 			$classes['support']            = true;
 			$classes['template']           = true;
 			$classes['template-comments']  = true;
