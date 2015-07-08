@@ -105,4 +105,24 @@ class CareLib_Sidebar {
 		return isset( $wp_registered_sidebars[ $sidebar_id ] ) ? $wp_registered_sidebars[ $sidebar_id ]['name'] : false;
 	}
 
+	/**
+	 * Get a specified sidebar template.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string  $name
+	 * @return void
+	 */
+	public function get_template( $name = null ) {
+		do_action( 'get_sidebar', $name ); // Core WordPress hook
+		$templates = array();
+		if ( '' !== $name ) {
+			$templates[] = "sidebar-{$name}.php";
+			$templates[] = "sidebar/{$name}.php";
+		}
+		$templates[] = 'sidebar.php';
+		$templates[] = 'sidebar/sidebar.php';
+		locate_template( $templates, true );
+	}
+
 }
