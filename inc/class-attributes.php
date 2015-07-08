@@ -51,7 +51,7 @@ class CareLib_Attributes {
 	 * @return void
 	 */
 	public function run() {
-		self::wp_hooks();
+		self::attr_filters( "{$this->prefix}_attr" );
 	}
 
 	/**
@@ -61,8 +61,7 @@ class CareLib_Attributes {
 	 * @access public
 	 * @return void
 	 */
-	protected function wp_hooks() {
-		$prefix = "{$this->prefix}_attr";
+	protected function attr_filters( $prefix ) {
 		add_filter( "{$prefix}_body",           array( $this, 'body' ),           5 );
 		add_filter( "{$prefix}_header",         array( $this, 'header' ),         5 );
 		add_filter( "{$prefix}_site-container", array( $this, 'site_container' ), 5 );
