@@ -184,7 +184,7 @@ class CareLib_Template_Hierarchy {
 
 		// Return the available templates.
 		return locate_template( array(
-			"taxonomy-{$term->taxonomy}-{$slug}.php",
+			"taxonomy-{$term->taxonomy}-{$term->slug}.php",
 			"taxonomy-{$term->taxonomy}.php",
 			'taxonomy.php',
 			'archive.php',
