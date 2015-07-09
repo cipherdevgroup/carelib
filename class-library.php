@@ -24,7 +24,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @type  string
 	 */
-	protected $version = '0.1.0';
+	private $version = '0.1.0';
 
 	/**
 	 * Prefix to prevent conflicts.
@@ -34,7 +34,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @type  string
 	 */
-	protected $prefix;
+	private $prefix;
 
 	/**
 	 * The main library file.
@@ -117,6 +117,17 @@ class CareLib {
 	 */
 	public function is_wpcom() {
 		return apply_filters( 'carelib_is_wpcom', false );
+	}
+
+	/**
+	 * Getter method for reading the protected version variable.
+	 *
+	 * @since   0.2.0
+	 * @access  public
+	 * @return  bool
+	 */
+	public function get_version() {
+		return $this->version;
 	}
 
 	/**
@@ -236,23 +247,23 @@ class CareLib {
 			$classes['admin-scripts']               = true;
 			$classes['admin-tinymce']               = true;
 		} else {
-			$classes['attributes']         = true;
-			$classes['author-box']         = true;
-			$classes['breadcrumbs']        = false;
-			$classes['footer-widgets']     = true;
-			$classes['search-form']        = true;
-			$classes['context']            = true;
-			$classes['filters']            = true;
-			$classes['head']               = true;
-			$classes['image-grabber']      = false;
-			$classes['meta']               = true;
-			$classes['public-scripts']     = true;
-			$classes['site-logo']          = true;
-			$classes['support']            = true;
-			$classes['template-comments']  = false;
-			$classes['template-entry']     = false;
-			$classes['template-general']   = false;
-			$classes['template-media']     = false;
+			$classes['attributes']        = true;
+			$classes['author-box']        = true;
+			$classes['breadcrumbs']       = false;
+			$classes['footer-widgets']    = true;
+			$classes['search-form']       = true;
+			$classes['context']           = true;
+			$classes['filters']           = true;
+			$classes['head']              = true;
+			$classes['image-grabber']     = false;
+			$classes['public-scripts']    = true;
+			$classes['meta']              = true;
+			$classes['site-logo']         = true;
+			$classes['support']           = true;
+			$classes['template-comments'] = false;
+			$classes['template-entry']    = false;
+			$classes['template-general']  = false;
+			$classes['template-media']    = false;
 		}
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
 		foreach ( (array) $classes as $class => $runnable ) {
