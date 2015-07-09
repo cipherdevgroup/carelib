@@ -135,7 +135,8 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Tries several methods to find media related to the post. Returns the found media.
+	 * Tries several methods to find media related to the post. Returns the
+	 * found media.
 	 *
 	 * @since  1.6.0
 	 * @access public
@@ -144,39 +145,46 @@ class CareLib_Media_Grabber {
 	public function set_media() {
 
 		// Get the media if the post type is an attachment.
-		if ( 'attachment' === get_post_type( $this->args['post_id'] ) )
+		if ( 'attachment' === get_post_type( $this->args['post_id'] ) ) {
 			$this->do_attachment_media();
+		}
 
 		// Find media in the post content based on WordPress' media-related shortcodes.
-		if ( empty( $this->media ) )
+		if ( empty( $this->media ) ) {
 			$this->do_shortcode_media();
+		}
 
 		// If no media is found and autoembeds are enabled, check for autoembeds.
-		if ( empty( $this->media ) && get_option( 'embed_autourls' ) )
+		if ( empty( $this->media ) && get_option( 'embed_autourls' ) ) {
 			$this->do_autoembed_media();
+		}
 
 		// If no media is found, check for media HTML within the post content.
-		if ( empty( $this->media ) )
+		if ( empty( $this->media ) ) {
 			$this->do_embedded_media();
+		}
 
 		// If no media is found, check for media attached to the post.
-		if ( empty( $this->media ) )
+		if ( empty( $this->media ) ) {
 			$this->do_attached_media();
-
+		}
 		// If media is found, let's run a few things.
 		if ( ! empty( $this->media ) ) {
 
 			// Add the before HTML.
-			if ( isset( $this->args['before'] ) )
+			if ( isset( $this->args['before'] ) ) {
 				$this->media = $this->args['before'] . $this->media;
+			}
 
 			// Add the after HTML.
-			if ( isset( $this->args['after'] ) )
+			if ( isset( $this->args['after'] ) ) {
 				$this->media .= $this->args['after'];
+			}
 
 			// Split the media from the content.
-			if ( true === $this->args['split_media'] && ! empty( $this->original_media ) )
+			if ( true === $this->args['split_media'] && ! empty( $this->original_media ) ) {
 				add_filter( 'the_content', array( $this, 'split_media' ), 5 );
+			}
 
 			// Filter the media dimensions.
 			$this->media = $this->filter_dimensions( $this->media );
@@ -184,42 +192,43 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * WordPress has a few shortcodes for handling embedding media:  [audio], [video], and [embed]. This
-	 * method figures out the shortcode used in the content. Once it's found, the appropriate method for
-	 * the shortcode is executed.
+	 * WordPress has a few shortcodes for handling embedding media: [audio],
+	 * [video], and [embed]. This method figures out the shortcode used in the
+	 * content. Once it's found, the appropriate method for the shortcode is
+	 * executed.
 	 *
 	 * @since  1.6.0
 	 * @access public
 	 * @return void
 	 */
 	public function do_shortcode_media() {
-
 		// Finds matches for shortcodes in the content.
 		preg_match_all( '/' . get_shortcode_regex() . '/s', $this->content, $matches, PREG_SET_ORDER );
 
 		// If matches are found, loop through them and check if they match one of WP's media shortcodes.
-		if ( ! empty( $matches ) ) {
+		if ( empty( $matches ) ) {
+			return;
+		}
 
-			foreach ( $matches as $shortcode ) {
+		foreach ( $matches as $shortcode ) {
 
-				// Call the method related to the specific shortcode found and break out of the loop.
-				if ( in_array( $shortcode[2], array( 'playlist', 'embed', $this->type ) ) ) {
-					call_user_func( array( $this, "do_{$shortcode[2]}_shortcode_media" ), $shortcode );
-					break;
-				}
+			// Call the method related to the specific shortcode found and break out of the loop.
+			if ( in_array( $shortcode[2], array( 'playlist', 'embed', $this->type ) ) ) {
+				call_user_func( array( $this, "do_{$shortcode[2]}_shortcode_media" ), $shortcode );
+				break;
+			}
 
-				// Check for Jetpack audio/video shortcodes.
-				elseif ( in_array( $shortcode[2], array( 'blip.tv', 'dailymotion', 'flickr', 'ted', 'vimeo', 'vine', 'youtube', 'wpvideo', 'soundcloud', 'bandcamp' ) ) ) {
-					$this->do_jetpack_shortcode_media( $shortcode );
-					break;
-				}
+			// Check for Jetpack audio/video shortcodes.
+			if ( in_array( $shortcode[2], array( 'blip.tv', 'dailymotion', 'flickr', 'ted', 'vimeo', 'vine', 'youtube', 'wpvideo', 'soundcloud', 'bandcamp' ) ) ) {
+				$this->do_jetpack_shortcode_media( $shortcode );
+				break;
 			}
 		}
 	}
 
 	/**
-	 * Handles the output of the WordPress playlist feature. This searches for the [playlist] shortcode
-	 * if it's used in the content.
+	 * Handles the output of the WordPress playlist feature. This searches for
+	 * the [playlist] shortcode if it's used in the content.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -259,7 +268,6 @@ class CareLib_Media_Grabber {
 	 * @return void
 	 */
 	public function do_audio_shortcode_media( $shortcode ) {
-
 		$this->original_media = array_shift( $shortcode );
 
 		$this->media = do_shortcode( $this->original_media );
@@ -274,7 +282,6 @@ class CareLib_Media_Grabber {
 	 * @return void
 	 */
 	public function do_video_shortcode_media( $shortcode ) {
-
 		$this->original_media = array_shift( $shortcode );
 
 		// Need to filter dimensions here to overwrite WP's <div> surrounding the [video] shortcode.
@@ -282,8 +289,8 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Handles the output of audio/video shortcodes included with the Jetpack plugin (or Jetpack
-	 * Slim) via the Shortcode Embeds feature.
+	 * Handles the output of audio/video shortcodes included with the Jetpack
+	 * plugin (or Jetpack Slim) via the Shortcode Embeds feature.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -297,59 +304,59 @@ class CareLib_Media_Grabber {
 	}
 
 	/**
-	 * Uses WordPress' autoembed feature to automatically to handle media that's just input as a URL.
+	 * Uses WordPress' autoembed feature to automatically to handle media that's
+	 * just input as a URL.
 	 *
 	 * @since  1.6.0
 	 * @access public
 	 * @return void
 	 */
 	public function do_autoembed_media() {
-
 		preg_match_all( '|^\s*(https?://[^\s"]+)\s*$|im', $this->content, $matches, PREG_SET_ORDER );
 
 		// If URL matches are found, loop through them to see if we can get an embed.
-		if ( is_array( $matches ) ) {
+		if ( ! is_array( $matches ) ) {
+			return;
+		}
 
-			foreach ( $matches as $value ) {
+		foreach ( $matches as $value ) {
 
-				// Let WP work its magic with the 'autoembed' method.
-				$embed = trim( apply_filters( 'carelib_media_grabber_autoembed_media', $value[0] ) );
+			// Let WP work its magic with the 'autoembed' method.
+			$embed = trim( apply_filters( 'carelib_media_grabber_autoembed_media', $value[0] ) );
 
-				if ( ! empty( $embed ) ) {
-					$this->original_media = $value[0];
-					$this->media = $embed;
-					break;
-				}
+			if ( ! empty( $embed ) ) {
+				$this->original_media = $value[0];
+				$this->media = $embed;
+				break;
 			}
 		}
 	}
 
 	/**
-	 * Grabs media embbeded into the content within <iframe>, <object>, <embed>, and other HTML methods for
-	 * embedding media.
+	 * Grabs media embbeded into the content within <iframe>, <object>, <embed>,
+	 * and other HTML methods for embedding media.
 	 *
 	 * @since  1.6.0
 	 * @access public
 	 * @return void
 	 */
 	public function do_embedded_media() {
-
 		$embedded_media = get_media_embedded_in_content( $this->content );
 
-		if ( ! empty( $embedded_media ) )
+		if ( ! empty( $embedded_media ) ) {
 			$this->media = $this->original_media = array_shift( $embedded_media );
+		}
 	}
 
 	/**
-	 * Gets media attached to the post. Then, uses the WordPress [audio] or [video] shortcode to handle
-	 * the HTML output of the media.
+	 * Gets media attached to the post. Then, uses the WordPress [audio] or
+	 * [video] shortcode to handle the HTML output of the media.
 	 *
 	 * @since  1.6.0
 	 * @access public
 	 * @return void
 	 */
 	public function do_attached_media() {
-
 		// Gets media attached to the post by mime type.
 		$attached_media = get_attached_media( $this->type, $this->args['post_id'] );
 
@@ -375,7 +382,6 @@ class CareLib_Media_Grabber {
 	 * @return void
 	 */
 	public function do_attachment_media() {
-
 		// Gets the URI for the attachment (the media file).
 		$url = esc_url( wp_get_attachment_url( $this->args['post_id'] ) );
 
@@ -393,7 +399,6 @@ class CareLib_Media_Grabber {
 	 * @return string
 	 */
 	public function split_media( $content ) {
-
 		return get_the_ID() === $this->args['post_id'] ? str_replace( $this->original_media, '', $content ) : $content;
 	}
 
@@ -407,7 +412,6 @@ class CareLib_Media_Grabber {
 	 * @return string
 	 */
 	public function filter_dimensions( $html ) {
-
 		$_html = strip_tags( $html, '<object><embed><iframe><video>' );
 
 		// Find the attributes of the media.
@@ -489,4 +493,5 @@ class CareLib_Media_Grabber {
 		}
 		return array( $max_width, $max_height );
 	}
+
 }
