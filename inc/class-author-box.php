@@ -19,6 +19,23 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Author_Box {
 
 	/**
+	 * Library prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $prefix;
+
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.2.0
+	 */
+	public function __construct() {
+		$this->prefix = carelib()->get_prefix();
+	}
+
+	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.1.0
@@ -38,7 +55,7 @@ class CareLib_Author_Box {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_filter( 'carelib_attr_author-box', array( $this, 'attributes' ), 10, 2 );
+		add_filter( "{$this->prefix}_attr_author-box", array( $this, 'attributes' ), 10, 2 );
 	}
 
 	/**
@@ -76,7 +93,7 @@ class CareLib_Author_Box {
 	 * @return void
 	 */
 	public function singular() {
-		if ( ! is_singular( apply_filters( carelib()->get_prefix() . '_author_box_types', array( 'post' ) ) ) ) {
+		if ( ! is_singular( apply_filters( "{$this->prefix}_author_box_types", array( 'post' ) ) ) ) {
 			return;
 		}
 
