@@ -27,17 +27,8 @@ class CareLib_Admin_Dashboard {
 	 */
 	protected $prefix;
 
-	/**
-	 * Asset prefix which is used to load minified scripts when not debugging.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $asset_prefix;
-
 	public function __construct() {
-		$this->prefix       = CareLib::instance()->get_prefix();
-		$this->asset_prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$this->prefix = CareLib::instance()->get_prefix();
 	}
 
 	/**
@@ -153,19 +144,8 @@ class CareLib_Admin_Dashboard {
 			return;
 		}
 		$dir = CareLib::instance()->get_uri();
-		wp_enqueue_script(
-			'carelib',
-			$dir . "js/carelib-dashboard{$this->asset_prefix}.js",
-			array( 'jquery-ui-tabs' ),
-			'0.1.0',
-			true
-		);
-		wp_enqueue_style(
-			'carelib',
-			$dir . "css/carelib-dashboard{$this->asset_prefix}.css",
-			null,
-			'0.1.0'
-		);
+		wp_enqueue_script( 'carelib-dashboard' );
+		wp_enqueue_style( 'carelib-dashboard' );
 	}
 
 	/**
