@@ -231,41 +231,39 @@ class CareLib {
 	 */
 	protected function build( $factory ) {
 		$classes = array(
-			'customize'          => true,
-			'layouts'            => true,
-			'i18n'               => true,
-			'sidebar'            => true,
-			'template-hierarchy' => true,
+			'customize',
+			'layouts',
+			'i18n',
+			'sidebar',
+			'template-hierarchy',
 		);
 		if ( is_admin() ) {
-			$classes['admin-scripts']               = true;
-			$classes['admin-author-box']            = true;
-			$classes['admin-dashboard']             = true;
-			$classes['admin-metabox-post-layout']   = true;
-			$classes['admin-metabox-post-style']    = true;
-			$classes['admin-metabox-post-template'] = true;
-			$classes['admin-tinymce']               = true;
+			$classes['admin-scripts'];
+			$classes['admin-author-box'];
+			$classes['admin-dashboard'];
+			$classes['admin-metabox-post-layout'];
+			$classes['admin-metabox-post-style'];
+			$classes['admin-metabox-post-template'];
+			$classes['admin-tinymce'];
 		} else {
-			$classes['support']           = true;
-			$classes['attributes']        = true;
-			$classes['public-scripts']    = true;
-			$classes['head']              = true;
-			$classes['site-logo']         = true;
-			$classes['search-form']       = true;
-			$classes['context']           = true;
-			$classes['filters']           = true;
-			$classes['meta']              = true;
-			$classes['author-box']        = true;
-			$classes['footer-widgets']    = true;
+			$classes['support'];
+			$classes['attributes'];
+			$classes['public-scripts'];
+			$classes['head'];
+			$classes['site-logo'];
+			$classes['search-form'];
+			$classes['context'];
+			$classes['filters'];
+			$classes['meta'];
+			$classes['author-box'];
+			$classes['footer-widgets'];
 		}
 
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
 
-		foreach ( (array) $classes as $class => $runnable ) {
+		foreach ( (array) $classes as $class ) {
 			$object = $factory::get( $class );
-			if ( $runnable ) {
-				$object->run();
-			}
+			$object->run();
 		}
 	}
 
