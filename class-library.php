@@ -249,10 +249,6 @@ class CareLib {
 		} else {
 			$classes['support']           = true;
 			$classes['attributes']        = true;
-			$classes['template-comments'] = false;
-			$classes['template-entry']    = false;
-			$classes['template-general']  = false;
-			$classes['template-media']    = false;
 			$classes['public-scripts']    = true;
 			$classes['head']              = true;
 			$classes['site-logo']         = true;
@@ -264,12 +260,18 @@ class CareLib {
 			$classes['image-grabber']     = false;
 			$classes['author-box']        = true;
 			$classes['footer-widgets']    = true;
+			$classes['template-comments'] = false;
+			$classes['template-entry']    = false;
+			$classes['template-general']  = false;
+			$classes['template-media']    = false;
 		}
+
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
+
 		foreach ( (array) $classes as $class => $runnable ) {
-			$factory::build( $class );
+			$object = $factory::get( $class );
 			if ( $runnable ) {
-				$factory::get( $class )->run();
+				$object->run();
 			}
 		}
 	}
