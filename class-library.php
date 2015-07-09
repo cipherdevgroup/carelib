@@ -232,31 +232,31 @@ class CareLib {
 	protected function build( $factory ) {
 		$classes = array(
 			'customize',
-			'layouts',
 			'i18n',
+			'layouts',
 			'sidebar',
 			'template-hierarchy',
 		);
 		if ( is_admin() ) {
-			$classes['admin-scripts'];
-			$classes['admin-author-box'];
-			$classes['admin-dashboard'];
-			$classes['admin-metabox-post-layout'];
-			$classes['admin-metabox-post-style'];
-			$classes['admin-metabox-post-template'];
-			$classes['admin-tinymce'];
+			$classes[] = 'admin-author-box';
+			$classes[] = 'admin-dashboard';
+			$classes[] = 'admin-metabox-post-layout';
+			$classes[] = 'admin-metabox-post-style';
+			$classes[] = 'admin-metabox-post-template';
+			$classes[] = 'admin-scripts';
+			$classes[] = 'admin-tinymce';
 		} else {
-			$classes['support'];
-			$classes['attributes'];
-			$classes['public-scripts'];
-			$classes['head'];
-			$classes['site-logo'];
-			$classes['search-form'];
-			$classes['context'];
-			$classes['filters'];
-			$classes['meta'];
-			$classes['author-box'];
-			$classes['footer-widgets'];
+			$classes[] = 'attributes';
+			$classes[] = 'author-box';
+			$classes[] = 'context';
+			$classes[] = 'filters';
+			$classes[] = 'footer-widgets';
+			$classes[] = 'head';
+			$classes[] = 'meta';
+			$classes[] = 'public-scripts';
+			$classes[] = 'search-form';
+			$classes[] = 'site-logo';
+			$classes[] = 'support';
 		}
 
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
