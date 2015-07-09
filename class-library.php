@@ -223,14 +223,18 @@ class CareLib {
 			'customize'          => true,
 			'layouts'            => true,
 			'i18n'               => true,
-			'scripts'            => true,
 			'sidebar'            => true,
 			'style-builder'      => false,
+			'template-hierarchy' => true,
 		);
 		if ( is_admin() ) {
-			$classes['admin-author-box'] = true;
-			$classes['admin-dashboard']  = true;
-			$classes['admin-tinymce']    = true;
+			$classes['admin-author-box']            = true;
+			$classes['admin-dashboard']             = true;
+			$classes['admin-metabox-post-layout']   = true;
+			$classes['admin-metabox-post-style']    = true;
+			$classes['admin-metabox-post-template'] = true;
+			$classes['admin-scripts']               = true;
+			$classes['admin-tinymce']               = true;
 		} else {
 			$classes['attributes']         = true;
 			$classes['author-box']         = true;
@@ -242,13 +246,13 @@ class CareLib {
 			$classes['head']               = true;
 			$classes['image-grabber']      = false;
 			$classes['meta']               = true;
+			$classes['public-scripts']     = true;
 			$classes['site-logo']          = true;
 			$classes['support']            = true;
 			$classes['template-comments']  = false;
 			$classes['template-entry']     = false;
 			$classes['template-general']   = false;
 			$classes['template-media']     = false;
-			$classes['template-hierarchy'] = true;
 		}
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
 		foreach ( (array) $classes as $class => $runnable ) {
