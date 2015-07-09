@@ -235,7 +235,6 @@ class CareLib {
 			'layouts'            => true,
 			'i18n'               => true,
 			'sidebar'            => true,
-			'style-builder'      => false,
 			'template-hierarchy' => true,
 		);
 		if ( is_admin() ) {
@@ -252,18 +251,12 @@ class CareLib {
 			$classes['public-scripts']    = true;
 			$classes['head']              = true;
 			$classes['site-logo']         = true;
-			$classes['breadcrumbs']       = false;
 			$classes['search-form']       = true;
 			$classes['context']           = true;
 			$classes['filters']           = true;
 			$classes['meta']              = true;
-			$classes['image-grabber']     = false;
 			$classes['author-box']        = true;
 			$classes['footer-widgets']    = true;
-			$classes['template-comments'] = false;
-			$classes['template-entry']    = false;
-			$classes['template-general']  = false;
-			$classes['template-media']    = false;
 		}
 
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
