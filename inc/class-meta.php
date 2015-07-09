@@ -39,7 +39,7 @@ class CareLib_Meta {
 	 */
 	public function __construct() {
 		$this->layouts = CareLib_Factory::get( 'layouts' );
-		$this->scripts = CareLib_Factory::get( 'scripts' );
+		$this->scripts = CareLib_Factory::get( 'public-scripts' );
 	}
 
 	/**
@@ -107,4 +107,5 @@ class CareLib_Meta {
 			'__return_false'
 		);
 	}
+
 }
