@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * CareLib Translations class.
  */
-class CareLib_Scripts {
+abstract class CareLib_Scripts {
 
 	/**
 	 * The library object.
