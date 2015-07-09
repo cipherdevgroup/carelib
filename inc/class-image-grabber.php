@@ -21,6 +21,14 @@
 class CareLib_Image_Grabber {
 
 	/**
+	 * Library prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $prefix;
+
+	/**
 	 * Array of arguments passed in by the user and merged with the defaults.
 	 *
 	 * @since  1.0.0
@@ -69,14 +77,13 @@ class CareLib_Image_Grabber {
 	public $srcsets = array();
 
 	/**
-	 * Get our class up and running!
+	 * Constructor method.
 	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @uses   CareLib_Footer_Widgets::$wp_hooks
-	 * @return void
+	 * @since 0.2.0
 	 */
-	public function run( $args = array() ) {
+	public function __construct( $args = array() ) {
+		$this->args   = $args;
+		$this->prefix = carelib()->get_prefix();
 		self::wp_hooks();
 		self::image_hooks();
 		self::search_for_images( $args );
@@ -111,8 +118,8 @@ class CareLib_Image_Grabber {
 	 */
 	protected function image_hooks() {
 		global $wp_embed;
-		add_filter( 'get_the_image_post_content', array( $wp_embed, 'run_shortcode' ) );
-		add_filter( 'get_the_image_post_content', array( $wp_embed, 'autoembed' ) );
+		add_filter( "{$this->prefix}_image_grabber_post_content", array( $wp_embed, 'run_shortcode' ) );
+		add_filter( "{$this->prefix}_image_grabber_post_content", array( $wp_embed, 'autoembed' ) );
 	}
 
 	/**
@@ -177,7 +184,7 @@ class CareLib_Image_Grabber {
 
 		// Allow plugins/themes to filter the arguments.
 		$this->args = apply_filters(
-			'get_the_image_args',
+			"{$this->prefix}_image_grabber_args",
 			wp_parse_args( $args, $defaults )
 		);
 
@@ -208,9 +215,8 @@ class CareLib_Image_Grabber {
 	 * @return void
 	 */
 	public function get_image() {
-
 		// Allow plugins/theme to override the final output.
-		$image_html = apply_filters( 'get_the_image', $this->image );
+		$image_html = apply_filters( "{$this->prefix}_image_grabber", $this->image );
 
 		// If $format is set to 'array', return an array of image attributes.
 		if ( 'array' === $this->args['format'] ) {
@@ -237,14 +243,23 @@ class CareLib_Image_Grabber {
 
 		// If there is a $post_thumbnail_id, do the actions associated with get_the_post_thumbnail().
 		if ( isset( $this->image_args['post_thumbnail_id'] ) ) {
-			do_action( 'begin_fetch_post_thumbnail_html', $this->args['post_id'], $this->image_args['post_thumbnail_id'], $this->args['size'] );
+			do_action( 'begin_fetch_post_thumbnail_html',
+				$this->args['post_id'],
+				$this->image_args['post_thumbnail_id'],
+				$this->args['size']
+			);
 		}
 		// Display the image if we get to this point.
 		echo ! empty( $image_html ) ? $this->args['before'] . $image_html . $this->args['after'] : $image_html;
 
 		// If there is a $post_thumbnail_id, do the actions associated with get_the_post_thumbnail().
 		if ( isset( $this->image_args['post_thumbnail_id'] ) ) {
-			do_action( 'end_fetch_post_thumbnail_html', $this->args['post_id'], $this->image_args['post_thumbnail_id'], $this->args['size'] );
+			do_action(
+				'end_fetch_post_thumbnail_html',
+				$this->args['post_id'],
+				$this->image_args['post_thumbnail_id'],
+				$this->args['size']
+			);
 		}
 	}
 
@@ -261,7 +276,7 @@ class CareLib_Image_Grabber {
 		$key = md5( serialize( compact( array_keys( $this->args ) ) ) );
 
 		// Check for a cached image.
-		$image_cache = wp_cache_get( $this->args['post_id'], 'get_the_image' );
+		$image_cache = wp_cache_get( $this->args['post_id'], "{$this->prefix}_image_grabber" );
 
 		if ( ! is_array( $image_cache ) ) {
 			$image_cache = array();
@@ -322,7 +337,7 @@ class CareLib_Image_Grabber {
 
 			// Set the image cache for the specific post.
 			$image_cache[ $key ] = $this->image;
-			wp_cache_set( $this->args['post_id'], $image_cache, 'get_the_image' );
+			wp_cache_set( $this->args['post_id'], $image_cache, "{$this->prefix}_image_grabber" );
 		}
 	}
 
@@ -443,7 +458,7 @@ class CareLib_Image_Grabber {
 		$post_content = get_post_field( 'post_content', $this->args['post_id'] );
 
 		// Apply filters to content.
-		$post_content = apply_filters( 'get_the_image_post_content', $post_content );
+		$post_content = apply_filters( "{$this->prefix}_image_grabber_post_content", $post_content );
 
 		// Check the content for `id="wp-image-%d"`.
 		preg_match( '/id=[\'"]wp-image-([\d]*)[\'"]/i', $post_content, $image_ids );
@@ -493,7 +508,7 @@ class CareLib_Image_Grabber {
 		$post_content = get_post_field( 'post_content', $this->args['post_id'] );
 
 		// Apply filters to content.
-		$post_content = apply_filters( 'get_the_image_post_content', $post_content );
+		$post_content = apply_filters( "{$this->prefix}_image_grabber_post_content", $post_content );
 
 		// Finds matches for shortcodes in the content.
 		preg_match_all( '/' . get_shortcode_regex() . '/s', $post_content, $matches, PREG_SET_ORDER );
@@ -864,7 +879,7 @@ class CareLib_Image_Grabber {
 	 * @return void
 	 */
 	function delete_cache_by_post( $post_id ) {
-		wp_cache_delete( $post_id, 'get_the_image' );
+		wp_cache_delete( $post_id, "{$this->prefix}_image_grabber" );
 	}
 
 	/**
@@ -878,6 +893,7 @@ class CareLib_Image_Grabber {
 	 * @return void
 	 */
 	function delete_cache_by_meta( $meta_id, $post_id ) {
-		wp_cache_delete( $post_id, 'get_the_image' );
+		wp_cache_delete( $post_id, "{$this->prefix}_image_grabber" );
 	}
+
 }
