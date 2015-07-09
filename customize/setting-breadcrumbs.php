@@ -44,7 +44,7 @@ class CareLib_Breadcrumb_Setting extends CareLib_Customizer_Base {
 
 		$priority = 10;
 
-		foreach ( CareLib_Factory::get( 'breadcrumbs' )->get_options() as $breadcrumb => $setting ) {
+		foreach ( carelib_class( 'breadcrumbs' )->get_options() as $breadcrumb => $setting ) {
 
 			$wp_customize->add_setting(
 				$breadcrumb,

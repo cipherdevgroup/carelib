@@ -40,7 +40,7 @@ class CareLib_Attributes {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 	}
 
 	/**
@@ -274,7 +274,7 @@ class CareLib_Attributes {
 			$attr['class'] .= " sidebar-{$context}";
 			$attr['id']     = "sidebar-{$context}";
 
-			if ( $name = CareLib_Factory::get( 'sidebar' )->get_name( $context ) ) {
+			if ( $name = carelib_class( 'sidebar' )->get_name( $context ) ) {
 				// Translators: The %s is the sidebar name. This is used for the 'aria-label' attribute.
 				$attr['aria-label'] = esc_attr( sprintf( _x( '%s Sidebar', 'sidebar aria label', 'carelib' ), $name ) );
 			}

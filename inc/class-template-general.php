@@ -41,9 +41,9 @@ class CareLib_Template_General {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->lib    = CareLib::instance();
+		$this->lib    = carelib();
 		$this->prefix = $this->lib->get_prefix();
-		$this->attr   = CareLib_Factory::get( 'attributes' );
+		$this->attr   = carelib_class( 'attributes' );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class CareLib_Template_General {
 		if ( function_exists( 'jetpack_the_site_logo' ) ) {
 			return jetpack_get_site_logo( $format );
 		}
-		return CareLib_Factory::get( 'site-logo' )->get_site_logo( $format );
+		return carelib_class( 'site-logo' )->get_site_logo( $format );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class CareLib_Template_General {
 		if ( function_exists( 'jetpack_the_site_logo' ) ) {
 			return jetpack_has_site_logo();
 		}
-		return CareLib_Factory::get( 'site-logo' )->has_site_logo();
+		return carelib_class( 'site-logo' )->has_site_logo();
 	}
 
 	/**
@@ -89,7 +89,7 @@ class CareLib_Template_General {
 			jetpack_the_site_logo();
 			return;
 		}
-		CareLib_Factory::get( 'site-logo' )->the_site_logo();
+		carelib_class( 'site-logo' )->the_site_logo();
 	}
 
 	/**
@@ -111,7 +111,7 @@ class CareLib_Template_General {
 	 * @return bool true if both our template tag and theme mod return true.
 	 */
 	public function display_breadcrumbs() {
-		$breadcrumbs = CareLib_Factory::get( 'breadcrumbs' );
+		$breadcrumbs = carelib_class( 'breadcrumbs' );
 		// Return early if our theme doesn't support breadcrumbs.
 		if ( ! is_object( $breadcrumbs ) ) {
 			return false;

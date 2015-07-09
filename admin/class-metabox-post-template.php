@@ -95,7 +95,7 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 		$templates     = $this->get_post_templates( $post->post_type );
 		$post_template = $this->get_post_template( $post->ID );
 
-		require_once CareLib::instance()->get_dir() . 'admin/templates/metabox-post-template.php';
+		require_once carelib()->get_dir() . 'admin/templates/metabox-post-template.php';
 	}
 
 	/**

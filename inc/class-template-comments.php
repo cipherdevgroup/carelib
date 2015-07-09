@@ -38,7 +38,7 @@ class CareLib_Template_Comments {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 	}
 
 	/**

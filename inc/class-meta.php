@@ -38,8 +38,8 @@ class CareLib_Meta {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->layouts = CareLib_Factory::get( 'layouts' );
-		$this->scripts = CareLib_Factory::get( 'public-scripts' );
+		$this->layouts = carelib_class( 'layouts' );
+		$this->scripts = carelib_class( 'public-scripts' );
 	}
 
 	/**

@@ -44,7 +44,7 @@ class CareLib_Customize  {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->lib    = CareLib::instance();
+		$this->lib    = carelib();
 		$this->prefix = $this->lib->get_prefix();
 		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}

@@ -102,7 +102,7 @@ class CareLib_Site_Logo_Setting extends CareLib_Customizer_Base {
 	 * @uses wp_localize_script()
 	 */
 	public function scripts() {
-		$uri = CareLib::instance()->get_uri();
+		$uri = carelib()->get_uri();
 
 		wp_enqueue_script(
 			'site-logo-preview',

@@ -64,9 +64,9 @@ class CareLib_Footer_Widgets {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->lib     = CareLib::instance();
+		$this->lib     = carelib();
 		$this->prefix  = $this->lib->get_prefix();
-		$this->sidebar = CareLib_Factory::get( 'sidebar' );
+		$this->sidebar = carelib_class( 'sidebar' );
 		$this->widgets = apply_filters( "{$this->prefix}_footer_widgets", 3 );
 	}
 

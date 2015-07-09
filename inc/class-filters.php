@@ -43,8 +43,8 @@ class CareLib_Filters {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix  = CareLib::instance()->get_prefix();
-		$this->general = CareLib_Factory::get( 'template-general' );
+		$this->prefix  = carelib()->get_prefix();
+		$this->general = carelib_class( 'template-general' );
 	}
 
 	/**

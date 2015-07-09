@@ -33,7 +33,7 @@ class CareLib_Template_Hierarchy {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 	}
 
 	/**
@@ -219,8 +219,8 @@ class CareLib_Template_Hierarchy {
 		// If viewing an attachment page, handle the files by mime type.
 		if ( is_attachment() ) {
 			// Split the mime_type into two distinct parts.
-			$type    = CareLib_Factory::get( 'template-media' )->get_attachment_type();
-			$subtype = CareLib_Factory::get( 'template-media' )->get_attachment_subtype();
+			$type    = carelib_class( 'template-media' )->get_attachment_type();
+			$subtype = carelib_class( 'template-media' )->get_attachment_subtype();
 
 			if ( $subtype ) {
 				$templates[] = "attachment-{$type}-{$subtype}.php";

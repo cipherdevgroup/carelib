@@ -49,7 +49,7 @@ class CareLib_i18n {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 		$this->parent = trailingslashit( get_template_directory() );
 		$this->child  = trailingslashit( get_stylesheet_directory() );
 	}

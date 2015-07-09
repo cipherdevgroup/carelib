@@ -28,7 +28,7 @@ class CareLib_Admin_Dashboard {
 	protected $prefix;
 
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 	}
 
 	/**
@@ -143,7 +143,7 @@ class CareLib_Admin_Dashboard {
 		if ( ! $this->is_dashboard_page() ) {
 			return;
 		}
-		$dir = CareLib::instance()->get_uri();
+		$dir = carelib()->get_uri();
 		wp_enqueue_script( 'carelib-dashboard' );
 		wp_enqueue_style( 'carelib-dashboard' );
 	}
@@ -185,7 +185,7 @@ class CareLib_Admin_Dashboard {
 	 * @return  void
 	 */
 	public function dashboard_page() {
-		require_once CareLib::instance()->get_dir() . 'admin/templates/dashboard.php';
+		require_once carelib()->get_dir() . 'admin/templates/dashboard.php';
 	}
 
 }

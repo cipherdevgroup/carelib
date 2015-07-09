@@ -64,7 +64,7 @@ class CareLib_Style_Builder {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 		// Set line ending and tab
 		if ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) {
 			$this->line_ending = "\n";

@@ -54,7 +54,7 @@ abstract class CareLib_Scripts {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->lib     = CareLib::instance();
+		$this->lib     = carelib();
 		$this->version = $this->lib->get_version();
 		$this->prefix  = $this->lib->get_prefix();
 		$this->suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';

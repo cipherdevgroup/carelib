@@ -66,7 +66,7 @@ abstract class CareLib_Customizer_Base extends WP_Customize_Setting {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 		self::customizer_hooks();
 		parent::__construct();
 	}

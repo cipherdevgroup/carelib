@@ -94,7 +94,7 @@ class CareLib_Admin_Metabox_Post_Style extends CareLib_Admin_Scripts {
 		$styles     = $this->get_post_styles( $post->post_type );
 		$post_style = $this->get_post_style( $post->ID );
 
-		require_once CareLib::instance()->get_dir() . 'admin/templates/metabox-post-style.php';
+		require_once carelib()->get_dir() . 'admin/templates/metabox-post-style.php';
 	}
 
 	/**

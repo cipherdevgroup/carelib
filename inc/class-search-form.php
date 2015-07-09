@@ -31,7 +31,7 @@ class CareLib_Search_Form {
 	protected $prefix;
 
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 	}
 
 	/**

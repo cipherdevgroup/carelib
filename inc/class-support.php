@@ -30,7 +30,7 @@ class CareLib_Support {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 	}
 
 	/**

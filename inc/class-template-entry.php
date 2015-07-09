@@ -49,9 +49,9 @@ class CareLib_Template_Entry {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->lib    = CareLib::instance();
+		$this->lib    = carelib();
 		$this->prefix = $this->lib->get_prefix();
-		$this->attr   = CareLib_Factory::get( 'attributes' );
+		$this->attr   = carelib_class( 'attributes' );
 	}
 
 	/**

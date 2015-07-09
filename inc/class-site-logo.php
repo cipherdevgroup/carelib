@@ -39,7 +39,7 @@ class CareLib_Site_Logo {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 		$this->logo   = get_option( 'site_logo', null );
 	}
 
@@ -249,7 +249,7 @@ class CareLib_Site_Logo {
 
 		// Bail if no logo is set. Leave a placeholder if we're in the Customizer, though (needed for the live preview).
 		if ( ! $this->has_site_logo() ) {
-			if ( CareLib::instance()->is_customizer_preview() ) {
+			if ( carelib()->is_customizer_preview() ) {
 				printf( '<a href="%1$s" class="site-logo-link" style="display:none;"><img class="site-logo" data-size="%2$s" /></a>',
 					esc_url( home_url( '/' ) ),
 					esc_attr( $size )
