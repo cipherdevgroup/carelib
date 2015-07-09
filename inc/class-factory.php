@@ -1,6 +1,6 @@
 <?php
 /**
- * Build and store references to our plugin objects.
+ * Build and store references to our library objects.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
@@ -63,10 +63,10 @@ class CareLib_Factory {
 	 * @return mixed
 	 */
 	public static function get( $object, $name = 'canonical', $args = array() ) {
-		if ( empty( self::$objects[ $object ][ $name ] ) ) {
-			return self::build( $object, $name, $args );
+		if ( isset( self::$objects[ $object ][ $name ] ) ) {
+			return self::$objects[ $object ][ $name ];
 		}
-		return self::$objects[ $object ][ $name ];
+		return self::build( $object, $name, $args );
 	}
 
 }
