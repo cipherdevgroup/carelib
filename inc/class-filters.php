@@ -30,12 +30,21 @@ class CareLib_Filters {
 	protected $prefix;
 
 	/**
+	 * Library prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $general;
+
+	/**
 	 * Constructor method.
 	 *
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
+		$this->prefix  = CareLib::instance()->get_prefix();
+		$this->general = CareLib_Factory::get( 'template-general' );
 	}
 
 	/**
@@ -270,52 +279,39 @@ class CareLib_Filters {
 	 * @return string
 	 */
 	public function archive_title_filter( $title ) {
-		if ( is_home() && !is_front_page() )
+		if ( is_home() && ! is_front_page() ) {
 			$title = get_post_field( 'post_title', get_queried_object_id() );
-
-		elseif ( is_category() )
+		} elseif ( is_category() ) {
 			$title = single_cat_title( '', false );
-
-		elseif ( is_tag() )
+		} elseif ( is_tag() ) {
 			$title = single_tag_title( '', false );
-
-		elseif ( is_tax() )
+		} elseif ( is_tax() ) {
 			$title = single_term_title( '', false );
-
-		elseif ( is_author() )
-			$title = carelib_get_single_author_title();
-
-		elseif ( is_search() )
-			$title = carelib_get_search_title();
-
-		elseif ( is_post_type_archive() )
+		} elseif ( is_author() ) {
+			$title = $this->general->get_single_author_title();
+		} elseif ( is_search() ) {
+			$title = $this->general->get_search_title();
+		} elseif ( is_post_type_archive() ) {
 			$title = post_type_archive_title( '', false );
-
-		elseif ( get_query_var( 'minute' ) && get_query_var( 'hour' ) )
-			$title = carelib_get_single_minute_hour_title();
-
-		elseif ( get_query_var( 'minute' ) )
-			$title = carelib_get_single_minute_title();
-
-		elseif ( get_query_var( 'hour' ) )
-			$title = carelib_get_single_hour_title();
-
-		elseif ( is_day() )
-			$title = carelib_get_single_day_title();
-
-		elseif ( get_query_var( 'w' ) )
-			$title = carelib_get_single_week_title();
-
-		elseif ( is_month() )
+		} elseif ( get_query_var( 'minute' ) && get_query_var( 'hour' ) ) {
+			$title = $this->general->get_single_minute_hour_title();
+		} elseif ( get_query_var( 'minute' ) ) {
+			$title = $this->general->get_single_minute_title();
+		} elseif ( get_query_var( 'hour' ) ) {
+			$title = $this->general->get_single_hour_title();
+		} elseif ( is_day() ) {
+			$title = $this->general->get_single_day_title();
+		} elseif ( get_query_var( 'w' ) ) {
+			$title = $this->general->get_single_week_title();
+		} elseif ( is_month() ) {
 			$title = single_month_title( ' ', false );
+		} elseif ( is_year() ) {
+			$title = $this->general->get_single_year_title();
+		} elseif ( is_archive() ) {
+			$title = $this->general->get_single_archive_title();
+		}
 
-		elseif ( is_year() )
-			$title = carelib_get_single_year_title();
-
-		elseif ( is_archive() )
-			$title = carelib_get_single_archive_title();
-
-		return apply_filters( 'carelib_archive_title', $title );
+		return apply_filters( "{$this->prefix}_archive_title", $title );
 	}
 
 	/**
@@ -327,25 +323,31 @@ class CareLib_Filters {
 	 * @return string
 	 */
 	public function archive_description_filter( $desc ) {
-		if ( is_home() && !is_front_page() )
+		if ( is_home() && ! is_front_page() ) {
 			$desc = get_post_field( 'post_content', get_queried_object_id(), 'raw' );
+		}
 
-		elseif ( is_category() )
+		if ( is_category() ) {
 			$desc = get_term_field( 'description', get_queried_object_id(), 'category', 'raw' );
+		}
 
-		elseif ( is_tag() )
+		if ( is_tag() ) {
 			$desc = get_term_field( 'description', get_queried_object_id(), 'post_tag', 'raw' );
+		}
 
-		elseif ( is_tax() )
+		if ( is_tax() ) {
 			$desc = get_term_field( 'description', get_queried_object_id(), get_query_var( 'taxonomy' ), 'raw' );
+		}
 
-		elseif ( is_author() )
+		if ( is_author() ) {
 			$desc = get_the_author_meta( 'description', get_query_var( 'author' ) );
+		}
 
-		elseif ( is_post_type_archive() )
+		if ( is_post_type_archive() ) {
 			$desc = get_post_type_object( get_query_var( 'post_type' ) )->description;
+		}
 
-		return apply_filters( 'carelib_archive_description', $desc );
+		return apply_filters( "{$this->prefix}_archive_description", $desc );
 	}
 
 
