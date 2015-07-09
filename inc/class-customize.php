@@ -141,7 +141,7 @@ class CareLib_Customize  {
 		$wp_customize->add_setting(
 			'theme_layout',
 			array(
-				'default'           => carelib_get_default_layout(),
+				'default'           => carelib_class( 'layouts' )->get_default_layout(),
 				'sanitize_callback' => 'sanitize_key',
 				'transport'         => 'postMessage',
 			)
