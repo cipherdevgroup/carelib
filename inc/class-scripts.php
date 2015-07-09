@@ -17,6 +17,22 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Scripts {
 
 	/**
+	 * The library object.
+	 *
+	 * @since 0.2.0
+	 * @type CareLib
+	 */
+	protected $lib;
+
+	/**
+	 * Library version number to append to scripts.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $version;
+
+	/**
 	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
@@ -38,8 +54,10 @@ class CareLib_Scripts {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
-		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$this->lib     = CareLib::instance();
+		$this->version = $this->lib->get_version();
+		$this->prefix  = $this->lib->get_prefix();
+		$this->suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}
 
 	/**
@@ -51,6 +69,28 @@ class CareLib_Scripts {
 	 */
 	public function get_suffix() {
 		return $this->suffix;
+	}
+
+	/**
+	 * Output the path to the library css directory with a trailing slash.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function css_uri( $path ) {
+		$this->lib->get_uri( 'css/' ) . $path;
+	}
+
+	/**
+	 * Output the path to the library JavaScript directory with a trailing slash.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function js_uri( $path ) {
+		$this->lib->get_uri( 'js/' ) . $path;
 	}
 
 	/**
