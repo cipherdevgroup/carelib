@@ -13,6 +13,12 @@ defined( 'ABSPATH' ) || exit;
 
 class CareLib_Factory {
 
+	/**
+	 * The saved library objects.
+	 *
+	 * @since 0.1.0
+	 * @type object
+	 */
 	protected static $objects = array();
 
 	/**
@@ -24,6 +30,7 @@ class CareLib_Factory {
 	 *
 	 * @param  string $object Object name.
 	 * @param  string $name Optional. Name of the object.
+	 * @param  array $args arguments to be passed to the class object
 	 * @throws InvalidArgumentException If the specified class does not exist.
 	 * @return mixed
 	 */
@@ -52,9 +59,13 @@ class CareLib_Factory {
 	 *
 	 * @param  string $object Object name.
 	 * @param  string $name Optional. Name of the object.
+	 * @param  array $args arguments to be passed to the class object
 	 * @return mixed
 	 */
-	public static function get( $object, $name = 'canonical' ) {
+	public static function get( $object, $name = 'canonical', $args = array() ) {
+		if ( empty( self::$objects[ $object ][ $name ] ) ) {
+			return self::build( $object, $name, $args );
+		}
 		return self::$objects[ $object ][ $name ];
 	}
 
