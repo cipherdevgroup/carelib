@@ -239,31 +239,31 @@ class CareLib {
 			'template-hierarchy' => true,
 		);
 		if ( is_admin() ) {
+			$classes['admin-scripts']               = true;
 			$classes['admin-author-box']            = true;
 			$classes['admin-dashboard']             = true;
 			$classes['admin-metabox-post-layout']   = true;
 			$classes['admin-metabox-post-style']    = true;
 			$classes['admin-metabox-post-template'] = true;
-			$classes['admin-scripts']               = true;
 			$classes['admin-tinymce']               = true;
 		} else {
-			$classes['attributes']        = true;
-			$classes['author-box']        = true;
-			$classes['breadcrumbs']       = false;
-			$classes['footer-widgets']    = true;
-			$classes['search-form']       = true;
-			$classes['context']           = true;
-			$classes['filters']           = true;
-			$classes['head']              = true;
-			$classes['image-grabber']     = false;
-			$classes['public-scripts']    = true;
-			$classes['meta']              = true;
-			$classes['site-logo']         = true;
 			$classes['support']           = true;
+			$classes['attributes']        = true;
 			$classes['template-comments'] = false;
 			$classes['template-entry']    = false;
 			$classes['template-general']  = false;
 			$classes['template-media']    = false;
+			$classes['public-scripts']    = true;
+			$classes['head']              = true;
+			$classes['site-logo']         = true;
+			$classes['breadcrumbs']       = false;
+			$classes['search-form']       = true;
+			$classes['context']           = true;
+			$classes['filters']           = true;
+			$classes['meta']              = true;
+			$classes['image-grabber']     = false;
+			$classes['author-box']        = true;
+			$classes['footer-widgets']    = true;
 		}
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
 		foreach ( (array) $classes as $class => $runnable ) {
