@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hybrid Layout class. This is the backbone of the Layouts API.
+ * Layouts class. This is the backbone of the Layouts API.
  *
  * @since  0.2.0
  * @access public
@@ -208,7 +208,7 @@ class CareLib_Layouts {
 	 * @return object
 	 */
 	public function get_layouts() {
-		return $this->layouts;
+		return self::$layouts;
 	}
 
 	/**
