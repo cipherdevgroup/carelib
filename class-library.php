@@ -66,10 +66,9 @@ class CareLib {
 	 * @since 0.1.0
 	 * @param array $args arguments to be passed in via the helper function.
 	 */
-	public function __construct( $args = array() ) {
-		$this->dir    = trailingslashit( dirname( __FILE__ ) );
-		$this->uri    = trailingslashit( $this->normalize_uri( dirname( __FILE__ ) ) );
-		$this->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
+	public function __construct() {
+		$this->dir = trailingslashit( dirname( __FILE__ ) );
+		$this->uri = trailingslashit( $this->normalize_uri( dirname( __FILE__ ) ) );
 	}
 
 	/**
@@ -79,7 +78,8 @@ class CareLib {
 	 * @access public
 	 * @return void
 	 */
-	public function run() {
+	public function run( $args = array() ) {
+		$this->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
 		add_action( 'after_setup_theme', array( $this, 'core' ), -95 );
 	}
 
@@ -232,11 +232,11 @@ class CareLib {
 	protected function build( $factory ) {
 		$classes = array(
 			'customize',
+			'footer-widgets',
 			'i18n',
 			'image-grabber',
 			'layouts',
 			'sidebar',
-			'template-hierarchy',
 		);
 		if ( is_admin() ) {
 			$classes[] = 'admin-author-box';
@@ -251,13 +251,13 @@ class CareLib {
 			$classes[] = 'author-box';
 			$classes[] = 'context';
 			$classes[] = 'filters';
-			$classes[] = 'footer-widgets';
 			$classes[] = 'head';
 			$classes[] = 'meta';
 			$classes[] = 'public-scripts';
 			$classes[] = 'search-form';
 			$classes[] = 'site-logo';
 			$classes[] = 'support';
+			$classes[] = 'template-hierarchy';
 		}
 
 		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
@@ -279,10 +279,10 @@ class CareLib {
 	 * @uses   CareLib::includes() Include the required files
 	 * @return CareLib
 	 */
-	public static function instance( $args = array() ) {
+	public static function instance() {
 		static $instance;
 		if ( null === $instance ) {
-			$instance = new self( $args );
+			$instance = new self;
 		}
 		return $instance;
 	}
