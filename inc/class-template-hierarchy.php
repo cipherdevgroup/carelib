@@ -218,21 +218,9 @@ class CareLib_Template_Hierarchy {
 
 		// If viewing an attachment page, handle the files by mime type.
 		if ( is_attachment() ) {
-			// Split the mime_type into two distinct parts.
-			$type    = carelib_class( 'template-media' )->get_attachment_type();
-			$subtype = carelib_class( 'template-media' )->get_attachment_subtype();
-
-			if ( $subtype ) {
-				$templates[] = "attachment-{$type}-{$subtype}.php";
-				$templates[] = "attachment-{$subtype}.php";
-			}
-
-			$templates[] = "attachment-{$type}.php";
+			$templates[] = "attachment.php";
 		} else {
-			// Add a post name (slug) template.
 			$templates[] = "{$post->post_type}-{$post->post_name}.php";
-
-			// Add a post ID template.
 			$templates[] = "{$post->post_type}-{$post->ID}.php";
 		}
 

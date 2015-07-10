@@ -496,12 +496,6 @@ class CareLib_Attributes {
 			if ( 'attachment' === get_post_type() && wp_attachment_is_image() ) {
 				$attr['itemtype'] = 'http://schema.org/ImageObject';
 			}
-			if ( 'attachment' === get_post_type() && carelib_attachment_is_audio() ) {
-				$attr['itemtype'] = 'http://schema.org/AudioObject';
-			}
-			if ( 'attachment' === get_post_type() && carelib_attachment_is_video() ) {
-				$attr['itemtype'] = 'http://schema.org/VideoObject';
-			}
 		}
 
 		return $attr;
