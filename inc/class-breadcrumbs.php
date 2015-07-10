@@ -39,10 +39,10 @@ class CareLib_Breadcrumbs {
 	 * An array of breadcrumb locations.
 	 *
 	 * @since  0.1.0
-	 * @access protected
+	 * @access public
 	 * @return array $breadcrumbs
 	 */
-	protected function get_options() {
+	public function get_options() {
 		$prefix = $this->prefix;
 		return apply_filters( "{$prefix}_breadcrumb_options", array(
 			"{$prefix}_breadcrumb_single" => array(

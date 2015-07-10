@@ -350,5 +350,4 @@ class CareLib_Filters {
 		return apply_filters( "{$this->prefix}_archive_description", $desc );
 	}
 
-
 }

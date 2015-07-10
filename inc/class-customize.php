@@ -70,6 +70,7 @@ class CareLib_Customize  {
 	protected function wp_hooks() {
 		# Load custom control classes.
 		add_action( 'customize_register',                 array( $this, 'load_customize_classes' ),    0 );
+		add_action( 'init',                               array( $this, 'load_customizer_settings' ),  0 );
 		add_action( 'customize_register',                 array( $this, 'customize_register' ),       10 );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_controls_scripts' ), 0 );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_controls_styles' ),  0 );
@@ -99,18 +100,16 @@ class CareLib_Customize  {
 	 * @return void
 	 */
 	public function load_customize_classes( $wp_customize ) {
-		require_once $this->get_dir( 'setting-base.php' );
-		require_once $this->get_dir( 'setting-breadcrumbs.php' );
 		require_once $this->get_dir( 'setting-array-map.php' );
 		require_once $this->get_dir( 'setting-image-data.php' );
-		require_once $this->get_dir( 'setting-site-logo.php' );
+		require_once $this->get_dir( 'control-radio-image.php' );
 		require_once $this->get_dir( 'control-checkbox-multiple.php' );
 		require_once $this->get_dir( 'control-dropdown-terms.php' );
 		require_once $this->get_dir( 'control-layout.php' );
 		require_once $this->get_dir( 'control-palette.php' );
-		require_once $this->get_dir( 'control-radio-image.php' );
 		require_once $this->get_dir( 'control-select-group.php' );
 		require_once $this->get_dir( 'control-select-multiple.php' );
+		require_once $this->get_dir( 'control-site-logo.php' );
 
 		// Register JS control types.
 		$wp_customize->register_control_type( 'CareLib_Customize_Control_Checkbox_Multiple' );
@@ -118,6 +117,19 @@ class CareLib_Customize  {
 		$wp_customize->register_control_type( 'CareLib_Customize_Control_Radio_Image' );
 		$wp_customize->register_control_type( 'CareLib_Customize_Control_Select_Group' );
 		$wp_customize->register_control_type( 'CareLib_Customize_Control_Select_Multiple' );
+	}
+
+
+	public function load_customizer_settings() {
+		if ( ! carelib()->is_customizer_preview() ) {
+			return;
+		}
+		require_once $this->get_dir( 'customizer-base.php' );
+		require_once $this->get_dir( 'settings-breadcrumbs.php' );
+		require_once $this->get_dir( 'settings-site-logo.php' );
+
+		carelib_class( 'settings-breadcrumbs' );
+		carelib_class( 'settings-site-logo' );
 	}
 
 	/**

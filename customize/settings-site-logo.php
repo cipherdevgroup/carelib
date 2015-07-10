@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Site_Logo_Setting extends CareLib_Customizer_Base {
+class CareLib_Settings_Site_Logo extends CareLib_Customizer_Base {
 
 	/**
 	 * Add our logo uploader to the Customizer.

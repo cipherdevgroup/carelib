@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
  * @since   0.1.0
  * @version 0.1.0
  */
-abstract class CareLib_Customizer_Base extends WP_Customize_Setting {
+abstract class CareLib_Customizer_Base {
 
 	/**
 	 * An array of choices used for sanitizing multi-select fields.
@@ -68,7 +68,6 @@ abstract class CareLib_Customizer_Base extends WP_Customize_Setting {
 	public function __construct() {
 		$this->prefix = carelib()->get_prefix();
 		self::customizer_hooks();
-		parent::__construct();
 	}
 
 	/**
