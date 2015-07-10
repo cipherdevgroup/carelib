@@ -196,10 +196,12 @@ class CareLib_Image_Grabber {
 	}
 
 	protected function get_image( $image, $args ) {
+		$html = $this->get_format( $args, $image );
+
 		if ( 'array' === $args['format'] ) {
 			$out = array();
 
-			$atts = wp_kses_hair( $image, array( 'http', 'https' ) );
+			$atts = wp_kses_hair( $html, array( 'http', 'https' ) );
 
 			foreach ( $atts as $att ) {
 				$out[ $att['name'] ] = $att['value'];
@@ -207,7 +209,6 @@ class CareLib_Image_Grabber {
 
 			return $out;
 		}
-		$html = $this->get_format( $args, $image );
 
 		return ! empty( $html ) ? $args['before'] . $html . $args['after'] : $image;
 	}
