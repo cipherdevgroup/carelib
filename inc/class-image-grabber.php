@@ -80,8 +80,9 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * The main image function for displaying an image.  It supports several arguments that allow developers to
-	 * customize how the script outputs the image.
+	 * The main image function for displaying an image.  It supports several
+	 * arguments that allow developers to customize how the script outputs the
+	 * image.
 	 *
 	 * The image check order is important to note here.  If an image is found by any specific check, the script
 	 * will no longer look for images.  The check order is 'meta_key', 'the_post_thumbnail', 'attachment',
@@ -94,8 +95,7 @@ class CareLib_Image_Grabber {
 	 * @return string|array The HTML for the image. | Image attributes in an array.
 	 */
 	public function grab_the_image( $args = array(), $echo = true ) {
-		/* Set the default arguments. */
-		$defaults = array(
+		$defaults = apply_filters( "{$this->prefix}_image_grabber_defaults", array(
 			'meta_key'           => array( 'Thumbnail', 'thumbnail' ), // array|string
 			'post_id'            => get_the_ID(),
 			'attachment'         => true,
@@ -115,125 +115,118 @@ class CareLib_Image_Grabber {
 			'cache'              => true,
 			'before'             => '',
 			'after'              => '',
-		);
+		) );
 
-		/* Allow plugins/themes to filter the arguments. */
-		$args = apply_filters( '$this->get_args', $args );
-
-		/* Merge the input arguments and the defaults. */
 		$args = wp_parse_args( $args, $defaults );
 
-		/* If there's no post_id, we can'd do anything */
+		// Bail if there's no post_id for some reason.
 		if ( empty( $args['post_id'] ) ) {
 			return false;
 		}
 
-		/* If $format is set to 'array', don't link to the post. */
 		if ( 'array' === $args['format'] ) {
 			$args['link_to_post'] = false;
+			$echo = false;
 		}
 
-		/* Extract the array to allow easy use of variables. */
-		extract( $args );
+		$image = apply_filters( "{$this->prefix}_image_grabber",
+			$this->search_content( $args )
+		);
 
-		/* Get cache key based on $args. */
-		$key = md5( serialize( compact( array_keys( $args ) ) ) );
-
-		/* Check for a cached image. */
-		$image_cache = wp_cache_get( $post_id, '$this->get' );
-
-		if ( !is_array( $image_cache ) )
-			$image_cache = array();
-
-		/* Set up a default, empty $image_html variable. */
-		$image_html = '';
-
-		/* If there is no cached image, let's see if one exists. */
-		if ( !isset( $image_cache[ $key ] ) || empty( $cache ) ) {
-
-			/* If a custom field key (array) is defined, check for images by custom field. */
-			if ( !empty( $meta_key ) )
-				$image = $this->get_by_meta_key( $args );
-
-			/* If no image found and $the_post_thumbnail is set to true, check for a post image (WP feature). */
-			if ( empty( $image ) && !empty( $the_post_thumbnail ) )
-				$image = $this->get_by_post_thumbnail( $args );
-
-			/* If no image found and $attachment is set to true, check for an image by attachment. */
-			if ( empty( $image ) && !empty( $attachment ) )
-				$image = $this->get_by_attachment( $args );
-
-			/* If no image found and $image_scan is set to true, scan the post for images. */
-			if ( empty( $image ) && !empty( $image_scan ) )
-				$image = $this->get_by_scan( $args );
-
-			/* If no image found and a callback function was given. Callback function must pass back array of <img> attributes. */
-			if ( empty( $image ) && !is_null( $callback ) && function_exists( $callback ) )
-				$image = call_user_func( $callback, $args );
-
-			/* If no image found and a $default_image is set, get the default image. */
-			if ( empty( $image ) && !empty( $default_image ) )
-				$image = $this->get_by_default( $args );
-
-			/* If an image was found. */
-			if ( !empty( $image ) ) {
-
-				/* If $meta_key_save was set, save the image to a custom field. */
-				if ( !empty( $meta_key_save ) )
-					$this->get_meta_key_save( $args, $image );
-
-				/* Format the image HTML. */
-				$image_html = $this->get_format( $args, $image );
-
-				/* Set the image cache for the specific post. */
-				$image_cache[ $key ] = $image_html;
-				wp_cache_set( $post_id, $image_cache, '$this->get' );
-			}
+		if ( ! $echo ) {
+			return $this->get_image( $image, $args );
 		}
 
-		/* If an image was already cached for the post and arguments, use it. */
-		else {
-			$image_html = $image_cache[ $key ];
+		$this->image( $image, $args );
+	}
+
+	function search_content( $args ) {
+		$key   = md5( serialize( compact( array_keys( $args ) ) ) );
+		$cache = (array) wp_cache_get( $args['post_id'], "{$this->prefix}_image_grabber" );
+
+		if ( ! empty( $cache[ $key ] ) ) {
+			return $cache[ $key ];
 		}
 
-		/* Allow plugins/theme to override the final output. */
-		$image_html = apply_filters( '$this->get', $image_html );
+		$image = '';
 
-		/* If $format is set to 'array', return an array of image attributes. */
-		if ( 'array' === $format ) {
+		if ( ! empty( $args['meta_key'] ) ) {
+			$image = $this->get_by_meta_key( $args );
+		}
 
-			/* Set up a default empty array. */
+		/* If no image found and $the_post_thumbnail is set to true, check for a post image (WP feature). */
+		if ( empty( $image ) && ! empty( $args['the_post_thumbnail'] ) ) {
+			$image = $this->get_by_post_thumbnail( $args );
+		}
+
+		/* If no image found and $attachment is set to true, check for an image by attachment. */
+		if ( empty( $image ) && ! empty( $args['attachment'] ) ) {
+			$image = $this->get_by_attachment( $args );
+		}
+
+		/* If no image found and $image_scan is set to true, scan the post for images. */
+		if ( empty( $image ) && ! empty( $args['image_scan'] ) ) {
+			$image = $this->get_by_scan( $args );
+		}
+
+		/* If no image found and a callback function was given. Callback function must pass back array of <img> attributes. */
+		if ( empty( $image ) && ! is_null( $args['callback'] ) && function_exists( $args['callback'] ) ) {
+			$image = call_user_func( $callback, $args );
+		}
+
+		/* If no image found and a $default_image is set, get the default image. */
+		if ( empty( $image ) && ! empty( $args['default_image'] ) ) {
+			$image = $this->get_by_default( $args );
+		}
+
+		if ( empty( $image ) ) {
+			return false;
+		}
+
+		if ( ! empty( $meta_key_save ) ) {
+			$this->get_meta_key_save( $args, $image );
+		}
+
+		$html = $this->get_format( $args, $image );
+
+		$cache[ $key ] = $html;
+		wp_cache_set( $args['post_id'], $cache, "{$this->prefix}_image_grabber" );
+
+		return $image;
+	}
+
+	protected function get_image( $image, $args ) {
+		if ( 'array' === $args['format'] ) {
 			$out = array();
 
 			/* Get the image attributes. */
-			$atts = wp_kses_hair( $image_html, array( 'http', 'https' ) );
+			$atts = wp_kses_hair( $image, array( 'http', 'https' ) );
 
 			/* Loop through the image attributes and add them in key/value pairs for the return array. */
-			foreach ( $atts as $att )
+			foreach ( $atts as $att ) {
 				$out[ $att['name'] ] = $att['value'];
+			}
 
-			if ( isset( $out['src'] ) )
-				$out['url'] = $out['src']; // @deprecated 0.5 Use 'src' instead of 'url'.
-
-			/* Return the array of attributes. */
 			return $out;
 		}
+		$image = $this->get_format( $args, $image );
 
-		/* Or, if $echo is set to false, return the formatted image. */
-		elseif ( false === $echo ) {
-			return !empty( $image_html ) ? $args['before'] . $image_html . $args['after'] : $image_html;
+		return ! empty( $image ) ? $args['before'] . $image . $args['after'] : $image;
+	}
+
+	protected function image( $image, $args ) {
+		if ( 'array' === $args['format'] ) {
+			return;
+		}
+		if ( isset( $image['post_thumbnail_id'] ) ) {
+			do_action( 'begin_fetch_post_thumbnail_html', $args['post_id'], $image['post_thumbnail_id'], $args['size'] );
 		}
 
-		/* If there is a $post_thumbnail_id, do the actions associated with get_the_post_thumbnail(). */
-		if ( isset( $image['post_thumbnail_id'] ) )
-			do_action( 'begin_fetch_post_thumbnail_html', $post_id, $image['post_thumbnail_id'], $size );
+		echo $this->get_image( $image, $args );
 
-		/* Display the image if we get to this point. */
-		echo !empty( $image_html ) ? $args['before'] . $image_html . $args['after'] : $image_html;
-
-		/* If there is a $post_thumbnail_id, do the actions associated with get_the_post_thumbnail(). */
-		if ( isset( $image['post_thumbnail_id'] ) )
-			do_action( 'end_fetch_post_thumbnail_html', $post_id, $image['post_thumbnail_id'], $size );
+		if ( isset( $image['post_thumbnail_id'] ) ) {
+			do_action( 'end_fetch_post_thumbnail_html', $args['post_id'], $image['post_thumbnail_id'], $args['size'] );
+		}
 	}
 
 	/**
@@ -258,12 +251,12 @@ class CareLib_Image_Grabber {
 			$image = get_post_meta( $args['post_id'], $meta_key, true );
 
 			/* If an image was found, break out of the loop. */
-			if ( !empty( $image ) )
+			if ( ! empty( $image ) )
 				break;
 		}
 
 		/* If a custom key value has been given for one of the keys, return the image URL. */
-		if ( !empty( $image ) )
+		if ( ! empty( $image ) )
 			return array( 'src' => $image, 'url' => $image );
 
 		return false;
@@ -340,7 +333,7 @@ class CareLib_Image_Grabber {
 			);
 
 			/* Check if any attachments were found. */
-			if ( !empty( $attachments ) ) {
+			if ( ! empty( $attachments ) ) {
 
 				/* Set the default iterator to 0. */
 				$i = 0;
@@ -359,7 +352,7 @@ class CareLib_Image_Grabber {
 		}
 
 		/* Check if we have an attachment ID before proceeding. */
-		if ( !empty( $attachment_id ) ) {
+		if ( ! empty( $attachment_id ) ) {
 
 			/* Get the attachment image. */
 			$image = wp_get_attachment_image_src( $attachment_id, $args['size'] );
@@ -394,7 +387,7 @@ class CareLib_Image_Grabber {
 		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post_field( 'post_content', $args['post_id'] ), $matches );
 
 		/* If there is a match for the image, return its URL. */
-		if ( isset( $matches ) && !empty( $matches[1][0] ) )
+		if ( isset( $matches ) && ! empty( $matches[1][0] ) )
 			return array( 'src' => $matches[1][0], 'url' => $matches[1][0] );
 
 		return false;
@@ -433,7 +426,7 @@ class CareLib_Image_Grabber {
 		extract( $args );
 
 		/* If there is alt text, set it.  Otherwise, default to the post title. */
-		$image_alt = ( ( !empty( $image['alt'] ) ) ? $image['alt'] : apply_filters( 'the_title', get_post_field( 'post_title', $post_id ) ) );
+		$image_alt = ( ( ! empty( $image['alt'] ) ) ? $image['alt'] : apply_filters( 'the_title', get_post_field( 'post_title', $post_id ) ) );
 
 		/* If there is a width or height, set them as HMTL-ready attributes. */
 		$width = ( ( $width ) ? ' width="' . esc_attr( $width ) . '"' : '' );
@@ -460,7 +453,7 @@ class CareLib_Image_Grabber {
 			$html = '<a href="' . get_permalink( $post_id ) . '" title="' . esc_attr( apply_filters( 'the_title', get_post_field( 'post_title', $post_id ) ) ) . '">' . $html . '</a>';
 
 		/* If there is a $post_thumbnail_id, apply the WP filters normally associated with get_the_post_thumbnail(). */
-		if ( !empty( $image['post_thumbnail_id'] ) )
+		if ( ! empty( $image['post_thumbnail_id'] ) )
 			$html = apply_filters( 'post_thumbnail_html', $html, $post_id, $image['post_thumbnail_id'], $size, '' );
 
 		return $html;
