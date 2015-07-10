@@ -19,14 +19,6 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Footer_Widgets {
 
 	/**
-	 * The library object.
-	 *
-	 * @since 0.1.0
-	 * @type CareLib
-	 */
-	protected $lib;
-
-	/**
 	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
@@ -64,8 +56,7 @@ class CareLib_Footer_Widgets {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->lib     = carelib();
-		$this->prefix  = $this->lib->get_prefix();
+		$this->prefix  = carelib()->get_prefix();
 		$this->sidebar = carelib_class( 'sidebar' );
 		$this->widgets = apply_filters( "{$this->prefix}_footer_widgets", 3 );
 	}
@@ -107,14 +98,14 @@ class CareLib_Footer_Widgets {
 	 */
 	public function register() {
 		// Return early if we don't have any footer widgets to display.
-		if ( ! isset( $this->widgets[0] ) || ! is_numeric( $this->widgets[0] ) ) {
+		if ( ! isset( $this->widgets ) || ! is_numeric( $this->widgets ) ) {
 			return;
 		}
 
 		$counter = $this->counter;
 
-		while ( $counter <= absint( $this->widgets[0] ) ) {
-			$this->sidebar->register_sidebar(
+		while ( $counter <= absint( $this->widgets ) ) {
+			$this->sidebar->register(
 				array(
 					'id'          => sprintf( 'footer-%d', $counter ),
 					'name'        => sprintf( __( 'Footer %d', 'carelib' ), $counter ),
