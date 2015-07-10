@@ -17,14 +17,6 @@ defined( 'ABSPATH' ) || exit;
 abstract class CareLib_Scripts {
 
 	/**
-	 * The library object.
-	 *
-	 * @since 0.2.0
-	 * @type CareLib
-	 */
-	protected $lib;
-
-	/**
 	 * Library version number to append to scripts.
 	 *
 	 * @since 0.2.0
@@ -54,9 +46,8 @@ abstract class CareLib_Scripts {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->lib     = carelib();
-		$this->version = $this->lib->get_version();
-		$this->prefix  = $this->lib->get_prefix();
+		$this->version = carelib()->get_version();
+		$this->prefix  = carelib()->get_prefix();
 		$this->suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}
 
@@ -79,7 +70,7 @@ abstract class CareLib_Scripts {
 	 * @return string
 	 */
 	public function css_uri( $path ) {
-		$this->lib->get_uri( 'css/' ) . $path;
+		return carelib()->get_uri( 'css/' ) . $path;
 	}
 
 	/**
@@ -90,7 +81,7 @@ abstract class CareLib_Scripts {
 	 * @return string
 	 */
 	public function js_uri( $path ) {
-		$this->lib->get_uri( 'js/' ) . $path;
+		return carelib()->get_uri( 'js/' ) . $path;
 	}
 
 	/**

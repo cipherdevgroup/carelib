@@ -38,8 +38,8 @@ class CareLib_Admin_Scripts extends CareLib_Scripts {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_action( 'admin_enqueue_scripts', 'register_styles',  0 );
-		add_action( 'admin_enqueue_scripts', 'register_scripts', 0 );
+		add_action( 'admin_enqueue_scripts',  array( $this, 'register_styles' ),  0 );
+		add_action( 'admin_enqueue_scripts',  array( $this, 'register_scripts' ), 0 );
 	}
 
 	/**

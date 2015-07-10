@@ -140,12 +140,10 @@ class CareLib_Admin_Dashboard {
 	 * @return  void
 	 */
 	function dashboard_scripts() {
-		if ( ! $this->is_dashboard_page() ) {
-			return;
+		if ( $this->is_dashboard_page() ) {
+			wp_enqueue_script( 'carelib-dashboard' );
+			wp_enqueue_style( 'carelib-dashboard' );
 		}
-		$dir = carelib()->get_uri();
-		wp_enqueue_script( 'carelib-dashboard' );
-		wp_enqueue_style( 'carelib-dashboard' );
 	}
 
 	/**
