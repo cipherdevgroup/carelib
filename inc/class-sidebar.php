@@ -116,7 +116,7 @@ class CareLib_Sidebar {
 	public function get_template( $name = null ) {
 		do_action( 'get_sidebar', $name ); // Core WordPress hook
 		$templates = array();
-		if ( '' !== $name ) {
+		if ( ! empty( $name ) ) {
 			$templates[] = "sidebar-{$name}.php";
 			$templates[] = "sidebar/{$name}.php";
 		}
