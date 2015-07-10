@@ -47,7 +47,7 @@ class CareLib_Image_Grabber {
 	public function run() {
 		add_theme_support( 'post-thumbnails' );
 		self::wp_hooks();
-	//	self::image_hooks();
+		//self::image_hooks();
 	}
 
 	/**
@@ -199,19 +199,17 @@ class CareLib_Image_Grabber {
 		if ( 'array' === $args['format'] ) {
 			$out = array();
 
-			/* Get the image attributes. */
 			$atts = wp_kses_hair( $image, array( 'http', 'https' ) );
 
-			/* Loop through the image attributes and add them in key/value pairs for the return array. */
 			foreach ( $atts as $att ) {
 				$out[ $att['name'] ] = $att['value'];
 			}
 
 			return $out;
 		}
-		$image = $this->get_format( $args, $image );
+		$html = $this->get_format( $args, $image );
 
-		return ! empty( $image ) ? $args['before'] . $image . $args['after'] : $image;
+		return ! empty( $html ) ? $args['before'] . $html . $args['after'] : $image;
 	}
 
 	protected function image( $image, $args ) {
@@ -219,19 +217,26 @@ class CareLib_Image_Grabber {
 			return;
 		}
 		if ( isset( $image['post_thumbnail_id'] ) ) {
-			do_action( 'begin_fetch_post_thumbnail_html', $args['post_id'], $image['post_thumbnail_id'], $args['size'] );
+			do_action( 'begin_fetch_post_thumbnail_html',
+				$args['post_id'],
+				$image['post_thumbnail_id'],
+				$args['size']
+			);
 		}
 
 		echo $this->get_image( $image, $args );
 
 		if ( isset( $image['post_thumbnail_id'] ) ) {
-			do_action( 'end_fetch_post_thumbnail_html', $args['post_id'], $image['post_thumbnail_id'], $args['size'] );
+			do_action( 'end_fetch_post_thumbnail_html',
+				$args['post_id'],
+				$image['post_thumbnail_id'],
+				$args['size']
+			);
 		}
 	}
 
 	/**
-	 * Calls images by custom field key.  Script loops through multiple custom field keys.  If that particular
-	 * key is found, $image is set and the loop breaks.  If an image is found, it is returned.
+	 * Get image by custom field key.
 	 *
 	 * @since 0.2.0
 	 * @access protected
@@ -239,27 +244,16 @@ class CareLib_Image_Grabber {
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
 	protected function get_by_meta_key( $args = array() ) {
+		foreach ( (array) $args['meta_key'] as $meta_key ) {
 
-		/* If $meta_key is not an array. */
-		if ( !is_array( $args['meta_key'] ) )
-			$args['meta_key'] = array( $args['meta_key'] );
-
-		/* Loop through each of the given meta keys. */
-		foreach ( $args['meta_key'] as $meta_key ) {
-
-			/* Get the image URL by the current meta key in the loop. */
 			$image = get_post_meta( $args['post_id'], $meta_key, true );
 
-			/* If an image was found, break out of the loop. */
-			if ( ! empty( $image ) )
+			if ( ! empty( $image ) ) {
 				break;
+			}
 		}
 
-		/* If a custom key value has been given for one of the keys, return the image URL. */
-		if ( ! empty( $image ) )
-			return array( 'src' => $image, 'url' => $image );
-
-		return false;
+		return empty( $image ) ? false : array( 'src' => $image, 'url' => $image );
 	}
 
 	/**
@@ -273,28 +267,21 @@ class CareLib_Image_Grabber {
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
 	protected function get_by_post_thumbnail( $args = array() ) {
+		$id = get_post_thumbnail_id( $args['post_id'] );
 
-		/* Check for a post image ID (set by WP as a custom field). */
-		$post_thumbnail_id = get_post_thumbnail_id( $args['post_id'] );
-
-		/* If no post image ID is found, return false. */
-		if ( empty( $post_thumbnail_id ) )
+		if ( empty( $id ) ) {
 			return false;
+		}
 
-		/* Apply filters on post_thumbnail_size because this is a default WP filter used with its image feature. */
 		$size = apply_filters( 'post_thumbnail_size', $args['size'] );
 
-		/* Get the attachment image source.  This should return an array. */
-		$image = wp_get_attachment_image_src( $post_thumbnail_id, $size );
-
-		if ( ! $image )
+		if ( ! $image = wp_get_attachment_image_src( $id, $size ) ) {
 			return false;
+		}
 
-		/* Get the attachment excerpt to use as alt text. */
-		$alt = trim( strip_tags( get_post_field( 'post_excerpt', $post_thumbnail_id ) ) );
+		$alt = trim( strip_tags( get_post_field( 'post_excerpt', $id ) ) );
 
-		/* Return both the image URL and the post thumbnail ID. */
-		return array( 'src' => $image[0], 'url' => $image[0], 'post_thumbnail_id' => $post_thumbnail_id, 'alt' => $alt );
+		return array( 'src' => $image[0], 'url' => $image[0], 'post_thumbnail_id' => $id, 'alt' => $alt );
 	}
 
 	/**
@@ -307,19 +294,13 @@ class CareLib_Image_Grabber {
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
 	protected function get_by_attachment( $args = array() ) {
-
-		/* Get the post type of the current post. */
 		$post_type = get_post_type( $args['post_id'] );
 
 		/* Check if the post itself is an image attachment. */
-		if ( 'attachment' == $post_type && wp_attachment_is_image( $args['post_id'] ) ) {
+		if ( 'attachment' === $post_type && wp_attachment_is_image( $args['post_id'] ) ) {
 			$attachment_id = $args['post_id'];
-		}
+		} elseif ( 'attachment' !== $post_type ) {
 
-		/* If the post is not an attachment, check if it has any image attachments. */
-		elseif ( 'attachment' !== $post_type ) {
-
-			/* Get attachments for the inputted $post_id. */
 			$attachments = get_children(
 				array(
 					'post_parent'      => $args['post_id'],
@@ -328,7 +309,7 @@ class CareLib_Image_Grabber {
 					'post_mime_type'   => 'image',
 					'order'            => 'ASC',
 					'orderby'          => 'menu_order ID',
-					'suppress_filters' => true
+					'suppress_filters' => true,
 				)
 			);
 
@@ -345,31 +326,26 @@ class CareLib_Image_Grabber {
 					$attachment_id = $id;
 
 					/* Break if/when we hit 'order_of_image'. */
-					if ( ++$i == $args['order_of_image'] )
+					if ( ++$i === $args['order_of_image'] ) {
 						break;
+					}
 				}
 			}
 		}
 
-		/* Check if we have an attachment ID before proceeding. */
-		if ( ! empty( $attachment_id ) ) {
-
-			/* Get the attachment image. */
-			$image = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-
-			/* Get the attachment excerpt. */
-			$alt = trim( strip_tags( get_post_field( 'post_excerpt', $attachment_id ) ) );
-
-			/* Save the attachment as the 'featured image'. */
-			if ( true === $args['thumbnail_id_save'] )
-				set_post_thumbnail( $args['post_id'], $attachment_id );
-
-			/* Return the image URL. */
-			return array( 'src' => $image[0], 'url' => $image[0], 'alt' => $alt );
+		if ( empty( $attachment_id ) ) {
+			return false;
 		}
 
-		/* Return false for anything else. */
-		return false;
+		$image = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+
+		$alt = trim( strip_tags( get_post_field( 'post_excerpt', $attachment_id ) ) );
+
+		if ( true === $args['thumbnail_id_save'] ) {
+			set_post_thumbnail( $args['post_id'], $attachment_id );
+		}
+
+		return array( 'src' => $image[0], 'url' => $image[0], 'alt' => $alt );
 	}
 
 	/**
@@ -387,8 +363,9 @@ class CareLib_Image_Grabber {
 		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post_field( 'post_content', $args['post_id'] ), $matches );
 
 		/* If there is a match for the image, return its URL. */
-		if ( isset( $matches ) && ! empty( $matches[1][0] ) )
+		if ( isset( $matches ) && ! empty( $matches[1][0] ) ) {
 			return array( 'src' => $matches[1][0], 'url' => $matches[1][0] );
+		}
 
 		return false;
 	}
@@ -417,10 +394,9 @@ class CareLib_Image_Grabber {
 	 * @return string $image Formatted image (w/link to post if the option is set).
 	 */
 	protected function get_format( $args = array(), $image = false ) {
-
-		/* If there is no image URL, return false. */
-		if ( empty( $image['src'] ) )
+		if ( empty( $image['src'] ) ) {
 			return false;
+		}
 
 		/* Extract the arguments for easy-to-use variables. */
 		extract( $args );
@@ -434,8 +410,9 @@ class CareLib_Image_Grabber {
 
 		/* Loop through the custom field keys and add them as classes. */
 		if ( is_array( $meta_key ) ) {
-			foreach ( $meta_key as $key )
+			foreach ( $meta_key as $key ) {
 				$classes[] = sanitize_html_class( $key );
+			}
 		}
 
 		/* Add the $size and any user-added $image_class to the class. */
@@ -449,13 +426,14 @@ class CareLib_Image_Grabber {
 		$html = '<img src="' . $image['src'] . '" alt="' . esc_attr( strip_tags( $image_alt ) ) . '" class="' . esc_attr( $class ) . '"' . $width . $height . ' />';
 
 		/* If $link_to_post is set to true, link the image to its post. */
-		if ( $link_to_post )
+		if ( $link_to_post ) {
 			$html = '<a href="' . get_permalink( $post_id ) . '" title="' . esc_attr( apply_filters( 'the_title', get_post_field( 'post_title', $post_id ) ) ) . '">' . $html . '</a>';
+		}
 
 		/* If there is a $post_thumbnail_id, apply the WP filters normally associated with get_the_post_thumbnail(). */
-		if ( ! empty( $image['post_thumbnail_id'] ) )
+		if ( ! empty( $image['post_thumbnail_id'] ) ) {
 			$html = apply_filters( 'post_thumbnail_html', $html, $post_id, $image['post_thumbnail_id'], $size, '' );
-
+		}
 		return $html;
 	}
 
