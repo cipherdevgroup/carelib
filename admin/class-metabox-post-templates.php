@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 
-	protected static $post_templates = array();
+	protected static $templates = array();
 
 	/**
 	 * Get our class up and running!
@@ -109,32 +109,34 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 	 * @return void|int
 	 */
 	public function save( $post_id, $post = '' ) {
-		if ( ! is_object( $post ) ) {
-			$post = get_post();
-		}
-
 		$no  = 'carelib_post_template_nonce';
 		$act = 'carelib_update_post_template';
 
 		// Verify the nonce for the post formats meta box.
 		if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {
-			return $post_id;
+			return false;
 		}
 
-		$data    = isset( $_POST['carelib-post-template'] ) ? $_POST['carelib-post-template'] : '';
+		$input   = isset( $_POST['carelib-post-template'] ) ? $_POST['carelib-post-template'] : '';
 		$current = $this->get_post_template( $post_id );
 
-		if ( '' === $data && $current ) {
-			$this->delete_post_template( $post_id );
-		} elseif ( $data !== $current ) {
-			$this->set_post_template( $post_id, sanitize_text_field( $data ) );
+		if ( $input === $current ) {
+			return false;
 		}
+
+		if ( empty( $input ) ) {
+			return $this->delete_post_template( $post_id );
+		}
+
+		return $this->set_post_template( $post_id, sanitize_text_field( $input ) );
 	}
 
 	/**
-	 * Function for getting an array of available custom templates with a specific header. Ideally, this function
-	 * would be used to grab custom singular post (any post type) templates. It is a recreation of the WordPress
-	 * page templates function because it doesn't allow for other types of templates.
+	 * Get an array of available custom templates with a specific header.
+	 *
+	 * Ideally, this function would be used to grab custom singular post templates.
+	 * It is a recreation of the WordPress page templates function because it
+	 * doesn't allow for other types of templates.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -142,12 +144,10 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 	 * @return array  $post_templates The array of templates.
 	 */
 	public function get_post_templates( $post_type = 'post' ) {
-		// If templates have already been called, just return them.
-		if ( ! empty( $this->post_templates ) && isset( $this->post_templates[ $post_type ] ) ) {
-			return $this->post_templates[ $post_type ];
+		if ( ! empty( self::$templates ) && isset( self::$templates[ $post_type ] ) ) {
+			return self::$templates[ $post_type ];
 		}
 
-		// Set up an empty array to house the templates.
 		$post_templates = array();
 
 		// Get the theme PHP files one level deep.
@@ -158,23 +158,19 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 			$files = array_merge( $files, wp_get_theme()->get_files( 'php', 1 ) );
 		}
 
-		// Loop through each of the PHP files and check if they are post templates.
 		foreach ( $files as $file => $path ) {
+			// Get file data based on the post type singular name.
+			$headers = get_file_data(
+				$path,
+				array( "{$post_type} Template" => "{$post_type} Template" )
+			);
 
-			// Get file data based on the post type singular name (e.g., "Post Template", "Book Template", etc.).
-			$headers = get_file_data( $path, array( "{$post_type} Template" => "{$post_type} Template" ) );
-
-			// Add the PHP filename and template name to the array.
 			if ( ! empty( $headers[ "{$post_type} Template" ] ) ) {
 				$post_templates[ $file ] = $headers[ "{$post_type} Template" ];
 			}
 		}
 
-		// Add the templates to the global $this object.
-		$this->post_templates[ $post_type ] = array_flip( $post_templates );
-
-		// Return array of post templates.
-		return $this->post_templates[ $post_type ];
+		return self::$templates[ $post_type ] = array_flip( $post_templates );
 	}
 
 }

@@ -16,9 +16,9 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Admin_Metabox_Post_Style extends CareLib_Admin_Scripts {
+class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Scripts {
 
-	protected static $post_styles = array();
+	protected static $styles = array();
 
 	/**
 	 * Get our class up and running!
@@ -107,26 +107,26 @@ class CareLib_Admin_Metabox_Post_Style extends CareLib_Admin_Scripts {
 	 * @return void|int
 	 */
 	public function save( $post_id, $post = '' ) {
-		if ( ! is_object( $post ) ) {
-			$post = get_post();
-		}
-
 		$no  = 'carelib_post_style_nonce';
 		$act = 'carelib_update_post_style';
 
 		// Verify the nonce for the post formats meta box.
 		if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {
-			return $post_id;
+			return false;
 		}
 
-		$data    = isset( $_POST['carelib-post-style'] ) ? $_POST['carelib-post-style'] : '';
+		$input    = isset( $_POST['carelib-post-style'] ) ? $_POST['carelib-post-style'] : '';
 		$current = $this->get_post_layout( $post_id );
 
-		if ( '' === $data && $current ) {
-			$this->delete_post_style( $post_id );
-		} elseif ( $current !== $data ) {
-			$this->set_post_style( $post_id, $data );
+		if ( $input === $current ) {
+			return false;
 		}
+
+		if ( empty( $input ) ) {
+			return $this->delete_post_style( $post_id );
+		}
+
+		return $this->set_post_style( $post_id, $input );
 	}
 
 	/**
@@ -139,24 +139,19 @@ class CareLib_Admin_Metabox_Post_Style extends CareLib_Admin_Scripts {
 	 * @return array
 	 */
 	public function get_post_styles( $post_type = 'post' ) {
-		if ( ! empty( $this->post_styles[ $post_type ] ) ) {
-			return $this->post_styles[ $post_type ];
+		if ( ! empty( self::$styles[ $post_type ] ) ) {
+			return self::$styles[ $post_type ];
 		}
 
-		// Set up an empty styles array.
-		$this->post_styles[ $post_type ] = array();
+		self::$styles[ $post_type ] = array();
 
-		// Get the theme CSS files two levels deep.
 		$files = wp_get_theme( get_template() )->get_files( 'css', 2 );
 
-		// If a child theme is active, get its files and merge with the parent theme files.
 		if ( is_child_theme() ) {
 			$files = array_merge( $files, wp_get_theme()->get_files( 'css', 2 ) );
 		}
 
-		// Loop through each of the CSS files and check if they are styles.
 		foreach ( $files as $file => $path ) {
-			// Get file data based on the 'Style Name' header.
 			$headers = get_file_data(
 				$path,
 				array(
@@ -165,19 +160,14 @@ class CareLib_Admin_Metabox_Post_Style extends CareLib_Admin_Scripts {
 				)
 			);
 
-			// Add the CSS filename and template name to the array.
 			if ( ! empty( $headers['Style Name'] ) ) {
-				$this->post_styles[ $post_type ][ $file ] = $headers['Style Name'];
+				self::$styles[ $post_type ][ $file ] = $headers['Style Name'];
 			} elseif ( ! empty( $headers[ "{$post_type} Style" ] ) ) {
-				$this->post_styles[ $post_type ][ $file ] = $headers[ "{$post_type} Style" ];
+				self::$styles[ $post_type ][ $file ] = $headers[ "{$post_type} Style" ];
 			}
 		}
 
-		// Flip the array of styles.
-		$this->post_styles[ $post_type ] = array_flip( $this->post_styles[ $post_type ] );
-
-		// Return array of styles.
-		return $this->post_styles[ $post_type ];
+		return self::$styles[ $post_type ] = array_flip( self::$styles[ $post_type ] );
 	}
 
 }

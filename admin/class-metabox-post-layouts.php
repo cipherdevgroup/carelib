@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Admin_Metabox_Post_Layout extends CareLib_Layouts {
+class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 
 	/**
 	 * Get our class up and running!
@@ -67,18 +67,19 @@ class CareLib_Admin_Metabox_Post_Layout extends CareLib_Layouts {
 	 * @return void
 	 */
 	public function add( $post_type ) {
-		if ( current_user_can( 'edit_theme_options' ) ) {
-			add_meta_box(
-				'carelib-post-layout',
-				esc_html__( 'Layout', 'carelib' ),
-				array( $this, 'box' ),
-				$post_type,
-				'side',
-				'default'
-			);
-
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 5 );
+		if ( ! current_user_can( 'edit_theme_options' ) ) {
+			return;
 		}
+		add_meta_box(
+			'carelib-post-layout',
+			esc_html__( 'Layout', 'carelib' ),
+			array( $this, 'box' ),
+			$post_type,
+			'side',
+			'default'
+		);
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 5 );
 	}
 
 	/**
@@ -105,7 +106,7 @@ class CareLib_Admin_Metabox_Post_Layout extends CareLib_Layouts {
 		$post_layout  = $this->get_post_layout( $post->ID );
 		$post_layout  = $post_layout ? $post_layout : 'default';
 		$post_layouts = $this->get_layouts();
-		require_once carelib()->get_dir() . 'admin/templates/metabox-post-layout.php';
+		require_once carelib()->get_dir() . 'admin/templates/metabox-post-layouts.php';
 	}
 
 	/**
@@ -118,26 +119,26 @@ class CareLib_Admin_Metabox_Post_Layout extends CareLib_Layouts {
 	 * @return void|int
 	 */
 	public function save( $post_id, $post = '' ) {
-		if ( ! is_object( $post ) ) {
-			$post = get_post();
-		}
-
 		$no  = 'carelib_post_layout_nonce';
 		$act = 'carelib_update_post_layout';
 
 		// Verify the nonce for the post formats meta box.
 		if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {
-			return $post_id;
+			return false;
 		}
 
-		$data    = isset( $_POST['carelib-post-layout'] ) ? $_POST['carelib-post-layout'] : '';
+		$input   = isset( $_POST['carelib-post-layout'] ) ? $_POST['carelib-post-layout'] : '';
 		$current = $this->get_post_layout( $post_id );
 
-		if ( '' === $data && $current ) {
-			$this->delete_post_layout( $post_id );
-		} elseif ( $current !== $data ) {
-			$this->set_post_layout( $post_id, sanitize_key( $data ) );
+		if ( $input === $current ) {
+			return false;
 		}
+
+		if ( empty( $input ) ) {
+			return $this->delete_post_layout( $post_id );
+		}
+
+		return $this->set_post_layout( $post_id, sanitize_key( $input ) );
 	}
 
 }
