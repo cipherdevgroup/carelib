@@ -1,6 +1,7 @@
 <?php
 /**
- * Contextual functions and filters, particularly dealing with the body, post, and comment classes.
+ * Contextual functions and filters, particularly dealing with the body, post,
+ * and comment classes.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC

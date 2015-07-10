@@ -1,6 +1,6 @@
 <?php
 /**
- * General theme helper functions.
+ * Methods for displaying a box with information about post authors.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
