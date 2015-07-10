@@ -135,4 +135,5 @@ class CareLib_Search_Form {
 		}
 		return $this->id;
 	}
+
 }
