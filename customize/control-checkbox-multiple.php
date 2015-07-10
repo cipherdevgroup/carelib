@@ -40,7 +40,7 @@ class CareLib_Customize_Control_Checkbox_Multiple extends WP_Customize_Control {
 	 * @return void
 	 */
 	public function enqueue() {
-		wp_enqueue_script( 'hybrid-customize-controls' );
+		wp_enqueue_script( 'carelib-customize-controls' );
 	}
 
 	/**

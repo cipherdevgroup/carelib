@@ -72,7 +72,7 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 		$templates = $this->get_post_templates( $post_type );
 		if ( ! empty( $templates ) && 'page' !== $post_type ) {
 			add_meta_box(
-				'hybrid-post-template',
+				'carelib-post-template',
 				esc_html__( 'Template', 'carelib' ),
 				array( $this, 'box' ),
 				$post_type,

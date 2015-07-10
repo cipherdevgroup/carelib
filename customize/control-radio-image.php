@@ -40,8 +40,8 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	 * @return void
 	 */
 	public function enqueue() {
-		wp_enqueue_script( 'hybrid-customize-controls' );
-		wp_enqueue_style(  'hybrid-customize-controls' );
+		wp_enqueue_script( 'carelib-customize-controls' );
+		wp_enqueue_style(  'carelib-customize-controls' );
 	}
 
 	/**

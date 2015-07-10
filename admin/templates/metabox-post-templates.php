@@ -9,7 +9,7 @@
  */
 ?>
 <p>
-	<select name="hybrid-post-template" class="widefat">
+	<select name="carelib-post-template" class="widefat">
 		<option value=""></option>
 		<?php foreach ( $templates as $label => $template ) : ?>
 			<option value="<?php echo esc_attr( $template ); ?>" <?php selected( $post_template, $template ); ?>>
