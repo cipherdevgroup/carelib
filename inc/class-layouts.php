@@ -70,37 +70,7 @@ class CareLib_Layouts {
 	}
 
 	/**
-	 * Register a new layout object
-	 *
-	 * @see    CareLib_Layout::__construct()
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $name
-	 * @param  array   $args
-	 * @return void
-	 */
-	public function register_layout( $name, $args = array() ) {
-		if ( ! $this->layout_exists( $name ) ) {
-			self::$layouts[ $name ] = CareLib_Factory::build( 'layout', $name, $args );
-		}
-	}
-
-	/**
-	 * Unregisters a layout object.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $name
-	 * @return void
-	 */
-	public function unregister_layout( $name ) {
-		if ( $this->layout_exists( $name ) ) {
-			unset( $this->layouts[ $name ] );
-		}
-	}
-
-	/**
-	 * Checks if a layout exists.
+	 * Check if a layout exists.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -112,30 +82,23 @@ class CareLib_Layouts {
 	}
 
 	/**
-	 * Gets a layout object.
+	 * Register a new layout object
 	 *
+	 * @see    CareLib_Layout::__construct()
 	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $name
-	 * @return object|bool
+	 * @param  array   $args
+	 * @return void
 	 */
-	public function get_layout( $name ) {
-		return $this->layout_exists( $name ) ? $this->layouts[ $name ] : false;
+	public function register_layout( $name, $args = array() ) {
+		if ( ! $this->layout_exists( $name ) ) {
+			self::$layouts[ $name ] = new CareLib_Layout( $name, $args );
+		}
 	}
 
 	/**
-	 * Gets all layout objects.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return object
-	 */
-	public function get_layouts() {
-		return $this->layouts;
-	}
-
-	/**
-	 * Registers the default theme layouts.
+	 * Register the default theme layouts.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -158,7 +121,112 @@ class CareLib_Layouts {
 	}
 
 	/**
-	 * Gets the theme layout. This is the global theme layout defined. Other functions filter the
+	 * Return an array of the available theme layouts.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  bool   $supports
+	 * @param  array  $args
+	 * @param  array  $feature
+	 * @return bool
+	 */
+	public function theme_layouts_support( $supports, $args, $feature ) {
+		if ( ! isset( $args[0] ) || ! in_array( $args[0], array( 'customize', 'post_meta' ) ) ) {
+			return $supports;
+		}
+
+		if ( is_array( $feature[0] ) && isset( $feature[0][ $args[0] ] ) && false === $feature[0][ $args[0] ] ) {
+			$supports = false;
+		}
+
+		return $supports;
+	}
+
+	/**
+	 * Wrapper function for returning the metadata key used for objects that can
+	 * use layouts.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_meta_key() {
+		return apply_filters( "{$this->prefix}_layout_meta_key", 'Layout' );
+	}
+
+	/**
+	 * Gets a post layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  int     $post_id
+	 * @return bool
+	 */
+	public function get_post_layout( $post_id ) {
+		return get_post_meta( $post_id, $this->get_meta_key(), true );
+	}
+
+	/**
+	 * Gets a user layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  int     $user_id
+	 * @return bool
+	 */
+	public function get_user_layout( $user_id ) {
+		return get_user_meta( $user_id, $this->get_meta_key(), true );
+	}
+
+	/**
+	 * Default filter on the `theme_mod_theme_layout` hook.
+	 *
+	 * By default, we'll check for per-post or per-author layouts saved as
+	 * metadata. If set, we'll filter. Else, just return the global layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string  $theme_layout
+	 * @return string
+	 */
+	public function filter_layout( $theme_layout ) {
+		if ( is_singular() ) {
+			$layout = $this->get_post_layout( get_queried_object_id() );
+		}
+		if ( is_author() ) {
+			$layout = $this->get_user_layout( get_queried_object_id() );
+		}
+
+		return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
+	}
+
+	/**
+	 * Get all layout objects.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return object
+	 */
+	public function get_layouts() {
+		return $this->layouts;
+	}
+
+	/**
+	 * Get a layout object.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string  $name
+	 * @return object|bool
+	 */
+	public function get_layout( $name ) {
+		return $this->layout_exists( $name ) ? $this->layouts[ $name ] : false;
+	}
+
+	/**
+	 * Get the theme layout.
+	 *
+	 * This is the global theme layout defined. Other functions filter the
 	 * available `theme_mod_theme_layout` hook to overwrite this.
 	 *
 	 * @since  0.2.0
@@ -183,43 +251,6 @@ class CareLib_Layouts {
 	}
 
 	/**
-	 * Gets a post layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @return bool
-	 */
-	public function get_post_layout( $post_id ) {
-		return get_post_meta( $post_id, $this->get_meta_key(), true );
-	}
-
-	/**
-	 * Sets a post layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @param  string  $layout
-	 * @return bool
-	 */
-	public function set_post_layout( $post_id, $layout ) {
-		return 'default' !== $layout ? update_post_meta( $post_id, $this->get_meta_key(), $layout ) : $this->delete_post_layout( $post_id );
-	}
-
-	/**
-	 * Deletes a post layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @return bool
-	 */
-	public function delete_post_layout( $post_id ) {
-		return delete_post_meta( $post_id, $this->get_meta_key() );
-	}
-
-	/**
 	 * Checks a post if it has a specific layout.
 	 *
 	 * @since  0.2.0
@@ -235,42 +266,6 @@ class CareLib_Layouts {
 		return $this->get_post_layout( $post_id ) === $layout ? true : false;
 	}
 
-	/**
-	 * Gets a user layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $user_id
-	 * @return bool
-	 */
-	public function get_user_layout( $user_id ) {
-		return get_user_meta( $user_id, $this->get_meta_key(), true );
-	}
-
-	/**
-	 * Sets a user layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $user_id
-	 * @param  string  $layout
-	 * @return bool
-	 */
-	public function set_user_layout( $user_id, $layout ) {
-		return 'default' !== $layout ? update_user_meta( $user_id, $this->get_meta_key(), $layout ) : $this->delete_user_layout( $user_id );
-	}
-
-	/**
-	 * Deletes user layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $user_id
-	 * @return bool
-	 */
-	public function delete_user_layout( $user_id ) {
-		return delete_user_meta( $user_id, $this->get_meta_key() );
-	}
 
 	/**
 	 * Checks if a user/author has a specific layout.
@@ -290,58 +285,67 @@ class CareLib_Layouts {
 	}
 
 	/**
-	 * Default filter on the `theme_mod_theme_layout` hook. By default, we'll check for per-post
-	 * or per-author layouts saved as metadata. If set, we'll filter. Else, just return the
-	 * global layout.
+	 * Sets a post layout.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $theme_layout
-	 * @return string
-	 */
-	public function filter_layout( $theme_layout ) {
-		// If viewing a singular post, get the post layout.
-		if ( is_singular() ) {
-			$layout = $this->get_post_layout( get_queried_object_id() );
-		} elseif ( is_author() ) {
-			// If viewing an author archive, get the user layout.
-			$layout = $this->get_user_layout( get_queried_object_id() );
-		}
-
-		return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
-	}
-
-	/**
-	 * Returns an array of the available theme layouts.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  bool   $supports
-	 * @param  array  $args
-	 * @param  array  $feature
+	 * @param  int     $post_id
+	 * @param  string  $layout
 	 * @return bool
 	 */
-	public function theme_layouts_support( $supports, $args, $feature ) {
-		if ( ! isset( $args[0] ) || ! in_array( $args[0], array( 'customize', 'post_meta' ) ) ) {
-			return $supports;
-		}
-
-		if ( is_array( $feature[0] ) && isset( $feature[0][ $args[0] ] ) && false === $feature[0][ $args[0] ] ) {
-			$supports = false;
-		}
-
-		return $supports;
+	public function set_post_layout( $post_id, $layout ) {
+		return 'default' !== $layout ? update_post_meta( $post_id, $this->get_meta_key(), $layout ) : $this->delete_post_layout( $post_id );
 	}
 
 	/**
-	 * Wrapper function for returning the metadata key used for objects that can use layouts.
+	 * Sets a user layout.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @return string
+	 * @param  int     $user_id
+	 * @param  string  $layout
+	 * @return bool
 	 */
-	public function get_meta_key() {
-		return apply_filters( "{$this->prefix}_layout_meta_key", 'Layout' );
+	public function set_user_layout( $user_id, $layout ) {
+		return 'default' !== $layout ? update_user_meta( $user_id, $this->get_meta_key(), $layout ) : $this->delete_user_layout( $user_id );
+	}
+
+	/**
+	 * Unregisters a layout object.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string  $name
+	 * @return void
+	 */
+	public function unregister_layout( $name ) {
+		if ( $this->layout_exists( $name ) ) {
+			unset( $this->layouts[ $name ] );
+		}
+	}
+
+	/**
+	 * Deletes a post layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  int     $post_id
+	 * @return bool
+	 */
+	public function delete_post_layout( $post_id ) {
+		return delete_post_meta( $post_id, $this->get_meta_key() );
+	}
+
+	/**
+	 * Deletes user layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  int     $user_id
+	 * @return bool
+	 */
+	public function delete_user_layout( $user_id ) {
+		return delete_user_meta( $user_id, $this->get_meta_key() );
 	}
 
 }
