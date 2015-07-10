@@ -63,7 +63,7 @@ class CareLib_Layouts {
 	 * @access public
 	 * @return void
 	 */
-	public function wp_hooks() {
+	protected function wp_hooks() {
 		add_action( 'init',                                 array( $this, 'register_layouts' ), 95 );
 		add_filter( 'current_theme_supports-theme-layouts', array( $this, 'theme_layouts_support' ), 10, 3 );
 		add_filter( 'theme_mod_theme_layout',               array( $this, 'filter_layout' ), 5 );
@@ -259,9 +259,7 @@ class CareLib_Layouts {
 	 * @return bool
 	 */
 	public function has_post_layout( $layout, $post_id = '' ) {
-		if ( ! $post_id ) {
-			$post_id = get_the_ID();
-		}
+		$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
 
 		return $this->get_post_layout( $post_id ) === $layout ? true : false;
 	}
@@ -277,9 +275,7 @@ class CareLib_Layouts {
 	 * @return bool
 	 */
 	public function has_user_layout( $layout, $user_id = '' ) {
-		if ( ! $user_id ) {
-			$user_id = absint( get_query_var( 'author' ) );
-		}
+		$user_id = empty( $user_id ) ? absint( get_query_var( 'author' ) ) : $user_id;
 
 		return $this->get_user_layout( $user_id ) === $layout ? true : false;
 	}
@@ -294,7 +290,10 @@ class CareLib_Layouts {
 	 * @return bool
 	 */
 	public function set_post_layout( $post_id, $layout ) {
-		return 'default' !== $layout ? update_post_meta( $post_id, $this->get_meta_key(), $layout ) : $this->delete_post_layout( $post_id );
+		if ( 'default' !== $layout ) {
+			return update_post_meta( $post_id, $this->get_meta_key(), $layout );
+		}
+		return $this->delete_post_layout( $post_id );
 	}
 
 	/**
@@ -307,7 +306,10 @@ class CareLib_Layouts {
 	 * @return bool
 	 */
 	public function set_user_layout( $user_id, $layout ) {
-		return 'default' !== $layout ? update_user_meta( $user_id, $this->get_meta_key(), $layout ) : $this->delete_user_layout( $user_id );
+		if ( 'default' !== $layout ) {
+			return update_user_meta( $user_id, $this->get_meta_key(), $layout );
+		}
+		return $this->delete_user_layout( $user_id );
 	}
 
 	/**
