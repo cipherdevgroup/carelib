@@ -1,9 +1,11 @@
 <?php
 /**
- * The framework has its own template hierarchy that can be used instead of the default WordPress
- * template hierarchy. It is not much different than the default. It was built to extend the default by
- * making it smarter and more flexible. The goal is to give theme developers and end users an
- * easy-to-override system that doesn't involve massive amounts of conditional tags within files.
+ * The framework has its own template hierarchy that can be used instead of the
+ * default WordPress template hierarchy.
+ *
+ * It was built to extend the default by making it smarter and more flexible.
+ * The goal is to give theme developers and end users an easy-to-override system
+ * that doesn't involve massive amounts of conditional tags within files.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
@@ -62,7 +64,6 @@ class CareLib_Template_Hierarchy {
 		add_filter( 'taxonomy_template',   array( $this, 'taxonomy_template' ),   5 );
 		add_filter( 'single_template',     array( $this, 'singular_template' ),   5 );
 		add_filter( 'page_template',       array( $this, 'singular_template' ),   5 );
-		add_filter( 'attachment_template', array( $this, 'singular_template' ),   5 );
 		add_filter( 'front_page_template', array( $this, 'front_page_template' ), 5 ); // Doesn't work b/c bug with get_query_template().
 		add_filter( 'frontpage_template',  array( $this, 'front_page_template' ), 5 );
 		add_filter( 'comments_template',   array( $this, 'comments_template' ),   5 );
@@ -204,7 +205,6 @@ class CareLib_Template_Hierarchy {
 	 * @return string $template The theme post template after all templates have been checked for.
 	 */
 	public function singular_template( $template ) {
-
 		$templates = array();
 
 		// Get the queried post.
@@ -216,15 +216,8 @@ class CareLib_Template_Hierarchy {
 			$templates[] = $custom;
 		}
 
-		// If viewing an attachment page, handle the files by mime type.
-		if ( is_attachment() ) {
-			$templates[] = "attachment.php";
-		} else {
-			$templates[] = "{$post->post_type}-{$post->post_name}.php";
-			$templates[] = "{$post->post_type}-{$post->ID}.php";
-		}
-
-		// Add a template based off the post type name.
+		$templates[] = "{$post->post_type}-{$post->post_name}.php";
+		$templates[] = "{$post->post_type}-{$post->ID}.php";
 		$templates[] = "{$post->post_type}.php";
 
 		// Allow for WP standard 'single' templates for compatibility.
