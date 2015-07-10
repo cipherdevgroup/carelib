@@ -233,6 +233,7 @@ class CareLib {
 		$classes = array(
 			'customize',
 			'i18n',
+			'image-grabber',
 			'layouts',
 			'sidebar',
 			'template-hierarchy',
@@ -240,9 +241,9 @@ class CareLib {
 		if ( is_admin() ) {
 			$classes[] = 'admin-author-box';
 			$classes[] = 'admin-dashboard';
-			$classes[] = 'admin-metabox-post-layout';
-			$classes[] = 'admin-metabox-post-style';
-			$classes[] = 'admin-metabox-post-template';
+			$classes[] = 'admin-metabox-post-layouts';
+			$classes[] = 'admin-metabox-post-styles';
+			$classes[] = 'admin-metabox-post-templates';
 			$classes[] = 'admin-scripts';
 			$classes[] = 'admin-tinymce';
 		} else {
