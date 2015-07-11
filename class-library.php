@@ -232,7 +232,6 @@ class CareLib {
 	protected function build( $factory ) {
 		$classes = array(
 			'customize',
-			'footer-widgets',
 			'i18n',
 			'image-grabber',
 			'layouts',
