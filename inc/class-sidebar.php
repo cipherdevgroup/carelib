@@ -113,7 +113,7 @@ class CareLib_Sidebar {
 	 * @param  string  $name
 	 * @return void
 	 */
-	public function get_template( $name = null ) {
+	public function template( $name = null ) {
 		do_action( 'get_sidebar', $name ); // Core WordPress hook
 		$templates = array();
 		if ( ! empty( $name ) ) {
