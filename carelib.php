@@ -25,8 +25,8 @@ require_once trailingslashit( dirname( __FILE__ ) ) . 'class-library.php';
  * @since   0.1.0
  * @return  object CareLib
  */
-function carelib( $args = array() ) {
-	return CareLib::instance( $args );
+function carelib() {
+	return CareLib::instance();
 }
 
 /**
