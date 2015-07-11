@@ -238,7 +238,6 @@ class CareLib {
 			'sidebar',
 		);
 		if ( is_admin() ) {
-			$classes[] = 'admin-author-box';
 			$classes[] = 'admin-dashboard';
 			$classes[] = 'admin-metabox-post-layouts';
 			$classes[] = 'admin-metabox-post-styles';
@@ -247,7 +246,6 @@ class CareLib {
 			$classes[] = 'admin-tinymce';
 		} else {
 			$classes[] = 'attributes';
-			$classes[] = 'author-box';
 			$classes[] = 'context';
 			$classes[] = 'filters';
 			$classes[] = 'head';
