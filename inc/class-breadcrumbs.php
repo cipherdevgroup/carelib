@@ -111,16 +111,14 @@ class CareLib_Breadcrumbs {
 	 * @access public
 	 * @return mixed false if no plugin is active, callback function name if one is
 	 */
-	public function plugin_is_active( $callbacks = array() ) {
-		if ( empty( $callbacks ) ) {
-			$callbacks = array(
-				'yoast_breadcrumb',
-				'breadcrumb_trail',
-				'bcn_display',
-				'breadcrumbs',
-				'crumbs',
-			);
-		}
+	public function plugin_is_active() {
+		$callbacks = apply_filters( "{$this->prefix}_breadcrumbs_plugins", array(
+			'yoast_breadcrumb',
+			'breadcrumb_trail',
+			'bcn_display',
+			'breadcrumbs',
+			'crumbs',
+		) );
 
 		foreach ( (array) $callbacks as $callback ) {
 			if ( function_exists( $callback ) ) {
