@@ -66,18 +66,7 @@ abstract class CareLib_Customizer_Base {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->prefix = CareLib::instance()->get_prefix();
-	}
-
-	/**
-	 * Get our class up and running!
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @uses   CareLib_Customizer_Base::$customizer_hooks
-	 * @return void
-	 */
-	public function run() {
+		$this->prefix = carelib()->get_prefix();
 		self::customizer_hooks();
 	}
 

@@ -37,7 +37,7 @@ class CareLib_Admin_TinyMCE {
 	 * @access public
 	 * @return void
 	 */
-	private function wp_hooks() {
+	protected function wp_hooks() {
 		add_filter( 'mce_buttons',          array( $this, 'add_styleselect' ),     99 );
 		add_filter( 'mce_buttons_2',        array( $this, 'disable_styleselect' ), 99 );
 		add_filter( 'tiny_mce_before_init', array( $this, 'tinymce_formats' ),     99 );
@@ -86,7 +86,7 @@ class CareLib_Admin_TinyMCE {
 	 * @see    http://wordpress.stackexchange.com/a/128950/9844
 	 */
 	public function tinymce_formats( $args ) {
-		$formats = apply_filters( CareLib::instance()->get_prefix() . '_tiny_mce_formats',
+		$formats = apply_filters( carelib()->get_prefix() . '_tiny_mce_formats',
 			array(
 				array(
 					'title'    => __( 'Drop Cap', 'carelib' ),

@@ -65,7 +65,7 @@ class CareLib_Site_Logo_Control extends WP_Customize_Control {
 	 * @uses plugins_url()
 	 */
 	public function enqueue() {
-		$uri = CareLib::instance()->get_uri();
+		$uri = carelib()->get_uri();
 		// Enqueues all needed media resources.
 		wp_enqueue_media();
 

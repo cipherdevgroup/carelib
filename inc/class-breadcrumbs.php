@@ -1,76 +1,48 @@
 <?php
 /**
- * Options for displaying breadcrumbs for use in the WordPress customizer.
+ * Methods for controlling breadcrumb display.
  *
- * @package     CareLib
- * @copyright   Copyright (c) 2015, WP Site Care, LLC
- * @license     GPL-2.0+
- * @since       0.1.0
+ * @package   CareLib
+ * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @license   GPL-2.0+
+ * @since     0.2.0
  */
+
+// Prevent direct access.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Our Breadcrumb display class for managing breadcrumbs through the Customizer.
+ * Creates options for displaying breadcrumbs if they exist.
  *
- * @package CareLib
+ * @since 0.6.0
  */
-class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
-
-	protected $section;
+class CareLib_Breadcrumbs {
 
 	/**
-	 * Register our customizer breadcrumb options for the parent class to load.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  object  $wp_customize
-	 * @return void
-	 */
-	public function register( $wp_customize ) {
+	* Library prefix which can be set within themes.
+	*
+	* @since 0.2.0
+	* @var   string
+	*/
+	protected $prefix;
 
-		$this->section = "{$this->prefix}_breadcrumbs";
-
-		$wp_customize->add_section(
-			$this->section,
-			array(
-				'title'       => __( 'Breadcrumbs', 'carelib' ),
-				'description' => __( 'Choose where you would like breadcrumbs to display.', 'carelib' ),
-				'priority'    => 110,
-				'capability'  => $this->capability,
-			)
-		);
-
-		$priority = 10;
-
-		foreach ( $this->get_options() as $breadcrumb => $setting ) {
-
-			$wp_customize->add_setting(
-				$breadcrumb,
-				array(
-					'default'           => $setting['default'],
-					'sanitize_callback' => 'absint',
-				)
-			);
-
-			$wp_customize->add_control(
-				$breadcrumb,
-				array(
-					'label'    => $setting['label'],
-					'section'  => $this->section,
-					'type'     => 'checkbox',
-					'priority' => $priority++,
-				)
-			);
-		}
+	/**
+	* Constructor method.
+	*
+	* @since 0.2.0
+	*/
+	public function __construct() {
+		$this->prefix = carelib()->get_prefix();
 	}
 
 	/**
 	 * An array of breadcrumb locations.
 	 *
 	 * @since  0.1.0
-	 * @access protected
+	 * @access public
 	 * @return array $breadcrumbs
 	 */
-	protected function get_options() {
+	public function get_options() {
 		$prefix = $this->prefix;
 		return apply_filters( "{$prefix}_breadcrumb_options", array(
 			"{$prefix}_breadcrumb_single" => array(
@@ -107,7 +79,7 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 	 * @access public
 	 * @return bool true if both our template tag and theme mod return true.
 	 */
-	public function display_breadcrumbs() {
+	public function display() {
 		// Grab our available breadcrumb display options.
 		$options = array_keys( $this->get_options() );
 		// Set up an array of template tags to map to our breadcrumb display options.
@@ -127,6 +99,30 @@ class CareLib_Breadcrumb_Display extends CareLib_Customizer_Base {
 			// Return true if we find an enabled theme mod within the correct section.
 			if ( 1 === absint( get_theme_mod( $mod, 0 ) ) && true === $tag ) {
 				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check to see if a supported breadcrumbs plugin is active.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return mixed false if no plugin is active, callback function name if one is
+	 */
+	public function plugin_is_active() {
+		$callbacks = apply_filters( "{$this->prefix}_breadcrumbs_plugins", array(
+			'yoast_breadcrumb',
+			'breadcrumb_trail',
+			'bcn_display',
+			'breadcrumbs',
+			'crumbs',
+		) );
+
+		foreach ( (array) $callbacks as $callback ) {
+			if ( function_exists( $callback ) ) {
+				return $callback;
 			}
 		}
 		return false;
