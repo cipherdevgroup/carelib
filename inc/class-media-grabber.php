@@ -85,8 +85,8 @@ class CareLib_Media_Grabber {
 		global $wp_embed, $content_width;
 
 		// Use WP's embed functionality to handle the [embed] shortcode and autoembeds.
-		add_filter( 'carelib_media_grabber_embed_shortcode_media', array( $wp_embed, 'run_shortcode' ) );
-		add_filter( 'carelib_media_grabber_autoembed_media',       array( $wp_embed, 'autoembed' ) );
+		add_filter( "{$this->prefix}_media_grabber_embed_shortcode_media", array( $wp_embed, 'run_shortcode' ) );
+		add_filter( "{$this->prefix}_media_grabber_autoembed_media",       array( $wp_embed, 'autoembed' ) );
 
 		// Don't return a link if embeds don't work. Need media or nothing at all.
 		add_filter( 'embed_maybe_make_link', '__return_false' );
@@ -102,7 +102,7 @@ class CareLib_Media_Grabber {
 		);
 
 		// Set the object properties.
-		$this->args    = apply_filters( 'carelib_media_grabber_args', wp_parse_args( $args, $defaults ) );
+		$this->args    = apply_filters( "{$this->prefix}_media_grabber_args", wp_parse_args( $args, $defaults ) );
 		$this->content = get_post_field( 'post_content', $this->args['post_id'], 'raw' );
 		$this->type    = isset( $this->args['type'] ) && in_array( $this->args['type'], array( 'audio', 'video' ) ) ? $this->args['type'] : 'video';
 
@@ -131,7 +131,7 @@ class CareLib_Media_Grabber {
 	 * @return string
 	 */
 	public function get_media() {
-		return apply_filters( 'carelib_media_grabber_media', $this->media, $this );
+		return apply_filters( "{$this->prefix}_media_grabber_media", $this->media, $this );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class CareLib_Media_Grabber {
 		$this->original_media = array_shift( $shortcode );
 
 		$this->media = apply_filters(
-			'carelib_media_grabber_embed_shortcode_media',
+			"{$this->prefix}_media_grabber_embed_shortcode_media",
 			$this->original_media
 		);
 	}
@@ -322,7 +322,7 @@ class CareLib_Media_Grabber {
 		foreach ( $matches as $value ) {
 
 			// Let WP work its magic with the 'autoembed' method.
-			$embed = trim( apply_filters( 'carelib_media_grabber_autoembed_media', $value[0] ) );
+			$embed = trim( apply_filters( "{$this->prefix}_media_grabber_autoembed_media", $value[0] ) );
 
 			if ( ! empty( $embed ) ) {
 				$this->original_media = $value[0];
@@ -448,7 +448,7 @@ class CareLib_Media_Grabber {
 
 		// Allow devs to filter the final width and height of the media.
 		list( $width, $height ) = apply_filters(
-			'carelib_media_grabber_dimensions',
+			"{$this->prefix}_media_grabber_dimensions",
 			$dimensions,                       // width/height array
 			$media_atts,                       // media HTML attributes
 			$this                              // media grabber object

@@ -18,4 +18,4 @@
 		<?php endforeach; ?>
 	</select>
 </p>
-<?php wp_nonce_field( 'carelib_update_post_template', 'carelib_post_template_nonce' ); ?>
+<?php wp_nonce_field( "{$this->prefix}_update_post_template", "{$this->prefix}_post_template_nonce" ); ?>

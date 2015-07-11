@@ -116,7 +116,7 @@ class CareLib {
 	 * @return  bool
 	 */
 	public function is_wpcom() {
-		return apply_filters( 'carelib_is_wpcom', false );
+		return apply_filters( "{$this->prefix}_is_wpcom", false );
 	}
 
 	/**

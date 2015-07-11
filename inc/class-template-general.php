@@ -466,7 +466,7 @@ class CareLib_Template_General {
 			);
 		}
 
-		return apply_filters( 'carelib_site_title', $title );
+		return apply_filters( "{$this->prefix}_site_title", $title );
 	}
 
 	/**
@@ -484,7 +484,7 @@ class CareLib_Template_General {
 			);
 		}
 
-		return apply_filters( 'carelib_site_description', $desc );
+		return apply_filters( "{$this->prefix}_site_description", $desc );
 	}
 
 	/**
@@ -497,7 +497,7 @@ class CareLib_Template_General {
 	 * @return bool
 	 */
 	public function is_plural() {
-		return apply_filters( 'carelib_is_plural', is_home() || is_archive() || is_search() );
+		return apply_filters( "{$this->prefix}_is_plural", is_home() || is_archive() || is_search() );
 	}
 
 	/**

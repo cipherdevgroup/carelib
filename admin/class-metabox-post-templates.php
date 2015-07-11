@@ -109,8 +109,8 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 	 * @return void|int
 	 */
 	public function save( $post_id, $post = '' ) {
-		$no  = 'carelib_post_template_nonce';
-		$act = 'carelib_update_post_template';
+		$no  = "{$this->prefix}_post_template_nonce";
+		$act = "{$this->prefix}_update_post_template";
 
 		// Verify the nonce for the post formats meta box.
 		if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {

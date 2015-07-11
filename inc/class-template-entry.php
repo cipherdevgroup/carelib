@@ -172,7 +172,7 @@ class CareLib_Template_Entry {
 	 * - one (text when there is exactly one comment, default is '1 Comment'),
 	 * - zero (text when there are no comments, default is 'Leave a Comment').
 	 *
-	 * Output passes through 'carelib_get_entry_comments_link' filter before returning.
+	 * Output passes through "{$this->prefix}_get_entry_comments_link" filter before returning.
 	 *
 	 * @since  0.1.0
 	 * @param  $args array Empty array if no arguments.

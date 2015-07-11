@@ -25,4 +25,4 @@
 
 	<?php endforeach; ?>
 </div>
-<?php wp_nonce_field( 'carelib_update_post_layout', 'carelib_post_layout_nonce' ); ?>
+<?php wp_nonce_field( "{$this->prefix}_update_post_layout", "{$this->prefix}_post_layout_nonce" ); ?>
