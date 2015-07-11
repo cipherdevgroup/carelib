@@ -125,11 +125,14 @@ class CareLib_Customize  {
 			return;
 		}
 		require_once $this->get_dir( 'customizer-base.php' );
-		require_once $this->get_dir( 'settings-breadcrumbs.php' );
 		require_once $this->get_dir( 'settings-site-logo.php' );
 
-		carelib_class( 'settings-breadcrumbs' );
 		carelib_class( 'settings-site-logo' );
+
+		if ( carelib_class( 'breadcrumbs' )->plugin_is_active() ) {
+			require_once $this->get_dir( 'settings-breadcrumbs.php' );
+			carelib_class( 'settings-breadcrumbs' );
+		}
 	}
 
 	/**

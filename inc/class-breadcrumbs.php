@@ -104,4 +104,30 @@ class CareLib_Breadcrumbs {
 		return false;
 	}
 
+	/**
+	 * Check to see if a supported breadcrumbs plugin is active.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return mixed false if no plugin is active, callback function name if one is
+	 */
+	public function plugin_is_active( $callbacks = array() ) {
+		if ( empty( $callbacks ) ) {
+			$callbacks = array(
+				'yoast_breadcrumb',
+				'breadcrumb_trail',
+				'bcn_display',
+				'breadcrumbs',
+				'crumbs',
+			);
+		}
+
+		foreach ( (array) $callbacks as $callback ) {
+			if ( function_exists( $callback ) ) {
+				return $callback;
+			}
+		}
+		return false;
+	}
+
 }
