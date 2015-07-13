@@ -30,21 +30,12 @@ class CareLib_Filters {
 	protected $prefix;
 
 	/**
-	 * Library prefix which can be set within themes.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $general;
-
-	/**
 	 * Constructor method.
 	 *
 	 * @since 0.2.0
 	 */
 	public function __construct() {
 		$this->prefix  = carelib()->get_prefix();
-		$this->general = carelib_class( 'template-general' );
 	}
 
 	/**
@@ -67,17 +58,17 @@ class CareLib_Filters {
 	 */
 	protected function wp_hooks() {
 		global $wp_embed;
-		# Don't strip tags on single post titles.
+		// Don't strip tags on single post titles.
 		remove_filter( 'single_post_title', 'strip_tags' );
 
-		# Filters the title for untitled posts.
+		// Filters the title for untitled posts.
 		add_filter( 'the_title', array( $this, 'untitled_post' ) );
 
-		# Filters the archive title and description.
-		add_filter( 'get_the_archive_title',       array( $this, 'archive_title_filter' ),       5 );
-		add_filter( 'get_the_archive_description', array( $this, 'archive_description_filter' ), 5 );
+		// Filters the archive title and description.
+		add_filter( 'get_the_archive_title',       array( $this, 'archive_title' ),       5 );
+		add_filter( 'get_the_archive_description', array( $this, 'archive_description' ), 5 );
 
-		# Use same default filters as 'the_content' with a little more flexibility.
+		// Use same default filters as 'the_content' with a little more flexibility.
 		add_filter( "{$this->prefix}_archive_description", array( $wp_embed, 'run_shortcode' ), 5 );
 		add_filter( "{$this->prefix}_archive_description", array( $wp_embed, 'autoembed' ),     5 );
 		add_filter( "{$this->prefix}_archive_description", 'wptexturize',       10 );
@@ -87,14 +78,14 @@ class CareLib_Filters {
 		add_filter( "{$this->prefix}_archive_description", 'do_shortcode',      30 );
 		add_filter( "{$this->prefix}_archive_description", 'shortcode_unautop', 35 );
 
-		# Default excerpt more.
+		// Default excerpt more.
 		add_filter( 'excerpt_more', array( $this, 'excerpt_more' ), 5 );
 
-		# Modifies the arguments and output of wp_link_pages().
+		// Modifies the arguments and output of wp_link_pages().
 		add_filter( 'wp_link_pages_args', array( $this, 'link_pages_args' ), 5 );
 		add_filter( 'wp_link_pages_link', array( $this, 'link_pages_link' ), 5 );
 
-		# Filters to add microdata support to common template tags.
+		// Filters to add microdata support to common template tags.
 		add_filter( 'the_author_posts_link',          array( $this, 'the_author_posts_link' ),          5 );
 		add_filter( 'get_comment_author_link',        array( $this, 'get_comment_author_link' ),        5 );
 		add_filter( 'get_comment_author_url_link',    array( $this, 'get_comment_author_url_link' ),    5 );
@@ -104,7 +95,8 @@ class CareLib_Filters {
 	}
 
 	/**
-	 * Filters the excerpt more output with internationalized text and a link to the post.
+	 * Filters the excerpt more output with internationalized text and a link to
+	 * the post.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -122,8 +114,8 @@ class CareLib_Filters {
 	}
 
 	/**
-	 * Wraps the output of `wp_link_pages()` with `<p class="page-links">` if it's simply wrapped in a
-	 * `<p>` tag.
+	 * Wraps the output of `wp_link_pages()` with `<p class="page-links">` if
+	 * it's simply wrapped in a `<p>` tag.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -136,8 +128,9 @@ class CareLib_Filters {
 	}
 
 	/**
-	 * Wraps page "links" that aren't actually links (just text) with `<span class="page-numbers">` so that they
-	 * can also be styled. This makes `wp_link_pages()` consistent with the output of `paginate_links()`.
+	 * Wraps page "links" that aren't actually links (just text) with
+	 * `<span class="page-numbers">` so that they can also be styled. This makes
+	 * `wp_link_pages()` consistent with the output of `paginate_links()`.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -252,9 +245,10 @@ class CareLib_Filters {
 	}
 
 	/**
-	 * The WordPress.org theme review requires that a link be provided to the single post page for untitled
-	 * posts. This is a filter on 'the_title' so that an '(Untitled)' title appears in that scenario, allowing
-	 * for the normal method to work.
+	 * The WordPress.org theme review requires that a link be provided to the
+	 * single post page for untitled posts. This is a filter on 'the_title' so
+	 * that an '(Untitled)' title appears in that scenario, allowing for the
+	 * normal method to work.
 	 *
 	 * @since  1.6.0
 	 * @access public
@@ -278,7 +272,9 @@ class CareLib_Filters {
 	 * @param  string  $title
 	 * @return string
 	 */
-	public function archive_title_filter( $title ) {
+	public function archive_title( $title ) {
+		$archive = carelib_class( 'template-archive' );
+
 		if ( is_home() && ! is_front_page() ) {
 			$title = get_post_field( 'post_title', get_queried_object_id() );
 		} elseif ( is_category() ) {
@@ -288,41 +284,42 @@ class CareLib_Filters {
 		} elseif ( is_tax() ) {
 			$title = single_term_title( '', false );
 		} elseif ( is_author() ) {
-			$title = $this->general->get_single_author_title();
+			$title = $archive->get_single_author_title();
 		} elseif ( is_search() ) {
-			$title = $this->general->get_search_title();
+			$title = $archive->get_search_title();
 		} elseif ( is_post_type_archive() ) {
 			$title = post_type_archive_title( '', false );
 		} elseif ( get_query_var( 'minute' ) && get_query_var( 'hour' ) ) {
-			$title = $this->general->get_single_minute_hour_title();
+			$title = $archive->get_single_minute_hour_title();
 		} elseif ( get_query_var( 'minute' ) ) {
-			$title = $this->general->get_single_minute_title();
+			$title = $archive->get_single_minute_title();
 		} elseif ( get_query_var( 'hour' ) ) {
-			$title = $this->general->get_single_hour_title();
+			$title = $archive->get_single_hour_title();
 		} elseif ( is_day() ) {
-			$title = $this->general->get_single_day_title();
+			$title = $archive->get_single_day_title();
 		} elseif ( get_query_var( 'w' ) ) {
-			$title = $this->general->get_single_week_title();
+			$title = $archive->get_single_week_title();
 		} elseif ( is_month() ) {
 			$title = single_month_title( ' ', false );
 		} elseif ( is_year() ) {
-			$title = $this->general->get_single_year_title();
+			$title = $archive->get_single_year_title();
 		} elseif ( is_archive() ) {
-			$title = $this->general->get_single_archive_title();
+			$title = $archive->get_single_archive_title();
 		}
 
 		return apply_filters( "{$this->prefix}_archive_title", $title );
 	}
 
 	/**
-	 * Filters `get_the_archve_description` to add better archive descriptions than core.
+	 * Filters `get_the_archve_description` to add better archive descriptions
+	 * than core.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $desc
 	 * @return string
 	 */
-	public function archive_description_filter( $desc ) {
+	public function archive_description( $desc ) {
 		if ( is_home() && ! is_front_page() ) {
 			$desc = get_post_field( 'post_content', get_queried_object_id(), 'raw' );
 		}

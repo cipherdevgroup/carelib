@@ -204,7 +204,7 @@ class CareLib_Context {
 		}
 
 		// Plural/multiple-post view (opposite of singular).
-		if ( carelib_class( 'template-general' )->is_plural() ) {
+		if ( carelib_class( 'template-archive' )->is_plural() ) {
 			$classes[] = 'plural';
 		}
 
