@@ -94,7 +94,7 @@ class CareLib_Template_Comments {
 		$comment_type = get_comment_type( $comment->comment_ID );
 
 		// Check if a template has been provided for the specific comment type. If not, get the template.
-		if ( ! isset( $this->comment_template[ $comment_type ] ) ) {
+		if ( ! isset( self::$comment_template[ $comment_type ] ) ) {
 
 			// Create an array of template files to look for.
 			$templates = array(
@@ -119,12 +119,12 @@ class CareLib_Template_Comments {
 			$template = locate_template( $templates );
 
 			// Set the template in the comment template array.
-			$this->comment_template[ $comment_type ] = $template;
+			self::$comment_template[ $comment_type ] = $template;
 		}
 
 		// If a template was found, load the template.
-		if ( ! empty( $this->comment_template[ $comment_type ] ) ) {
-			require $this->comment_template[ $comment_type ];
+		if ( ! empty( self::$comment_template[ $comment_type ] ) ) {
+			require self::$comment_template[ $comment_type ];
 		}
 	}
 
