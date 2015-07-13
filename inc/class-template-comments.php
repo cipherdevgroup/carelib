@@ -42,7 +42,7 @@ class CareLib_Template_Comments {
 	}
 
 	/**
-	 * Output the comment reply link.
+	 * Return the comment reply link.
 	 *
 	 * Note that WP's `comment_reply_link()` doesn't work outside of
 	 * `wp_list_comments()` without passing in the proper arguments.
@@ -84,9 +84,9 @@ class CareLib_Template_Comments {
 	 *
 	 * @since  0.2.3
 	 * @access public
-	 * @param  $comment The comment object.
-	 * @param  $args    Array of arguments passed from wp_list_comments().
-	 * @param  $depth   What level the particular comment is.
+	 * @param  $comment object the comment object.
+	 * @param  $args array list of arguments passed from wp_list_comments().
+	 * @param  $depth integer What level the particular comment is.
 	 * @return void
 	 */
 	public function comments_callback( $comment, $args, $depth ) {

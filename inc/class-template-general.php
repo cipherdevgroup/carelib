@@ -46,6 +46,68 @@ class CareLib_Template_General {
 	}
 
 	/**
+	 * Function for figuring out if we're viewing a "plural" page. In WP, these pages are archives,
+	 * search results, and the home/blog posts index. Note that this is similar to, but not quite
+	 * the same as `!is_singular()`, which wouldn't account for the 404 page.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function is_plural() {
+		return apply_filters( "{$this->prefix}_is_plural", is_home() || is_archive() || is_search() );
+	}
+
+	/**
+	 * Helper function to determine if we're within a blog section archive.
+	 *
+	 * @since  0.1.1
+	 * @access public
+	 * @return bool true if we're on a blog archive page.
+	 */
+	public function is_blog_archive() {
+		return is_home() || is_archive() && ! ( is_post_type_archive() || is_tax() );
+	}
+
+	/**
+	 * Returns the linked site title wrapped in an `<h1>` tag.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_site_title() {
+		if ( $title = get_bloginfo( 'name' ) ) {
+			$title = sprintf( '<%1$s %2$s><a href="%3$s" rel="home">%4$s</a></%1$s>',
+				is_front_page() || is_home() ? 'h1' : 'p',
+				$this->attr->get_attr( 'site-title' ),
+				esc_url( home_url() ),
+				$title
+			);
+		}
+
+		return apply_filters( "{$this->prefix}_site_title", $title );
+	}
+
+	/**
+	 * Returns the site description wrapped in an `<h2>` tag.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_site_description() {
+		if ( $desc = get_bloginfo( 'description' ) ) {
+			$desc = sprintf( '<p %s>%s</p>',
+				$this->attr->get_attr( 'site-description' ),
+				$desc
+			);
+		}
+
+		return apply_filters( "{$this->prefix}_site_description", $desc );
+	}
+
+	/**
 	 * Retrieve the site logo URL or ID (URL by default). Pass in the string
 	 * 'id' for ID.
 	 *
@@ -92,17 +154,6 @@ class CareLib_Template_General {
 	}
 
 	/**
-	 * Helper function to determine if we're within a blog section archive.
-	 *
-	 * @since  0.1.1
-	 * @access public
-	 * @return bool true if we're on a blog archive page.
-	 */
-	public function is_blog_archive() {
-		return is_home() || is_archive() && ! ( is_post_type_archive() || is_tax() );
-	}
-
-	/**
 	 * Display our breadcrumbs based on selections made in the WordPress customizer.
 	 *
 	 * @since  0.1.0
@@ -119,97 +170,122 @@ class CareLib_Template_General {
 	}
 
 	/**
-	 * Retrieves the singular name label for a given post object.
+	 * Retrieve the general archive title.
 	 *
 	 * @since  0.2.0
-	 * @access private
-	 * @param  $object object a post object to use for retrieving the name
-	 * @return mixed null if no object is provided, otherwise the label string
+	 * @access public
+	 * @return string
 	 */
-	private function get_post_type_name( $object ) {
-		if ( ! is_object( $object ) ) {
-			return null;
-		}
-		$obj = get_post_type_object( $object->post_type );
-		return isset( $obj->labels->singular_name ) ? '&nbsp;' . $obj->labels->singular_name : null;
+	public function get_single_archive_title() {
+		return esc_html__( 'Archives', 'carelib' );
 	}
 
 	/**
-	 * Helper function to build a next and previous post navigation element on
-	 * single entries. This takes care of all the annoying formatting which usually
-	 * would need to be done within a template.
+	 * Retrieve the author archive title.
 	 *
-	 * I originally wanted to use the new get_the_post_navigation tag for this;
-	 * however, it's lacking a lot of the flexibility provided by using the old
-	 * template tags directly. Until WordPress core gets its act together, I guess
-	 * I'll just have to duplicate code for no good reason.
-	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
-	 * @param  $args array
+	 * @return void
+	 */
+	public function get_single_author_title() {
+		return get_the_author_meta( 'display_name', absint( get_query_var( 'author' ) ) );
+	}
+
+	/**
+	 * Retrieve the year archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
 	 * @return string
 	 */
-	public function get_post_navigation( $args = array() ) {
-		if ( is_attachment() || ! is_singular() ) {
-			return;
-		}
+	public function get_single_year_title() {
+		return get_the_date( esc_html_x( 'Y', 'yearly archives date format', 'carelib' ) );
+	}
 
-		$name = $this->get_post_type_name( get_queried_object() );
-
-		$defaults = apply_filters( "{$this->prefix}_post_navigation_defaults",
-			array(
-				'post_types'     => array(),
-				'prev_format'    => '<span class="nav-previous">%link</span>',
-				'next_format'    => '<span class="nav-next">%link</span>',
-				'prev_text'      => __( 'Previous', 'carelib' ) . esc_attr( $name ),
-				'next_text'      => __( 'Next', 'carelib' ) . esc_attr( $name ),
-				'in_same_term'   => false,
-				'excluded_terms' => '',
-				'taxonomy'       => 'category',
-			)
+	/**
+	 * Retrieve the week archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_week_title() {
+		// Translators: 1 is the week number and 2 is the year.
+		return sprintf(
+			esc_html__( 'Week %1$s of %2$s', 'carelib' ),
+			get_the_time( esc_html_x( 'W', 'weekly archives date format', 'carelib' ) ),
+			get_the_time( esc_html_x( 'Y', 'yearly archives date format', 'carelib' ) )
 		);
+	}
 
-		$args = wp_parse_args( $args, $defaults );
+	/**
+	 * Retrieve the day archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_day_title() {
+		return get_the_date( esc_html_x( 'F j, Y', 'daily archives date format', 'carelib' ) );
+	}
 
-		$types = (array) $args['post_types'];
+	/**
+	 * Retrieve the hour archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_hour_title() {
+		return get_the_time( esc_html_x( 'g a', 'hour archives time format', 'carelib' ) );
+	}
 
-		// Bail if we're not on a single entry. All post types except pages are allowed by default.
-		if ( ! is_singular( $types ) || ( ! in_array( 'page', $types ) && is_page() ) ) {
-			return;
-		}
+	/**
+	 * Retrieve the minute archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_minute_title() {
 
-		$links = '';
-		// Previous post link. Can be filtered via WP Core's previous_post_link filter.
-		$links .= get_adjacent_post_link(
-			$args['prev_format'],
-			$args['prev_text'],
-			$args['in_same_term'],
-			$args['excluded_terms'],
-			true,
-			$args['taxonomy']
-		);
-		// Next post link. Can be filtered via WP Core's next_post_link filter.
-		$links .= get_adjacent_post_link(
-			$args['next_format'],
-			$args['next_text'],
-			$args['in_same_term'],
-			$args['excluded_terms'],
-			false,
-			$args['taxonomy']
-		);
+		// Translators: Minute archive title. %s is the minute time format.
+		return sprintf( esc_html__( 'Minute %s', 'carelib' ), get_the_time( esc_html_x( 'i', 'minute archives time format', 'carelib' ) ) );
+	}
 
-		// Bail if we don't have any posts to link to.
-		if ( empty( $links ) ) {
-			return;
-		}
+	/**
+	 * Retrieve the minute + hour archive title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_single_minute_hour_title() {
+		return get_the_time( esc_html_x( 'g:i a', 'minute and hour archives time format', 'carelib' ) );
+	}
 
-		$output = '';
+	/**
+	 * Retrieve the search results title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_search_title() {
 
-		$output .= '<nav ' . $this->attr->get_attr( 'nav', 'single' ) . '>';
-		$output .= $links;
-		$output .= '</nav><!-- .nav-single -->';
+		// Translators: %s is the search query. The HTML entities are opening and closing curly quotes.
+		return sprintf( esc_html__( 'Search results for &#8220;%s&#8221;', 'carelib' ), get_search_query() );
+	}
 
-		return $output;
+	/**
+	 * Retrieve the 404 page title.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_404_title() {
+		return esc_html__( '404 Not Found', 'carelib' );
 	}
 
 	/**
@@ -446,176 +522,6 @@ class CareLib_Template_General {
 		}
 
 		return empty( $blog_url ) ? '' : esc_url( $blog_url );
-	}
-
-	/**
-	 * Returns the linked site title wrapped in an `<h1>` tag.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_site_title() {
-		if ( $title = get_bloginfo( 'name' ) ) {
-			$title = sprintf( '<%1$s %2$s><a href="%3$s" rel="home">%4$s</a></%1$s>',
-				is_front_page() || is_home() ? 'h1' : 'p',
-				$this->attr->get_attr( 'site-title' ),
-				esc_url( home_url() ),
-				$title
-			);
-		}
-
-		return apply_filters( "{$this->prefix}_site_title", $title );
-	}
-
-	/**
-	 * Returns the site description wrapped in an `<h2>` tag.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_site_description() {
-		if ( $desc = get_bloginfo( 'description' ) ) {
-			$desc = sprintf( '<p %s>%s</p>',
-				$this->attr->get_attr( 'site-description' ),
-				$desc
-			);
-		}
-
-		return apply_filters( "{$this->prefix}_site_description", $desc );
-	}
-
-	/**
-	 * Function for figuring out if we're viewing a "plural" page. In WP, these pages are archives,
-	 * search results, and the home/blog posts index. Note that this is similar to, but not quite
-	 * the same as `!is_singular()`, which wouldn't account for the 404 page.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return bool
-	 */
-	public function is_plural() {
-		return apply_filters( "{$this->prefix}_is_plural", is_home() || is_archive() || is_search() );
-	}
-
-	/**
-	 * Retrieve the general archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_single_archive_title() {
-		return esc_html__( 'Archives', 'carelib' );
-	}
-
-	/**
-	 * Retrieve the author archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function get_single_author_title() {
-		return get_the_author_meta( 'display_name', absint( get_query_var( 'author' ) ) );
-	}
-
-	/**
-	 * Retrieve the year archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_single_year_title() {
-		return get_the_date( esc_html_x( 'Y', 'yearly archives date format', 'carelib' ) );
-	}
-
-	/**
-	 * Retrieve the week archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_single_week_title() {
-		// Translators: 1 is the week number and 2 is the year.
-		return sprintf(
-			esc_html__( 'Week %1$s of %2$s', 'carelib' ),
-			get_the_time( esc_html_x( 'W', 'weekly archives date format', 'carelib' ) ),
-			get_the_time( esc_html_x( 'Y', 'yearly archives date format', 'carelib' ) )
-		);
-	}
-
-	/**
-	 * Retrieve the day archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_single_day_title() {
-		return get_the_date( esc_html_x( 'F j, Y', 'daily archives date format', 'carelib' ) );
-	}
-
-	/**
-	 * Retrieve the hour archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_single_hour_title() {
-		return get_the_time( esc_html_x( 'g a', 'hour archives time format', 'carelib' ) );
-	}
-
-	/**
-	 * Retrieve the minute archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_single_minute_title() {
-
-		// Translators: Minute archive title. %s is the minute time format.
-		return sprintf( esc_html__( 'Minute %s', 'carelib' ), get_the_time( esc_html_x( 'i', 'minute archives time format', 'carelib' ) ) );
-	}
-
-	/**
-	 * Retrieve the minute + hour archive title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_single_minute_hour_title() {
-		return get_the_time( esc_html_x( 'g:i a', 'minute and hour archives time format', 'carelib' ) );
-	}
-
-	/**
-	 * Retrieve the search results title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_search_title() {
-
-		// Translators: %s is the search query. The HTML entities are opening and closing curly quotes.
-		return sprintf( esc_html__( 'Search results for &#8220;%s&#8221;', 'carelib' ), get_search_query() );
-	}
-
-	/**
-	 * Retrieve the 404 page title.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_404_title() {
-		return esc_html__( '404 Not Found', 'carelib' );
 	}
 
 }

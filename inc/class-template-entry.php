@@ -63,12 +63,12 @@ class CareLib_Template_Entry {
 	 * we make no guarantee of backwards compatibility in the future.
 	 *
 	 * @since  0.2.0
-	 * @access private
+	 * @access protected
 	 * @param  $id mixed the desired title's post id
 	 * @param  $link string the desired title's link URI
 	 * @return string
 	 */
-	private function get_formatted_title( $id = '', $link = '' ) {
+	protected function get_formatted_title( $id = '', $link = '' ) {
 		$post_id = empty( $id ) ? get_the_ID() : $id;
 		$title   = get_the_title( absint( $post_id ) );
 
@@ -213,44 +213,6 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * Helper function to determine whether we should display the full content
-	 * or an excerpt.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return booleen true on singular entries by default
-	 */
-	protected function is_full_content() {
-		return apply_filters( "{$this->prefix}_is_full_content", is_singular() );
-	}
-
-	/**
-	 * Returns either an excerpt or the content depending on what page the user is
-	 * currently viewing.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string the desired content
-	 */
-	public function get_content() {
-		return apply_filters( 'the_content', $this->is_full_content() ? get_the_content() : get_the_excerpt() );
-	}
-
-	/**
-	 * Checks if a post has any content. Useful if you need to check if the user has written any content
-	 * before performing any actions.
-	 *
-	 * @since  1.6.0
-	 * @access public
-	 * @param  int    $post_id
-	 * @return bool
-	 */
-	public function entry_has_content( $post_id = 0 ) {
-		$post = get_post( $post_id );
-		return ! empty( $post->post_content );
-	}
-
-	/**
 	 * Function for getting the current post's author in The Loop and linking to the author archive page.
 	 * This function was created because core WordPress does not have template tags with proper translation
 	 * and RTL support for this. An equivalent getter function for `the_author_posts_link()` would
@@ -287,6 +249,44 @@ class CareLib_Template_Entry {
 		}
 
 		return apply_filters( "{$this->prefix}_entry_author", $html, $args );
+	}
+
+	/**
+	 * Helper function to determine whether we should display the full content
+	 * or an excerpt.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return booleen true on singular entries by default
+	 */
+	protected function is_full_content() {
+		return apply_filters( "{$this->prefix}_is_full_content", is_singular() );
+	}
+
+	/**
+	 * Returns either an excerpt or the content depending on what page the user is
+	 * currently viewing.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string the desired content
+	 */
+	public function get_content() {
+		return apply_filters( 'the_content', $this->is_full_content() ? get_the_content() : get_the_excerpt() );
+	}
+
+	/**
+	 * Checks if a post has any content. Useful if you need to check if the user has written any content
+	 * before performing any actions.
+	 *
+	 * @since  1.6.0
+	 * @access public
+	 * @param  int    $post_id
+	 * @return bool
+	 */
+	public function entry_has_content( $post_id = 0 ) {
+		$post = get_post( $post_id );
+		return ! empty( $post->post_content );
 	}
 
 	/**
@@ -409,6 +409,100 @@ class CareLib_Template_Entry {
 
 		// Return the count of the images.
 		return count( $images );
+	}
+
+	/**
+	 * Retrieves the singular name label for a given post object.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  $object object a post object to use for retrieving the name
+	 * @return mixed null if no object is provided, otherwise the label string
+	 */
+	protected function get_post_type_name( $object ) {
+		if ( ! is_object( $object ) ) {
+			return null;
+		}
+		$obj = get_post_type_object( $object->post_type );
+		return isset( $obj->labels->singular_name ) ? '&nbsp;' . $obj->labels->singular_name : null;
+	}
+
+	/**
+	 * Helper function to build a next and previous post navigation element on
+	 * single entries. This takes care of all the annoying formatting which usually
+	 * would need to be done within a template.
+	 *
+	 * I originally wanted to use the new get_the_post_navigation tag for this;
+	 * however, it's lacking a lot of the flexibility provided by using the old
+	 * template tags directly. Until WordPress core gets its act together, I guess
+	 * I'll just have to duplicate code for no good reason.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  $args array
+	 * @return string
+	 */
+	public function get_post_navigation( $args = array() ) {
+		if ( is_attachment() || ! is_singular() ) {
+			return;
+		}
+
+		$name = $this->get_post_type_name( get_queried_object() );
+
+		$defaults = apply_filters( "{$this->prefix}_post_navigation_defaults",
+			array(
+				'post_types'     => array(),
+				'prev_format'    => '<span class="nav-previous">%link</span>',
+				'next_format'    => '<span class="nav-next">%link</span>',
+				'prev_text'      => __( 'Previous', 'carelib' ) . esc_attr( $name ),
+				'next_text'      => __( 'Next', 'carelib' ) . esc_attr( $name ),
+				'in_same_term'   => false,
+				'excluded_terms' => '',
+				'taxonomy'       => 'category',
+			)
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$types = (array) $args['post_types'];
+
+		// Bail if we're not on a single entry. All post types except pages are allowed by default.
+		if ( ! is_singular( $types ) || ( ! in_array( 'page', $types ) && is_page() ) ) {
+			return;
+		}
+
+		$links = '';
+		// Previous post link. Can be filtered via WP Core's previous_post_link filter.
+		$links .= get_adjacent_post_link(
+			$args['prev_format'],
+			$args['prev_text'],
+			$args['in_same_term'],
+			$args['excluded_terms'],
+			true,
+			$args['taxonomy']
+		);
+		// Next post link. Can be filtered via WP Core's next_post_link filter.
+		$links .= get_adjacent_post_link(
+			$args['next_format'],
+			$args['next_text'],
+			$args['in_same_term'],
+			$args['excluded_terms'],
+			false,
+			$args['taxonomy']
+		);
+
+		// Bail if we don't have any posts to link to.
+		if ( empty( $links ) ) {
+			return;
+		}
+
+		$output = '';
+
+		$output .= '<nav ' . $this->attr->get_attr( 'nav', 'single' ) . '>';
+		$output .= $links;
+		$output .= '</nav><!-- .nav-single -->';
+
+		return $output;
 	}
 
 	/**
