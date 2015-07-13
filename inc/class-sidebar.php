@@ -15,7 +15,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * CareLib Template Post Class.
+ * CareLib Sidebar Class.
  */
 class CareLib_Sidebar {
 
@@ -101,8 +101,12 @@ class CareLib_Sidebar {
 	 */
 	public function get_name( $sidebar_id ) {
 		global $wp_registered_sidebars;
+		$name = false;
+		if ( isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
+			$name = $wp_registered_sidebars[ $sidebar_id ]['name'];
+		}
 
-		return isset( $wp_registered_sidebars[ $sidebar_id ] ) ? $wp_registered_sidebars[ $sidebar_id ]['name'] : false;
+		return $name;
 	}
 
 	/**
@@ -118,10 +122,10 @@ class CareLib_Sidebar {
 		$templates = array();
 		if ( ! empty( $name ) ) {
 			$templates[] = "sidebar-{$name}.php";
-			$templates[] = "sidebar/{$name}.php";
+			$templates[] = "templates/sidebar/{$name}.php";
 		}
 		$templates[] = 'sidebar.php';
-		$templates[] = 'sidebar/sidebar.php';
+		$templates[] = 'templates/sidebar/sidebar.php';
 		locate_template( $templates, true );
 	}
 
