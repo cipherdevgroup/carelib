@@ -20,14 +20,6 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Template_Entry {
 
 	/**
-	 * The library object.
-	 *
-	 * @since 0.2.0
-	 * @type CareLib
-	 */
-	protected $lib;
-
-	/**
 	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
@@ -49,8 +41,7 @@ class CareLib_Template_Entry {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->lib    = carelib();
-		$this->prefix = $this->lib->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 		$this->attr   = carelib_class( 'attributes' );
 	}
 

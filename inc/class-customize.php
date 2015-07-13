@@ -15,14 +15,6 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Customize  {
 
 	/**
-	 * The library object.
-	 *
-	 * @since 0.1.0
-	 * @type CareLib
-	 */
-	protected $lib;
-
-	/**
 	 * Library prefix which can be set within themes.
 	 *
 	 * @since 0.2.0
@@ -44,8 +36,7 @@ class CareLib_Customize  {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->lib    = carelib();
-		$this->prefix = $this->lib->get_prefix();
+		$this->prefix = carelib()->get_prefix();
 		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}
 
@@ -86,7 +77,7 @@ class CareLib_Customize  {
 	 * @return  string
 	 */
 	protected function get_dir( $path = '' ) {
-		return $this->lib->get_dir( 'customize/' ) . $path;
+		return carelib()->get_dir( 'customize/' ) . $path;
 	}
 
 	/**
@@ -182,7 +173,7 @@ class CareLib_Customize  {
 	public function register_controls_scripts() {
 		wp_register_script(
 			"{$this->prefix}-customize-controls",
-			$this->lib->get_uri( "js/customize-controls{$this->suffix}.js" ),
+			carelib()->get_uri( "js/customize-controls{$this->suffix}.js" ),
 			array( 'customize-controls' ),
 			null,
 			true
@@ -199,7 +190,7 @@ class CareLib_Customize  {
 	public function register_controls_styles() {
 		wp_register_style(
 			"{$this->prefix}-customize-controls",
-			$this->lib->get_uri( "css/customize-control{$this->suffix}.css" )
+			carelib()->get_uri( "css/customize-control{$this->suffix}.css" )
 		);
 	}
 
@@ -213,7 +204,7 @@ class CareLib_Customize  {
 	public function register_preview_scripts() {
 		wp_register_script(
 			"{$this->prefix}-customize-preview",
-			$this->lib->get_uri( "js/customize-preview{$this->suffix}.js" ),
+			carelib()->get_uri( "js/customize-preview{$this->suffix}.js" ),
 			array( 'jquery' ),
 			null,
 			true
