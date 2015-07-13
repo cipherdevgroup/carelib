@@ -39,14 +39,11 @@ class CareLib_Context {
 	}
 
 	/**
-	 * Hybrid's main contextual function. This allows code to be used more than once without running
-	 * hundreds of conditional checks within the theme. It returns an array of contexts based on what
-	 * page a visitor is currently viewing on the site. This function is useful for making dynamic/contextual
-	 * classes, action and filter hooks, and handling the templating system.
+	 * CareLib's main contextual function.
 	 *
-	 * Note that time and date can be tricky because any of the conditionals may be true on time-/date-
-	 * based archives depending on several factors. For example, one could load an archive for a specific
-	 * second during a specific minute within a specific hour on a specific day and so on.
+	 * This allows code to be used more than once without running hundreds of
+	 * conditional checks within the theme. It returns an array of contexts
+	 * based on what page a visitor is currently viewing on the site.
 	 *
 	 * @since  0.7.0
 	 * @access public
@@ -141,9 +138,11 @@ class CareLib_Context {
 	}
 
 	/**
-	 * Filters the WordPress body class with a better set of classes that are more consistently handled and
-	 * are backwards compatible with the original body class functionality that existed prior to WordPress
-	 * core adopting this feature.
+	 * Filter the WordPress body class with a better set of default classes.
+	 *
+	 * The goal of this is to create classes which are more consistently handled
+	 * and are backwards compatible with the original body class functionality
+	 * that existed prior to WordPress core adopting this feature.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -152,7 +151,6 @@ class CareLib_Context {
 	 * @return array
 	 */
 	function body_class_filter( $classes, $class ) {
-		$factory = 'CareLib_Factory';
 		// WordPress class for uses when WordPress isn't always the only system on the site.
 		$classes = array( 'wordpress' );
 
@@ -161,7 +159,7 @@ class CareLib_Context {
 
 		// Locale and language.
 		$locale = get_locale();
-		$lang   = $factory::get( 'i18n' )->get_language( $locale );
+		$lang   = carelib_class( 'i18n' )->get_language( $locale );
 
 		if ( $locale !== $lang ) {
 			$classes[] = $lang;
@@ -206,7 +204,7 @@ class CareLib_Context {
 		}
 
 		// Plural/multiple-post view (opposite of singular).
-		if ( $factory::get( 'template-general' )->is_plural() ) {
+		if ( carelib_class( 'template-general' )->is_plural() ) {
 			$classes[] = 'plural';
 		}
 
@@ -218,7 +216,7 @@ class CareLib_Context {
 
 			// Get the queried post object.
 			$post      = get_queried_object();
-			$hierarchy = $factory::get( 'template-hierarchy' );
+			$hierarchy = carelib_class( 'template-hierarchy' );
 
 			// Checks for custom template.
 			$template = str_replace(
@@ -249,7 +247,7 @@ class CareLib_Context {
 
 		// Theme layouts.
 		if ( current_theme_supports( 'theme-layouts' ) ) {
-			$classes[] = sanitize_html_class( 'layout-' . $factory::get( 'layouts' )->get_theme_layout() );
+			$classes[] = sanitize_html_class( 'layout-' . carelib_class( 'layouts' )->get_theme_layout() );
 		}
 
 		// Input class.
@@ -262,9 +260,7 @@ class CareLib_Context {
 	}
 
 	/**
-	 * Filters the WordPress post class with a better set of classes that are more consistently handled and
-	 * are backwards compatible with the original post class functionality that existed prior to WordPress
-	 * core adopting this feature.
+	 * Filter the WordPress post class with a better set of default classes.
 	 *
 	 * @since  0.2.0
 	 * @access public

@@ -2,12 +2,12 @@
 /**
  * Media Grabber - A script for grabbing media related to a post.
  *
- * Hybrid Media Grabber is a script for pulling media either from the post content or attached to the
- * post. It's an attempt to consolidate the various methods that users have used over the years to
- * embed media into their posts. This script was written so that theme developers could grab that
- * media and use it in interesting ways within their themes. For example, a theme could get a video
- * and display it on archive pages alongside the post excerpt or pull it out of the content to display
- * it above the post on single post views.
+ * This script was written so that theme developers could grab that media and
+ * use it in interesting ways within their themes.
+ *
+ * For example, a theme could get a video and display it on archive pages
+ * alongside the post excerpt or pull it out of the content to display it above
+ * the post on single post views.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
