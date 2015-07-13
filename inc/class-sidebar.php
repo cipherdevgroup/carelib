@@ -91,7 +91,7 @@ class CareLib_Sidebar {
 	}
 
 	/**
-	 * Function for grabbing a dynamic sidebar name.
+	 * Return the name of a given dynamic sidebar.
 	 *
 	 * @since  0.2.0
 	 * @access public
