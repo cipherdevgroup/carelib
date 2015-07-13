@@ -109,7 +109,7 @@ class CareLib_Template_Comments {
 			}
 
 			// Add the fallback 'comment.php' template.
-			$templates[] = 'templates/comment.php';
+			$templates[] = 'templates/comment/comment.php';
 			$templates[] = 'comment.php';
 
 			// Allow devs to filter the template hierarchy.
