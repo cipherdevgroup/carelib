@@ -229,7 +229,7 @@ class CareLib {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	protected function build( $factory ) {
+	protected function get_default_classes( $factory ) {
 		$classes = array(
 			'customize',
 			'i18n',
@@ -237,6 +237,9 @@ class CareLib {
 			'layouts',
 			'sidebar',
 		);
+		if ( current_theme_supports( 'theme-layouts' ) ) {
+			$classes[] = 'layouts';
+		}
 		if ( is_admin() ) {
 			$classes[] = 'admin-dashboard';
 			$classes[] = 'admin-metabox-post-layouts';
@@ -252,14 +255,26 @@ class CareLib {
 			$classes[] = 'meta';
 			$classes[] = 'public-scripts';
 			$classes[] = 'search-form';
-			$classes[] = 'site-logo';
 			$classes[] = 'support';
 			$classes[] = 'template-hierarchy';
+			if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
+				$classes[] = 'site-logo';
+			}
 		}
 
-		$classes = apply_filters( "{$this->prefix}_build_classes", $classes );
+		return apply_filters( "{$this->prefix}_default_classes", $classes );
+	}
 
-		foreach ( (array) $classes as $class ) {
+	/**
+	 * Store a reference to our classes and get them running.
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @param  $factory string the name of our factory class
+	 * @return void
+	 */
+	protected function build( $factory ) {
+		foreach ( (array) $this->get_default_classes() as $class ) {
 			$object = $factory::get( $class );
 			$object->run();
 		}
