@@ -46,12 +46,7 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * This is a private helper function used to format the entry title's display.
-	 * If a link is passed into it, the title will be wrapped in an anchor tag which
-	 * links to the desired URI.
-	 *
-	 * This technically can be used by theme developers, but it isn't recommended as
-	 * we make no guarantee of backwards compatibility in the future.
+	 * Protected helper function to format the entry title's display.
 	 *
 	 * @since  0.2.0
 	 * @access protected
@@ -78,9 +73,8 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * This is a wrapper function for get_the_title which allows theme developers to
-	 * grab a formatted version of the post title without needing to add a lot of
-	 * extra markup in template files.
+	 * Wrapper for get_the_title format the post title without needing to add a
+	 * lot of extra markup in template files.
 	 *
 	 * By default, all entry titles except the main title on single entries are
 	 * wrapped in an anchor tag pointed to the post's permalink.
@@ -123,8 +117,7 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * Helper function for getting a post's published date and formatting it to be
-	 * displayed in a template.
+	 * Get a post's published date and format it to be displayed in a template.
 	 *
 	 * @since  0.1.0
 	 * @access public
@@ -204,10 +197,7 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * Function for getting the current post's author in The Loop and linking to the author archive page.
-	 * This function was created because core WordPress does not have template tags with proper translation
-	 * and RTL support for this. An equivalent getter function for `the_author_posts_link()` would
-	 * instantly solve this issue.
+	 * Get the current post's author in The Loop and link to their archive page.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -267,8 +257,8 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * Checks if a post has any content. Useful if you need to check if the user has written any content
-	 * before performing any actions.
+	 * Checks if a post has any content. Useful if you need to check if the user
+	 * has written any content before performing any actions.
 	 *
 	 * @since  1.6.0
 	 * @access public
@@ -277,17 +267,56 @@ class CareLib_Template_Entry {
 	 */
 	public function entry_has_content( $post_id = 0 ) {
 		$post = get_post( $post_id );
-		return ! empty( $post->post_content );
+		return ! empty( apply_filters( 'the_content', $post->post_content ) );
 	}
 
 	/**
-	 * This template tag is meant to replace template tags like `the_category()`, `the_terms()`, etc. These core
-	 * WordPress template tags don't offer proper translation and RTL support without having to write a lot of
-	 * messy code within the theme's templates. This is why theme developers often have to resort to custom
-	 * functions to handle this (even the default WordPress themes do this). Particularly, the core functions
-	 * don't allow for theme developers to add the terms as placeholders in the accompanying text (ex: "Posted in %s").
-	 * This funcion is a wrapper for the WordPress `get_the_terms_list()` function. It uses that to build a
-	 * better post terms list.
+	 * Remove all actions from THA entry hooks and filter the WordPress post
+	 * content to return null.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function null_entry() {
+		remove_all_actions( 'tha_entry_top' );
+		remove_all_actions( 'tha_entry_before' );
+		remove_all_actions( 'tha_entry_content_before' );
+		remove_all_actions( 'tha_entry_content_after' );
+		remove_all_actions( 'tha_entry_bottom' );
+		remove_all_actions( 'tha_entry_after' );
+		wpsitecare_null_entry_content();
+	}
+
+	/**
+	 * Filter the WordPress content to null between the entry_content_before
+	 * and entrY_content_after hook locations.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function null_entry_content() {
+		add_action( 'tha_entry_content_before',   'wpsitecare_null_the_content', 99 );
+		remove_action( 'tha_entry_content_after', 'wpsitecare_null_the_content', 5 );
+	}
+
+	/**
+	 * Hookable wrapper around a filter to null the WordPress core post content.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function null_the_content() {
+		add_filter( 'the_content', '__return_null' );
+	}
+
+	/**
+	 * Replacement for template tags like `the_category()`, `the_terms()`, etc.
+	 *
+	 * These core WordPress template tags don't offer proper translation and
+	 * RTL support without having to write a lot of messy code within templates.
 	 *
 	 * @since  0.2.0
 	 * @access public
