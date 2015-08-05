@@ -212,10 +212,9 @@ class CareLib {
 	 *
 	 * @since  0.1.0
 	 * @access protected
-	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	protected function get_default_classes( $factory ) {
+	protected function get_default_classes() {
 		$classes = array(
 			'customize',
 			'i18n',
