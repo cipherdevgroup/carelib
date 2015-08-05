@@ -285,7 +285,7 @@ class CareLib_Template_Entry {
 		remove_all_actions( 'tha_entry_content_after' );
 		remove_all_actions( 'tha_entry_bottom' );
 		remove_all_actions( 'tha_entry_after' );
-		wpsitecare_null_entry_content();
+		$this->null_entry_content();
 	}
 
 	/**
@@ -297,8 +297,8 @@ class CareLib_Template_Entry {
 	 * @return void
 	 */
 	public function null_entry_content() {
-		add_action( 'tha_entry_content_before',   'wpsitecare_null_the_content', 99 );
-		remove_action( 'tha_entry_content_after', 'wpsitecare_null_the_content', 5 );
+		add_action( 'tha_entry_content_before',   array( $this, 'null_the_content' ), 99 );
+		remove_action( 'tha_entry_content_after', array( $this, 'null_the_content' ),  5 );
 	}
 
 	/**
