@@ -92,7 +92,6 @@ class CareLib {
 	 */
 	public function core() {
 		spl_autoload_register( array( $this, 'autoloader' ) );
-		self::includes();
 		self::build( 'CareLib_Factory' );
 	}
 
@@ -206,19 +205,6 @@ class CareLib {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Load all library functions.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function includes() {
-		if ( ! is_admin() ) {
-			require_once "{$this->dir}inc/tha-hooks.php";
-		}
 	}
 
 	/**
