@@ -266,8 +266,9 @@ class CareLib_Template_Entry {
 	 * @return bool
 	 */
 	public function entry_has_content( $post_id = 0 ) {
-		$post = get_post( $post_id );
-		return ! empty( apply_filters( 'the_content', $post->post_content ) );
+		$post    = get_post( $post_id );
+		$content = apply_filters( 'the_content', $post->post_content );
+		return ! empty( $content );
 	}
 
 	/**
