@@ -62,7 +62,7 @@ class CareLib_Template_Global {
 		if ( ! empty( $name ) ) {
 			$templates[] = "templates/framework-{$name}.php";
 		}
-		$templates[] = 'framework.php';
+		$templates[] = 'templates/framework.php';
 		locate_template( $templates, true );
 	}
 
