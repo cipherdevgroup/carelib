@@ -81,6 +81,9 @@ class CareLib_Filters {
 		// Default excerpt more.
 		add_filter( 'excerpt_more', array( $this, 'excerpt_more' ), 5 );
 
+		// Add an itemprop of "image" to WordPress attachment images.
+		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'attachment_image_itemprop' ) );
+
 		// Modifies the arguments and output of wp_link_pages().
 		add_filter( 'wp_link_pages_args', array( $this, 'link_pages_args' ), 5 );
 		add_filter( 'wp_link_pages_link', array( $this, 'link_pages_link' ), 5 );
@@ -111,6 +114,18 @@ class CareLib_Filters {
 			);
 		}
 		return $text;
+	}
+
+	/**
+	 * Add an image itemprop to attachment images.
+	 *
+	 * @since  0.2.0
+	 * @param  array $attr Existing attributes.
+	 * @return array Amended attributes.
+	 */
+	public function attachment_image_itemprop( $attr ) {
+		$attr['itemprop'] = 'image';
+		return $attr;
 	}
 
 	/**
