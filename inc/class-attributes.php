@@ -623,8 +623,6 @@ class CareLib_Attributes {
 		$attr['class'] = join( ' ', get_comment_class() );
 
 		if ( in_array( get_comment_type(), array( '', 'comment' ) ) ) {
-
-			$attr['itemprop']  = 'comment';
 			$attr['itemscope'] = 'itemscope';
 			$attr['itemtype']  = 'http://schema.org/UserComments';
 		}
