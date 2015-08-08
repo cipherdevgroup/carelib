@@ -662,7 +662,7 @@ class CareLib_Attributes {
 
 		// Translators: Comment date/time "title" attribute.
 		$attr['title']    = get_comment_time( _x( 'l, F j, Y, g:i a', 'comment time format', 'carelib' ) );
-		$attr['itemprop'] = 'commentTime';
+		$attr['itemprop'] = 'datePublished';
 
 		return $attr;
 	}
@@ -693,7 +693,7 @@ class CareLib_Attributes {
 	 */
 	public function comment_content( $attr ) {
 		$attr['class']    = 'comment-content';
-		$attr['itemprop'] = 'commentText';
+		$attr['itemprop'] = 'text';
 
 		return $attr;
 	}
