@@ -234,9 +234,6 @@ class CareLib {
 			'layouts',
 			'sidebar',
 		);
-		if ( current_theme_supports( 'theme-layouts' ) ) {
-			$classes[] = 'layouts';
-		}
 		if ( is_admin() ) {
 			$classes[] = 'admin-dashboard';
 			$classes[] = 'admin-metabox-post-layouts';
@@ -254,9 +251,6 @@ class CareLib {
 			$classes[] = 'search-form';
 			$classes[] = 'support';
 			$classes[] = 'template-hierarchy';
-			if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
-				$classes[] = 'site-logo';
-			}
 		}
 
 		return apply_filters( "{$this->prefix}_default_classes", $classes );
