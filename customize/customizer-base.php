@@ -67,7 +67,7 @@ abstract class CareLib_Customizer_Base {
 	 */
 	public function __construct() {
 		$this->prefix = carelib()->get_prefix();
-		self::customizer_hooks();
+		$this->customizer_hooks();
 	}
 
 	/**

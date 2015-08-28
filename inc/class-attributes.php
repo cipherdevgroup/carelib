@@ -51,7 +51,7 @@ class CareLib_Attributes {
 	 * @return void
 	 */
 	public function run() {
-		self::attr_filters( "{$this->prefix}_attr" );
+		$this->attr_filters( "{$this->prefix}_attr" );
 	}
 
 	/**

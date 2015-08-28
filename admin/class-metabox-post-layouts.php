@@ -28,7 +28,7 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 	 * @return void
 	 */
 	public function run() {
-		self::wp_hooks();
+		$this->wp_hooks();
 	}
 
 	/**

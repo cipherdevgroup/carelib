@@ -29,7 +29,7 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 	 * @return void
 	 */
 	public function run() {
-		self::wp_hooks();
+		$this->wp_hooks();
 	}
 
 	/**

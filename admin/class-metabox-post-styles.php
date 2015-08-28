@@ -29,7 +29,7 @@ class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Scripts {
 	 * @return void
 	 */
 	public function run() {
-		self::wp_hooks();
+		$this->wp_hooks();
 	}
 
 	/**

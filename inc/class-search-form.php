@@ -42,7 +42,7 @@ class CareLib_Search_Form {
 	 * @return void
 	 */
 	public function run() {
-		self::wp_hooks();
+		$this->wp_hooks();
 	}
 
 	/**

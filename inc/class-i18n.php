@@ -62,7 +62,7 @@ class CareLib_i18n {
 	 * @return void
 	 */
 	public function run() {
-		self::wp_hooks();
+		$this->wp_hooks();
 	}
 
 	/**

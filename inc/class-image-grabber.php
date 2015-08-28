@@ -46,7 +46,7 @@ class CareLib_Image_Grabber {
 	 */
 	public function run() {
 		add_theme_support( 'post-thumbnails' );
-		self::wp_hooks();
+		$this->wp_hooks();
 		//self::image_hooks();
 	}
 

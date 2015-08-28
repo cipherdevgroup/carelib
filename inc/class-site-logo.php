@@ -50,7 +50,7 @@ class CareLib_Site_Logo {
 	 */
 	public function run() {
 		if ( ! function_exists( 'jetpack_the_site_logo' ) ) {
-			self::wp_hooks();
+			$this->wp_hooks();
 		}
 	}
 

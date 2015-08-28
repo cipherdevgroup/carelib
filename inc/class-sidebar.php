@@ -44,7 +44,7 @@ class CareLib_Sidebar {
 	 * @return void
 	 */
 	public function run() {
-		self::wp_hooks();
+		$this->wp_hooks();
 	}
 
 	/**
