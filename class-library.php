@@ -235,7 +235,6 @@ class CareLib {
 			'sidebar',
 		);
 		if ( is_admin() ) {
-			$classes[] = 'admin-dashboard';
 			$classes[] = 'admin-metabox-post-layouts';
 			$classes[] = 'admin-metabox-post-styles';
 			$classes[] = 'admin-metabox-post-templates';
@@ -268,8 +267,14 @@ class CareLib {
 		if ( current_theme_supports( 'theme-layouts' ) ) {
 			$classes[] = 'layouts';
 		}
-		if ( ! is_admin() && current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
-			$classes[] = 'site-logo';
+		if ( is_admin() ) {
+			if ( current_theme_supports( 'theme-dashboard' ) ) {
+				$classes[] = 'admin-dashboard';
+			}
+		} else {
+			if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
+				$classes[] = 'site-logo';
+			}
 		}
 
 		return $classes;
