@@ -24,7 +24,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @type  string
 	 */
-	private $version = '0.1.0';
+	const VERSION = '0.1.0';
 
 	/**
 	 * Prefix to prevent conflicts.
@@ -81,6 +81,7 @@ class CareLib {
 	public function run( $args = array() ) {
 		$this->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
 		add_action( 'after_setup_theme', array( $this, 'core' ), -95 );
+		add_action( 'after_setup_theme', array( $this, 'theme_support' ),  25 );
 	}
 
 	/**
@@ -92,7 +93,18 @@ class CareLib {
 	 */
 	public function core() {
 		spl_autoload_register( array( $this, 'autoloader' ) );
-		self::build( 'CareLib_Factory' );
+		$this->build();
+	}
+
+	/**
+	 * Loads and instantiates all functionality which requires theme support.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function theme_support() {
+		add_filter( "{$this->prefix}_default_classes", array( $this, 'get_conditional_classes' ) );
 	}
 
 	/**
@@ -126,7 +138,7 @@ class CareLib {
 	 * @return  bool
 	 */
 	public function get_version() {
-		return $this->version;
+		return self::VERSION;
 	}
 
 	/**
@@ -174,7 +186,7 @@ class CareLib {
 	 * @access protected
 	 * @uses   get_theme_root()
 	 * @uses   get_theme_root_uri()
-	 * @return void
+	 * @return string a normalized uri string
 	 */
 	protected function normalize_uri( $path ) {
 		return str_replace(
@@ -189,7 +201,7 @@ class CareLib {
 	 *
 	 * @since  0.1.0
 	 * @access protected
-	 * @return void
+	 * @return bool true if a file is loaded, false otherwise
 	 */
 	protected function autoloader( $class ) {
 		$class = strtolower( str_replace( '_', '-', str_replace( __CLASS__ . '_', '', $class ) ) );
@@ -208,11 +220,11 @@ class CareLib {
 	}
 
 	/**
-	 * Store a reference to our classes and get them running.
+	 * Build an array of default classes to run by default.
 	 *
 	 * @since  0.1.0
 	 * @access protected
-	 * @return void
+	 * @return array $classes the default library classes to be built on init
 	 */
 	protected function get_default_classes() {
 		$classes = array(
@@ -251,6 +263,25 @@ class CareLib {
 	}
 
 	/**
+	 * Add conditional classes based on theme support.
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @param  array $classes the existing default library classes
+	 * @return array $classes the modified classes based on theme support
+	 */
+	protected function get_conditional_classes( $classes ) {
+		if ( current_theme_supports( 'theme-layouts' ) ) {
+			$classes[] = 'layouts';
+		}
+		if ( ! is_admin() && current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
+			$classes[] = 'site-logo';
+		}
+
+		return $classes;
+	}
+
+	/**
 	 * Store a reference to our classes and get them running.
 	 *
 	 * @since  0.1.0
@@ -258,9 +289,9 @@ class CareLib {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	protected function build( $factory ) {
+	protected function build() {
 		foreach ( (array) $this->get_default_classes() as $class ) {
-			$object = $factory::get( $class );
+			$object = CareLib_Factory::get( $class );
 			$object->run();
 		}
 	}
