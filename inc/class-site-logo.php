@@ -49,7 +49,7 @@ class CareLib_Site_Logo {
 	 * @return object CareLib_Site_Logo
 	 */
 	public function run() {
-		if ( ! function_exists( 'jetpack_the_site_logo' ) ) {
+		if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
 			$this->wp_hooks();
 		}
 	}
