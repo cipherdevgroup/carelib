@@ -105,13 +105,23 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	/**
 	 * Register front-end stylesheets for the framework.
 	 *
-	 * @since  1.5.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
 	public function register_styles() {
-		wp_register_style( "{$this->prefix}-parent", $this->get_parent_stylesheet_uri() );
-		wp_register_style( "{$this->prefix}-style",  get_stylesheet_uri() );
+		wp_register_style(
+			"{$this->prefix}-parent",
+			$this->get_parent_stylesheet_uri(),
+			array(),
+			$this->theme_version()
+		);
+		wp_register_style(
+			"{$this->prefix}-style",
+			get_stylesheet_uri(),
+			array(),
+			$this->theme_version()
+		);
 	}
 
 	/**
@@ -136,30 +146,28 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	}
 
 	/**
-	 * Filters the 'stylesheet_uri' to allow theme developers to offer a
-	 * minimized version of their main 'style.css' file. It will detect if a
-	 * 'style.min.css' file is available and use it if SCRIPT_DEBUG is disabled.
+	 * Filter the 'stylesheet_uri' to load a minified version of 'style.css'
+	 * file if it is available.
 	 *
-	 * @since  1.5.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string $stylesheet_uri The URI of the active theme's stylesheet.
 	 * @param  string $stylesheet_dir_uri The directory URI of the active theme's stylesheet.
 	 * @return string $stylesheet_uri
 	 */
 	public function min_stylesheet_uri( $stylesheet_uri, $stylesheet_dir_uri ) {
-		// Use the .min stylesheet if available.
-		if ( $this->suffix ) {
+		if ( ! $this->suffix ) {
+			return $stylesheet_uri;
+		}
 
-			// Remove the stylesheet directory URI from the file name.
-			$stylesheet = str_replace( trailingslashit( $stylesheet_dir_uri ), '', $stylesheet_uri );
+		// Remove the stylesheet directory URI from the file name.
+		$stylesheet = str_replace( trailingslashit( $stylesheet_dir_uri ), '', $stylesheet_uri );
 
-			// Change the stylesheet name to 'style.min.css'.
-			$stylesheet = str_replace( '.css', "{$this->suffix}.css", $stylesheet );
+		// Change the stylesheet name to 'style.min.css'.
+		$stylesheet = str_replace( '.css', "{$this->suffix}.css", $stylesheet );
 
-			// If the stylesheet exists in the stylesheet directory, set the stylesheet URI to the dev stylesheet.
-			if ( file_exists( $this->child . $stylesheet ) ) {
-				$stylesheet_uri = esc_url( trailingslashit( $stylesheet_dir_uri ) . $stylesheet );
-			}
+		if ( file_exists( $this->child . $stylesheet ) ) {
+			$stylesheet_uri = esc_url( trailingslashit( $stylesheet_dir_uri ) . $stylesheet );
 		}
 
 		return $stylesheet_uri;
@@ -168,7 +176,7 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	/**
 	 * Retrieve the theme file with the highest priority that exists.
 	 *
-	 * @since  1.5.0
+	 * @since  0.2.0
 	 * @access public
 	 * @link   http://core.trac.wordpress.org/ticket/18302
 	 * @param  array  $file_names The files to search for.
