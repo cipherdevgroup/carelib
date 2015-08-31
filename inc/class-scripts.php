@@ -41,6 +41,14 @@ abstract class CareLib_Scripts {
 	protected $suffix;
 
 	/**
+	 * The current theme's version number.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected static $theme_version;
+
+	/**
 	 * Constructor method.
 	 *
 	 * @since 0.2.0
@@ -63,7 +71,23 @@ abstract class CareLib_Scripts {
 	}
 
 	/**
-	 * Output the path to the library css directory with a trailing slash.
+	 * Return the current theme's version number.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function theme_version() {
+		if ( is_null( self::$theme_version ) ) {
+			if ( $theme = wp_get_theme() ) {
+				self::$theme_version = wp_get_theme()->get( 'Version' );
+			}
+		}
+		return self::$theme_version;
+	}
+
+	/**
+	 * Return the path to the library css directory with a trailing slash.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -74,7 +98,7 @@ abstract class CareLib_Scripts {
 	}
 
 	/**
-	 * Output the path to the library JavaScript directory with a trailing slash.
+	 * Return the path to the library JavaScript directory with a trailing slash.
 	 *
 	 * @since  0.2.0
 	 * @access public
