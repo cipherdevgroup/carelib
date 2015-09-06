@@ -159,7 +159,7 @@ class CareLib_Context {
 
 		// Locale and language.
 		$locale = get_locale();
-		$lang   = carelib_class( 'i18n' )->get_language( $locale );
+		$lang   = carelib_get( 'i18n' )->get_language( $locale );
 
 		if ( $locale !== $lang ) {
 			$classes[] = $lang;
@@ -204,7 +204,7 @@ class CareLib_Context {
 		}
 
 		// Plural/multiple-post view (opposite of singular).
-		if ( carelib_class( 'template-archive' )->is_plural() ) {
+		if ( carelib_get( 'template-archive' )->is_plural() ) {
 			$classes[] = 'plural';
 		}
 
@@ -216,7 +216,7 @@ class CareLib_Context {
 
 			// Get the queried post object.
 			$post      = get_queried_object();
-			$hierarchy = carelib_class( 'template-hierarchy' );
+			$hierarchy = carelib_get( 'template-hierarchy' );
 
 			// Checks for custom template.
 			$template = str_replace(
@@ -247,7 +247,7 @@ class CareLib_Context {
 
 		// Theme layouts.
 		if ( current_theme_supports( 'theme-layouts' ) ) {
-			$classes[] = sanitize_html_class( 'layout-' . carelib_class( 'layouts' )->get_theme_layout() );
+			$classes[] = sanitize_html_class( 'layout-' . carelib_get( 'layouts' )->get_theme_layout() );
 		}
 
 		// Input class.

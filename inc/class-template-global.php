@@ -77,7 +77,7 @@ class CareLib_Template_Global {
 		if ( $title = get_bloginfo( 'name' ) ) {
 			$title = sprintf( '<%1$s %2$s><a href="%3$s" rel="home">%4$s</a></%1$s>',
 				is_front_page() || is_home() ? 'h1' : 'p',
-				carelib_class( 'attributes' )->get_attr( 'site-title' ),
+				carelib_get( 'attributes' )->get_attr( 'site-title' ),
 				esc_url( home_url() ),
 				$title
 			);
@@ -96,7 +96,7 @@ class CareLib_Template_Global {
 	public function get_site_description() {
 		if ( $desc = get_bloginfo( 'description' ) ) {
 			$desc = sprintf( '<p %s>%s</p>',
-				carelib_class( 'attributes' )->get_attr( 'site-description' ),
+				carelib_get( 'attributes' )->get_attr( 'site-description' ),
 				$desc
 			);
 		}
@@ -117,7 +117,7 @@ class CareLib_Template_Global {
 		if ( function_exists( 'jetpack_the_site_logo' ) ) {
 			return jetpack_get_site_logo( $format );
 		}
-		return carelib_class( 'site-logo' )->get_site_logo( $format );
+		return carelib_get( 'site-logo' )->get_site_logo( $format );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class CareLib_Template_Global {
 		if ( function_exists( 'jetpack_the_site_logo' ) ) {
 			return jetpack_has_site_logo();
 		}
-		return carelib_class( 'site-logo' )->has_site_logo();
+		return carelib_get( 'site-logo' )->has_site_logo();
 	}
 
 	/**
@@ -147,7 +147,7 @@ class CareLib_Template_Global {
 			jetpack_the_site_logo();
 			return;
 		}
-		carelib_class( 'site-logo' )->the_site_logo();
+		carelib_get( 'site-logo' )->the_site_logo();
 	}
 
 	/**
@@ -158,7 +158,7 @@ class CareLib_Template_Global {
 	 * @return bool true if both our template tag and theme mod return true.
 	 */
 	public function display_breadcrumbs() {
-		$breadcrumbs = carelib_class( 'breadcrumbs' );
+		$breadcrumbs = carelib_get( 'breadcrumbs' );
 		// Return early if our theme doesn't support breadcrumbs.
 		if ( ! is_object( $breadcrumbs ) ) {
 			return false;

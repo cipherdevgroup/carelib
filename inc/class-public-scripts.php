@@ -242,7 +242,7 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	 * @return string
 	 */
 	public function get_locale_style() {
-		$i18n = carelib_class( 'i18n' );
+		$i18n = carelib_get( 'i18n' );
 		$styles = array();
 
 		// Get the locale, language, and region.

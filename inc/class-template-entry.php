@@ -42,7 +42,7 @@ class CareLib_Template_Entry {
 	 */
 	public function __construct() {
 		$this->prefix = carelib()->get_prefix();
-		$this->attr   = carelib_class( 'attributes' );
+		$this->attr   = carelib_get( 'attributes' );
 	}
 
 	/**

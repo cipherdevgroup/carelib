@@ -213,7 +213,7 @@ class CareLib_Template_Archive {
 
 		$output = '';
 
-		$output .= '<nav ' . carelib_class( 'attributes' )->get_attr( 'nav', 'archive' ) . '>';
+		$output .= '<nav ' . carelib_get( 'attributes' )->get_attr( 'nav', 'archive' ) . '>';
 		$output .= sprintf(
 			'<span class="nav-previous">%s</span>',
 			get_previous_posts_link( $args['prev_link_text'] )

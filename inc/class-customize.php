@@ -118,11 +118,11 @@ class CareLib_Customize  {
 		require_once $this->get_dir( 'customizer-base.php' );
 		require_once $this->get_dir( 'settings-site-logo.php' );
 
-		carelib_class( 'settings-site-logo' );
+		carelib_get( 'settings-site-logo' );
 
-		if ( carelib_class( 'breadcrumbs' )->plugin_is_active() ) {
+		if ( carelib_get( 'breadcrumbs' )->plugin_is_active() ) {
 			require_once $this->get_dir( 'settings-breadcrumbs.php' );
-			carelib_class( 'settings-breadcrumbs' );
+			carelib_get( 'settings-breadcrumbs' );
 		}
 	}
 
@@ -147,7 +147,7 @@ class CareLib_Customize  {
 		$wp_customize->add_setting(
 			'theme_layout',
 			array(
-				'default'           => carelib_class( 'layouts' )->get_default_layout(),
+				'default'           => carelib_get( 'layouts' )->get_default_layout(),
 				'sanitize_callback' => 'sanitize_key',
 				'transport'         => 'postMessage',
 			)

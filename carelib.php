@@ -37,11 +37,11 @@ function carelib() {
  *
  * Example:
  *
- * <?php carelib_class( 'attributes' )->get_attr( $args ); ?>
+ * <?php carelib_get( 'attributes' )->get_attr( $args ); ?>
  *
  * @since   0.1.0
  * @return  object
  */
-function carelib_class( $object, $name = 'canonical', $args = array() ) {
+function carelib_get( $object, $name = 'canonical', $args = array() ) {
 	return CareLib_Factory::get( $object, $name, $args );
 }

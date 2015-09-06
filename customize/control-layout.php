@@ -41,7 +41,7 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	 * @return void
 	 */
 	public function __construct( $manager, $id, $args = array() ) {
-		$this->layouts = carelib_class( 'layouts' );
+		$this->layouts = carelib_get( 'layouts' );
 
 		// Array of allowed layouts. Pass via `$args['layouts']`.
 		$allowed = ! empty( $args['layouts'] ) ? $args['layouts'] : array_keys( $this->layouts->get_layouts() );

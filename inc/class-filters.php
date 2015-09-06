@@ -288,7 +288,7 @@ class CareLib_Filters {
 	 * @return string
 	 */
 	public function archive_title( $title ) {
-		$archive = carelib_class( 'template-archive' );
+		$archive = carelib_get( 'template-archive' );
 
 		if ( is_home() && ! is_front_page() ) {
 			$title = get_post_field( 'post_title', get_queried_object_id() );

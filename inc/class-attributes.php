@@ -274,7 +274,7 @@ class CareLib_Attributes {
 			$attr['class'] .= " sidebar-{$context}";
 			$attr['id']     = "sidebar-{$context}";
 
-			if ( $name = carelib_class( 'sidebar' )->get_name( $context ) ) {
+			if ( $name = carelib_get( 'sidebar' )->get_name( $context ) ) {
 				// Translators: The %s is the sidebar name. This is used for the 'aria-label' attribute.
 				$attr['aria-label'] = esc_attr( sprintf( _x( '%s Sidebar', 'sidebar aria label', 'carelib' ), $name ) );
 			}
