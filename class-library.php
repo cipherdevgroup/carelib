@@ -194,7 +194,7 @@ class CareLib {
 	 * @return void
 	 */
 	protected function build() {
-		CareLib_Factory::get( 'builder' )->build();
+		CareLib_Factory::get( 'factory-library' )->run();
 	}
 
 	/**

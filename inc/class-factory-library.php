@@ -11,7 +11,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Builder {
+class CareLib_Factory_Library extends CareLib_Factory {
 
 	/**
 	 * Library prefix which can be set within themes.
@@ -38,8 +38,8 @@ class CareLib_Builder {
 	 * @return void
 	 */
 	public function run() {
-		add_action( 'after_setup_theme', array( $this, 'build' ),         -95 );
-		add_action( 'after_setup_theme', array( $this, 'theme_support' ),  25 );
+		add_action( 'after_setup_theme', array( $this, 'build_library' ),   -95 );
+		add_action( 'after_setup_theme', array( $this, 'build_supported' ),  25 );
 	}
 
 	/**
@@ -88,7 +88,8 @@ class CareLib_Builder {
 	 * @param  array $classes the existing default library classes
 	 * @return array $classes the modified classes based on theme support
 	 */
-	protected function get_conditional_classes( $classes ) {
+	protected function get_supported_classes() {
+		$classes = array();
 		if ( current_theme_supports( 'theme-layouts' ) ) {
 			$classes[] = 'layouts';
 		}
@@ -113,10 +114,9 @@ class CareLib_Builder {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	public function build() {
+	public function build_library() {
 		foreach ( (array) $this->get_default_classes() as $class ) {
-			$object = CareLib_Factory::get( $class );
-			$object->run();
+			self::get( $class )->run();
 		}
 	}
 
@@ -127,8 +127,10 @@ class CareLib_Builder {
 	 * @access public
 	 * @return void
 	 */
-	public function theme_support() {
-		add_filter( "{$this->prefix}_default_classes", array( $this, 'get_conditional_classes' ) );
+	public function build_supported() {
+		foreach ( (array) $this->get_supported_classes() as $class ) {
+			self::get( $class )->run();
+		}
 	}
 
 }
