@@ -70,10 +70,12 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Overrides WP's default template for date-based archives. Better abstraction of templates than
-	 * is_date() allows by checking for the year, month, week, day, hour, and minute.
+	 * Override WP's default template for date-based archives.
 	 *
-	 * @since  0.6.0
+	 * Better abstraction of templates than is_date() allows by checking for
+	 * the year, month, week, day, hour, and minute.
+	 *
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string $template
 	 * @return string $template
@@ -128,11 +130,20 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Overrides WP's default template for author-based archives. Better abstraction of templates than
-	 * is_author() allows by allowing themes to specify templates for a specific author. The hierarchy is
-	 * user-$nicename.php, $user-role-$role.php, user.php, author.php, archive.php.
+	 * Override WP's default template for author-based archives.
 	 *
-	 * @since  0.7.0
+	 * Better abstraction of templates than is_author() by allowing themes to
+	 * specify templates for a specific author.
+	 *
+	 * Hierarchy
+	 * -------------------------
+	 * user-$nicename.php
+	 * $user-role-$role.php
+	 * user.php
+	 * author.php
+	 * archive.php
+	 *
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string $template
 	 * @return string
@@ -170,12 +181,19 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Overrides WP's default template for category- and tag-based archives. This allows better
-	 * organization of taxonomy template files by making categories and post tags work the same way as
-	 * other taxonomies. The hierarchy is taxonomy-$taxonomy-$term.php, taxonomy-$taxonomy.php,
-	 * taxonomy.php, archive.php.
+	 * Override WP's default template for category and tag archives.
 	 *
-	 * @since  0.7.0
+	 * This allows better organization of taxonomy template files by making
+	 * categories and post tags work the same way as other taxonomies.
+	 *
+	 * Hierarchy:
+	 * -------------------------
+	 * taxonomy-$taxonomy-$term.php
+	 * taxonomy-$taxonomy.php
+	 * taxonomy.php
+	 * archive.php
+	 *
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string $template
 	 * @return string Full path to file.
@@ -193,13 +211,12 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Overrides the default single (singular post) template. Post templates can be loaded using a custom
-	 * post template, by slug, or by ID.
+	 * Override the default single (singular post) template.
 	 *
-	 * Attachment templates are handled slightly differently. Rather than look for the slug or ID, templates
-	 * can be loaded by attachment-$mime[0]_$mime[1].php, attachment-$mime[1].php, or attachment-$mime[0].php.
+	 * Post templates can be loaded using a custom post template, by slug, or
+	 * by ID.
 	 *
-	 * @since  0.7.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string $template The default WordPress post template.
 	 * @return string $template The theme post template after all templates have been checked for.
@@ -232,12 +249,11 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Fix for the front page template handling in WordPress core. Its handling is not logical because it
-	 * forces devs to account for both a page on the front page and posts on the front page. Theme devs
-	 * must handle both scenarios if they've created a "front-page.php" template. This filter overwrites
-	 * that and disables the "front-page.php" template if posts are to be shown on the front page. This
-	 * way, the "front-page.php" template will only ever be used if an actual page is supposed to be
-	 * shown on the front.
+	 * Fix for the front page template handling in WordPress core.
+	 *
+	 * This overwrites "front-page.php" template if posts are to be shown on
+	 * the front page. This way, the "front-page.php" template will only ever
+	 * be used if an actual page is supposed to be shown on the front.
 	 *
 	 * @link   http://www.chipbennett.net/2013/09/14/home-page-and-front-page-and-templates-oh-my/
 	 * @since  0.2.0
@@ -250,11 +266,13 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Overrides the default comments template. This filter allows for a "comments-{$post_type}.php"
-	 * template based on the post type of the current single post view. If this template is not found, it falls
-	 * back to the default "comments.php" template.
+	 * Override the default comments template.
 	 *
-	 * @since  1.5.0
+	 * This filter allows for a "comments-{$post_type}.php" template based on
+	 * the post type of the current single post view. If this template is not
+	 * found, it falls back to the default "comments.php" template.
+	 *
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string $template The comments template file name.
 	 * @return string $template The theme comments template after all templates have been checked for.
@@ -280,11 +298,11 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Gets a post template.
+	 * Get a post template.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $post_id
+	 * @param  int $post_id
 	 * @return bool
 	 */
 	public function get_post_template( $post_id ) {
@@ -292,12 +310,12 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Sets a post template.
+	 * Set a post template.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $post_id
-	 * @param  string  $template
+	 * @param  int $post_id
+	 * @param  string $template
 	 * @return bool
 	 */
 	public function set_post_template( $post_id, $template ) {
@@ -305,11 +323,11 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Deletes a post template.
+	 * Delete a post template.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $post_id
+	 * @param  int $post_id
 	 * @return bool
 	 */
 	public function delete_post_template( $post_id ) {
@@ -317,13 +335,15 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Checks if a post of any post type has a custom template. This is the equivalent of WordPress'
-	 * `is_page_template()` function with the exception that it works for all post types.
+	 * Check if a post of any post type has a custom template.
+	 *
+	 * This is the equivalent of WordPress' `is_page_template()` function with
+	 * the exception that it works for all post types.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $template  The name of the template to check for.
-	 * @param  int     $post_id
+	 * @param  string $template The name of the template to check for.
+	 * @param  int $post_id
 	 * @return bool
 	 */
 	public function has_post_template( $template = '', $post_id = '' ) {
@@ -344,11 +364,11 @@ class CareLib_Template_Hierarchy {
 	}
 
 	/**
-	 * Returns the post template meta key.
+	 * Return the post template meta key.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $post_id
+	 * @param  int $post_id
 	 * @return string
 	 */
 	public function get_post_template_meta_key( $post_id ) {
