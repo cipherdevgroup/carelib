@@ -58,6 +58,7 @@ class CareLib_Factory_Library extends CareLib_Factory {
 			'image-grabber',
 			'layouts',
 			'sidebar',
+			'support'
 		);
 		if ( is_admin() ) {
 			$classes[] = 'admin-metabox-post-layouts';
@@ -73,7 +74,6 @@ class CareLib_Factory_Library extends CareLib_Factory {
 			$classes[] = 'meta';
 			$classes[] = 'public-scripts';
 			$classes[] = 'search-form';
-			$classes[] = 'support';
 			$classes[] = 'template-hierarchy';
 		}
 
