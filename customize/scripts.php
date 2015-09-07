@@ -15,14 +15,6 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Customize_Scripts {
 
 	/**
-	 * Library prefix which can be set within themes.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $prefix;
-
-	/**
 	 * Script suffix to determine whether or not to load minified scripts.
 	 *
 	 * @since 0.2.0
@@ -36,7 +28,6 @@ class CareLib_Customize_Scripts {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = carelib()->get_prefix();
 		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}
 
@@ -74,7 +65,7 @@ class CareLib_Customize_Scripts {
 	 */
 	public function register_controls_scripts() {
 		wp_register_script(
-			"{$this->prefix}-customize-controls",
+			'carelib-customize-controls',
 			carelib()->get_uri( "js/customize-controls{$this->suffix}.js" ),
 			array( 'customize-controls' ),
 			null,
@@ -91,8 +82,8 @@ class CareLib_Customize_Scripts {
 	 */
 	public function register_controls_styles() {
 		wp_register_style(
-			"{$this->prefix}-customize-controls",
-			carelib()->get_uri( "css/customize-control{$this->suffix}.css" )
+			'carelib-customize-controls',
+			carelib()->get_uri( "css/customize-controls{$this->suffix}.css" )
 		);
 	}
 
@@ -105,7 +96,7 @@ class CareLib_Customize_Scripts {
 	 */
 	public function register_preview_scripts() {
 		wp_register_script(
-			"{$this->prefix}-customize-preview",
+			'carelib-customize-preview',
 			carelib()->get_uri( "js/customize-preview{$this->suffix}.js" ),
 			array( 'jquery' ),
 			null,
@@ -121,7 +112,7 @@ class CareLib_Customize_Scripts {
 	 * @return void
 	 */
 	public function enqueue_preview_scripts() {
-		wp_enqueue_script( "{$this->prefix}-customize-preview" );
+		wp_enqueue_script( 'carelib-customize-preview' );
 	}
 
 }
