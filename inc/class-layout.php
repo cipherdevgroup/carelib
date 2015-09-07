@@ -2,8 +2,8 @@
 /**
  * Layout class for creating new layout objects.
  *
- * Layout registration is handled via the `CareLib_Layout` class in
- * `class-layout.php`.
+ * Layout registration is handled via the `CareLib_Layouts` class in
+ * `class-layouts.php`.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
