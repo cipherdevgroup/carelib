@@ -2,7 +2,8 @@
  * Admin Stylesheet.
  */
 
-/* === Radio Image Control (Post Layout) === */
+/* Radio Image Control (Post Layout)
+-------------------------------------------- */
 
 #carelib-post-layout input[type="radio"] {
 	clip:     rect(1px, 1px, 1px, 1px);

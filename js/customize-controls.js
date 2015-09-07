@@ -1,8 +1,8 @@
-( function( $, api ) {
+(function( $, api ) {
 
 	/* === Checkbox Multiple Control === */
 
-	api.controlConstructor['checkbox-multiple'] = api.Control.extend( {
+	api.controlConstructor['checkbox-multiple']= api.Control.extend({
 		ready: function() {
 			var control = this;
 
@@ -25,11 +25,11 @@
 				}
 			);
 		}
-	} );
+	});
 
 	/* === Palette Control === */
 
-	api.controlConstructor['palette'] = api.Control.extend( {
+	api.controlConstructor.palette = api.Control.extend({
 		ready: function() {
 			var control = this;
 
@@ -47,11 +47,11 @@
 				}
 			);
 		}
-	} );
+	});
 
 	/* === Radio Image Control === */
 
-	api.controlConstructor['radio-image'] = api.Control.extend( {
+	api.controlConstructor['radio-image']= api.Control.extend({
 		ready: function() {
 			var control = this;
 
@@ -61,11 +61,11 @@
 				}
 			);
 		}
-	} );
+	});
 
 	/* === Select Group Control === */
 
-	api.controlConstructor['select-group'] = api.Control.extend( {
+	api.controlConstructor['select-group']= api.Control.extend({
 		ready: function() {
 			var control = this;
 
@@ -75,11 +75,11 @@
 				}
 			);
 		}
-	} );
+	});
 
 	/* === Select Multiple Control === */
 
-	api.controlConstructor['select-multiple'] = api.Control.extend( {
+	api.controlConstructor['select-multiple']= api.Control.extend({
 		ready: function() {
 			var control = this;
 
@@ -95,6 +95,6 @@
 				}
 			);
 		}
-	} );
+	});
 
-} )( jQuery, wp.customize );
+})( jQuery, wp.customize );

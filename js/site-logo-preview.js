@@ -2,7 +2,7 @@
  * JS for handling the Site Logo real-time display in the Customizer preview frame.
  */
 (function($) {
-	var api  = wp.customize,
+	var api = wp.customize,
 		$body, $anchor, $logo, size;
 
 	function cacheSelectors() {

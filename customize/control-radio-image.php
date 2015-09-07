@@ -41,7 +41,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	 */
 	public function enqueue() {
 		wp_enqueue_script( 'carelib-customize-controls' );
-		wp_enqueue_style(  'carelib-customize-controls' );
+		wp_enqueue_style( 'carelib-customize-controls' );
 	}
 
 	/**
@@ -55,9 +55,9 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 		parent::to_json();
 
 		// We need to make sure we have the correct image URL.
-		foreach ( $this->choices as $value => $args )
+		foreach ( $this->choices as $value => $args ) {
 			$this->choices[ $value ]['url'] = esc_url( sprintf( $args['url'], get_template_directory_uri(), get_stylesheet_directory_uri() ) );
-
+		}
 		$this->json['choices'] = $this->choices;
 		$this->json['link']    = $this->get_link();
 		$this->json['value']   = $this->value();

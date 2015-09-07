@@ -3,7 +3,8 @@
  * @version 20150507
  */
 
-/* === Palette Control === */
+/* Palette Control
+-------------------------------------------- */
 
 .customize-control-palette label {
 	display: block;
@@ -30,7 +31,8 @@
 	height:  100%;
 }
 
-/* === Radio Image Control === */
+/* Radio Image Control
+-------------------------------------------- */
 
 .customize-control-radio-image input[type="radio"] {
 	clip:     rect(1px, 1px, 1px, 1px);
