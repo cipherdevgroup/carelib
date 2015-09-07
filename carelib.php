@@ -11,7 +11,7 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-require_once trailingslashit( dirname( __FILE__ ) ) . 'class-library.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/library.php';
 
 /**
  * Grab an instance of the main library class.
@@ -26,7 +26,7 @@ require_once trailingslashit( dirname( __FILE__ ) ) . 'class-library.php';
  * @return  object CareLib
  */
 function carelib() {
-	return CareLib::instance();
+	return CareLib::instance( __FILE__ );
 }
 
 /**
