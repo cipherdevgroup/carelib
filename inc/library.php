@@ -42,7 +42,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $file = __FILE__;
+	private $file;
 
 	/**
 	 * The library's directory path with a trailing slash.
@@ -66,9 +66,10 @@ class CareLib {
 	 * @since 0.1.0
 	 * @param array $args arguments to be passed in via the helper function.
 	 */
-	public function __construct() {
-		$this->dir = trailingslashit( dirname( __FILE__ ) );
-		$this->uri = trailingslashit( $this->normalize_uri( dirname( __FILE__ ) ) );
+	public function __construct( $file ) {
+		$this->file = $file;
+		$this->dir = trailingslashit( dirname( $file ) );
+		$this->uri = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
 	}
 
 	/**
@@ -180,7 +181,7 @@ class CareLib {
 	 * @return void
 	 */
 	protected function autoload() {
-		require_once "{$this->dir}inc/class-autoload.php";
+		require_once "{$this->dir}inc/autoload.php";
 		new CareLib_Autoload( $this );
 	}
 
@@ -207,10 +208,10 @@ class CareLib {
 	 * @uses   CareLib::includes() Include the required files
 	 * @return CareLib
 	 */
-	public static function instance() {
+	public static function instance( $file ) {
 		static $instance;
 		if ( null === $instance ) {
-			$instance = new self;
+			$instance = new self( $file );
 		}
 		return $instance;
 	}

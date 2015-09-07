@@ -68,7 +68,7 @@ class CareLib_Autoload {
 	 */
 	protected function autoloader( $class ) {
 		return $this->require_file(
-			$this->build_file( 'inc/class-', $this->replace_class( $class ) )
+			$this->build_file( 'inc/', $this->replace_class( $class ) )
 		);
 	}
 
@@ -85,7 +85,7 @@ class CareLib_Autoload {
 		}
 		return $this->require_file(
 			$this->build_file(
-				'admin/class-',
+				'admin/',
 				str_replace( 'admin-', '', $this->replace_class( $class ) )
 			)
 		);
