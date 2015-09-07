@@ -64,7 +64,7 @@ class CareLib_Site_Logo {
 	 * @uses add_filter
 	 */
 	protected function wp_hooks() {
-		add_action( 'tha_body_top',            array( $this, 'head_text_styles' ) );
+		add_action( 'tha_body_top',            array( $this, 'head_text_styles' ), -20 );
 		add_action( 'delete_attachment',       array( $this, 'reset_on_attachment_delete' ) );
 		add_filter( 'body_class',              array( $this, 'body_classes' ) );
 		add_filter( 'image_size_names_choose', array( $this, 'media_manager_image_sizes' ) );
@@ -80,13 +80,10 @@ class CareLib_Site_Logo {
 	 * @uses esc_html()
 	 */
 	public function head_text_styles() {
-		// Bail if our text isn't hidden.
-		if ( get_theme_mod( 'site_logo_header_text', 1 ) ) {
-			return;
+		if ( ! get_theme_mod( 'site_logo_header_text', 1 ) ) {
+			add_filter( "{$this->prefix}_attr_site-title",       array( $this, 'hide_text' ) );
+			add_filter( "{$this->prefix}_attr_site-description", array( $this, 'hide_text' ) );
 		}
-		// hide our header text if display Header Text is unchecked.
-		add_filter( "{$this->prefix}_attr_site-title",       array( $this, 'hide_text' ) );
-		add_filter( "{$this->prefix}_attr_site-description", array( $this, 'hide_text' ) );
 	}
 
 	/**
