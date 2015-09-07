@@ -37,7 +37,7 @@ class CareLib_Template_Media {
 	/**
 	 * Return the HTML output for media found using the media grabber class.
 	 *
-	 * @since  1.6.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  array
 	 * @return string

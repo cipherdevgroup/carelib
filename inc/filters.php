@@ -265,7 +265,7 @@ class CareLib_Filters {
 	 * that an '(Untitled)' title appears in that scenario, allowing for the
 	 * normal method to work.
 	 *
-	 * @since  1.6.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $title
 	 * @return string

@@ -97,7 +97,7 @@ class CareLib_Style_Builder {
 	 * handled this in the the other helper files, i.e., the data is already
 	 * sanitized when `add()` is called.
 	 *
-	 * @since  1.1.1
+	 * @since  0.1.0
 	 * @param  array $data The selectors and properties to add to the CSS.
 	 * @return void
 	 */
@@ -111,7 +111,7 @@ class CareLib_Style_Builder {
 		/**
 		 * Filter CSS as it is registered.
 		 *
-		 * @since 1.1.1
+		 * @since 0.1.0
 		 * @param array $data The selectors and properties to add to the CSS.
 		 */
 		$data  = apply_filters( "{$this->prefix}_style_builder_add", $data );
@@ -160,7 +160,7 @@ class CareLib_Style_Builder {
 	/**
 	 * Compile the data array into standard CSS syntax
 	 *
-	 * @since  1.1.1
+	 * @since  0.1.0
 	 * @return string    The CSS that is built from the data.
 	 */
 	public function build() {
@@ -205,7 +205,7 @@ class CareLib_Style_Builder {
 	/**
 	 * Compile the selectors in a rule into a string.
 	 *
-	 * @since  1.1.1
+	 * @since  0.1.0
 	 * @param  array     $selectors    Selectors to combine into single selector.
 	 * @param  string    $tab          Tab character.
 	 * @return string                  Results of the selector combination.
@@ -223,7 +223,7 @@ class CareLib_Style_Builder {
 	/**
 	 * Compile the declarations in a rule into a string.
 	 *
-	 * @since  1.1.1
+	 * @since  0.1.0
 	 * @param  array     $declarations    Declarations for a selector.
 	 * @param  string    $tab             Tab character.
 	 * @return string                     The combines declarations.
@@ -252,7 +252,7 @@ class CareLib_Style_Builder {
 			/**
 			 * Filter the final CSS declaration after being parsed.
 			 *
-			 * @since 1.1.1
+			 * @since 0.1.0
 			 * @param string    $parsed_value    The full CSS declaration.
 			 * @param string    $property        The property being parsed.
 			 * @param string    $value           The value for the property.
@@ -265,7 +265,7 @@ class CareLib_Style_Builder {
 		/**
 		 * Filter the full list of parsed declarations.
 		 *
-		 * @since 1.1.1
+		 * @since 0.1.0
 		 * @param string    $output          The full CSS output.
 		 * @param array     $declarations    The list of CSS declarations.
 		 * @param string    $tab             The tab character.

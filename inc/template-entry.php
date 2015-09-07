@@ -260,7 +260,7 @@ class CareLib_Template_Entry {
 	 * Checks if a post has any content. Useful if you need to check if the user
 	 * has written any content before performing any actions.
 	 *
-	 * @since  1.6.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  int    $post_id
 	 * @return bool
@@ -448,7 +448,7 @@ class CareLib_Template_Entry {
 	/**
 	 * Gets a URL from the content, even if it's not wrapped in an <a> tag.
 	 *
-	 * @since  1.6.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  string  $content
 	 * @return string
