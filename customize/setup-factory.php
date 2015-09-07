@@ -11,7 +11,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Customize_Factory extends CareLib_Factory {
+class CareLib_Customize_Setup_Factory extends CareLib_Factory {
 
 	/**
 	 * Library prefix which can be set within themes.
@@ -52,12 +52,12 @@ class CareLib_Customize_Factory extends CareLib_Factory {
 		$classes = array();
 
 		if ( is_customize_preview() ) {
-			$classes[] = 'customize-register';
-			$classes[] = 'customize-scripts';
-			$classes[] = 'customize-settings';
+			$classes[] = 'register';
+			$classes[] = 'scripts';
+			$classes[] = 'settings';
 		}
 
-		return apply_filters( "{$this->prefix}_customize_classes", $classes );
+		return apply_filters( "{$this->prefix}_customize_setup_classes", $classes );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class CareLib_Customize_Factory extends CareLib_Factory {
 	 */
 	public function build_customize() {
 		foreach ( (array) $this->get_customize_classes() as $class ) {
-			self::get( $class )->run();
+			self::get( "customize-setup-{$class}" )->run();
 		}
 	}
 

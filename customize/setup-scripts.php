@@ -12,7 +12,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Customize_Scripts {
+class CareLib_Customize_Setup_Scripts {
 
 	/**
 	 * Script suffix to determine whether or not to load minified scripts.

@@ -12,7 +12,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Customize_Register {
+class CareLib_Customize_Setup_Register {
 
 	/**
 	 * Get our class up and running!

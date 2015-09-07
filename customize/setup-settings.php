@@ -12,7 +12,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Customize_Settings {
+class CareLib_Customize_Setup_Settings {
 
 	/**
 	 * Get our class up and running!

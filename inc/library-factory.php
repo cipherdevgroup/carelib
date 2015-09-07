@@ -51,7 +51,7 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	protected function get_default_classes() {
 		$classes = array(
 			'admin-factory',
-			'customize-factory',
+			'customize-setup-factory',
 			'support-factory',
 			'i18n',
 			'image-grabber',
