@@ -72,7 +72,7 @@ class CareLib {
 	}
 
 	/**
-	 * Method to initialize the plugin.
+	 * Method to initialize the library.
 	 *
 	 * @since  0.1.0
 	 * @access public
@@ -80,31 +80,8 @@ class CareLib {
 	 */
 	public function run( $args = array() ) {
 		$this->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
-		add_action( 'after_setup_theme', array( $this, 'core' ), -95 );
-		add_action( 'after_setup_theme', array( $this, 'theme_support' ),  25 );
-	}
-
-	/**
-	 * Loads and instantiates all library functionality.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function core() {
-		spl_autoload_register( array( $this, 'autoloader' ) );
+		$this->autoload();
 		$this->build();
-	}
-
-	/**
-	 * Loads and instantiates all functionality which requires theme support.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function theme_support() {
-		add_filter( "{$this->prefix}_default_classes", array( $this, 'get_conditional_classes' ) );
 	}
 
 	/**
@@ -201,83 +178,11 @@ class CareLib {
 	 *
 	 * @since  0.1.0
 	 * @access protected
-	 * @return bool true if a file is loaded, false otherwise
+	 * @return void
 	 */
-	protected function autoloader( $class ) {
-		$class = strtolower( str_replace( '_', '-', str_replace( __CLASS__ . '_', '', $class ) ) );
-		$file  = "{$this->dir}inc/class-{$class}.php";
-
-		if ( false !== strpos( $class, 'admin' ) ) {
-			$class = str_replace( 'admin-', '', $class );
-			$file  = "{$this->dir}admin/class-{$class}.php";
-		}
-
-		if ( file_exists( $file ) ) {
-			require_once $file;
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Build an array of default classes to run by default.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @return array $classes the default library classes to be built on init
-	 */
-	protected function get_default_classes() {
-		$classes = array(
-			'customize',
-			'i18n',
-			'image-grabber',
-			'layouts',
-			'sidebar',
-		);
-		if ( is_admin() ) {
-			$classes[] = 'admin-metabox-post-layouts';
-			$classes[] = 'admin-metabox-post-styles';
-			$classes[] = 'admin-metabox-post-templates';
-			$classes[] = 'admin-scripts';
-			$classes[] = 'admin-tinymce';
-		} else {
-			$classes[] = 'attributes';
-			$classes[] = 'context';
-			$classes[] = 'filters';
-			$classes[] = 'head';
-			$classes[] = 'meta';
-			$classes[] = 'public-scripts';
-			$classes[] = 'search-form';
-			$classes[] = 'support';
-			$classes[] = 'template-hierarchy';
-		}
-
-		return apply_filters( "{$this->prefix}_default_classes", $classes );
-	}
-
-	/**
-	 * Add conditional classes based on theme support.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @param  array $classes the existing default library classes
-	 * @return array $classes the modified classes based on theme support
-	 */
-	protected function get_conditional_classes( $classes ) {
-		if ( current_theme_supports( 'theme-layouts' ) ) {
-			$classes[] = 'layouts';
-		}
-		if ( is_admin() ) {
-			if ( current_theme_supports( 'theme-dashboard' ) ) {
-				$classes[] = 'admin-dashboard';
-			}
-		} else {
-			if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
-				$classes[] = 'site-logo';
-			}
-		}
-
-		return $classes;
+	protected function autoload() {
+		require_once "{$this->dir}inc/class-autoload.php";
+		new CareLib_Autoload( $this );
 	}
 
 	/**
@@ -289,10 +194,7 @@ class CareLib {
 	 * @return void
 	 */
 	protected function build() {
-		foreach ( (array) $this->get_default_classes() as $class ) {
-			$object = CareLib_Factory::get( $class );
-			$object->run();
-		}
+		CareLib_Factory::get( 'builder' )->build();
 	}
 
 	/**
