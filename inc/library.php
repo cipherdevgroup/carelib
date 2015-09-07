@@ -73,6 +73,25 @@ class CareLib {
 	}
 
 	/**
+	 * Main CareLib Instance
+	 *
+	 * Insures that only one instance of CareLib exists in memory at any one
+	 * time. Also prevents needing to define globals all over the place.
+	 *
+	 * @since 0.1.0
+	 * @static
+	 * @uses   CareLib::includes() Include the required files
+	 * @return CareLib
+	 */
+	public static function instance( $file ) {
+		static $instance;
+		if ( null === $instance ) {
+			$instance = new self( $file );
+		}
+		return $instance;
+	}
+
+	/**
 	 * Method to initialize the library.
 	 *
 	 * @since  0.1.0
@@ -195,25 +214,6 @@ class CareLib {
 	 */
 	protected function build() {
 		CareLib_Factory::get( 'library-factory' )->run();
-	}
-
-	/**
-	 * Main CareLib Instance
-	 *
-	 * Insures that only one instance of CareLib exists in memory at any one
-	 * time. Also prevents needing to define globals all over the place.
-	 *
-	 * @since 0.1.0
-	 * @static
-	 * @uses   CareLib::includes() Include the required files
-	 * @return CareLib
-	 */
-	public static function instance( $file ) {
-		static $instance;
-		if ( null === $instance ) {
-			$instance = new self( $file );
-		}
-		return $instance;
 	}
 
 }

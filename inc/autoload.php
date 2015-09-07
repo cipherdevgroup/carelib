@@ -37,20 +37,38 @@ class CareLib_Autoload {
 	}
 
 	/**
-	 * Load all plugin classes when they're instantiated.
+	 * Format a class' name string to facilitate autoloading.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $class the name of the class to replace
+	 * @param  string $prefix an optional prefix to replace in the class name
+	 * @return string
+	 */
+	protected function format_class( $class, $prefix = '' ) {
+		return strtolower( str_replace( '_', '-', str_replace( "CareLib_{$prefix}", '', $class ) ) );
+	}
+
+	/**
+	 * Build a path to a file.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $path the relative path to the file to be formatted
+	 * @param  string $file the slug of the file to be formatted
+	 * @return string the formatted path to a file
+	 */
+	protected function build_file( $path, $file ) {
+		return "{$this->dir}{$path}{$file}.php";
+	}
+
+	/**
+	 * Require a file if it exists.
+	 *
+	 * @since  0.2.0
 	 * @access protected
 	 * @return bool true if a file is loaded, false otherwise
 	 */
-	protected function replace_class( $class ) {
-		return strtolower( str_replace( '_', '-', str_replace( 'CareLib_', '', $class ) ) );
-	}
-
-	protected function build_file( $path, $class ) {
-		return "{$this->dir}{$path}{$class}.php";
-	}
-
 	protected function require_file( $file ) {
 		if ( file_exists( $file ) ) {
 			require_once $file;
@@ -62,20 +80,20 @@ class CareLib_Autoload {
 	/**
 	 * Load all plugin classes when they're instantiated.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return bool true if a file is loaded, false otherwise
 	 */
 	protected function autoloader( $class ) {
 		return $this->require_file(
-			$this->build_file( 'inc/', $this->replace_class( $class ) )
+			$this->build_file( 'inc/', $this->format_class( $class ) )
 		);
 	}
 
 	/**
 	 * Load all admin plugin classes when they're instantiated.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return bool true if a file is loaded, false otherwise
 	 */
@@ -84,17 +102,14 @@ class CareLib_Autoload {
 			return false;
 		}
 		return $this->require_file(
-			$this->build_file(
-				'admin/',
-				str_replace( 'admin-', '', $this->replace_class( $class ) )
-			)
+			$this->build_file( 'admin/', $this->format_class( $class, 'Admin_' ) )
 		);
 	}
 
 	/**
 	 * Load all admin plugin classes when they're instantiated.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return bool true if a file is loaded, false otherwise
 	 */
@@ -103,10 +118,7 @@ class CareLib_Autoload {
 			return false;
 		}
 		return $this->require_file(
-			$this->build_file(
-				'customize/',
-				str_replace( 'customize-', '', $this->replace_class( $class ) )
-			)
+			$this->build_file( 'customize/', $this->format_class( $class, 'Customize_' ) )
 		);
 	}
 
