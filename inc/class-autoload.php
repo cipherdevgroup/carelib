@@ -33,6 +33,7 @@ class CareLib_Autoload {
 		$this->dir = $library->get_dir();
 		spl_autoload_register( array( $this, 'autoloader' ) );
 		spl_autoload_register( array( $this, 'admin_autoloader' ) );
+		spl_autoload_register( array( $this, 'customize_autoloader' ) );
 	}
 
 	/**
@@ -47,7 +48,7 @@ class CareLib_Autoload {
 	}
 
 	protected function build_file( $path, $class ) {
-		return "{$this->dir}{$path}-{$class}.php";
+		return "{$this->dir}{$path}{$class}.php";
 	}
 
 	protected function require_file( $file ) {
@@ -67,7 +68,7 @@ class CareLib_Autoload {
 	 */
 	protected function autoloader( $class ) {
 		return $this->require_file(
-			$this->build_file( 'inc/class', $this->replace_class( $class ) )
+			$this->build_file( 'inc/class-', $this->replace_class( $class ) )
 		);
 	}
 
@@ -84,8 +85,27 @@ class CareLib_Autoload {
 		}
 		return $this->require_file(
 			$this->build_file(
-				'admin/class',
+				'admin/class-',
 				str_replace( 'admin-', '', $this->replace_class( $class ) )
+			)
+		);
+	}
+
+	/**
+	 * Load all admin plugin classes when they're instantiated.
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @return bool true if a file is loaded, false otherwise
+	 */
+	protected function customize_autoloader( $class ) {
+		if ( false === strpos( $class, 'Customize' ) ) {
+			return false;
+		}
+		return $this->require_file(
+			$this->build_file(
+				'customize/',
+				str_replace( 'customize-', '', $this->replace_class( $class ) )
 			)
 		);
 	}
