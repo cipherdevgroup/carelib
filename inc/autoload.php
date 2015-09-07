@@ -11,9 +11,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Attributes class.
- */
 class CareLib_Autoload {
 
 	/**

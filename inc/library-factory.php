@@ -33,7 +33,7 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	/**
 	 * Method to fire all actions within the class.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -44,7 +44,7 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	/**
 	 * Build an array of default classes to run by default.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return array $classes the default library classes to be built on init
 	 */
@@ -76,7 +76,7 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	/**
 	 * Store a reference to our classes and get them running.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
 	 * @param  $factory string the name of our factory class
 	 * @return void

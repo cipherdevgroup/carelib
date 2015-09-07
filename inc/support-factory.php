@@ -16,7 +16,7 @@ class CareLib_Support_Factory extends CareLib_Factory {
 	/**
 	 * Method to fire all actions within the class.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
@@ -27,7 +27,7 @@ class CareLib_Support_Factory extends CareLib_Factory {
 	/**
 	 * Add conditional classes based on theme support.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @param  array $classes the existing default library classes
 	 * @return array $classes the modified classes based on theme support
