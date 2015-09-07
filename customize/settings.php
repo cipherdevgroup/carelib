@@ -33,13 +33,10 @@ class CareLib_Customize_Settings {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_action( 'init', array( $this, 'load_customizer_settings' ),  0 );
+		add_action( 'init', array( $this, 'load_customizer_settings' ), 0 );
 	}
 
 	public function load_customizer_settings() {
-		if ( ! carelib()->is_customizer_preview() ) {
-			return;
-		}
 		carelib_get( 'customize-settings-site-logo' );
 
 		if ( carelib_get( 'breadcrumbs' )->plugin_is_active() ) {
