@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Site_Logo_Control extends WP_Customize_Control {
+class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 	/**
 	 * Constructor for our custom control.
 	 *

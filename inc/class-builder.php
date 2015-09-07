@@ -51,7 +51,9 @@ class CareLib_Builder {
 	 */
 	protected function get_default_classes() {
 		$classes = array(
-			'customize',
+			'customize-register',
+			'customize-scripts',
+			'customize-settings',
 			'i18n',
 			'image-grabber',
 			'layouts',

@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Settings_Site_Logo extends CareLib_Customizer_Base {
+class CareLib_Customize_Settings_Site_Logo extends CareLib_Customize_Base {
 
 	/**
 	 * Add our logo uploader to the Customizer.
@@ -79,7 +79,7 @@ class CareLib_Settings_Site_Logo extends CareLib_Customizer_Base {
 		);
 
 		// Add our image uploader.
-		$wp_customize->add_control( CareLib_Factory::build( 'site-logo-control', '',
+		$wp_customize->add_control( CareLib_Factory::build( 'customize-control-site-logo', '',
 			array(
 				$wp_customize,
 				'site_logo',

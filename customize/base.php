@@ -18,7 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * CareLib_Customizer_Base
+ * CareLib_Customize_Base
  *
  * An abstract class to provide basic helper methods to use when registering new
  * customizer sections within a theme.
@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
  * @since   0.1.0
  * @version 0.1.0
  */
-abstract class CareLib_Customizer_Base {
+abstract class CareLib_Customize_Base {
 
 	/**
 	 * An array of choices used for sanitizing multi-select fields.
@@ -81,8 +81,8 @@ abstract class CareLib_Customizer_Base {
 		// Throw a warning if no register method exists in the child class.
 		if ( ! method_exists( $this, 'register' ) ) {
 			_doing_it_wrong(
-				'CareLib_Customizer_Base',
-				esc_attr__( 'When extending CareLib_Customizer_Base, you must create a register method.', 'carelib' )
+				'CareLib_Customize_Base',
+				esc_attr__( 'When extending CareLib_Customize_Base, you must create a register method.', 'carelib' )
 			);
 		}
 		// Register our customizer sections.
