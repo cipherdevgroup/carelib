@@ -11,7 +11,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Factory_Library extends CareLib_Factory {
+class CareLib_Library_Factory extends CareLib_Factory {
 
 	/**
 	 * Library prefix which can be set within themes.
@@ -38,8 +38,7 @@ class CareLib_Factory_Library extends CareLib_Factory {
 	 * @return void
 	 */
 	public function run() {
-		add_action( 'after_setup_theme', array( $this, 'build_library' ),   -95 );
-		add_action( 'after_setup_theme', array( $this, 'build_supported' ),  25 );
+		add_action( 'after_setup_theme', array( $this, 'build_library' ), -95 );
 	}
 
 	/**
@@ -51,22 +50,16 @@ class CareLib_Factory_Library extends CareLib_Factory {
 	 */
 	protected function get_default_classes() {
 		$classes = array(
-			'customize-register',
-			'customize-scripts',
-			'customize-settings',
+			'admin-factory',
+			'customize-factory',
+			'support-factory',
 			'i18n',
 			'image-grabber',
 			'layouts',
 			'sidebar',
-			'support'
+			'support',
 		);
-		if ( is_admin() ) {
-			$classes[] = 'admin-metabox-post-layouts';
-			$classes[] = 'admin-metabox-post-styles';
-			$classes[] = 'admin-metabox-post-templates';
-			$classes[] = 'admin-scripts';
-			$classes[] = 'admin-tinymce';
-		} else {
+		if ( ! is_admin() ) {
 			$classes[] = 'attributes';
 			$classes[] = 'context';
 			$classes[] = 'filters';
@@ -81,32 +74,6 @@ class CareLib_Factory_Library extends CareLib_Factory {
 	}
 
 	/**
-	 * Add conditional classes based on theme support.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @param  array $classes the existing default library classes
-	 * @return array $classes the modified classes based on theme support
-	 */
-	protected function get_supported_classes() {
-		$classes = array();
-		if ( current_theme_supports( 'theme-layouts' ) ) {
-			$classes[] = 'layouts';
-		}
-		if ( is_admin() ) {
-			if ( current_theme_supports( 'theme-dashboard' ) ) {
-				$classes[] = 'admin-dashboard';
-			}
-		} else {
-			if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
-				$classes[] = 'site-logo';
-			}
-		}
-
-		return $classes;
-	}
-
-	/**
 	 * Store a reference to our classes and get them running.
 	 *
 	 * @since  0.1.0
@@ -116,19 +83,6 @@ class CareLib_Factory_Library extends CareLib_Factory {
 	 */
 	public function build_library() {
 		foreach ( (array) $this->get_default_classes() as $class ) {
-			self::get( $class )->run();
-		}
-	}
-
-	/**
-	 * Loads and instantiates all functionality which requires theme support.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function build_supported() {
-		foreach ( (array) $this->get_supported_classes() as $class ) {
 			self::get( $class )->run();
 		}
 	}

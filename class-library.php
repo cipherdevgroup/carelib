@@ -92,8 +92,7 @@ class CareLib {
 	 * @return  bool
 	 */
 	public function is_customizer_preview() {
-		global $wp_customize;
-		return $wp_customize instanceof WP_Customize_Manager && $wp_customize->is_preview();
+		return is_customize_preview();
 	}
 
 	/**
@@ -194,7 +193,7 @@ class CareLib {
 	 * @return void
 	 */
 	protected function build() {
-		CareLib_Factory::get( 'factory-library' )->run();
+		CareLib_Factory::get( 'library-factory' )->run();
 	}
 
 	/**
