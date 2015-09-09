@@ -1,6 +1,6 @@
 <?php
 /**
- * Methods for handling admin JavaScript and CSS in the framework.
+ * Methods for handling admin JavaScript and CSS in the library.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC

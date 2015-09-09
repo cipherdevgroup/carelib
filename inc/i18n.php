@@ -79,7 +79,7 @@ class CareLib_i18n {
 	}
 
 	/**
-	 * Gets the parent theme textdomain. This allows the framework to recognize
+	 * Gets the parent theme textdomain. This allows the library to recognize
 	 * the proper textdomain of the parent theme.
 	 *
 	 * @since  0.2.0
@@ -101,7 +101,7 @@ class CareLib_i18n {
 	}
 
 	/**
-	 * Gets the child theme textdomain. This allows the framework to recognize
+	 * Gets the child theme textdomain. This allows the library to recognize
 	 * the proper textdomain of the child theme.
 	 *
 	 * @since  0.2.0
@@ -194,7 +194,7 @@ class CareLib_i18n {
 	}
 
 	/**
-	 * Load the theme, child theme, and framework textdomains automatically.
+	 * Load the theme, child theme, and library textdomains automatically.
 	 * No need for theme authors to do this.
 	 *
 	 * This also utilizes the `Domain Path` header from `style.css`. It defaults

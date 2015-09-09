@@ -33,7 +33,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	public $type = 'radio-image';
 
 	/**
-	 * Loads the framework scripts/styles.
+	 * Loads the library scripts/styles.
 	 *
 	 * @since  0.2.0
 	 * @access public

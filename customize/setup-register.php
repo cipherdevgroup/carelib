@@ -38,7 +38,7 @@ class CareLib_Customize_Setup_Register {
 	}
 
 	/**
-	 * Load framework-specific customize classes.
+	 * Load library-specific customize classes.
 	 *
 	 * These are classes that extend the core `WP_Customize_*` classes to provide
 	 * theme authors access to functionality that core doesn't handle out of the box.

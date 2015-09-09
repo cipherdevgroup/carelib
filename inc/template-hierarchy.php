@@ -1,6 +1,6 @@
 <?php
 /**
- * The framework has its own template hierarchy that can be used instead of the
+ * The library has its own template hierarchy that can be used instead of the
  * default WordPress template hierarchy.
  *
  * It was built to extend the default by making it smarter and more flexible.

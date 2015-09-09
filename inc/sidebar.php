@@ -2,7 +2,7 @@
 /**
  * Helper functions for working with the WordPress sidebar system.
  *
- * Currently, the framework creates a simple method for registering
+ * Currently, the library creates a simple method for registering
  * HTML5-ready sidebars instead of the default WordPress unordered lists.
  *
  * @package   CareLib
