@@ -78,7 +78,7 @@ class CareLib_Layouts {
 	 * @return bool
 	 */
 	public function layout_exists( $name ) {
-		return isset( $this->layouts[ $name ] );
+		return isset( self::$layouts[ $name ] );
 	}
 
 	/**
@@ -220,7 +220,7 @@ class CareLib_Layouts {
 	 * @return object|bool
 	 */
 	public function get_layout( $name ) {
-		return $this->layout_exists( $name ) ? $this->layouts[ $name ] : false;
+		return $this->layout_exists( $name ) ? self::$layouts[ $name ] : false;
 	}
 
 	/**
@@ -322,7 +322,7 @@ class CareLib_Layouts {
 	 */
 	public function unregister_layout( $name ) {
 		if ( $this->layout_exists( $name ) ) {
-			unset( $this->layouts[ $name ] );
+			unset( self::$layouts[ $name ] );
 		}
 	}
 
