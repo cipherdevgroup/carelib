@@ -264,4 +264,5 @@ class CareLib_Style_Builder {
 		 */
 		return apply_filters( "{$this->prefix}_css_parse_declarations", $output, $declarations, $tab );
 	}
+
 }
