@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Scripts {
+class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Styles {
 
 	protected static $styles = array();
 
@@ -115,8 +115,8 @@ class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Scripts {
 			return false;
 		}
 
-		$input    = isset( $_POST['carelib-post-style'] ) ? $_POST['carelib-post-style'] : '';
-		$current = $this->get_post_layout( $post_id );
+		$input   = isset( $_POST['carelib-post-style'] ) ? $_POST['carelib-post-style'] : '';
+		$current = $this->get_post_style( $post_id );
 
 		if ( $input === $current ) {
 			return false;
