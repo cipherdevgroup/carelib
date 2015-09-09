@@ -48,17 +48,15 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 
 		// Loop through each of the layouts and add it to the choices array with proper key/value pairs.
 		foreach ( $this->layouts->get_layouts() as $layout ) {
+			if ( in_array( $layout->get_name(), $allowed ) && ! ( 'theme_layout' === $id && false === $layout->is_global() ) && $layout->get_image() ) {
 
-			if ( in_array( $layout->name, $allowed ) && ! ( 'theme_layout' === $id && false === $layout->is_global_layout ) && $layout->image ) {
-
-				$args['choices'][ $layout->name ] = array(
-					'label' => $layout->label,
-					'url'   => sprintf( $layout->image, get_template_directory_uri(), get_stylesheet_directory_uri() ),
+				$args['choices'][ $layout->get_name() ] = array(
+					'label' => $layout->get_label(),
+					'url'   => sprintf( $layout->get_image(), get_template_directory_uri(), get_stylesheet_directory_uri() ),
 				);
 			}
 		}
 
-		// Let the parent class handle the rest.
 		parent::__construct( $manager, $id, $args );
 	}
 }
