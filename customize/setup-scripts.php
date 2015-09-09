@@ -12,24 +12,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Customize_Setup_Scripts {
-
-	/**
-	 * Script suffix to determine whether or not to load minified scripts.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $suffix;
-
-	/**
-	 * Constructor method.
-	 *
-	 * @since 0.2.0
-	 */
-	public function __construct() {
-		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-	}
+class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 
 	/**
 	 * Get our class up and running!
@@ -50,10 +33,9 @@ class CareLib_Customize_Setup_Scripts {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_controls_scripts' ), 0 );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_controls_styles' ),  0 );
-		add_action( 'customize_preview_init',             array( $this, 'register_preview_scripts' ),  0 );
-		add_action( 'customize_preview_init',             array( $this, 'enqueue_preview_scripts' ),  10 );
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_controls' ), 0 );
+		add_action( 'customize_preview_init',             array( $this, 'register_preview' ),  0 );
+		add_action( 'customize_preview_init',             array( $this, 'enqueue_preview' ),  10 );
 	}
 
 	/**
@@ -63,27 +45,13 @@ class CareLib_Customize_Setup_Scripts {
 	 * @access public
 	 * @return void
 	 */
-	public function register_controls_scripts() {
+	public function register_controls() {
 		wp_register_script(
 			'carelib-customize-controls',
-			carelib()->get_uri( "js/customize-controls{$this->suffix}.js" ),
+			$this->js_uri( "customize-controls{$this->suffix}.js" ),
 			array( 'customize-controls' ),
-			null,
+			$this->version,
 			true
-		);
-	}
-
-	/**
-	 * Register customizer controls styles.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function register_controls_styles() {
-		wp_register_style(
-			'carelib-customize-controls',
-			carelib()->get_uri( "css/customize-controls{$this->suffix}.css" )
 		);
 	}
 
@@ -94,12 +62,12 @@ class CareLib_Customize_Setup_Scripts {
 	 * @access public
 	 * @return void
 	 */
-	public function register_preview_scripts() {
+	public function register_preview() {
 		wp_register_script(
 			'carelib-customize-preview',
-			carelib()->get_uri( "js/customize-preview{$this->suffix}.js" ),
+			$this->js_uri( "customize-preview{$this->suffix}.js" ),
 			array( 'jquery' ),
-			null,
+			$this->version,
 			true
 		);
 	}
@@ -111,7 +79,7 @@ class CareLib_Customize_Setup_Scripts {
 	 * @access public
 	 * @return void
 	 */
-	public function enqueue_preview_scripts() {
+	public function enqueue_preview() {
 		wp_enqueue_script( 'carelib-customize-preview' );
 	}
 

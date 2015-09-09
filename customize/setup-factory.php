@@ -55,6 +55,7 @@ class CareLib_Customize_Setup_Factory extends CareLib_Factory {
 			$classes[] = 'register';
 			$classes[] = 'scripts';
 			$classes[] = 'settings';
+			$classes[] = 'styles';
 		}
 
 		return apply_filters( "{$this->prefix}_customize_setup_classes", $classes );
