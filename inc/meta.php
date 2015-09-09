@@ -1,6 +1,6 @@
 <?php
 /**
- * Metadata functions used in the core framework.
+ * Metadata functions used in the core library.
  *
  * This file registers meta keys for use in WordPress in a safe manner by
  * setting up a custom sanitize callback.
@@ -25,12 +25,12 @@ class CareLib_Meta {
 	protected $layouts;
 
 	/**
-	 * The scripts class object.
+	 * The styles class object.
 	 *
 	 * @since 0.2.0
-	 * @var   CareLib_Scripts
+	 * @var   CareLib_Styles
 	 */
-	protected $scripts;
+	protected $styles;
 
 	/**
 	 * Constructor method.
@@ -39,7 +39,7 @@ class CareLib_Meta {
 	 */
 	public function __construct() {
 		$this->layouts = carelib_get( 'layouts' );
-		$this->scripts = carelib_get( 'public-scripts' );
+		$this->styles = carelib_get( 'public-styles' );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class CareLib_Meta {
 	}
 
 	/**
-	 * Registers the framework's custom metadata keys and sets up the sanitize
+	 * Registers the library's custom metadata keys and sets up the sanitize
 	 * callback function.
 	 *
 	 * @since  0.2.0
@@ -102,7 +102,7 @@ class CareLib_Meta {
 		// Post styles meta.
 		register_meta(
 			'post',
-			$this->scripts->get_style_meta_key(),
+			$this->styles->get_style_meta_key(),
 			'sanitize_text_field',
 			'__return_false'
 		);
