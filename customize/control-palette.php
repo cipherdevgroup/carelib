@@ -37,7 +37,7 @@ class CareLib_Customize_Control_Palette extends WP_Customize_Control {
 	 */
 	public function enqueue() {
 		wp_enqueue_script( 'carelib-customize-controls' );
-		wp_enqueue_style(  'carelib-customize-controls' );
+		wp_enqueue_style( 'carelib-customize-controls' );
 	}
 
 	/**
@@ -51,8 +51,9 @@ class CareLib_Customize_Control_Palette extends WP_Customize_Control {
 		parent::to_json();
 
 		// Make sure the colors have a hash.
-		foreach ( $this->choices as $choice => $value )
+		foreach ( $this->choices as $choice => $value ) {
 			$this->choices[ $choice ]['colors'] = array_map( 'maybe_hash_hex_color', $value['colors'] );
+		}
 
 		$this->json['choices'] = $this->choices;
 		$this->json['link']    = $this->get_link();
