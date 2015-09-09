@@ -14,6 +14,9 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
+
+	private static $logo;
+
 	/**
 	 * Constructor for our custom control.
 	 *
@@ -22,7 +25,7 @@ class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 	 * @param array $args
 	 * @uses Site_Logo_Image_Control::l10n()
 	 */
-	public function __construct( $args = array() ) {
+	public function __construct( $manager, $id, $args = array() ) {
 		// declare these first so they can be overridden
 		$this->l10n = array(
 			'upload'      => __( 'Add logo',    'carelib' ),
@@ -33,7 +36,7 @@ class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 			'placeholder' => __( 'No logo set', 'carelib' ),
 		);
 
-		parent::__construct( $args[0], $args[1], $args[2] );
+		parent::__construct( $manager, $id, $args );
 	}
 
 	/**
@@ -60,22 +63,22 @@ class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 	 * @uses plugins_url()
 	 */
 	public function enqueue() {
-		$uri = carelib()->get_uri();
-		// Enqueues all needed media resources.
 		wp_enqueue_media();
+		wp_enqueue_style( 'carelib-customize-controls' );
+		wp_enqueue_script( 'site-logo-control' );
+	}
 
-		// Enqueue our control script and styles.
-		wp_enqueue_style(
-			'site-logo-control',
-			esc_url( "${uri}css/site-logo-control.css" )
-		);
-		wp_enqueue_script(
-			'site-logo-control',
-			esc_url( "{$uri}js/site-logo-control.js" ),
-			array( 'media-views', 'customize-controls', 'underscore' ),
-			'',
-			true
-		);
+	/**
+	 * Get the site logo url.
+	 *
+	 * @uses get_option()
+	 * @return boolean
+	 */
+	protected function get_logo_url() {
+		if ( is_null( self::$logo ) ) {
+			self::$logo = get_option( 'site_logo' );
+		}
+		return self::$logo['url'];
 	}
 
 	/**
@@ -85,12 +88,8 @@ class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 	 * @return boolean
 	 */
 	public function has_site_logo() {
-		$logo = get_option( 'site_logo' );
-
-		if ( ! empty( $logo['url'] ) ) {
-			return true;
-		}
-		return false;
+		$logo = $this->get_logo_url();
+		return empty( $logo ) ? false : true;
 	}
 
 	/**
@@ -126,4 +125,5 @@ class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 		<div class="actions"></div>
 		<?php
 	}
+
 }

@@ -76,14 +76,12 @@ class CareLib_Customize_Settings_Site_Logo extends CareLib_Customize_Base {
 		// Add our image uploader.
 		$wp_customize->add_control(
 			new CareLib_Customize_Control_Site_Logo(
+				$wp_customize,
+				'site_logo',
 				array(
-					$wp_customize,
-					'site_logo',
-					array(
-						'label'    => __( 'Logo', 'carelib' ),
-						'section'  => 'title_tagline',
-						'settings' => 'site_logo',
-					),
+					'label'    => __( 'Logo', 'carelib' ),
+					'section'  => 'title_tagline',
+					'settings' => 'site_logo',
 				)
 			)
 		);
@@ -99,13 +97,7 @@ class CareLib_Customize_Settings_Site_Logo extends CareLib_Customize_Base {
 	 * @uses wp_localize_script()
 	 */
 	public function scripts() {
-		wp_enqueue_script(
-			'site-logo-preview',
-			esc_url( carelib()->get_uri( 'js/site-logo-preview.js' ) ),
-			array( 'media-views' ),
-			'',
-			true
-		);
+		wp_enqueue_script( 'site-logo-preview' );
 	}
 
 	/**
