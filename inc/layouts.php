@@ -137,6 +137,28 @@ class CareLib_Layouts {
 	}
 
 	/**
+	 * Default filter on the `theme_mod_theme_layout` hook.
+	 *
+	 * By default, we'll check for per-post or per-author layouts saved as
+	 * metadata. If set, we'll filter. Else, just return the global layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string  $theme_layout
+	 * @return string
+	 */
+	public function filter_layout( $theme_layout ) {
+		if ( is_singular() ) {
+			$layout = $this->get_post_layout( get_queried_object_id() );
+		}
+		if ( is_author() ) {
+			$layout = $this->get_user_layout( get_queried_object_id() );
+		}
+
+		return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
+	}
+
+	/**
 	 * Wrapper function for returning the metadata key used for objects that can
 	 * use layouts.
 	 *
@@ -170,28 +192,6 @@ class CareLib_Layouts {
 	 */
 	public function get_user_layout( $user_id ) {
 		return get_user_meta( $user_id, $this->get_meta_key(), true );
-	}
-
-	/**
-	 * Default filter on the `theme_mod_theme_layout` hook.
-	 *
-	 * By default, we'll check for per-post or per-author layouts saved as
-	 * metadata. If set, we'll filter. Else, just return the global layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $theme_layout
-	 * @return string
-	 */
-	public function filter_layout( $theme_layout ) {
-		if ( is_singular() ) {
-			$layout = $this->get_post_layout( get_queried_object_id() );
-		}
-		if ( is_author() ) {
-			$layout = $this->get_user_layout( get_queried_object_id() );
-		}
-
-		return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
 	}
 
 	/**
