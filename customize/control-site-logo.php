@@ -13,11 +13,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Custom logo uploader control for the Customizer.
- *
- * @package CareLib
- */
 class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 	/**
 	 * Constructor for our custom control.

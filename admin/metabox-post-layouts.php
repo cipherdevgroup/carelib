@@ -12,11 +12,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * A class to load a layout metabox on the post edit screen.
- *
- * @package CareLib
- */
 class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 
 	/**

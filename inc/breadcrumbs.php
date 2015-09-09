@@ -11,11 +11,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Creates options for displaying breadcrumbs if they exist.
- *
- * @since 0.6.0
- */
 class CareLib_Breadcrumbs {
 
 	/**

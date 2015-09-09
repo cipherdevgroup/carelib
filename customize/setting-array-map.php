@@ -11,12 +11,6 @@
  * @since     0.2.0
  */
 
-/**
- * Handles an array of values by running the `sanitize_callback` through `array_map()`.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 
 	/**

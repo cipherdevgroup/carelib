@@ -11,12 +11,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Layouts class. This is the backbone of the Layouts API.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Layouts {
 
 	/**

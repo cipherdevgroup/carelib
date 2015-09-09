@@ -14,9 +14,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Sidebar Class.
- */
 class CareLib_Sidebar {
 
 	/**

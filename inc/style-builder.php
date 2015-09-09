@@ -16,14 +16,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Style Builder class.
- *
- * Based on the TTFMAKE_CSS class by The Theme Foundry.
- *
- * @since   0.1.0
- * @version 0.1.0
- */
 class CareLib_Style_Builder {
 
 	/**

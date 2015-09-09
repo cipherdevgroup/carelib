@@ -12,12 +12,6 @@
  * @since     0.2.0
  */
 
-/**
- * Class for getting images related to a post.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Image_Grabber {
 
 	/**

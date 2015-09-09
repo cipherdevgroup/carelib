@@ -14,9 +14,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Template Post Class.
- */
 class CareLib_Template_Entry {
 
 	/**

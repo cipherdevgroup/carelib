@@ -12,9 +12,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Template Tags Class.
- */
 class CareLib_Template_Media {
 
 	/**

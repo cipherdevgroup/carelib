@@ -16,9 +16,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Filters class.
- */
 class CareLib_Template_Hierarchy {
 
 	/**

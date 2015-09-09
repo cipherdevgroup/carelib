@@ -17,15 +17,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib_Customize_Base
- *
- * An abstract class to provide basic helper methods to use when registering new
- * customizer sections within a theme.
- *
- * @since   0.1.0
- * @version 0.1.0
- */
 abstract class CareLib_Customize_Base {
 
 	/**

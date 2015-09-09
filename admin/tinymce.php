@@ -11,11 +11,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * A class to customize the default styleselect options in the WP TinyMCE.
- *
- * @package CareLib
- */
 class CareLib_Admin_TinyMCE {
 
 	/**

@@ -15,9 +15,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Search Form Class.
- */
 class CareLib_Search_Form {
 
 	protected $id;

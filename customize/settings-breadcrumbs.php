@@ -11,11 +11,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Our Breadcrumb display class for managing breadcrumbs through the Customizer.
- *
- * @package CareLib
- */
 class CareLib_Customize_Settings_Breadcrumbs extends CareLib_Customize_Base {
 
 	protected $section;

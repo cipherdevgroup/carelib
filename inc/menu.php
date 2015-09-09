@@ -11,9 +11,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Menu Class.
- */
 class CareLib_Menu {
 
 	/**

@@ -11,11 +11,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * A class to load a layout metabox on the post edit screen.
- *
- * @package CareLib
- */
 class CareLib_Admin_Scripts extends CareLib_Scripts {
 
 	/**

@@ -16,12 +16,6 @@
  * @since     0.2.0
  */
 
-/**
- * Saves image data in addition to the URL.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Customize_Setting_Image_Data extends WP_Customize_Setting {
 
 	/**

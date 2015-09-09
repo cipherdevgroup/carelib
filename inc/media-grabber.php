@@ -18,13 +18,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Grabs media related to the post.
- *
- * @since  0.2.0
- * @access public
- * @return void
- */
 class CareLib_Media_Grabber {
 
 	/**

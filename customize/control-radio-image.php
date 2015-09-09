@@ -15,12 +15,6 @@
  * @since     0.2.0
  */
 
-/**
- * Radio image customize control.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 
 	/**

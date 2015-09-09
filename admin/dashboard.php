@@ -11,12 +11,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Our CareLib_Dashboard class which creates a user-focused dashboard page.
- *
- * @package CareLibDashboard
- * @version 0.1.0
- */
 class CareLib_Admin_Dashboard {
 
 	/**

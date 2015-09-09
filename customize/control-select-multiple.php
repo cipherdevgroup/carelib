@@ -11,12 +11,6 @@
  * @since     0.2.0
  */
 
-/**
- * Multiple select customize control class.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Customize_Control_Select_Multiple extends WP_Customize_Control {
 
 	/**

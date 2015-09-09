@@ -14,12 +14,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Creates new layout objects.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Layout {
 
 	/**

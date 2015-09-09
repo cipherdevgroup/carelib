@@ -14,9 +14,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Translations class.
- */
 class CareLib_i18n {
 
 	/**

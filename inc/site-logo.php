@@ -13,11 +13,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Our Site Logo class for managing a theme-agnostic logo through the Customizer.
- *
- * @package CareLib
- */
 class CareLib_Site_Logo {
 
 	/**

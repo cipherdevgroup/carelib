@@ -11,12 +11,6 @@
  * @since     0.2.0
  */
 
-/**
- * Theme Layout customize control class.
- *
- * @since  0.2.0
- * @access public
- */
 class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_Image {
 
 	/**

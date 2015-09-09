@@ -11,9 +11,6 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * CareLib Support class.
- */
 class CareLib_Support {
 
 	/**
