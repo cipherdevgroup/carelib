@@ -66,6 +66,7 @@ class CareLib_Library_Factory extends CareLib_Factory {
 			$classes[] = 'head';
 			$classes[] = 'meta';
 			$classes[] = 'public-scripts';
+			$classes[] = 'public-styles';
 			$classes[] = 'search-form';
 			$classes[] = 'template-hierarchy';
 		}
