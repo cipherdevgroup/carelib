@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CareLib
  */
-class CareLib_Admin_Scripts extends CareLib_Scripts {
+class CareLib_Admin_Styles extends CareLib_Styles {
 
 	/**
 	 * Get our class up and running!
@@ -38,7 +38,7 @@ class CareLib_Admin_Scripts extends CareLib_Scripts {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_action( 'admin_enqueue_scripts',  array( $this, 'register' ), 0 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register' ), 0 );
 	}
 
 	/**
@@ -49,12 +49,17 @@ class CareLib_Admin_Scripts extends CareLib_Scripts {
 	 * @return void
 	 */
 	public function register() {
-		wp_register_script(
+		wp_register_style(
+			'carelib-admin',
+			$this->css_uri( "carelib-admin{$this->suffix}.css" ),
+			null,
+			$this->version
+		);
+		wp_register_style(
 			'carelib-dashboard',
-			$this->js_uri( "carelib-dashboard{$this->suffix}.js" ),
-			array( 'jquery-ui-tabs' ),
-			$this->version,
-			true
+			$this->css_uri( "carelib-dashboard{$this->suffix}.css" ),
+			null,
+			$this->version
 		);
 	}
 
