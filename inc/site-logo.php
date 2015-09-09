@@ -44,9 +44,7 @@ class CareLib_Site_Logo {
 	 * @return object CareLib_Site_Logo
 	 */
 	public function run() {
-		if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
-			$this->wp_hooks();
-		}
+		$this->wp_hooks();
 	}
 
 	/**
@@ -175,7 +173,7 @@ class CareLib_Site_Logo {
 	 * @return boolean True if there is an active logo, false otherwise
 	 */
 	public function has_site_logo() {
-		return ( isset( $this->logo['id'] ) && 0 !== $this->logo['id'] ) ? true : false;
+		return ( isset( $this->logo['id'] ) && 0 !== $this->logo['id'] ) ? current_theme_supports( 'site-logo' ) : false;
 	}
 
 	/**

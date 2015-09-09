@@ -37,7 +37,9 @@ class CareLib_Customize_Setup_Settings {
 	}
 
 	public function load_customizer_settings() {
-		carelib_get( 'customize-settings-site-logo' );
+		if ( current_theme_supports( 'site-logo' ) && ! function_exists( 'jetpack_the_site_logo' ) ) {
+			carelib_get( 'customize-settings-site-logo' );
+		}
 
 		if ( carelib_get( 'breadcrumbs' )->plugin_is_active() ) {
 			carelib_get( 'customize-settings-breadcrumbs' );
