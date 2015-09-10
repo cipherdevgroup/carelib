@@ -23,6 +23,14 @@ class CareLib_Image_Grabber {
 	protected $prefix;
 
 	/**
+	 * Property for storing images which have been grabbed.
+	 *
+	 * @since 0.2.0
+	 * @var   array
+	 */
+	protected static $images = array();
+
+	/**
 	 * Constructor method.
 	 *
 	 * @since 0.2.0
@@ -111,11 +119,14 @@ class CareLib_Image_Grabber {
 	}
 
 	function search_content( $args ) {
+		$id    = $args['post_id'];
 		$key   = md5( serialize( compact( array_keys( $args ) ) ) );
-		$cache = (array) wp_cache_get( $args['post_id'], "{$this->prefix}_image_grabber" );
+		$cache = (array) wp_cache_get( $id, "{$this->prefix}_image_grabber" );
 
 		if ( ! empty( $cache[ $key ] ) ) {
 			return $cache[ $key ];
+		} elseif ( ! empty( self::$images[ $id ] ) ) {
+			return self::$images[ $id ];
 		}
 
 		$image = '';
@@ -147,7 +158,9 @@ class CareLib_Image_Grabber {
 		$html = $this->get_format( $args, $image );
 
 		$cache[ $key ] = $html;
-		wp_cache_set( $args['post_id'], $cache, "{$this->prefix}_image_grabber" );
+
+		self::$images[ $id ] = $html;
+		wp_cache_set( $id, $cache, "{$this->prefix}_image_grabber" );
 
 		return $image;
 	}
