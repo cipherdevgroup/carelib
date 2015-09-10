@@ -2,8 +2,7 @@
 /**
  * Layout class for creating new layout objects.
  *
- * Layout registration is handled via the `CareLib_Layouts` class in
- * `class-layouts.php`.
+ * Registration is handled in the `CareLib_Layouts` class in `class-layouts.php`.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2015, WP Site Care, LLC
@@ -72,7 +71,7 @@ class CareLib_Layout {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->name;
+		return (string) $this->name;
 	}
 
 	/**
