@@ -124,17 +124,14 @@ class CareLib_Image_Grabber {
 			$image = $this->get_by_meta_key( $args );
 		}
 
-		/* If no image found and $featured is set to true, check for a post image (WP feature). */
 		if ( empty( $image ) && ! empty( $args['featured'] ) ) {
 			$image = $this->get_by_post_thumbnail( $args );
 		}
 
-		/* If no image found and $attachment is set to true, check for an image by attachment. */
 		if ( empty( $image ) && ! empty( $args['attachment'] ) ) {
 			$image = $this->get_by_attachment( $args );
 		}
 
-		/* If no image found and a $default_image is set, get the default image. */
 		if ( empty( $image ) && ! empty( $args['default_image'] ) ) {
 			$image = $this->get_by_default( $args );
 		}
@@ -199,9 +196,9 @@ class CareLib_Image_Grabber {
 	/**
 	 * Get image by custom field key.
 	 *
-	 * @since 0.2.0
+	 * @since  0.2.0
 	 * @access protected
-	 * @param array $args Arguments for how to load and display the image.
+	 * @param  array $args Arguments for how to load and display the image.
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
 	protected function get_by_meta_key( $args ) {
@@ -309,8 +306,11 @@ class CareLib_Image_Grabber {
 	 * @param  array $args Arguments for how to load and display the image.
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
-	protected function get_by_default( $args = array() ) {
-		return array( 'src' => $args['default_image'], 'url' => $args['default_image'] );
+	protected function get_by_default( $args ) {
+		return array(
+			'src' => $args['default_image'],
+			'url' => $args['default_image'],
+		);
 	}
 
 	protected function format_classes( $classes, $meta_key, $size, $image_class ) {
@@ -408,7 +408,7 @@ class CareLib_Image_Grabber {
 	 *
 	 * @since  0.2.0
 	 * @access protected
-	 * @param  int      $post_id  The ID of the post to delete the cache for.
+	 * @param  int $post_id The ID of the post to delete the cache for.
 	 * @return void
 	 */
 	public function delete_cache_by_post( $post_id ) {
