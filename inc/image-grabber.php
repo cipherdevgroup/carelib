@@ -80,7 +80,7 @@ class CareLib_Image_Grabber {
 	 *
 	 * The image check order is important to note here.  If an image is found by any specific check, the script
 	 * will no longer look for images.  The check order is 'meta_key', 'the_post_thumbnail', 'attachment',
-	 * 'image_scan', 'callback', and 'default_image'.
+	 * and 'default_image'.
 	 *
 	 * @since 0.2.0
 	 * @access public
@@ -96,16 +96,14 @@ class CareLib_Image_Grabber {
 			'the_post_thumbnail' => true, // WP 2.9+ image function
 			'size'               => 'thumbnail',
 			'default_image'      => false,
-			'order_of_image'     => 1,
+			'order'              => array( 'meta_key', 'featured', 'attachment', 'default' ),
 			'link_to_post'       => true,
 			'image_class'        => false,
-			'image_scan'         => false,
 			'width'              => false,
 			'height'             => false,
 			'format'             => 'img',
 			'meta_key_save'      => false,
 			'thumbnail_id_save'  => false, // Set 'featured image'.
-			'callback'           => null,
 			'cache'              => true,
 			'before'             => '',
 			'after'              => '',
@@ -156,16 +154,6 @@ class CareLib_Image_Grabber {
 		/* If no image found and $attachment is set to true, check for an image by attachment. */
 		if ( empty( $image ) && ! empty( $args['attachment'] ) ) {
 			$image = $this->get_by_attachment( $args );
-		}
-
-		/* If no image found and $image_scan is set to true, scan the post for images. */
-		if ( empty( $image ) && ! empty( $args['image_scan'] ) ) {
-			$image = $this->get_by_scan( $args );
-		}
-
-		/* If no image found and a callback function was given. Callback function must pass back array of <img> attributes. */
-		if ( empty( $image ) && ! is_null( $args['callback'] ) && function_exists( $args['callback'] ) ) {
-			$image = call_user_func( $callback, $args );
 		}
 
 		/* If no image found and a $default_image is set, get the default image. */
@@ -341,28 +329,6 @@ class CareLib_Image_Grabber {
 		}
 
 		return array( 'src' => $image[0], 'url' => $image[0], 'alt' => $alt );
-	}
-
-	/**
-	 * Scans the post for images within the content.  Not called by default with $this->get().  Shouldn't use
-	 * if using large images within posts, better to use the other options.
-	 *
-	 * @since 0.2.0
-	 * @access protected
-	 * @param array $args Arguments for how to load and display the image.
-	 * @return array|bool Array of image attributes. | False if no image is found.
-	 */
-	protected function get_by_scan( $args = array() ) {
-
-		/* Search the post's content for the <img /> tag and get its URL. */
-		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post_field( 'post_content', $args['post_id'] ), $matches );
-
-		/* If there is a match for the image, return its URL. */
-		if ( isset( $matches ) && ! empty( $matches[1][0] ) ) {
-			return array( 'src' => $matches[1][0], 'url' => $matches[1][0] );
-		}
-
-		return false;
 	}
 
 	/**
