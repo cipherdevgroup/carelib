@@ -31,6 +31,22 @@ class CareLib_Image_Grabber {
 	protected static $images = array();
 
 	/**
+	 * Property for storing the cache key.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected static $cache_key = '';
+
+	/**
+	 * Property for storing the image cache.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected static $cache = array();
+
+	/**
 	 * Constructor method.
 	 *
 	 * @since 0.2.0
@@ -77,14 +93,14 @@ class CareLib_Image_Grabber {
 	public function grab_the_image( $args = array(), $echo = true ) {
 		$args = wp_parse_args( $args, apply_filters( "{$this->prefix}_image_grabber_defaults",
 			array(
-				'meta_key'          => array( 'Thumbnail', 'thumbnail' ),
 				'post_id'           => get_the_ID(),
-				'attachment'        => true,
+				'meta_key'          => array( 'Thumbnail', 'thumbnail' ),
 				'featured'          => true,
+				'attachment'        => true,
 				'size'              => 'thumbnail',
 				'default_image'     => false,
-				'order'             => array( 'meta_key', 'featured', 'attachment', 'default' ),
 				'link_to_post'      => true,
+				'link_class'        => false,
 				'image_class'       => false,
 				'width'             => false,
 				'height'            => false,
@@ -118,36 +134,42 @@ class CareLib_Image_Grabber {
 		$this->image( $image, $args );
 	}
 
-	function search_content( $args ) {
-		$id    = $args['post_id'];
-		$key   = md5( serialize( compact( array_keys( $args ) ) ) );
-		$cache = (array) wp_cache_get( $id, "{$this->prefix}_image_grabber" );
+	function setup_cache( $args ) {
+		if ( $args['cache'] ) {
+			self::$cache_key = md5( serialize( compact( array_keys( $args ) ) ) );
+			self::$cache     = (array) wp_cache_get( $args['post_id'], "{$this->prefix}_image_grabber" );
+		}
+	}
 
-		if ( ! empty( $cache[ $key ] ) ) {
-			return $cache[ $key ];
+	function get_cache( $id ) {
+		if ( ! empty( self::$cache[ self::$cache_key ] ) ) {
+			return self::$cache[ self::$cache_key ];
 		} elseif ( ! empty( self::$images[ $id ] ) ) {
 			return self::$images[ $id ];
 		}
+		return false;
+	}
 
-		$image = '';
+	function set_cache( $html, $args ) {
+		self::$images[ $args['post_id'] ] = $html;
 
-		if ( ! empty( $args['meta_key'] ) ) {
-			$image = $this->get_by_meta_key( $args );
+		if ( $args['cache'] ) {
+			wp_cache_set(
+				$args['post_id'],
+				array( self::$cache_key => $html ),
+				"{$this->prefix}_image_grabber"
+			);
+		}
+	}
+
+	function search_content( $args ) {
+		$this->setup_cache( $args );
+
+		if ( $cache = $this->get_cache( $args['post_id'] ) ) {
+			return $cache;
 		}
 
-		if ( empty( $image ) && ! empty( $args['featured'] ) ) {
-			$image = $this->get_by_post_thumbnail( $args );
-		}
-
-		if ( empty( $image ) && ! empty( $args['attachment'] ) ) {
-			$image = $this->get_by_attachment( $args );
-		}
-
-		if ( empty( $image ) && ! empty( $args['default_image'] ) ) {
-			$image = $this->get_by_default( $args );
-		}
-
-		if ( empty( $image ) ) {
+		if ( ! $image = $this->get_image_by( $args ) ) {
 			return false;
 		}
 
@@ -155,32 +177,57 @@ class CareLib_Image_Grabber {
 			$this->get_meta_key_save( $args, $image );
 		}
 
-		$html = $this->get_format( $args, $image );
-
-		$cache[ $key ] = $html;
-
-		self::$images[ $id ] = $html;
-		wp_cache_set( $id, $cache, "{$this->prefix}_image_grabber" );
+		$this->set_cache( $this->get_format( $args, $image ), $args );
 
 		return $image;
+	}
+
+	protected function get_image_by( $args ) {
+		if ( ! empty( $args['meta_key'] ) ) {
+			if ( $image = $this->get_by_meta_key( $args ) ) {
+				return $image;
+			}
+		}
+
+		if ( ! empty( $args['featured'] ) ) {
+			if ( $image = $this->get_by_post_thumbnail( $args ) ) {
+				return $image;
+			}
+		}
+
+		if ( ! empty( $args['attachment'] ) ) {
+			if ( $image = $this->get_by_attachment( $args ) ) {
+				return $image;
+			}
+		}
+
+		if ( ! empty( $args['default_image'] ) ) {
+			if ( $image = $this->get_by_default( $args ) ) {
+				return $image;
+			}
+		}
+
+		return false;
+	}
+
+	protected function get_raw_image( $html ) {
+		$output = array();
+
+		foreach ( wp_kses_hair( $html, array( 'http', 'https' ) ) as $attr ) {
+			$output[ $attr['name'] ] = $attr['value'];
+		}
+
+		return $output;
 	}
 
 	protected function get_image( $image, $args ) {
 		$html = $this->get_format( $args, $image );
 
 		if ( 'array' === $args['format'] ) {
-			$out = array();
-
-			$atts = wp_kses_hair( $html, array( 'http', 'https' ) );
-
-			foreach ( $atts as $att ) {
-				$out[ $att['name'] ] = $att['value'];
-			}
-
-			return $out;
+			return $this->get_raw_image( $html );
 		}
 
-		return ! empty( $html ) ? $args['before'] . $html . $args['after'] : $image;
+		return empty( $html ) ? $image : "{$args['before']}{$html}{$args['after']}";
 	}
 
 	protected function image( $image, $args ) {
@@ -266,7 +313,7 @@ class CareLib_Image_Grabber {
 	 * @param  array $args Arguments for how to load and display the image.
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
-	protected function get_by_attachment( $args = array() ) {
+	protected function get_by_attachment( $args ) {
 		$post_type = get_post_type( $args['post_id'] );
 
 		if ( 'attachment' === $post_type && wp_attachment_is_image( $args['post_id'] ) ) {
@@ -330,7 +377,7 @@ class CareLib_Image_Grabber {
 		$classes = array();
 		if ( is_array( $meta_key ) ) {
 			foreach ( $meta_key as $key ) {
-				$classes[] = sanitize_html_class( $key );
+				$classes[] = sanitize_html_class( strtolower( $key ) );
 			}
 		}
 
@@ -342,6 +389,10 @@ class CareLib_Image_Grabber {
 
 	protected function format_size( $size, $type ) {
 		return empty( $size ) ? '' : ' ' . esc_attr( $type ) . '="' . esc_attr( $size ) . '"';
+	}
+
+	protected function format_class( $class ) {
+		return empty( $class ) ? '' : ' class="' . sanitize_html_class( $class ) . '"';
 	}
 
 	/**
@@ -375,8 +426,9 @@ class CareLib_Image_Grabber {
 		);
 
 		if ( $args['link_to_post'] ) {
-			$html = sprintf( '<a href="%s" title="%s">%s</a>',
+			$html = sprintf( '<a href="%s"%s title="%s">%s</a>',
 				get_permalink( $args['post_id'] ),
+				$this->format_class( $args['link_class'] ),
 				esc_attr( $title_attr ),
 				$html
 			);
