@@ -313,7 +313,8 @@ class CareLib_Image_Grabber {
 		);
 	}
 
-	protected function format_classes( $classes, $meta_key, $size, $image_class ) {
+	protected function format_classes( $meta_key, $size, $image_class ) {
+		$classes = array();
 		if ( is_array( $meta_key ) ) {
 			foreach ( $meta_key as $key ) {
 				$classes[] = sanitize_html_class( $key );
@@ -345,9 +346,7 @@ class CareLib_Image_Grabber {
 			return false;
 		}
 
-		extract( $args );
-
-		$title_attr = apply_filters( 'the_title', get_post_field( 'post_title', $post_id ) );
+		$title_attr = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
 		$image_alt  = $title_attr;
 
 		if ( ! empty( $image['alt'] ) ) {
@@ -357,21 +356,26 @@ class CareLib_Image_Grabber {
 		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s %s />',
 			$image['src'],
 			wp_strip_all_tags( $image_alt, true ),
-			$this->format_classes( $classes, $meta_key, $size, $image_class ),
-			$this->format_size( $width, 'width' ),
-			$this->format_size( $height, 'height' )
+			$this->format_classes( $args['meta_key'], $args['size'], $args['image_class'] ),
+			$this->format_size( $args['width'], 'width' ),
+			$this->format_size( $args['height'], 'height' )
 		);
 
-		if ( $link_to_post ) {
+		if ( $args['link_to_post'] ) {
 			$html = sprintf( '<a href="%s" title="%s">%s</a>',
-				get_permalink( $post_id ),
+				get_permalink( $args['post_id'] ),
 				esc_attr( $title_attr ),
 				$html
 			);
 		}
 
 		if ( ! empty( $image['post_thumbnail_id'] ) ) {
-			$html = apply_filters( 'post_thumbnail_html', $html, $post_id, $image['post_thumbnail_id'], $size, '' );
+			$html = apply_filters( 'post_thumbnail_html', $html,
+				$args['post_id'],
+				$image['post_thumbnail_id'],
+				$args['size'],
+				''
+			);
 		}
 
 		return $html;
