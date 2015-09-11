@@ -572,8 +572,8 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Adds array of srcset image sources and descriptors based on the `srcset_sizes` argument
-	 * provided by the developer.
+	 * Adds an array of srcset image sources and descriptors based on the
+	 * `srcset_sizes` argument.
 	 *
 	 * @since  0.2.0
 	 * @access protected
