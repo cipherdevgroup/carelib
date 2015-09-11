@@ -51,42 +51,7 @@ class CareLib_Image_Grabber {
 		$this->prefix = carelib()->get_prefix();
 	}
 
-	/**
-	 * Get our class up and running!
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function run() {
-		$this->wp_hooks();
-	}
-
-	/**
-	 * Register our actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @uses   add_action
-	 * @return void
-	 */
-	protected function wp_hooks() {
-		add_action( 'save_post',         array( $this, 'delete_cache_by_post' ), 10 );
-		add_action( 'deleted_post_meta', array( $this, 'delete_cache_by_meta' ), 10, 2 );
-		add_action( 'updated_post_meta', array( $this, 'delete_cache_by_meta' ), 10, 2 );
-		add_action( 'added_post_meta',   array( $this, 'delete_cache_by_meta' ), 10, 2 );
-	}
-
-	/**
-	 * Get a post image in a specified way and either return or echo it.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  array $args Arguments for how to load and display the image.
-	 * @param  bool $echo true to echo, false to return.
-	 * @return string|array The HTML for the image. | Image attributes in an array.
-	 */
-	public function grab_the_image( $args = array(), $echo = true ) {
+	protected function setup_args( $args ) {
 		$args = wp_parse_args( $args, apply_filters( "{$this->prefix}_image_grabber_defaults",
 			array(
 				'post_id'           => get_the_ID(),
@@ -110,25 +75,15 @@ class CareLib_Image_Grabber {
 			)
 		) );
 
-		// Bail if there's no post_id for some reason.
 		if ( empty( $args['post_id'] ) ) {
 			return false;
 		}
 
 		if ( 'array' === $args['format'] ) {
 			$args['link_to_post'] = false;
-			$echo = false;
 		}
 
-		$image = apply_filters( "{$this->prefix}_image_grabber",
-			$this->search_content( $args )
-		);
-
-		if ( ! $echo ) {
-			return $this->get_image( $image, $args );
-		}
-
-		$this->image( $image, $args );
+		return $args;
 	}
 
 	/**
@@ -193,14 +148,14 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Search the content are for an image to grab. Uses cache if it's available.
+	 * Search the content are for an image to grab. Use cache if it's available.
 	 *
 	 * @since  0.2.0
 	 * @access protected
 	 * @param  array $args Arguments for how to load and display an image.
 	 * @return bool|array $image a grabbed image properties or false if no image is found
 	 */
-	protected function search_content( $args ) {
+	protected function find_the_image( $args ) {
 		$this->setup_cache( $args );
 
 		if ( $cache = $this->get_cache( $args['post_id'] ) ) {
@@ -215,9 +170,9 @@ class CareLib_Image_Grabber {
 			$this->get_meta_key_save( $args, $image );
 		}
 
-		$this->set_cache( $this->get_format( $args, $image ), $args );
+		$this->set_cache( $this->format_image( $args, $image ), $args );
 
-		return $image;
+		return apply_filters( "{$this->prefix}_image_grabber_image", $image );
 	}
 
 	/**
@@ -272,57 +227,6 @@ class CareLib_Image_Grabber {
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Return a grabbed image.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @param  array $image an array of image attributes.
-	 * @param  array $args Arguments for how to load and display an image.
-	 * @return string|array the raw image string or an array of image attributes
-	 */
-	protected function get_image( $image, $args ) {
-		$html = $this->get_format( $args, $image );
-
-		if ( 'array' === $args['format'] ) {
-			return $this->get_raw_image( $html );
-		}
-
-		return empty( $html ) ? $image : "{$args['before']}{$html}{$args['after']}";
-	}
-
-	/**
-	 * Echo a grabbed image.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @param  array $image an array of image attributes.
-	 * @param  array $args Arguments for how to load and display an image.
-	 * @return void
-	 */
-	protected function image( $image, $args ) {
-		if ( 'array' === $args['format'] ) {
-			return;
-		}
-		if ( isset( $image['post_thumbnail_id'] ) ) {
-			do_action( 'begin_fetch_post_thumbnail_html',
-				$args['post_id'],
-				$image['post_thumbnail_id'],
-				$args['size']
-			);
-		}
-
-		echo $this->get_image( $image, $args );
-
-		if ( isset( $image['post_thumbnail_id'] ) ) {
-			do_action( 'end_fetch_post_thumbnail_html',
-				$args['post_id'],
-				$image['post_thumbnail_id'],
-				$args['size']
-			);
-		}
 	}
 
 	/**
@@ -479,7 +383,7 @@ class CareLib_Image_Grabber {
 	 * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
 	 * @return string $image Formatted image (w/link to post if the option is set).
 	 */
-	protected function get_format( $args, $image ) {
+	protected function format_image( $args, $image ) {
 		if ( empty( $image['src'] ) ) {
 			return false;
 		}
@@ -671,33 +575,6 @@ class CareLib_Image_Grabber {
 		}
 
 		update_post_meta( $args['post_id'], $args['meta_key_save'], $image['src'], $meta );
-	}
-
-	/**
-	 * Deletes the image cache for the specific post when the 'save_post' hook
-	 * is fired.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @param  int $post_id The ID of the post to delete the cache for.
-	 * @return void
-	 */
-	public function delete_cache_by_post( $post_id ) {
-		wp_cache_delete( $post_id, "{$this->prefix}_image_grabber" );
-	}
-
-	/**
-	 * Deletes the image cache for a specific post when the 'added_post_meta',
-	 * 'deleted_post_meta', or 'updated_post_meta' hooks are called.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @param  int $meta_id The ID of the metadata being updated.
-	 * @param  int $post_id The ID of the post to delete the cache for.
-	 * @return void
-	 */
-	public function delete_cache_by_meta( $meta_id, $post_id ) {
-		wp_cache_delete( $post_id, "{$this->prefix}_image_grabber" );
 	}
 
 }
