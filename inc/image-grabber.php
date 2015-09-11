@@ -93,7 +93,8 @@ class CareLib_Image_Grabber {
 				'meta_key'          => array( 'Thumbnail', 'thumbnail' ),
 				'featured'          => true,
 				'attachment'        => true,
-				'size'              => 'thumbnail',
+				'size'              => has_image_size( 'post-thumbnail' ) ? 'post-thumbnail': 'thumbnail',
+				'srcset_sizes'      => array(),
 				'default_image'     => false,
 				'link_to_post'      => true,
 				'link_class'        => false,
@@ -235,7 +236,7 @@ class CareLib_Image_Grabber {
 		}
 
 		if ( ! empty( $args['featured'] ) ) {
-			if ( $image = $this->get_by_post_thumbnail( $args ) ) {
+			if ( $image = $this->get_by_featured_image( $args ) ) {
 				return $image;
 			}
 		}
@@ -344,7 +345,7 @@ class CareLib_Image_Grabber {
 		$classes[] = sanitize_html_class( $size );
 		$classes[] = sanitize_html_class( $image_class );
 
-		return join( ' ', array_unique( $classes ) );
+		return trim( join( ' ', array_unique( $classes ) ) );
 	}
 
 	/**
@@ -372,18 +373,23 @@ class CareLib_Image_Grabber {
 		return empty( $class ) ? '' : ' class="' . sanitize_html_class( $class ) . '"';
 	}
 
+	protected function format_srcset( $srcset ) {
+		return empty( $srcset ) ? '' : sprintf( ' srcset="%s"', esc_attr( join( ', ', $this->srcsets ) ) );
+	}
+
 	protected function format_image_html( $args, $image ) {
 		$image_alt = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
 		if ( ! empty( $image['alt'] ) ) {
 			$image_alt = $image['alt'];
 		}
 
-		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s %s />',
+		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s%s%s />',
 			$image['src'],
 			wp_strip_all_tags( $image_alt, true ),
 			$this->sanitize_classes( $args['meta_key'], $args['size'], $args['image_class'] ),
-			$this->format_size( $args['width'], 'width' ),
-			$this->format_size( $args['height'], 'height' )
+			$this->format_srcset( $image['srcset'] ),
+			$this->format_size( $image['width'], 'width' ),
+			$this->format_size( $image['height'], 'height' )
 		);
 
 		return $this->maybe_add_link_wrapper( $html, $args );
@@ -463,24 +469,16 @@ class CareLib_Image_Grabber {
 	 * @param  array $args Arguments for how to load and display the image.
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
-	protected function get_by_post_thumbnail( $args ) {
+	protected function get_by_featured_image( $args ) {
 		$id = get_post_thumbnail_id( $args['post_id'] );
 
 		if ( empty( $id ) ) {
 			return false;
 		}
 
-		$image = wp_get_attachment_image_src(
-			$id,
-			apply_filters( 'post_thumbnail_size', $args['size'] )
-		);
+		$args['size'] = apply_filters( 'post_thumbnail_size', $args['size'] );
 
-		return empty( $image ) ? false : array(
-			'src' => $image[0],
-			'url' => $image[0],
-			'post_thumbnail_id' => $id,
-			'alt' => trim( strip_tags( get_post_field( 'post_excerpt', $id ) ) ),
-		);
+		return $this->get_image_attachment( $id, $args );
 	}
 
 	/**
@@ -495,48 +493,94 @@ class CareLib_Image_Grabber {
 	 * @return array|bool Array of image attributes. | False if no image is found.
 	 */
 	protected function get_by_attachment( $args ) {
-		$post_type = get_post_type( $args['post_id'] );
-
-		if ( 'attachment' === $post_type && wp_attachment_is_image( $args['post_id'] ) ) {
-			$attachment_id = $args['post_id'];
-		} elseif ( 'attachment' !== $post_type ) {
-
+		$id = false;
+		// Check if the post itself is an image attachment.
+		if ( wp_attachment_is_image( $args['post_id'] ) ) {
+			$id = $args['post_id'];
+		} else {
+			// Get attachments for the inputted $post_id.
 			$attachments = get_children(
 				array(
+					'numberposts'      => 1,
 					'post_parent'      => $args['post_id'],
 					'post_status'      => 'inherit',
 					'post_type'        => 'attachment',
 					'post_mime_type'   => 'image',
 					'order'            => 'ASC',
 					'orderby'          => 'menu_order ID',
-					'suppress_filters' => true,
+					'fields'           => 'ids',
 				)
 			);
 
+			// Check if any attachments were found.
 			if ( ! empty( $attachments ) ) {
-				$i = 0;
-				foreach ( $attachments as $id => $attachment ) {
-					$attachment_id = $id;
-					if ( ++$i === $args['order_of_image'] ) {
-						break;
-					}
-				}
+				$id = array_shift( $attachments );
 			}
 		}
 
-		if ( empty( $attachment_id ) ) {
+		return $this->get_image_attachment( $id, $args );
+	}
+
+	/**
+	 * Adds array of srcset image sources and descriptors based on the `srcset_sizes` argument
+	 * provided by the developer.
+	 *
+	 * @since  1.1.0
+	 * @access protected
+	 * @param  int $id
+	 * @return void
+	 */
+	protected function get_srcset( $id ) {
+		if ( empty( $args['srcset_sizes'] ) ) {
 			return false;
 		}
 
-		$image = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+		$srcsets = array();
+		foreach ( $args['srcset_sizes'] as $size => $descriptor ) {
 
-		$alt = trim( strip_tags( get_post_field( 'post_excerpt', $attachment_id ) ) );
+			$image = wp_get_attachment_image_src( $id, $size );
 
-		if ( true === $args['thumbnail_id_save'] ) {
-			set_post_thumbnail( $args['post_id'], $attachment_id );
+			// Make sure image doesn't match the image used for the `src` attribute.
+			// This will happen often if the particular image size doesn't exist.
+			if ( $image['src'] !== $image[0] ) {
+				$srcsets[] = sprintf( '%s %s', esc_url( $image[0] ), esc_attr( $descriptor ) );
+			}
 		}
 
-		return array( 'src' => $image[0], 'url' => $image[0], 'alt' => $alt );
+		return $srcsets;
+	}
+
+	/**
+	 * Get a WordPress image attachment.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  int $id
+	 * @return void
+	 */
+	protected function get_image_attachment( $id, $args ) {
+		if ( false === $id ) {
+			return false;
+		}
+
+		// Get the attachment image.
+		$image = wp_get_attachment_image_src( $id, $args['size'] );
+		$alt   = get_post_meta( $id, '_wp_attachment_image_alt', true );
+
+		// Save the attachment as the 'featured image'.
+		if ( true === $args['thumbnail_id_save'] ) {
+			$this->thumbnail_id_save( $id );
+		}
+
+		return empty( $image ) ? false : array(
+			'id'      => $id,
+			'src'     => $image[0],
+			'width'   => $image[1],
+			'height'  => $image[2],
+			'alt'     => trim( wp_strip_all_tags( $alt, true ) ),
+			'caption' => get_post_field( 'post_excerpt', $id ),
+			'srcset'  => $this->get_srcset( $id, $image ),
+		);
 	}
 
 	/**
