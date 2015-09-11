@@ -395,7 +395,7 @@ class CareLib_Image_Grabber {
 	 * @return string a formatted html srcset attribute.
 	 */
 	protected function format_srcset( $srcset ) {
-		return empty( $srcset ) ? '' : sprintf( ' srcset="%s"', esc_attr( join( ', ', $this->srcsets ) ) );
+		return empty( $srcset ) ? '' : sprintf( ' srcset="%s"', esc_attr( join( ', ', $srcset ) ) );
 	}
 
 	/**
