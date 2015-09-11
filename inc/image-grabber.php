@@ -339,6 +339,14 @@ class CareLib_Image_Grabber {
 			$image_alt = $image['alt'];
 		}
 
+		if ( isset( $image['post_thumbnail_id'] ) ) {
+			do_action( 'begin_fetch_post_thumbnail_html',
+				$args['post_id'],
+				$image['post_thumbnail_id'],
+				$args['size']
+			);
+		}
+
 		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s%s%s />',
 			$image['src'],
 			wp_strip_all_tags( $image_alt, true ),
@@ -347,6 +355,14 @@ class CareLib_Image_Grabber {
 			$this->format_size( $image['width'], 'width' ),
 			$this->format_size( $image['height'], 'height' )
 		);
+
+		if ( isset( $image['post_thumbnail_id'] ) ) {
+			do_action( 'end_fetch_post_thumbnail_html',
+				$args['post_id'],
+				$image['post_thumbnail_id'],
+				$args['size']
+			);
+		}
 
 		return $this->maybe_add_link_wrapper( $html, $args );
 	}
