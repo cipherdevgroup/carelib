@@ -372,6 +372,47 @@ class CareLib_Image_Grabber {
 		return empty( $class ) ? '' : ' class="' . sanitize_html_class( $class ) . '"';
 	}
 
+	protected function format_image_html( $args, $image ) {
+		$image_alt = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
+		if ( ! empty( $image['alt'] ) ) {
+			$image_alt = $image['alt'];
+		}
+
+		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s %s />',
+			$image['src'],
+			wp_strip_all_tags( $image_alt, true ),
+			$this->sanitize_classes( $args['meta_key'], $args['size'], $args['image_class'] ),
+			$this->format_size( $args['width'], 'width' ),
+			$this->format_size( $args['height'], 'height' )
+		);
+
+		return $this->maybe_add_link_wrapper( $html, $args );
+	}
+
+	protected function maybe_add_link_wrapper( $html, $args ) {
+		if ( ! $args['link_to_post'] ) {
+			return $html;
+		}
+		return sprintf( '<a href="%s"%s title="%s">%s</a>',
+			get_permalink( $args['post_id'] ),
+			$this->format_class( $args['link_class'] ),
+			esc_attr( apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) ) ),
+			$html
+		);
+	}
+
+	protected function maybe_add_thumbnail_html( $html, $image, $args ) {
+		if ( empty( $image['post_thumbnail_id'] ) ) {
+			return $html;
+		}
+		return apply_filters( 'post_thumbnail_html', $html,
+			$args['post_id'],
+			$image['post_thumbnail_id'],
+			$args['size'],
+			''
+		);
+	}
+
 	/**
 	 * Format an image with appropriate alt text and class. Adds a link if the
 	 * argument is set.
@@ -386,41 +427,11 @@ class CareLib_Image_Grabber {
 		if ( empty( $image['src'] ) ) {
 			return false;
 		}
-
-		$title_attr = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
-		$image_alt  = $title_attr;
-
-		if ( ! empty( $image['alt'] ) ) {
-			$image_alt = $image['alt'];
-		}
-
-		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s %s />',
-			$image['src'],
-			wp_strip_all_tags( $image_alt, true ),
-			$this->sanitize_classes( $args['meta_key'], $args['size'], $args['image_class'] ),
-			$this->format_size( $args['width'], 'width' ),
-			$this->format_size( $args['height'], 'height' )
+		return $this->maybe_add_thumbnail_html(
+			$this->format_image_html( $args, $image ),
+			$image,
+			$args
 		);
-
-		if ( $args['link_to_post'] ) {
-			$html = sprintf( '<a href="%s"%s title="%s">%s</a>',
-				get_permalink( $args['post_id'] ),
-				$this->format_class( $args['link_class'] ),
-				esc_attr( $title_attr ),
-				$html
-			);
-		}
-
-		if ( ! empty( $image['post_thumbnail_id'] ) ) {
-			$html = apply_filters( 'post_thumbnail_html', $html,
-				$args['post_id'],
-				$image['post_thumbnail_id'],
-				$args['size'],
-				''
-			);
-		}
-
-		return $html;
 	}
 
 	/**
