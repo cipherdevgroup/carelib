@@ -326,26 +326,39 @@ class CareLib_Image_Grabber {
 	}
 
 	/**
-	 * Return a formatted string of html classes.
+	 * Return a sanitized string of html classes.
 	 *
 	 * @since  0.2.0
 	 * @access protected
-	 * @param  string $size the size attribute to format.
-	 * @param  string $type the type of attribute being formatted (height or width)
-	 * @return string a formatted image size attribute of height or width.
+	 * @param  array $classes a raw array of html classes to be sanitized.
+	 * @return array a sanitized array of lowercase html class values.
 	 */
-	protected function sanitize_classes( $meta_key, $size, $image_class ) {
-		$classes = array();
-		if ( is_array( $meta_key ) ) {
-			foreach ( $meta_key as $key ) {
-				$classes[] = sanitize_html_class( strtolower( $key ) );
-			}
+	protected function sanitize_classes( $classes ) {
+		$classes = array_map( 'strtolower', $classes );
+		return array_map( 'sanitize_html_class', $classes );
+	}
+
+	/**
+	 * Build a sanitized string of html classes for our grabbed image.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display the image.
+	 * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+	 * @return string a formatted string of sanitized HTML classes.
+	 */
+	protected function build_image_classes( $args, $image ) {
+		$classes = array(
+			$image['height'] > $image['width'] ? 'portrait' : 'landscape',
+			$args['size'],
+			$args['image_class'],
+		);
+
+		foreach ( (array) $args['meta_key'] as $key ) {
+			$classes[] = $key;
 		}
 
-		$classes[] = sanitize_html_class( $size );
-		$classes[] = sanitize_html_class( $image_class );
-
-		return trim( join( ' ', array_unique( $classes ) ) );
+		return trim( join( ' ', array_unique( $this->sanitize_classes( $classes ) ) ) );
 	}
 
 	/**
@@ -386,7 +399,7 @@ class CareLib_Image_Grabber {
 		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s%s%s />',
 			$image['src'],
 			wp_strip_all_tags( $image_alt, true ),
-			$this->sanitize_classes( $args['meta_key'], $args['size'], $args['image_class'] ),
+			$this->build_image_classes( $args, $image ),
 			$this->format_srcset( $image['srcset'] ),
 			$this->format_size( $image['width'], 'width' ),
 			$this->format_size( $image['height'], 'height' )
