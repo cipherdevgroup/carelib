@@ -102,18 +102,6 @@ class CareLib_Layout {
 	}
 
 	/**
-	 * Set the layout name.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $value
-	 * @return string
-	 */
-	public function set_name( $value ) {
-		$this->args['name'] = (string) $value;
-	}
-
-	/**
 	 * Return the layout label.
 	 *
 	 * @since  0.2.0
@@ -122,18 +110,6 @@ class CareLib_Layout {
 	 */
 	public function get_label() {
 		return isset( $this->args['label'] ) ? (string) $this->args['label'] : false;
-	}
-
-	/**
-	 * Set the layout label.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $value
-	 * @return string
-	 */
-	public function set_label( $value ) {
-		$this->args['label'] = (string) $value;
 	}
 
 	/**
@@ -148,18 +124,6 @@ class CareLib_Layout {
 	}
 
 	/**
-	 * Set the layout image.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $value
-	 * @return string
-	 */
-	public function set_image( $value ) {
-		$this->args['image'] = (string) $value;
-	}
-
-	/**
 	 * Check whether or not the current layout is a global layout.
 	 *
 	 * @since  0.2.0
@@ -168,18 +132,6 @@ class CareLib_Layout {
 	 */
 	public function is_global() {
 		return isset( $this->args['is_global_layout'] ) ? (bool) $this->args['is_global_layout'] : false;
-	}
-
-	/**
-	 * Set the global layout property for the current layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  bool $value
-	 * @return bool
-	 */
-	public function set_is_global( $value ) {
-		$this->args['is_global_layout'] = (bool) $value;
 	}
 
 	/**
@@ -194,18 +146,6 @@ class CareLib_Layout {
 	}
 
 	/**
-	 * Set the post layout property for the current layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  bool $value
-	 * @return bool
-	 */
-	public function set_is_post( $value ) {
-		$this->args['is_post_layout'] = (bool) $value;
-	}
-
-	/**
 	 * Check whether or not the current layout is a user layout.
 	 *
 	 * @since  0.2.0
@@ -214,18 +154,6 @@ class CareLib_Layout {
 	 */
 	public function is_user() {
 		return isset( $this->args['is_user_layout'] ) ? (bool) $this->args['is_user_layout'] : false;
-	}
-
-	/**
-	 * Set the user layout property for the current layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  bool $value
-	 * @return bool
-	 */
-	public function set_is_user( $value ) {
-		$this->args['is_user_layout'] = (bool) $value;
 	}
 
 	/**
@@ -259,6 +187,78 @@ class CareLib_Layout {
 	 */
 	public function get_post_types() {
 		return isset( $this->args['post_types'] ) ? (array) $this->args['post_types'] : array();
+	}
+
+	/**
+	 * Set the layout name.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string $value
+	 * @return string
+	 */
+	public function set_name( $value ) {
+		$this->args['name'] = (string) $value;
+	}
+
+	/**
+	 * Set the layout label.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string $value
+	 * @return string
+	 */
+	public function set_label( $value ) {
+		$this->args['label'] = (string) $value;
+	}
+
+	/**
+	 * Set the layout image.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string $value
+	 * @return string
+	 */
+	public function set_image( $value ) {
+		$this->args['image'] = (string) $value;
+	}
+
+	/**
+	 * Set the global layout property for the current layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  bool $value
+	 * @return bool
+	 */
+	public function set_is_global( $value ) {
+		$this->args['is_global_layout'] = (bool) $value;
+	}
+
+	/**
+	 * Set the post layout property for the current layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  bool $value
+	 * @return bool
+	 */
+	public function set_is_post( $value ) {
+		$this->args['is_post_layout'] = (bool) $value;
+	}
+
+	/**
+	 * Set the user layout property for the current layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  bool $value
+	 * @return bool
+	 */
+	public function set_is_user( $value ) {
+		$this->args['is_user_layout'] = (bool) $value;
 	}
 
 	/**
