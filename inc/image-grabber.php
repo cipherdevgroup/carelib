@@ -386,10 +386,49 @@ class CareLib_Image_Grabber {
 		return empty( $class ) ? '' : ' class="' . sanitize_html_class( $class ) . '"';
 	}
 
+	/**
+	 * Return a formatted image srcset attribute.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $srcset the array of srcset values to format.
+	 * @return string a formatted html srcset attribute.
+	 */
 	protected function format_srcset( $srcset ) {
 		return empty( $srcset ) ? '' : sprintf( ' srcset="%s"', esc_attr( join( ', ', $this->srcsets ) ) );
 	}
 
+	/**
+	 * Wrap a formatted <img> with a link to the associated post if the
+	 * argument has been set.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display the image.
+	 * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+	 * @return string $image Formatted image markup.
+	 */
+	protected function maybe_add_link_wrapper( $html, $args ) {
+		if ( ! $args['link_to_post'] ) {
+			return $html;
+		}
+		return sprintf( '<a href="%s"%s title="%s">%s</a>',
+			get_permalink( $args['post_id'] ),
+			$this->format_class( $args['link_class'] ),
+			esc_attr( apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) ) ),
+			$html
+		);
+	}
+
+	/**
+	 * Return a formatted <img> string.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display the image.
+	 * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+	 * @return string $image Formatted image markup.
+	 */
 	protected function format_image_html( $args, $image ) {
 		$image_alt = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
 		if ( ! empty( $image['alt'] ) ) {
@@ -408,18 +447,16 @@ class CareLib_Image_Grabber {
 		return $this->maybe_add_link_wrapper( $html, $args );
 	}
 
-	protected function maybe_add_link_wrapper( $html, $args ) {
-		if ( ! $args['link_to_post'] ) {
-			return $html;
-		}
-		return sprintf( '<a href="%s"%s title="%s">%s</a>',
-			get_permalink( $args['post_id'] ),
-			$this->format_class( $args['link_class'] ),
-			esc_attr( apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) ) ),
-			$html
-		);
-	}
-
+	/**
+	 * Apply the post_thumbnail_html filter if a given image has a thumbnail id.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $html a formatted <img> string.
+	 * @param  array $args Arguments for how to load and display the image.
+	 * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+	 * @return string $image Formatted image markup.
+	 */
 	protected function maybe_add_thumbnail_html( $html, $image, $args ) {
 		if ( empty( $image['post_thumbnail_id'] ) ) {
 			return $html;
@@ -538,7 +575,7 @@ class CareLib_Image_Grabber {
 	 * Adds array of srcset image sources and descriptors based on the `srcset_sizes` argument
 	 * provided by the developer.
 	 *
-	 * @since  1.1.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @param  int $id
 	 * @return void
@@ -566,7 +603,7 @@ class CareLib_Image_Grabber {
 	/**
 	 * Get a WordPress image attachment.
 	 *
-	 * @since  1.0.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @param  int $id
 	 * @return void
