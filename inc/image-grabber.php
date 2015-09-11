@@ -130,23 +130,56 @@ class CareLib_Image_Grabber {
 		$this->image( $image, $args );
 	}
 
-	function setup_cache( $args ) {
+	/**
+	 * Setup object caching if it's enabled.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display an image.
+	 * @return bool true if cache has been set up, false otherwise
+	 */
+	protected function setup_cache( $args ) {
 		if ( $args['cache'] ) {
 			self::$cache_key = md5( serialize( compact( array_keys( $args ) ) ) );
 			self::$cache     = (array) wp_cache_get( $args['post_id'], "{$this->prefix}_image_grabber" );
-		}
-	}
-
-	function get_cache( $id ) {
-		if ( ! empty( self::$cache[ self::$cache_key ] ) ) {
-			return self::$cache[ self::$cache_key ];
-		} elseif ( ! empty( self::$images[ $id ] ) ) {
-			return self::$images[ $id ];
+			return true;
 		}
 		return false;
 	}
 
-	function set_cache( $html, $args ) {
+	/**
+	 * Get a cached image.
+	 *
+	 * Uses object cache if it's available and enabled and falls back to a
+	 * stored image value to prevent multiple searches.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  int $post_id the post ID associated with the image to get
+	 * @return string|bool false if no cached image is found
+	 */
+	protected function get_cache( $post_id ) {
+		if ( ! empty( self::$cache[ self::$cache_key ] ) ) {
+			return self::$cache[ self::$cache_key ];
+		} elseif ( ! empty( self::$images[ $post_id ] ) ) {
+			return self::$images[ $post_id ];
+		}
+		return false;
+	}
+
+	/**
+	 * Set a cached image.
+	 *
+	 * Uses object cache if it's available and always stores an image value to
+	 * prevent multiple searches.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display an image.
+	 * @param  string $html the formatted HTML of a grabbed image to save.
+	 * @return void
+	 */
+	protected function set_cache( $html, $args ) {
 		self::$images[ $args['post_id'] ] = $html;
 
 		if ( $args['cache'] ) {
@@ -158,7 +191,15 @@ class CareLib_Image_Grabber {
 		}
 	}
 
-	function search_content( $args ) {
+	/**
+	 * Search the content are for an image to grab. Uses cache if it's available.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display an image.
+	 * @return bool|array $image a grabbed image properties or false if no image is found
+	 */
+	protected function search_content( $args ) {
 		$this->setup_cache( $args );
 
 		if ( $cache = $this->get_cache( $args['post_id'] ) ) {
@@ -178,6 +219,14 @@ class CareLib_Image_Grabber {
 		return $image;
 	}
 
+	/**
+	 * Grab the image using a pre-defined order of available methods.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display an image.
+	 * @return bool|array $image a grabbed image properties or false if no image is found
+	 */
 	protected function get_image_by( $args ) {
 		if ( ! empty( $args['meta_key'] ) ) {
 			if ( $image = $this->get_by_meta_key( $args ) ) {
@@ -206,6 +255,14 @@ class CareLib_Image_Grabber {
 		return false;
 	}
 
+	/**
+	 * Return the raw attributes of a grabbed image.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $html the formatted HTML of a grabbed image
+	 * @return array $output the raw attributes of a grabbed image
+	 */
 	protected function get_raw_image( $html ) {
 		$output = array();
 
@@ -216,6 +273,15 @@ class CareLib_Image_Grabber {
 		return $output;
 	}
 
+	/**
+	 * Return a grabbed image.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $image an array of image attributes.
+	 * @param  array $args Arguments for how to load and display an image.
+	 * @return string|array the raw image string or an array of image attributes
+	 */
 	protected function get_image( $image, $args ) {
 		$html = $this->get_format( $args, $image );
 
@@ -226,6 +292,15 @@ class CareLib_Image_Grabber {
 		return empty( $html ) ? $image : "{$args['before']}{$html}{$args['after']}";
 	}
 
+	/**
+	 * Echo a grabbed image.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $image an array of image attributes.
+	 * @param  array $args Arguments for how to load and display an image.
+	 * @return void
+	 */
 	protected function image( $image, $args ) {
 		if ( 'array' === $args['format'] ) {
 			return;
@@ -247,6 +322,105 @@ class CareLib_Image_Grabber {
 				$args['size']
 			);
 		}
+	}
+
+	/**
+	 * Return a formatted string of html classes.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $size the size attribute to format.
+	 * @param  string $type the type of attribute being formatted (height or width)
+	 * @return string a formatted image size attribute of height or width.
+	 */
+	protected function sanitize_classes( $meta_key, $size, $image_class ) {
+		$classes = array();
+		if ( is_array( $meta_key ) ) {
+			foreach ( $meta_key as $key ) {
+				$classes[] = sanitize_html_class( strtolower( $key ) );
+			}
+		}
+
+		$classes[] = sanitize_html_class( $size );
+		$classes[] = sanitize_html_class( $image_class );
+
+		return join( ' ', array_unique( $classes ) );
+	}
+
+	/**
+	 * Return a formatted image size attribute.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $size the size attribute to format.
+	 * @param  string $type the type of attribute being formatted (height or width)
+	 * @return string a formatted image size attribute of height or width.
+	 */
+	protected function format_size( $size, $type ) {
+		return empty( $size ) ? '' : ' ' . esc_attr( $type ) . '="' . esc_attr( $size ) . '"';
+	}
+
+	/**
+	 * Return a formatted html class attribute.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $class the class attribute to format.
+	 * @return string a formatted html class.
+	 */
+	protected function format_class( $class ) {
+		return empty( $class ) ? '' : ' class="' . sanitize_html_class( $class ) . '"';
+	}
+
+	/**
+	 * Format an image with appropriate alt text and class. Adds a link if the
+	 * argument is set.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  array $args Arguments for how to load and display the image.
+	 * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+	 * @return string $image Formatted image (w/link to post if the option is set).
+	 */
+	protected function get_format( $args, $image ) {
+		if ( empty( $image['src'] ) ) {
+			return false;
+		}
+
+		$title_attr = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
+		$image_alt  = $title_attr;
+
+		if ( ! empty( $image['alt'] ) ) {
+			$image_alt = $image['alt'];
+		}
+
+		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s %s />',
+			$image['src'],
+			wp_strip_all_tags( $image_alt, true ),
+			$this->sanitize_classes( $args['meta_key'], $args['size'], $args['image_class'] ),
+			$this->format_size( $args['width'], 'width' ),
+			$this->format_size( $args['height'], 'height' )
+		);
+
+		if ( $args['link_to_post'] ) {
+			$html = sprintf( '<a href="%s"%s title="%s">%s</a>',
+				get_permalink( $args['post_id'] ),
+				$this->format_class( $args['link_class'] ),
+				esc_attr( $title_attr ),
+				$html
+			);
+		}
+
+		if ( ! empty( $image['post_thumbnail_id'] ) ) {
+			$html = apply_filters( 'post_thumbnail_html', $html,
+				$args['post_id'],
+				$image['post_thumbnail_id'],
+				$args['size'],
+				''
+			);
+		}
+
+		return $html;
 	}
 
 	/**
@@ -367,79 +541,6 @@ class CareLib_Image_Grabber {
 			'src' => $args['default_image'],
 			'url' => $args['default_image'],
 		);
-	}
-
-	protected function format_classes( $meta_key, $size, $image_class ) {
-		$classes = array();
-		if ( is_array( $meta_key ) ) {
-			foreach ( $meta_key as $key ) {
-				$classes[] = sanitize_html_class( strtolower( $key ) );
-			}
-		}
-
-		$classes[] = sanitize_html_class( $size );
-		$classes[] = sanitize_html_class( $image_class );
-
-		return join( ' ', array_unique( $classes ) );
-	}
-
-	protected function format_size( $size, $type ) {
-		return empty( $size ) ? '' : ' ' . esc_attr( $type ) . '="' . esc_attr( $size ) . '"';
-	}
-
-	protected function format_class( $class ) {
-		return empty( $class ) ? '' : ' class="' . sanitize_html_class( $class ) . '"';
-	}
-
-	/**
-	 * Format an image with appropriate alt text and class. Adds a link if the
-	 * argument is set.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @param  array $args Arguments for how to load and display the image.
-	 * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
-	 * @return string $image Formatted image (w/link to post if the option is set).
-	 */
-	protected function get_format( $args, $image ) {
-		if ( empty( $image['src'] ) ) {
-			return false;
-		}
-
-		$title_attr = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
-		$image_alt  = $title_attr;
-
-		if ( ! empty( $image['alt'] ) ) {
-			$image_alt = $image['alt'];
-		}
-
-		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s %s />',
-			$image['src'],
-			wp_strip_all_tags( $image_alt, true ),
-			$this->format_classes( $args['meta_key'], $args['size'], $args['image_class'] ),
-			$this->format_size( $args['width'], 'width' ),
-			$this->format_size( $args['height'], 'height' )
-		);
-
-		if ( $args['link_to_post'] ) {
-			$html = sprintf( '<a href="%s"%s title="%s">%s</a>',
-				get_permalink( $args['post_id'] ),
-				$this->format_class( $args['link_class'] ),
-				esc_attr( $title_attr ),
-				$html
-			);
-		}
-
-		if ( ! empty( $image['post_thumbnail_id'] ) ) {
-			$html = apply_filters( 'post_thumbnail_html', $html,
-				$args['post_id'],
-				$image['post_thumbnail_id'],
-				$args['size'],
-				''
-			);
-		}
-
-		return $html;
 	}
 
 	/**
