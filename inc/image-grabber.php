@@ -2,11 +2,7 @@
 /**
  * A Helper class for retrieving images.
  *
- * Based on Get the Image by Justin Tadlock.
- *
  * @package   CareLib
- * @author    Justin Tadlock <justin@justintadlock.com>
- * @author    Robert Neu <rob@wpsitecare.com>
  * @copyright Copyright (c) 2015, WP Site Care, LLC
  * @license   GPL-2.0+
  * @since     0.2.0
