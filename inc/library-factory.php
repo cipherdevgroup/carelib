@@ -51,12 +51,12 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	protected function get_default_classes() {
 		$classes = array(
 			'admin-factory',
+			'cache-cleanup',
 			'customize-setup-factory',
-			'support-factory',
 			'i18n',
-			'image-grabber',
 			'layouts',
 			'sidebar',
+			'support-factory',
 			'support',
 		);
 		if ( ! is_admin() ) {
