@@ -54,7 +54,7 @@ class CareLib_Template_Hierarchy {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_filter( 'index_template',      array( $this, 'index_template' ),      5 );
+		add_filter( 'template_include',    array( $this, 'index_include' ),      95 );
 		add_filter( 'date_template',       array( $this, 'date_template' ),       5 );
 		add_filter( 'author_template',     array( $this, 'user_template' ),       5 );
 		add_filter( 'tag_template',        array( $this, 'taxonomy_template' ),   5 );
@@ -77,8 +77,11 @@ class CareLib_Template_Hierarchy {
 	 * @access public
 	 * @return string $template
 	 */
-	public function index_template() {
-		return carelib_get( 'template-global' )->framework( apply_filters( "{$this->prefix}_index_template", null ) );
+	public function index_include( $template ) {
+		if ( get_index_template() === $template ) {
+			return carelib_get( 'template-global' )->framework( apply_filters( "{$this->prefix}_index_template", null ) );
+		}
+		return $template;
 	}
 
 	/**
