@@ -75,6 +75,7 @@ class CareLib_Template_Hierarchy {
 	 *
 	 * @since  0.2.0
 	 * @access public
+	 * @param  string $template
 	 * @return string $template
 	 */
 	public function index_include( $template ) {
