@@ -106,7 +106,7 @@ class CareLib_Style_Builder {
 		 * @since 0.1.0
 		 * @param array $data The selectors and properties to add to the CSS.
 		 */
-		$data  = apply_filters( "{$this->prefix}_style_builder_add", $data );
+		$data = apply_filters( "{$this->prefix}_style_builder_add", $data );
 
 		// Sanitize selectors
 		$entry['selectors'] = array_map( 'trim', (array) $data['selectors'] );
