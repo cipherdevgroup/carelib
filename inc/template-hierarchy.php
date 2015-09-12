@@ -54,6 +54,7 @@ class CareLib_Template_Hierarchy {
 	 * @return void
 	 */
 	protected function wp_hooks() {
+		add_filter( 'index_template',      array( $this, 'index_template' ),      5 );
 		add_filter( 'date_template',       array( $this, 'date_template' ),       5 );
 		add_filter( 'author_template',     array( $this, 'user_template' ),       5 );
 		add_filter( 'tag_template',        array( $this, 'taxonomy_template' ),   5 );
@@ -64,6 +65,20 @@ class CareLib_Template_Hierarchy {
 		add_filter( 'front_page_template', array( $this, 'front_page_template' ), 5 ); // Doesn't work b/c bug with get_query_template().
 		add_filter( 'frontpage_template',  array( $this, 'front_page_template' ), 5 );
 		add_filter( 'comments_template',   array( $this, 'comments_template' ),   5 );
+	}
+
+	/**
+	 * Override WP's default index.php template.
+	 *
+	 * Because we don't really use index.php, this prevents searching for
+	 * templates multiple times when trying to load the default template.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string $template
+	 */
+	public function index_template() {
+		return carelib_get( 'template-global' )->framework( apply_filters( "{$this->prefix}_index_template", null ) );
 	}
 
 	/**
