@@ -44,22 +44,26 @@ class CareLib_Template_Global {
 	 *
 	 * @since  0.2.0
 	 * @param  string $name The name of the specialized template.
-	 * @return void
+	 * @return bool
 	 */
-	public function framework( $name = null ) {
+	public function framework( $name = '' ) {
+		$templates = array();
 		/**
 		 * Fires before the default framework template file is loaded.
 		 *
 		 * @since 0.2.0
 		 * @param string $name The name of the specialized framework template.
 		 */
-		do_action( "{$this->prefix}_framework", $name );
-		$templates = array();
-		$name = (string) $name;
+		do_action( "{$this->prefix}_framework", $name, $templates );
+
+		$name      = (string) $name;
+		$templates = (array) $templates;
+
 		if ( ! empty( $name ) ) {
 			$templates[] = "templates/framework-{$name}.php";
 		}
 		$templates[] = 'templates/framework.php';
+
 		locate_template( $templates, true );
 	}
 
