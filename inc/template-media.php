@@ -40,8 +40,7 @@ class CareLib_Template_Media {
 	 * @return string
 	 */
 	public function media_grabber( $args = array() ) {
-		$media = CareLib_Factory::build( 'media-grabber', null, $args );
-		return $media->get_media();
+		return carelib_get( 'media-grabber', null, $args )->get_media();
 	}
 
 	/**
