@@ -55,8 +55,6 @@ class CareLib_Template_Hierarchy {
 	 */
 	protected function wp_hooks() {
 		add_filter( 'template_include',    array( $this, 'index_include' ),      95 );
-		add_filter( 'date_template',       array( $this, 'date_template' ),       5 );
-		add_filter( 'author_template',     array( $this, 'user_template' ),       5 );
 		add_filter( 'tag_template',        array( $this, 'taxonomy_template' ),   5 );
 		add_filter( 'category_template',   array( $this, 'taxonomy_template' ),   5 );
 		add_filter( 'taxonomy_template',   array( $this, 'taxonomy_template' ),   5 );
@@ -83,117 +81,6 @@ class CareLib_Template_Hierarchy {
 			return carelib_get( 'template-global' )->framework( apply_filters( "{$this->prefix}_index_template", null ) );
 		}
 		return $template;
-	}
-
-	/**
-	 * Override WP's default template for date-based archives.
-	 *
-	 * Better abstraction of templates than is_date() allows by checking for
-	 * the year, month, week, day, hour, and minute.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $template
-	 * @return string $template
-	 */
-	public function date_template( $template ) {
-		$templates = array();
-
-		// If viewing a time-based archive.
-		if ( is_time() ) {
-			// If viewing a minutely archive.
-			if ( get_query_var( 'minute' ) ) {
-				$templates[] = 'minute.php';
-			}
-
-			// If viewing an hourly archive.
-			if ( get_query_var( 'hour' ) ) {
-				$templates[] = 'hour.php';
-			}
-
-			// Catchall for any time-based archive.
-			$templates[] = 'time.php';
-		}
-
-		// If viewing a daily archive.
-		if ( is_day() ) {
-			$templates[] = 'day.php';
-		}
-
-		// If viewing a weekly archive.
-		if ( get_query_var( 'w' ) ) {
-			$templates[] = 'week.php';
-		}
-
-		// If viewing a monthly archive.
-		if ( is_month() ) {
-			$templates[] = 'month.php';
-		}
-
-		// If viewing a yearly archive.
-		if ( is_year() ) {
-			$templates[] = 'year.php';
-		}
-
-		// Catchall template for date-based archives.
-		$templates[] = 'date.php';
-
-		// Fall back to the basic archive template.
-		$templates[] = 'archive.php';
-
-		// Return the found template.
-		return locate_template( $templates );
-	}
-
-	/**
-	 * Override WP's default template for author-based archives.
-	 *
-	 * Better abstraction of templates than is_author() by allowing themes to
-	 * specify templates for a specific author.
-	 *
-	 * Hierarchy
-	 * -------------------------
-	 * user-$nicename.php
-	 * $user-role-$role.php
-	 * user.php
-	 * author.php
-	 * archive.php
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $template
-	 * @return string
-	 */
-	public function user_template( $template ) {
-		$templates = array();
-
-		// Get the user nicename.
-		$name = get_the_author_meta( 'user_nicename', get_query_var( 'author' ) );
-
-		// Get the user object.
-		$user = new WP_User( absint( get_query_var( 'author' ) ) );
-
-		// Add the user nicename template.
-		$templates[] = "user-{$name}.php";
-
-		// Add role-based templates for the user.
-		if ( is_array( $user->roles ) ) {
-			foreach ( $user->roles as $role ) {
-				$templates[] = "user-role-{$role}.php";
-			}
-		}
-
-		// Add a basic user template.
-		$templates[] = 'user.php';
-
-		// Add backwards compatibility with the WordPress author template.
-		$templates[] = 'author.php';
-
-		// Fall back to the basic archive template.
-		$templates[] = 'archive.php';
-
-		// Return the found template.
-		return locate_template( $templates );
 	}
 
 	/**
