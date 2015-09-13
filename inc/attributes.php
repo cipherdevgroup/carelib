@@ -114,9 +114,12 @@ class CareLib_Attributes {
 	 * @param  string  $context  A specific context (e.g., 'primary').
 	 * @return string
 	 */
-	public function get_attr( $slug, $context = '' ) {
+	public function get_attr( $slug, $context = '', $attr = array() ) {
 		$out  = '';
-		$attr = apply_filters( "{$this->prefix}_attr_{$slug}", array(), $context );
+		$attr = wp_parse_args(
+			(array) $attr,
+			apply_filters( "{$this->prefix}_attr_{$slug}", array(), $context )
+		);
 
 		if ( empty( $attr ) ) {
 			$attr['class'] = $slug;
