@@ -37,11 +37,11 @@ class CareLib_Menu {
 	public function template( $name = null ) {
 		$templates = array();
 		if ( '' !== $name ) {
-			$templates[] = "templates/menu-{$name}.php";
-			$templates[] = "templates/menu/{$name}.php";
+			$templates[] = "template-parts/menu-{$name}.php";
+			$templates[] = "template-parts/menu/{$name}.php";
 		}
-		$templates[] = 'templates/menu.php';
-		$templates[] = 'templates/menu/menu.php';
+		$templates[] = 'template-parts/menu.php';
+		$templates[] = 'template-parts/menu/menu.php';
 		locate_template( $templates, true );
 	}
 

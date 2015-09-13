@@ -119,10 +119,10 @@ class CareLib_Sidebar {
 		$templates = array();
 		if ( ! empty( $name ) ) {
 			$templates[] = "sidebar-{$name}.php";
-			$templates[] = "templates/sidebar/{$name}.php";
+			$templates[] = "template-parts/sidebar/{$name}.php";
 		}
 		$templates[] = 'sidebar.php';
-		$templates[] = 'templates/sidebar/sidebar.php';
+		$templates[] = 'template-parts/sidebar/sidebar.php';
 		locate_template( $templates, true );
 	}
 
