@@ -95,18 +95,18 @@ class CareLib_Template_Comments {
 
 			// Create an array of template files to look for.
 			$templates = array(
+				"template-parts/comment/{$comment_type}.php",
 				"comment-{$comment_type}.php",
-				"templates/comment/{$comment_type}.php",
 			);
 
 			// If the comment type is a 'pingback' or 'trackback', allow the use of 'comment-ping.php'.
 			if ( 'pingback' === $comment_type || 'trackback' === $comment_type ) {
+				$templates[] = 'template-parts/comment/ping.php';
 				$templates[] = 'comment-ping.php';
-				$templates[] = 'templates/comment/ping.php';
 			}
 
 			// Add the fallback 'comment.php' template.
-			$templates[] = 'templates/comment/comment.php';
+			$templates[] = 'template-parts/comment/comment.php';
 			$templates[] = 'comment.php';
 
 			// Allow devs to filter the template hierarchy.

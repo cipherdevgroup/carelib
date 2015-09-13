@@ -252,12 +252,8 @@ class CareLib_Template_Hierarchy {
 		$templates[] = "{$post->post_type}-{$post->post_name}.php";
 		$templates[] = "{$post->post_type}-{$post->ID}.php";
 		$templates[] = "{$post->post_type}.php";
-
-		// Allow for WP standard 'single' templates for compatibility.
 		$templates[] = "single-{$post->post_type}.php";
 		$templates[] = 'single.php';
-
-		// Add a general template of singular.php.
 		$templates[] = 'singular.php';
 
 		// Return the found template.
@@ -295,6 +291,7 @@ class CareLib_Template_Hierarchy {
 	 */
 	public function comments_template( $template ) {
 		$templates = array();
+		$post_type = get_post_type();
 
 		// Allow for custom templates entered into comments_template( $file ).
 		$template = str_replace( trailingslashit( get_template_directory() ), '', $template );
@@ -303,10 +300,8 @@ class CareLib_Template_Hierarchy {
 			$templates[] = $template;
 		}
 
-		// Add a comments template based on the post type.
-		$templates[] = 'comments-' . get_post_type() . '.php';
-
-		// Add the default comments template.
+		$templates[] = "template-parts/comments-{$post_type}.php";
+		$templates[] = 'template-parts/comments.php';
 		$templates[] = 'comments.php';
 
 		// Return the found template.
