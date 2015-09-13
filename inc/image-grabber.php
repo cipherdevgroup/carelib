@@ -220,13 +220,16 @@ class CareLib_Image_Grabber {
 	 * @return array $output the raw attributes of a grabbed image
 	 */
 	protected function get_raw_image( $html ) {
+		if ( empty( $html ) ) {
+			return false;
+		}
 		$output = array();
 
-		foreach ( wp_kses_hair( $html, array( 'http', 'https' ) ) as $attr ) {
+		foreach ( wp_kses_hair( (string) $html, array( 'http', 'https' ) ) as $attr ) {
 			$output[ $attr['name'] ] = $attr['value'];
 		}
 
-		return $output;
+		return empty( $output ) ? false : $output;
 	}
 
 	/**

@@ -34,7 +34,7 @@ class CareLib_Image_Grabber_API extends CareLib_Image_Grabber {
 			return $this->get_raw_image( $image );
 		}
 
-		return "{$args['before']}{$image}{$args['after']}";
+		return empty( $image ) ? false : "{$args['before']}{$image}{$args['after']}";
 	}
 
 }
