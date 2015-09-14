@@ -60,7 +60,7 @@ class CareLib_Layouts {
 	protected function wp_hooks() {
 		add_action( 'init',                                 array( $this, 'register_layouts' ), 95 );
 		add_filter( 'current_theme_supports-theme-layouts', array( $this, 'theme_layouts_support' ), 10, 3 );
-		add_filter( 'theme_mod_theme_layout',               array( $this, 'filter_layout' ), 5 );
+		add_filter( "{$this->prefix}_get_theme_layout",     array( $this, 'filter_layout' ), 5 );
 	}
 
 	/**
@@ -228,6 +228,17 @@ class CareLib_Layouts {
 	 * @return string
 	 */
 	public function get_theme_layout() {
+		return apply_filters( "{$this->prefix}_get_theme_layout", $this->get_global_layout() );
+	}
+
+	/**
+	 * Returns the theme mod used for the global layout setting.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	public function get_global_layout() {
 		return get_theme_mod( 'theme_layout', $this->get_default_layout() );
 	}
 
