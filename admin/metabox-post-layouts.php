@@ -63,7 +63,8 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 	 */
 	public function add( $post_type ) {
 		$support = post_type_supports( $post_type, 'theme-layouts' );
-		if ( ! current_user_can( 'edit_theme_options' ) || ! $support ) {
+		$control = $this->allow_layout_control();
+		if ( ! current_user_can( 'edit_theme_options' ) || ! $support || ! $control ) {
 			return;
 		}
 		add_meta_box(
