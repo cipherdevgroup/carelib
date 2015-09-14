@@ -14,6 +14,12 @@ defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Setup_Register {
 
+	protected $layouts;
+
+	public function __construct() {
+		$this->layouts = carelib_get( 'layouts' );
+	}
+
 	/**
 	 * Get our class up and running!
 	 *
@@ -64,8 +70,9 @@ class CareLib_Customize_Setup_Register {
 		$wp_customize->add_section(
 			'layout',
 			array(
-				'title'    => esc_html__( 'Layout', 'carelib' ),
-				'priority' => 30,
+				'title'           => esc_html__( 'Layout', 'carelib' ),
+				'priority'        => 30,
+				'active_callback' => array( $this->layouts, 'allow_layout_control' ),
 			)
 		);
 
@@ -73,7 +80,7 @@ class CareLib_Customize_Setup_Register {
 		$wp_customize->add_setting(
 			'theme_layout',
 			array(
-				'default'           => carelib_get( 'layouts' )->get_default_layout(),
+				'default'           => $this->layouts->get_default_layout(),
 				'sanitize_callback' => 'sanitize_key',
 				'transport'         => 'postMessage',
 			)
