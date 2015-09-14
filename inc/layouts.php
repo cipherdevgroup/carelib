@@ -210,7 +210,7 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $name
+	 * @param  string $name
 	 * @return object|bool
 	 */
 	public function get_layout( $name ) {
@@ -256,11 +256,22 @@ class CareLib_Layouts {
 	}
 
 	/**
+	 * Determines whether or not a user should be able to control the layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function allow_layout_control() {
+		return apply_filters( "{$this->prefix}_allow_layout_control", true );
+	}
+
+	/**
 	 * Checks a post if it has a specific layout.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $post_id
+	 * @param  int $post_id
 	 * @return bool
 	 */
 	public function has_post_layout( $layout, $post_id = '' ) {
@@ -275,8 +286,8 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $layout
-	 * @param  int     $user_id
+	 * @param  string $layout
+	 * @param  int $user_id
 	 * @return bool
 	 */
 	public function has_user_layout( $layout, $user_id = '' ) {
@@ -290,8 +301,8 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $post_id
-	 * @param  string  $layout
+	 * @param  int $post_id
+	 * @param  string $layout
 	 * @return bool
 	 */
 	public function set_post_layout( $post_id, $layout ) {
@@ -306,8 +317,8 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $user_id
-	 * @param  string  $layout
+	 * @param  int $user_id
+	 * @param  string $layout
 	 * @return bool
 	 */
 	public function set_user_layout( $user_id, $layout ) {
@@ -322,7 +333,7 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $name
+	 * @param  string $name
 	 * @return void
 	 */
 	public function unregister_layout( $name ) {
@@ -336,7 +347,7 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $post_id
+	 * @param  int $post_id
 	 * @return bool
 	 */
 	public function delete_post_layout( $post_id ) {
@@ -348,7 +359,7 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int     $user_id
+	 * @param  int $user_id
 	 * @return bool
 	 */
 	public function delete_user_layout( $user_id ) {
