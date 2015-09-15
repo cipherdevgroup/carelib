@@ -26,8 +26,8 @@ class CareLib_Autoload {
 	 *
 	 * @since 0.2.0
 	 */
-	public function __construct( CareLib $library ) {
-		$this->dir = $library->get_dir();
+	public function __construct( $dir ) {
+		$this->dir = $dir;
 		spl_autoload_register( array( $this, 'autoloader' ) );
 		spl_autoload_register( array( $this, 'admin_autoloader' ) );
 		spl_autoload_register( array( $this, 'customize_autoloader' ) );
@@ -104,7 +104,7 @@ class CareLib_Autoload {
 	}
 
 	/**
-	 * Load all admin plugin classes when they're instantiated.
+	 * Load all customizer plugin classes when they're instantiated.
 	 *
 	 * @since  0.2.0
 	 * @access protected

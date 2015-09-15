@@ -74,10 +74,10 @@ class CareLib {
 	}
 
 	/**
-	 * Main CareLib Instance
+	 * Return the main CareLib instance.
 	 *
-	 * Insures that only one instance of CareLib exists in memory at any one
-	 * time. Also prevents needing to define globals all over the place.
+	 * Allows the main library methods to be accessed without repeatedly
+	 * instantiating the class needlessly.
 	 *
 	 * @since 0.1.0
 	 * @access public
@@ -213,7 +213,7 @@ class CareLib {
 	 */
 	protected function autoload() {
 		require_once "{$this->dir}inc/autoload.php";
-		new CareLib_Autoload( $this );
+		new CareLib_Autoload( $this->dir );
 	}
 
 	/**
