@@ -431,7 +431,14 @@ class CareLib_Image_Grabber {
 			}
 		}
 
-		return empty( $image ) ? false : array( 'src' => $image, 'url' => $image );
+		if ( ! empty( $image ) ) {
+			if ( is_numeric( $image ) ) {
+				return $this->get_image_attachment( $image, $args );
+			}
+			return array( 'src' => $image );
+		}
+
+		return false;
 	}
 
 	/**
