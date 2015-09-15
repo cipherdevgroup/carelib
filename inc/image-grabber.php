@@ -574,7 +574,6 @@ class CareLib_Image_Grabber {
 	protected function get_by_default( $args ) {
 		return array(
 			'src' => $args['default_image'],
-			'url' => $args['default_image'],
 		);
 	}
 
