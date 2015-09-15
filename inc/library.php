@@ -69,8 +69,8 @@ class CareLib {
 	 */
 	public function __construct( $file ) {
 		$this->file = $file;
-		$this->dir = trailingslashit( dirname( $file ) );
-		$this->uri = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
+		$this->dir  = trailingslashit( dirname( $file ) );
+		$this->uri  = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class CareLib {
 	}
 
 	/**
-	 * Set the prefix used by filters throughout the library.
+	 * Set the prefix to be used by filters throughout the library.
 	 *
 	 * @since  0.2.0
 	 * @access public
