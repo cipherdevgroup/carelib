@@ -34,7 +34,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @type  string
 	 */
-	private $prefix;
+	private $prefix = 'carelib';
 
 	/**
 	 * The main library file.
@@ -63,8 +63,9 @@ class CareLib {
 	/**
 	 * Constructor method.
 	 *
-	 * @since 0.1.0
-	 * @param array $args arguments to be passed in via the helper function.
+	 * @since  0.1.0
+	 * @access public
+	 * @param  array $args arguments to be passed in via the helper function.
 	 */
 	public function __construct( $file ) {
 		$this->file = $file;
@@ -79,8 +80,8 @@ class CareLib {
 	 * time. Also prevents needing to define globals all over the place.
 	 *
 	 * @since 0.1.0
+	 * @access public
 	 * @static
-	 * @uses   CareLib::includes() Include the required files
 	 * @return CareLib
 	 */
 	public static function instance( $file ) {
@@ -92,14 +93,25 @@ class CareLib {
 	}
 
 	/**
+	 * Set the prefix used by filters throughout the library.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return CareLib
+	 */
+	public function set_prefix( $prefix ) {
+		$this->prefix = sanitize_key( $prefix );
+		return $this;
+	}
+
+	/**
 	 * Method to initialize the library.
 	 *
 	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
-	public function run( $args = array() ) {
-		$this->prefix = empty( $args['prefix'] ) ? 'carelib' : sanitize_key( $args['prefix'] );
+	public function run() {
 		$this->autoload();
 		$this->build();
 	}
@@ -107,9 +119,9 @@ class CareLib {
 	/**
 	 * Whether the current request is a Customizer preview.
 	 *
-	 * @since   0.1.0
-	 * @access  public
-	 * @return  bool
+	 * @since  0.1.0
+	 * @access public
+	 * @return bool
 	 */
 	public function is_customizer_preview() {
 		return is_customize_preview();
@@ -118,9 +130,9 @@ class CareLib {
 	/**
 	 * Whether the current environment is WordPress.com.
 	 *
-	 * @since   0.1.0
-	 * @access  public
-	 * @return  bool
+	 * @since  0.1.0
+	 * @access public
+	 * @return bool
 	 */
 	public function is_wpcom() {
 		return apply_filters( "{$this->prefix}_is_wpcom", false );
@@ -129,9 +141,9 @@ class CareLib {
 	/**
 	 * Getter method for reading the protected version variable.
 	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  bool
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
 	 */
 	public function get_version() {
 		return self::VERSION;
@@ -140,9 +152,9 @@ class CareLib {
 	/**
 	 * Getter method for reading the protected prefix variable.
 	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  bool
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
 	 */
 	public function get_prefix() {
 		return $this->prefix;
@@ -151,9 +163,9 @@ class CareLib {
 	/**
 	 * Return the path to the CareLib directory with a trailing slash.
 	 *
-	 * @since   0.1.0
-	 * @access  public
-	 * @return  string
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
 	 */
 	public function get_dir( $path = '' ) {
 		return $this->dir . $path;
@@ -162,7 +174,7 @@ class CareLib {
 	/**
 	 * Return the URI to the CareLib directory with a trailing slash.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return string
 	 */
@@ -195,7 +207,7 @@ class CareLib {
 	/**
 	 * Load all plugin classes when they're instantiated.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access protected
 	 * @return void
 	 */
