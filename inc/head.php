@@ -34,7 +34,8 @@ class CareLib_Head {
 	protected function wp_hooks() {
 		add_action( 'wp_head', array( $this, 'meta_charset' ),  0 );
 		add_action( 'wp_head', array( $this, 'meta_viewport' ), 1 );
-		add_action( 'wp_head', array( $this, 'link_pingback' ), 3 );
+		add_action( 'wp_head', array( $this, 'link_pingback' ), 2 );
+		add_action( 'wp_head', array( $this, 'canihas_js' ),    3 );
 	}
 
 	/**
@@ -72,4 +73,16 @@ class CareLib_Head {
 			);
 		}
 	}
+
+	/**
+	 * Print an inline script which adds a class of 'has-js' to the <html> tag.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function canihas_js() {
+		echo '<script type="text/javascript">document.documentElement.className = "has-js";</script>' . "\n";
+	}
+
 }
