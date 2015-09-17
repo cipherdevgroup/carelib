@@ -60,11 +60,11 @@ class CareLib_Cache_Cleanup {
 	 *
 	 * @since  0.2.0
 	 * @access protected
-	 * @param  int $id The ID of the post to delete the cache for.
+	 * @param  int $post_id The ID of the post to delete the cache for.
 	 * @return bool true when cache is deleted, false otherwise
 	 */
-	protected function delete_image_cache( $id ) {
-		return wp_cache_delete( $id, "{$this->prefix}_image_grabber" );
+	protected function delete_image_cache( $post_id ) {
+		return wp_cache_delete( $post_id, "{$this->prefix}_image_grabber" );
 	}
 
 	/**
