@@ -92,9 +92,10 @@ class CareLib {
 	 * @static
 	 * @return CareLib
 	 */
-	public static function get_instance() {
+	public static function get_instance( $file ) {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
+			self::$instance->set_paths( $file );
 		}
 		return self::$instance;
 	}

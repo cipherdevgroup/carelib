@@ -27,9 +27,7 @@ require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/autoload.php';
  * @return  object CareLib
  */
 function carelib() {
-	$plugin = CareLib::get_instance();
-	$plugin->set_paths( __FILE__ );
-	return $plugin;
+	return CareLib::get_instance( __FILE__ );
 }
 
 /**
