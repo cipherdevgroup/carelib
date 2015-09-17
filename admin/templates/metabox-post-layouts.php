@@ -10,8 +10,8 @@
 ?>
 <div class="buttonset">
 	<?php foreach ( $post_layouts as $layout ) : ?>
-
-		<?php if ( true === $layout->is_post() && $layout->get_image() && ! ( ! empty( $layout->get_post_types() ) && ! in_array( $post->post_type, $layout->get_post_types() ) ) ) : ?>
+		<?php $post_types = $layout->get_post_types(); ?>
+		<?php if ( true === $layout->is_post() && $layout->get_image() && ! ( ! empty( $post_types ) && ! in_array( $post->post_type, $layout->get_post_types() ) ) ) : ?>
 
 			<label>
 				<input type="radio" value="<?php echo esc_attr( $layout->get_name() ); ?>" name="carelib-post-layout" <?php checked( $post_layout, $layout->get_name() ); ?> />
