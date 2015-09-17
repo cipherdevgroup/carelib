@@ -26,7 +26,7 @@ require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/library.php';
  * @return  object CareLib
  */
 function carelib() {
-	$plugin = CareLib::instance();
+	$plugin = CareLib::get_instance();
 	$plugin->set_paths( __FILE__ );
 	return $plugin;
 }

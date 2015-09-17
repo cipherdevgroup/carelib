@@ -61,6 +61,14 @@ class CareLib {
 	private $url = false;
 
 	/**
+	 * A single instance of the main library class.
+	 *
+	 * @since 0.2.0
+	 * @var   CareLib
+	 */
+	private static $instance;
+
+	/**
 	 * Setup all paths used throughout the library.
 	 *
 	 * @since  0.1.0
@@ -84,12 +92,11 @@ class CareLib {
 	 * @static
 	 * @return CareLib
 	 */
-	public static function instance() {
-		static $instance;
-		if ( null === $instance ) {
-			$instance = new self();
+	public static function get_instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
 		}
-		return $instance;
+		return self::$instance;
 	}
 
 	/**
