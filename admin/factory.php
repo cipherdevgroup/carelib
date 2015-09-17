@@ -38,9 +38,7 @@ class CareLib_Admin_Factory extends CareLib_Factory {
 	 * @return void
 	 */
 	public function run() {
-		if ( is_admin() ) {
-			add_action( 'after_setup_theme', array( $this, 'build_admin' ), -90 );
-		}
+		add_action( 'after_setup_theme', array( $this, 'build_admin' ), -90 );
 	}
 
 	/**

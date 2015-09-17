@@ -50,7 +50,6 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	 */
 	protected function get_default_classes() {
 		$classes = array(
-			'admin-factory',
 			'cache-cleanup',
 			'customize-setup-factory',
 			'i18n',
@@ -59,7 +58,9 @@ class CareLib_Library_Factory extends CareLib_Factory {
 			'support-factory',
 			'support',
 		);
-		if ( ! is_admin() ) {
+		if ( is_admin() ) {
+			$classes[] = 'admin-factory';
+		} else {
 			$classes[] = 'attributes';
 			$classes[] = 'context';
 			$classes[] = 'filters';
