@@ -245,6 +245,10 @@ class CareLib_Image_Grabber {
 		return array_map( 'sanitize_html_class', $classes );
 	}
 
+	protected function get_image_size( $args, $image, $type ) {
+		return isset( $image[ $type ] ) ? $image[ $type ] : $args[ $type ];
+	}
+
 	/**
 	 * Build a sanitized string of html classes for our grabbed image.
 	 *
@@ -255,8 +259,12 @@ class CareLib_Image_Grabber {
 	 * @return string a formatted string of sanitized HTML classes.
 	 */
 	protected function build_image_classes( $args, $image ) {
+		$format = 'landscape';
+		if ( $this->get_image_size( $args, $image, 'height' ) > $this->get_image_size( $args, $image, 'width' ) ) {
+			$format = 'portrait';
+		}
 		$classes = array(
-			$image['height'] > $image['width'] ? 'portrait' : 'landscape',
+			$format,
 			$args['size'],
 			$args['image_class'],
 		);
@@ -277,7 +285,8 @@ class CareLib_Image_Grabber {
 	 * @param  string $type the type of attribute being formatted (height or width)
 	 * @return string a formatted image size attribute of height or width.
 	 */
-	protected function format_size( $size, $type ) {
+	protected function format_size( $args, $image, $type ) {
+		$size = $this->get_image_size( $args, $image, $type );
 		return empty( $size ) ? '' : ' ' . esc_attr( $type ) . '="' . esc_attr( $size ) . '"';
 	}
 
@@ -301,8 +310,8 @@ class CareLib_Image_Grabber {
 	 * @param  array $srcset the array of srcset values to format.
 	 * @return string a formatted html srcset attribute.
 	 */
-	protected function format_srcset( $srcset ) {
-		return empty( $srcset ) ? '' : sprintf( ' srcset="%s"', esc_attr( join( ', ', $srcset ) ) );
+	protected function format_srcset( $image ) {
+		return empty( $image['srcset'] ) ? '' : sprintf( ' srcset="%s"', esc_attr( join( ', ', $image['srcset'] ) ) );
 	}
 
 	/**
@@ -354,9 +363,9 @@ class CareLib_Image_Grabber {
 			$image['src'],
 			wp_strip_all_tags( $image_alt, true ),
 			$this->build_image_classes( $args, $image ),
-			$this->format_srcset( $image['srcset'] ),
-			$this->format_size( $image['width'], 'width' ),
-			$this->format_size( $image['height'], 'height' )
+			$this->format_srcset( $image ),
+			$this->format_size( $args, $image, 'width' ),
+			$this->format_size( $args, $image, 'height' )
 		);
 
 		if ( isset( $image['post_thumbnail_id'] ) ) {
