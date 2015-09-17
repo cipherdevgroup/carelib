@@ -67,7 +67,7 @@ class CareLib {
 	 * @access public
 	 * @param  string $file the absolute path to the library's root file.
 	 */
-	public function setup_paths( $file ) {
+	public function set_paths( $file ) {
 		$this->file = $file;
 		$this->dir  = trailingslashit( dirname( $file ) );
 		$this->uri  = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
@@ -84,11 +84,10 @@ class CareLib {
 	 * @static
 	 * @return CareLib
 	 */
-	public static function instance( $file ) {
+	public static function instance() {
 		static $instance;
 		if ( null === $instance ) {
 			$instance = new self();
-			$instance->setup_paths( $file );
 		}
 		return $instance;
 	}
