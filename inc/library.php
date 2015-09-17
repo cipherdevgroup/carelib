@@ -42,7 +42,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $file;
+	private $file = false;
 
 	/**
 	 * The library's directory path with a trailing slash.
@@ -50,7 +50,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $dir;
+	private $dir = false;
 
 	/**
 	 * The library directory URL with a trailing slash.
@@ -58,16 +58,16 @@ class CareLib {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $url;
+	private $url = false;
 
 	/**
-	 * Constructor method.
+	 * Setup all paths used throughout the library.
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @param  array $args arguments to be passed in via the helper function.
+	 * @param  string $file the absolute path to the library's root file.
 	 */
-	public function __construct( $file ) {
+	public function setup_paths( $file ) {
 		$this->file = $file;
 		$this->dir  = trailingslashit( dirname( $file ) );
 		$this->uri  = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
@@ -87,7 +87,8 @@ class CareLib {
 	public static function instance( $file ) {
 		static $instance;
 		if ( null === $instance ) {
-			$instance = new self( $file );
+			$instance = new self();
+			$instance->setup_paths( $file );
 		}
 		return $instance;
 	}
@@ -112,8 +113,10 @@ class CareLib {
 	 * @return void
 	 */
 	public function run() {
-		$this->autoload();
-		$this->build();
+		if ( $this->file && $this->dir && $this->uri ) {
+			$this->autoload();
+			$this->build();
+		}
 	}
 
 	/**
@@ -168,7 +171,7 @@ class CareLib {
 	 * @return string
 	 */
 	public function get_dir( $path = '' ) {
-		return $this->dir . $path;
+		return $this->dir . ltrim( $path );
 	}
 
 	/**
@@ -179,7 +182,7 @@ class CareLib {
 	 * @return string
 	 */
 	public function get_uri( $path = '' ) {
-		return $this->uri . $path;
+		return $this->uri . ltrim( $path );
 	}
 
 	/**
