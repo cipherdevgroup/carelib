@@ -58,7 +58,7 @@ class CareLib {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $url = false;
+	private $uri = false;
 
 	/**
 	 * A single instance of the main library class.
