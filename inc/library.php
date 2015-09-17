@@ -221,7 +221,6 @@ class CareLib {
 	 * @return void
 	 */
 	protected function autoload() {
-		require_once "{$this->dir}inc/autoload.php";
 		new CareLib_Autoload( $this->dir );
 	}
 

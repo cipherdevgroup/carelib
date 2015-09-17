@@ -12,6 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/library.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/autoload.php';
 
 /**
  * Grab an instance of the main library class.
