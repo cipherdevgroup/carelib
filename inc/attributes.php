@@ -116,9 +116,9 @@ class CareLib_Attributes {
 	 */
 	public function get_attr( $slug, $context = '', $attr = array() ) {
 		$out  = '';
-		$attr = wp_parse_args(
+		$attr = array_merge(
 			(array) $attr,
-			apply_filters( "{$this->prefix}_attr_{$slug}", array(), $context )
+			(array) apply_filters( "{$this->prefix}_attr_{$slug}", $attr, $context )
 		);
 
 		if ( empty( $attr ) ) {
