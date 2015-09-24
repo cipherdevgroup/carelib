@@ -57,6 +57,7 @@ class CareLib_Library_Factory extends CareLib_Factory {
 			'sidebar',
 			'support-factory',
 			'support',
+			'tinymce',
 		);
 		if ( is_admin() ) {
 			$classes[] = 'admin-factory';

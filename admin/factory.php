@@ -55,7 +55,6 @@ class CareLib_Admin_Factory extends CareLib_Factory {
 			'metabox-post-templates',
 			'scripts',
 			'styles',
-			'tinymce',
 		) );
 	}
 
