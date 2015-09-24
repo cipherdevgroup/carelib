@@ -19,7 +19,6 @@ class CareLib_Customize_Setup_Register {
 
 	public function __construct() {
 		$this->layouts = carelib_get( 'layouts' );
-		$this->fonts   = carelib_get( 'fonts' );
 	}
 
 	/**
@@ -46,14 +45,14 @@ class CareLib_Customize_Setup_Register {
 	}
 
 	/**
-	 * Register actions and filters for the CareLib Fonts feature.
+	 * Add support for the CareLib Fonts feature.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
-	public function fonts_hooks() {
-		add_action( 'customize_register', array( $this, 'customize_register_fonts' ) );
+	public function add_fonts_support() {
+		$this->fonts = carelib_get( 'fonts-hooks' )->customize_register( $this );
 	}
 
 	/**

@@ -60,7 +60,7 @@ class CareLib_Fonts {
 			'tinymce',
 		);
 		foreach ( $objects as $object ) {
-			carelib_get( $object )->fonts_hooks();
+			carelib_get( $object )->add_fonts_support();
 		}
 	}
 

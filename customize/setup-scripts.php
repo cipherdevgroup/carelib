@@ -17,16 +17,6 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 	protected $fonts;
 
 	/**
-	 * Constructor method.
-	 *
-	 * @since 0.2.0
-	 */
-	public function __construct() {
-		$this->fonts = carelib_get( 'fonts' );
-		parent::__construct();
-	}
-
-	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.2.0
@@ -51,16 +41,14 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 	}
 
 	/**
-	 * Register actions and filters for the CareLib Fonts feature.
+	 * Add support for the CareLib Fonts feature.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
-	public function fonts_hooks() {
-		add_action( 'customize_controls_enqueue_scripts',      array( $this, 'enqueue_fonts_controls' ) );
-		add_action( 'customize_preview_init',                  array( $this, 'enqueue_fonts_preview' ) );
-		add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_fonts_templates' ) );
+	public function add_fonts_support() {
+		$this->fonts = carelib_get( 'fonts-hooks' )->customize_scripts( $this );
 	}
 
 	/**

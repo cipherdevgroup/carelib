@@ -36,15 +36,14 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	}
 
 	/**
-	 * Register our actions and filters.
+	 * Add support for the CareLib Fonts feature.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
-	public function fonts_hooks() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_fonts_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_fonts_scripts' ) );
+	public function add_fonts_support() {
+		$this->fonts = carelib_get( 'fonts-hooks' )->public_styles( $this );
 	}
 
 	/**
@@ -77,7 +76,7 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	}
 
 	/**
-	 * Enqueue fonts.
+	 * Enqueue fonts scripts.
 	 *
 	 * @since  0.2.0
 	 * @access public

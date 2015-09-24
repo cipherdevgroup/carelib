@@ -63,7 +63,6 @@ class CareLib_Public_Styles extends CareLib_Styles {
 		$this->child      = trailingslashit( get_stylesheet_directory() );
 		$this->parent_uri = trailingslashit( get_template_directory_uri() );
 		$this->child_uri  = trailingslashit( get_stylesheet_directory_uri() );
-		$this->fonts      = carelib_get( 'fonts' );
 		parent::__construct();
 	}
 
@@ -95,14 +94,14 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	}
 
 	/**
-	 * Register our actions and filters.
+	 * Add support for the CareLib Fonts feature.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
-	public function fonts_hooks() {
-
+	public function add_fonts_support() {
+		$this->fonts = carelib_get( 'fonts-hooks' )->public_styles( $this );
 	}
 
 	/**
@@ -288,7 +287,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	 *
 	 * @since 0.2.0
 	 */
-	public function enqueue_fonts() {
+	public function enqueue_fonts_styles() {
 		if ( $url = $this->fonts->get_google_fonts_url() ) {
 			wp_enqueue_style( 'carelib-fonts-google', $url );
 		}

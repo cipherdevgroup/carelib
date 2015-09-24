@@ -39,18 +39,14 @@ class CareLib_TinyMCE {
 	}
 
 	/**
-	 * Register actions and filters for the CareLib Fonts feature.
+	 * Add support for the CareLib Fonts feature.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
-	public function fonts_hooks() {
-		add_filter( 'tiny_mce_before_init',             array( $this, 'register_tinymce_settings' ) );
-		add_filter( 'mce_external_plugins',             array( $this, 'register_tinymce_plugin' ) );
-		add_action( 'init',                             array( $this, 'add_editor_style' ) );
-		add_action( 'mce_css',                          array( $this, 'add_dynamic_styles' ) );
-		add_action( 'wp_ajax_carelib-fonts-editor-css', array( $this, 'output_dynamic_styles' ) );
+	public function add_fonts_support() {
+		$this->fonts = carelib_get( 'fonts-hooks' )->tinymce( $this );
 	}
 
 	/**
@@ -187,7 +183,7 @@ class CareLib_TinyMCE {
 	 * @since 0.2.0
 	 */
 	public function add_editor_style() {
-		if ( $url = carelib_get( 'fonts' )->get_google_fonts_url() ) {
+		if ( $url = $this->fonts->get_google_fonts_url() ) {
 			add_editor_style( $url );
 		}
 	}
@@ -216,7 +212,7 @@ class CareLib_TinyMCE {
 	 * @return array
 	 */
 	public function register_tinymce_plugin( $external_plugins ) {
-		if ( carelib_get( 'fonts' )->is_typekit_active() ) {
+		if ( $this->fonts->is_typekit_active() ) {
 			$external_plugins['carelibfonts'] = carelib()->get_uri( 'js/tinymce-fonts.js' );
 		}
 
@@ -246,7 +242,7 @@ class CareLib_TinyMCE {
 	 */
 	public function output_dynamic_styles() {
 		header( 'Content-Type: text/css' );
-		echo carelib_get( 'fonts' )->get_css(); // WPCS: XSS OK.
+		echo $this->fonts->get_css(); // WPCS: XSS OK.
 		exit;
 	}
 
