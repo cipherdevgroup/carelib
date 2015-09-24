@@ -183,101 +183,13 @@ class CareLib_Fonts {
 	}
 
 	/**
-	 * Sanitize a font.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  array $value Value to sanitize.
-	 * @return array
-	 */
-	public function sanitize_font( $value ) {
-		$defaults = array(
-			'family'  => '',
-			'stack'   => '',
-			'service' => '',
-		);
-
-		$value = wp_parse_args( (array) $value, $defaults );
-		$value = array_intersect_key( $value, $defaults );
-
-		$value['family']  = $this->sanitize_font_family( $value['family'] );
-		$value['stack']   = $this->sanitize_font_stack( $value['stack'] );
-		$value['service'] = sanitize_key( $value['service'] );
-
-		return $value;
-	}
-
-	/**
-	 * Sanitize a font family name.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $value Font family name.
-	 * @return string
-	 */
-	public function sanitize_font_family( $value ) {
-		return preg_replace( '#[^a-zA-Z0-9 ]#', '', $value );
-	}
-
-	/**
-	 * Sanitize a font stack.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $value Font stack.
-	 * @return string
-	 */
-	public function sanitize_font_stack( $value ) {
-		return preg_replace( '#[^a-zA-Z0-9_,\'" -]#', '', $value );
-	}
-
-	/**
-	 * Register default fonts.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function register_default_fonts() {
-		$this->add_fonts( array(
-			array( 'family' => 'Anonymous Pro',      'stack' => '"Anonymous Pro", monospace',     'tags' => array( 'content' ) ),
-			array( 'family' => 'Arimo',              'stack' => 'Arimo, sans-serif',              'tags' => array( 'content' ) ),
-			array( 'family' => 'Chivo',              'stack' => '"Chivo", sans-serif',            'tags' => array( 'heading' ) ),
-			array( 'family' => 'Cousine',            'stack' => '"Cousine", sans-serif',          'tags' => array( 'content' ) ),
-			array( 'family' => 'Crimson Text',       'stack' => '"Crimson Text", serif',          'tags' => array( 'content' ) ),
-			array( 'family' => 'Gentium Book Basic', 'stack' => '"Gentium Book Basic", serif',    'tags' => array( 'content' ) ),
-			array( 'family' => 'Kameron',            'stack' => '"Kameron", serif',               'tags' => array( 'heading' ) ),
-			array( 'family' => 'Karla',              'stack' => '"Karla", sans-serif',            'tags' => array( 'content' ) ),
-			array( 'family' => 'Lato',               'stack' => 'Lato, sans-serif',               'tags' => array( 'content' ) ),
-			array( 'family' => 'Libre Baskerville',  'stack' => '"Libre Baskerville", serif',     'tags' => array( 'content' ) ),
-			array( 'family' => 'Lora',               'stack' => 'Lora, serif',                    'tags' => array( 'content' ) ),
-			array( 'family' => 'Merriweather',       'stack' => 'Merriweather, serif',            'tags' => array( 'content' ) ),
-			array( 'family' => 'Montserrat',         'stack' => '"Montserrat", sans-serif',       'tags' => array( 'heading' ) ),
-			array( 'family' => 'Noticia Text',       'stack' => '"Noticia Text", serif',          'tags' => array( 'content' ) ),
-			array( 'family' => 'Noto Serif',         'stack' => '"Noto Serif", serif',            'tags' => array( 'content' ) ),
-			array( 'family' => 'Open Sans',          'stack' => '"Open Sans", sans-serif',        'tags' => array( 'content' ) ),
-			array( 'family' => 'Oswald',             'stack' => '"Oswald", sans-serif',           'tags' => array( 'heading' ) ),
-			array( 'family' => 'Playfair Display',   'stack' => '"Playfair Display", serif',      'tags' => array( 'heading' ) ),
-			array( 'family' => 'PT Sans',            'stack' => '"PT Sans", sans-serif',          'tags' => array( 'content' ) ),
-			array( 'family' => 'PT Serif',           'stack' => '"PT Serif", serif',              'tags' => array( 'content' ) ),
-			array( 'family' => 'Raleway',            'stack' => '"Raleway", sans-serif',          'tags' => array( 'heading' ) ),
-			array( 'family' => 'Roboto',             'stack' => 'Roboto, sans-serif',             'tags' => array( 'content' ) ),
-			array( 'family' => 'Roboto Condensed',   'stack' => '"Roboto Condensed", sans-serif', 'tags' => array( 'heading' ) ),
-			array( 'family' => 'Roboto Slab',        'stack' => '"Roboto Slab", serif',           'tags' => array( 'heading' ) ),
-			array( 'family' => 'Source Code Pro',    'stack' => '"Source Code Pro", monospace',   'tags' => array( 'content' ) ),
-			array( 'family' => 'Source Sans Pro',    'stack' => '"Source Sans Pro", sans-serif',  'tags' => array( 'content' ) ),
-			array( 'family' => 'Vollkorn',           'stack' => '"Vollkorn", serif',              'tags' => array( 'content' ) ),
-		) );
-	}
-
-	/**
 	 * Retrieve the URL for enqueueing Google fonts.
 	 *
 	 * @since 0.2.0
 	 *
 	 * @return string
 	 */
-	protected function get_google_fonts_url() {
+	public function get_google_fonts_url() {
 		$url      = '';
 		$families = array();
 
@@ -322,7 +234,7 @@ class CareLib_Fonts {
 	 *
 	 * @return boolean
 	 */
-	protected function is_typekit_active() {
+	public function is_typekit_active() {
 		$kit_id = get_theme_mod( 'carelib_fonts_typekit_id', '' );
 		if ( empty( $kit_id ) ) {
 			return false;
@@ -350,7 +262,7 @@ class CareLib_Fonts {
 	 *
 	 * @return string
 	 */
-	protected function get_subsets() {
+	public function get_subsets() {
 		$subsets = 'latin';
 
 		/*
@@ -380,7 +292,7 @@ class CareLib_Fonts {
 	 *
 	 * @return string
 	 */
-	protected function get_css() {
+	public function get_css() {
 		$css = '';
 
 		foreach ( $this->text_groups as $group ) {
@@ -395,6 +307,45 @@ class CareLib_Fonts {
 		}
 
 		return empty( $css ) ? false : $css;
+	}
+
+	/**
+	 * Register default fonts.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @return void
+	 */
+	protected function register_default_fonts() {
+		$this->add_fonts( array(
+			array( 'family' => 'Anonymous Pro',      'stack' => '"Anonymous Pro", monospace',     'tags' => array( 'content' ) ),
+			array( 'family' => 'Arimo',              'stack' => 'Arimo, sans-serif',              'tags' => array( 'content' ) ),
+			array( 'family' => 'Chivo',              'stack' => '"Chivo", sans-serif',            'tags' => array( 'heading' ) ),
+			array( 'family' => 'Cousine',            'stack' => '"Cousine", sans-serif',          'tags' => array( 'content' ) ),
+			array( 'family' => 'Crimson Text',       'stack' => '"Crimson Text", serif',          'tags' => array( 'content' ) ),
+			array( 'family' => 'Gentium Book Basic', 'stack' => '"Gentium Book Basic", serif',    'tags' => array( 'content' ) ),
+			array( 'family' => 'Kameron',            'stack' => '"Kameron", serif',               'tags' => array( 'heading' ) ),
+			array( 'family' => 'Karla',              'stack' => '"Karla", sans-serif',            'tags' => array( 'content' ) ),
+			array( 'family' => 'Lato',               'stack' => 'Lato, sans-serif',               'tags' => array( 'content' ) ),
+			array( 'family' => 'Libre Baskerville',  'stack' => '"Libre Baskerville", serif',     'tags' => array( 'content' ) ),
+			array( 'family' => 'Lora',               'stack' => 'Lora, serif',                    'tags' => array( 'content' ) ),
+			array( 'family' => 'Merriweather',       'stack' => 'Merriweather, serif',            'tags' => array( 'content' ) ),
+			array( 'family' => 'Montserrat',         'stack' => '"Montserrat", sans-serif',       'tags' => array( 'heading' ) ),
+			array( 'family' => 'Noticia Text',       'stack' => '"Noticia Text", serif',          'tags' => array( 'content' ) ),
+			array( 'family' => 'Noto Serif',         'stack' => '"Noto Serif", serif',            'tags' => array( 'content' ) ),
+			array( 'family' => 'Open Sans',          'stack' => '"Open Sans", sans-serif',        'tags' => array( 'content' ) ),
+			array( 'family' => 'Oswald',             'stack' => '"Oswald", sans-serif',           'tags' => array( 'heading' ) ),
+			array( 'family' => 'Playfair Display',   'stack' => '"Playfair Display", serif',      'tags' => array( 'heading' ) ),
+			array( 'family' => 'PT Sans',            'stack' => '"PT Sans", sans-serif',          'tags' => array( 'content' ) ),
+			array( 'family' => 'PT Serif',           'stack' => '"PT Serif", serif',              'tags' => array( 'content' ) ),
+			array( 'family' => 'Raleway',            'stack' => '"Raleway", sans-serif',          'tags' => array( 'heading' ) ),
+			array( 'family' => 'Roboto',             'stack' => 'Roboto, sans-serif',             'tags' => array( 'content' ) ),
+			array( 'family' => 'Roboto Condensed',   'stack' => '"Roboto Condensed", sans-serif', 'tags' => array( 'heading' ) ),
+			array( 'family' => 'Roboto Slab',        'stack' => '"Roboto Slab", serif',           'tags' => array( 'heading' ) ),
+			array( 'family' => 'Source Code Pro',    'stack' => '"Source Code Pro", monospace',   'tags' => array( 'content' ) ),
+			array( 'family' => 'Source Sans Pro',    'stack' => '"Source Sans Pro", sans-serif',  'tags' => array( 'content' ) ),
+			array( 'family' => 'Vollkorn',           'stack' => '"Vollkorn", serif',              'tags' => array( 'content' ) ),
+		) );
 	}
 
 }

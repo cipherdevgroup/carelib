@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Public_Styles extends CareLib_Styles {
 
 	/**
-	 * Library prefix which can be set within themes.
+	 * The absolute path to the parent stylesheet with a trailing slash.
 	 *
 	 * @since 0.2.0
 	 * @var   string
@@ -22,7 +22,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	protected $parent;
 
 	/**
-	 * Library prefix which can be set within themes.
+	 * The absolute path to the child stylesheet with a trailing slash.
 	 *
 	 * @since 0.2.0
 	 * @var   string
@@ -30,7 +30,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	protected $child;
 
 	/**
-	 * Library prefix which can be set within themes.
+	 * The URI to the parent stylesheet with a trailing slash.
 	 *
 	 * @since 0.2.0
 	 * @var   string
@@ -38,12 +38,20 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	protected $parent_uri;
 
 	/**
-	 * Library prefix which can be set within themes.
+	 * The URI to the child stylesheet with a trailing slash.
 	 *
 	 * @since 0.2.0
 	 * @var   string
 	 */
 	protected $child_uri;
+
+	/**
+	 * A reference to the CareLib_Fonts class.
+	 *
+	 * @since 0.2.0
+	 * @var   CareLib_Fonts
+	 */
+	protected $fonts;
 
 	/**
 	 * Constructor method.
@@ -55,6 +63,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 		$this->child      = trailingslashit( get_stylesheet_directory() );
 		$this->parent_uri = trailingslashit( get_template_directory_uri() );
 		$this->child_uri  = trailingslashit( get_stylesheet_directory_uri() );
+		$this->fonts      = carelib_get( 'fonts' );
 		parent::__construct();
 	}
 
@@ -136,7 +145,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 			$stylesheet_uri = $this->parent_uri . "style{$this->suffix}.css";
 		}
 
-		return apply_filters( '$this->get_parent_stylesheet_uri', $stylesheet_uri );
+		return apply_filters( 'get_parent_stylesheet_uri', $stylesheet_uri );
 	}
 
 	/**
@@ -280,7 +289,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	 * @since 0.2.0
 	 */
 	public function enqueue_fonts() {
-		if ( $this->get_google_fonts_url() ) {
+		if ( $url = $this->fonts->get_google_fonts_url() ) {
 			wp_enqueue_style( 'carelib-fonts-google', $url );
 		}
 	}
@@ -297,7 +306,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 		if ( is_customize_preview() ) {
 			return;
 		}
-		if ( $css = $this->get_css() ) {
+		if ( $css = $this->fonts->get_css() ) {
 			wp_add_inline_style( "{$this->prefix}-style", $css );
 		}
 	}

@@ -14,6 +14,18 @@ defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 
+	protected $fonts;
+
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.2.0
+	 */
+	public function __construct() {
+		$this->fonts = carelib_get( 'fonts' );
+		parent::__construct();
+	}
+
 	/**
 	 * Get our class up and running!
 	 *
@@ -127,8 +139,8 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 		);
 
 		wp_localize_script( 'carelib-customize-preview-fonts', '_carelibThemeFontsPreviewSettings', array(
-			'groups'  => $this->text_groups,
-			'subsets' => $this->get_subsets(),
+			'groups'  => $this->fonts->get_text_groups(),
+			'subsets' => $this->fonts->get_subsets(),
 		) );
 	}
 
@@ -156,7 +168,7 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 		);
 
 		wp_localize_script( 'carelib-customize-controls-fonts', '_carelibThemeFontsControlsSettings', array(
-			'fonts' => $this->fonts,
+			'fonts' => $this->fonts->get_fonts(),
 			'l10n'  => array(
 				'reset'       => esc_html__( 'Reset', 'carelib' ),
 				'defaultFont' => esc_html__( 'Default Theme Font', 'carelib' ),
