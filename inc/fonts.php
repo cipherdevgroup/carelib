@@ -15,14 +15,14 @@
  * Class for custom fonts feature.
  *
  * @package CareLib
- * @since 0.2.0
+ * @since   0.2.0
  */
 class CareLib_Fonts {
 	/**
 	 * Registered fonts.
 	 *
 	 * @since 0.2.0
-	 * @var array
+	 * @var   array
 	 */
 	protected $fonts;
 
@@ -30,25 +30,9 @@ class CareLib_Fonts {
 	 * Registered text groups.
 	 *
 	 * @since 0.2.0
-	 * @var array
+	 * @var   array
 	 */
 	protected $text_groups;
-
-	/**
-	 * Library prefix which can be set within themes.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $prefix;
-
-	/**
-	 * WP enqueue handle for the theme's main style sheet.
-	 *
-	 * @since 0.2.0
-	 * @var string
-	 */
-	protected $stylesheet_handle = '';
 
 	/**
 	 * Constructor method.
@@ -56,48 +40,36 @@ class CareLib_Fonts {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->prefix = carelib()->get_prefix();
-		$this->stylesheet_handle = "{$this->prefix}-style";
 		$this->register_default_fonts();
 	}
-
-	/*
-	 * Public API methods.
-	 */
 
 	/**
 	 * Wire up theme hooks for supporting custom fonts.
 	 *
-	 * @since 0.2.0
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
 	 */
 	public function add_support() {
-		// Front-end hooks.
-		add_action( 'init', array( $this, 'register_assets' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_fonts' ), 15 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'add_inline_styles' ), 15 );
-
-		// Customizer hooks.
-		add_action( 'customize_register', array( $this, 'customize_register' ) );
-		add_action( 'customize_preview_init', array( $this, 'enqueue_customizer_preview_assets' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_customizer_controls_assets' ) );
-		add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_templates' ) );
-
-		// Editor hooks.
-		add_filter( 'tiny_mce_before_init', array( $this, 'register_tinymce_settings' ) );
-		add_filter( 'mce_external_plugins', array( $this, 'register_tinymce_plugin' ) );
-		add_action( 'mce_css', array( $this, 'add_editor_styles' ) );
-		add_action( 'wp_ajax_carelib-fonts-editor-css', array( $this, 'output_editor_styles' ) );
-
-		return $this;
+		$objects = array(
+			'customize-setup-register',
+			'customize-setup-scripts',
+			'public-scripts',
+			'public-styles',
+			'tinymce',
+		);
+		foreach ( $objects as $object ) {
+			carelib_get( $object )->fonts_hooks();
+		}
 	}
 
 	/**
 	 * Register supported font.
 	 *
-	 * @since 0.2.0
-	 *
-	 * @param array $fonts Array of fonts.
-	 * @return $this
+	 * @since  0.2.0
+	 * @access public
+	 * @param  array $fonts Array of fonts.
+	 * @return object CareLib_Fonts
 	 */
 	public function add_fonts( $fonts ) {
 		foreach ( $fonts as $font ) {
@@ -110,8 +82,10 @@ class CareLib_Fonts {
 	/**
 	 * Add a font to the collection.
 	 *
-	 * @param array $font Font properties.
-	 * @return $this
+	 * @since  0.2.0
+	 * @access public
+	 * @param  array $font Font properties.
+	 * @return object CareLib_Fonts
 	 */
 	public function add_font( $font ) {
 		$this->fonts[] = wp_parse_args( $font, array(
@@ -127,10 +101,10 @@ class CareLib_Fonts {
 	/**
 	 * Remove a registered font.
 	 *
-	 * @since 0.2.0
-	 *
+	 * @since  0.2.0
+	 * @access public
 	 * @param  string $family Font family name.
-	 * @return $this
+	 * @return object CareLib_Fonts
 	 */
 	public function remove_font( $family ) {
 		foreach ( $this->fonts as $key => $font ) {
@@ -148,10 +122,10 @@ class CareLib_Fonts {
 	/**
 	 * Register a text group whose font can be customized.
 	 *
-	 * @since 0.2.0
-	 *
+	 * @since  0.2.0
+	 * @access public
 	 * @param  array $group Group properties.
-	 * @return $this
+	 * @return object CareLib_Fonts
 	 */
 	public function register_text_group( $group ) {
 		$this->text_groups[] = wp_parse_args( $group, array(
@@ -172,10 +146,10 @@ class CareLib_Fonts {
 	/**
 	 * Register text groups.
 	 *
-	 * @since 0.2.0
-	 *
+	 * @since  0.2.0
+	 * @access public
 	 * @param  array $groups Array of groups.
-	 * @return $this
+	 * @return object CareLib_Fonts
 	 */
 	public function register_text_groups( $groups ) {
 		foreach ( $groups as $group ) {
@@ -185,261 +159,12 @@ class CareLib_Fonts {
 		return $this;
 	}
 
-	/*
-	 * Hook callbacks.
-	 */
-
-	/**
-	 * Register assets for enqueueing on demand.
-	 *
-	 * @since 0.2.0
-	 */
-	public function register_assets() {
-		wp_register_script(
-			'webfontloader',
-			'https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js',
-			array(),
-			'1.5.18'
-		);
-
-		// Add Google Fonts to the editor.
-		$url = $this->get_google_fonts_url();
-		if ( ! empty( $url ) ) {
-			add_editor_style( $url );
-		}
-	}
-
-	/**
-	 * Enqueue fonts.
-	 *
-	 * @since 0.2.0
-	 */
-	public function enqueue_fonts() {
-		$url = $this->get_google_fonts_url();
-		if ( ! empty( $url ) ) {
-			wp_enqueue_style( "{$this->prefix}-fonts-google", $url );
-		}
-
-		if ( ! $this->is_typekit_active() || is_customize_preview() ) {
-			return;
-		}
-
-		// Enqueue the Typekit kit.
-		$kit_id = get_theme_mod( 'carelib_fonts_typekit_id', '' );
-		wp_enqueue_script(
-			"{$this->prefix}-fonts-typekit",
-			sprintf( 'https://use.typekit.net/%s.js', sanitize_key( $kit_id ) )
-		);
-
-		add_action( 'wp_head', array( $this, 'load_typekit_fonts' ) );
-	}
-
-	/**
-	 * Add embedded styles to render custom fonts for text groups.
-	 *
-	 * The Customizer JavaScript handles CSS, so short-circuit if the current
-	 * request is a Customizer preview frame.
-	 *
-	 * @since 0.2.0
-	 */
-	public function add_inline_styles() {
-		if ( is_customize_preview() ) {
-			return;
-		}
-
-		$css = $this->get_css();
-		if ( ! empty( $css ) ) {
-			wp_add_inline_style( $this->stylesheet_handle, $css );
-		}
-	}
-
-	/**
-	 * Load Typekit fonts when the kit script is enqueued.
-	 *
-	 * @since 0.2.0
-	 */
-	public function load_typekit_fonts() {
-		if ( wp_script_is( "{$this->prefix}-fonts-typekit", 'done' ) ) {
-			echo '<script>try{Typekit.load({ async: true });}catch(e){}</script>';
-		}
-	}
-
-	/**
-	 * Register TinyMCE settings.
-	 *
-	 * Adds the Typekit Kit ID to the settings for loading in the editor.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @param  array $settings TinyMCE settings.
-	 * @return array
-	 */
-	public function register_tinymce_settings( $settings ) {
-		$settings['carelibFontsTypekitId'] = get_theme_mod( 'carelib_fonts_typekit_id', '' );
-		return $settings;
-	}
-
-	/**
-	 * Register a TinyMCE plugin for loading custom fonts.
-	 *
-	 * Loads a Typekit Kit.
-	 *
-	 * @param  array $external_plugins List of external plugins.
-	 * @return array
-	 */
-	public function register_tinymce_plugin( $external_plugins ) {
-		if ( $this->is_typekit_active() ) {
-			$external_plugins['carelibfonts'] = $this->theme->get_library_uri( '/assets/js/tinymce-fonts.js' );
-		}
-
-		return $external_plugins;
-	}
-
-	/**
-	 * Register a dynamic style sheet URL for the editor.
-	 *
-	 * This needs to be registered after the main theme style sheet.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @param string $stylesheets Comma-separated list of style sheet URLs.
-	 */
-	public function add_editor_styles( $stylesheets ) {
-		$stylesheets .= ',' . add_query_arg( 'action', "{$this->prefix}-fonts-editor-css", admin_url( 'admin-ajax.php' ) );
-		return $stylesheets;
-	}
-
-	/**
-	 * Output editor styles for custom fonts.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @link http://wordpress.stackexchange.com/a/120835
-	 */
-	public function output_editor_styles() {
-		header( 'Content-Type: text/css' );
-		echo $this->get_css(); // WPCS: XSS OK.
-		exit;
-	}
-
-	/**
-	 * Register Customizer settings and controls.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
-	 */
-	public function customize_register( $wp_customize ) {
-		$wp_customize->register_section_type( 'CareLib_Customize_Section_Fonts' );
-
-		$wp_customize->add_section( new CareLib_Customize_Section_Fonts( $wp_customize, 'carelib_fonts', array(
-			'title'       => esc_html__( 'Fonts', 'carelib' ),
-			'priority'    => 50,
-		) ) );
-
-		$wp_customize->add_setting( 'carelib_fonts_typekit_id', array(
-			'sanitize_callback' => 'sanitize_text_field',
-			'transport'         => 'postMessage',
-		) );
-
-		foreach ( $this->text_groups as $group ) {
-			$id = $group['id'] . '_font';
-
-			$wp_customize->add_setting( $id, array(
-				'sanitize_callback' => array( $this, 'sanitize_font' ),
-				'transport'         => 'postMessage',
-			) );
-
-			$wp_customize->add_control( new CareLib_Customize_Control_Font( $wp_customize, $id, array(
-				'label'         => $group['label'],
-				'description'   => $group['description'],
-				'section'       => 'carelib_fonts',
-				'settings'      => $id,
-				'default_font'  => $group['family'],
-				'exclude_fonts' => $group['exclude'],
-				'tags'          => $group['tags'],
-			) ) );
-		}
-	}
-
-	/**
-	 * Enqueue assets when previewing the site in the Customizer.
-	 *
-	 * @since 0.2.0
-	 */
-	public function enqueue_customizer_preview_assets() {
-		wp_enqueue_script(
-			"{$this->prefix}-customize-preview-fonts",
-			$this->theme->get_library_uri( 'assets/js/customize-preview-fonts.js' ),
-			array( 'customize-preview', 'wp-backbone', 'webfontloader' ),
-			'1.0.0',
-			true
-		);
-
-		wp_localize_script( "{$this->prefix}-customize-preview-fonts", '_carelibThemeFontsPreviewSettings', array(
-			'groups'  => $this->text_groups,
-			'subsets' => $this->get_subsets(),
-		) );
-	}
-
-	/**
-	 * Enqueue assets for handling custom controls.
-	 *
-	 * @since 0.2.0
-	 */
-	public function enqueue_customizer_controls_assets() {
-		wp_enqueue_style(
-			"{$this->prefix}-customize-controls-fonts",
-			$this->theme->get_library_uri( 'assets/css/customize-controls-fonts.css' ),
-			array(),
-			'1.0.0'
-		);
-
-		wp_enqueue_script(
-			"{$this->prefix}-customize-controls-fonts",
-			$this->theme->get_library_uri( 'assets/js/customize-controls-fonts.js' ),
-			array( 'customize-controls', 'wp-backbone', 'webfontloader' ),
-			'1.0.0',
-			true
-		);
-
-		wp_localize_script( "{$this->prefix}-customize-controls-fonts", '_carelibThemeFontsControlsSettings', array(
-			'fonts' => $this->fonts,
-			'l10n'  => array(
-				'reset'       => esc_html__( 'Reset', 'carelib' ),
-				'defaultFont' => esc_html__( 'Default Theme Font', 'carelib' ),
-			),
-		) );
-	}
-
-	/**
-	 * Print Underscore.js templates in the Customizer footer.
-	 *
-	 * @since 0.2.0
-	 */
-	public function print_templates() {
-		?>
-		<script type="text/html" id="tmpl-carelib-fonts-control-font">
-			<label>
-				<# if ( data.label ) { #>
-					<span class="customize-control-title">{{{ data.label }}}</span>
-				<# } #>
-
-				<# if ( data.description ) { #>
-					<span class="description customize-control-description">{{{ data.description }}}</span>
-				<# } #>
-			</label>
-			<div class="carelib-fonts-control-content"></div>
-		</script>
-		<?php
-	}
-
 	/**
 	 * Sanitize a font.
 	 *
-	 * @sine 0.2.0
-	 *
-	 * @param array $value Value to sanitize.
+	 * @since  0.2.0
+	 * @access public
+	 * @param  array $value Value to sanitize.
 	 * @return array
 	 */
 	public function sanitize_font( $value ) {
@@ -462,8 +187,8 @@ class CareLib_Fonts {
 	/**
 	 * Sanitize a font family name.
 	 *
-	 * @since 0.2.0
-	 *
+	 * @since  0.2.0
+	 * @access public
 	 * @param  string $value Font family name.
 	 * @return string
 	 */
@@ -474,8 +199,8 @@ class CareLib_Fonts {
 	/**
 	 * Sanitize a font stack.
 	 *
-	 * @since 0.2.0
-	 *
+	 * @since  0.2.0
+	 * @access public
 	 * @param  string $value Font stack.
 	 * @return string
 	 */
@@ -483,14 +208,12 @@ class CareLib_Fonts {
 		return preg_replace( '#[^a-zA-Z0-9_,\'" -]#', '', $value );
 	}
 
-	/*
-	 * Protected methods.
-	 */
-
 	/**
 	 * Register default fonts.
 	 *
-	 * @since 0.2.0
+	 * @since  0.2.0
+	 * @access protected
+	 * @return void
 	 */
 	protected function register_default_fonts() {
 		$this->add_fonts( array(
@@ -563,7 +286,7 @@ class CareLib_Fonts {
 			$url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
 		}
 
-		return $url;
+		return empty( $url ) ? false : $url;
 	}
 
 	/**
@@ -648,7 +371,7 @@ class CareLib_Fonts {
 			$css .= sprintf( '%s { font-family: %s;}', $group['selector'], $stack );
 		}
 
-		return $css;
+		return empty( $css ) ? false : $css;
 	}
 
 }

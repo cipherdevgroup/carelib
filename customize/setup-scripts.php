@@ -39,6 +39,19 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 	}
 
 	/**
+	 * Register actions and filters for the CareLib Fonts feature.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function fonts_hooks() {
+		add_action( 'customize_controls_enqueue_scripts',      array( $this, 'enqueue_fonts_controls' ) );
+		add_action( 'customize_preview_init',                  array( $this, 'enqueue_fonts_preview' ) );
+		add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_fonts_templates' ) );
+	}
+
+	/**
 	 * Register customizer controls scripts.
 	 *
 	 * @since  0.2.0
@@ -95,6 +108,84 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 	 */
 	public function enqueue_preview() {
 		wp_enqueue_script( 'carelib-customize-preview' );
+	}
+
+	/**
+	 * Enqueue assets when previewing the site in the Customizer.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue_fonts_preview() {
+		wp_enqueue_script(
+			'carelib-customize-preview-fonts',
+			esc_url( $this->js_uri( 'customize-preview-fonts.js' ) ),
+			array( 'customize-preview', 'wp-backbone', 'webfontloader' ),
+			'1.0.0',
+			true
+		);
+
+		wp_localize_script( 'carelib-customize-preview-fonts', '_carelibThemeFontsPreviewSettings', array(
+			'groups'  => $this->text_groups,
+			'subsets' => $this->get_subsets(),
+		) );
+	}
+
+	/**
+	 * Enqueue assets for handling custom controls.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue_fonts_controls() {
+		wp_enqueue_style(
+			'carelib-customize-controls-fonts',
+			esc_url( $this->css_uri( 'customize-controls-fonts.css' ) ),
+			array(),
+			'1.0.0'
+		);
+
+		wp_enqueue_script(
+			'carelib-customize-controls-fonts',
+			esc_url( $this->js_uri( 'customize-controls-fonts.js' ) ),
+			array( 'customize-controls', 'wp-backbone', 'webfontloader' ),
+			'1.0.0',
+			true
+		);
+
+		wp_localize_script( 'carelib-customize-controls-fonts', '_carelibThemeFontsControlsSettings', array(
+			'fonts' => $this->fonts,
+			'l10n'  => array(
+				'reset'       => esc_html__( 'Reset', 'carelib' ),
+				'defaultFont' => esc_html__( 'Default Theme Font', 'carelib' ),
+			),
+		) );
+	}
+
+	/**
+	 * Print Underscore.js templates in the Customizer footer.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function print_fonts_templates() {
+		?>
+		<script type="text/html" id="tmpl-carelib-fonts-control-font">
+			<label>
+				<# if ( data.label ) { #>
+					<span class="customize-control-title">{{{ data.label }}}</span>
+				<# } #>
+
+				<# if ( data.description ) { #>
+					<span class="description customize-control-description">{{{ data.description }}}</span>
+				<# } #>
+			</label>
+			<div class="carelib-fonts-control-content"></div>
+		</script>
+		<?php
 	}
 
 }
