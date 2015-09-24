@@ -28,7 +28,7 @@ class CareLib_Head {
 	 * Register our actions and filters.
 	 *
 	 * @since  0.1.0
-	 * @access public
+	 * @access protected
 	 * @return void
 	 */
 	protected function wp_hooks() {

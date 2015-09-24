@@ -29,7 +29,7 @@ class CareLib_Customize_Setup_Styles extends CareLib_Styles {
 	 * Register our actions and filters.
 	 *
 	 * @since  0.2.0
-	 * @access public
+	 * @access protected
 	 * @return void
 	 */
 	protected function wp_hooks() {

@@ -45,10 +45,10 @@ class CareLib_Support {
 	 * Register our actions and filters.
 	 *
 	 * @since  0.2.0
-	 * @access public
+	 * @access protected
 	 * @return void
 	 */
-	public function wp_hooks() {
+	protected function wp_hooks() {
 		add_action( 'after_setup_theme', array( $this, 'theme_support' ),     12 );
 		add_action( 'init',              array( $this, 'post_type_support' ), 15 );
 	}

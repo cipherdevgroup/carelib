@@ -30,7 +30,7 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 	 * Register our actions and filters.
 	 *
 	 * @since  0.2.0
-	 * @access public
+	 * @access protected
 	 * @return void
 	 */
 	protected function wp_hooks() {

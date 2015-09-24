@@ -48,10 +48,10 @@ class CareLib_Sidebar {
 	 * Register our actions and filters.
 	 *
 	 * @since  0.2.0
-	 * @access public
+	 * @access protected
 	 * @return void
 	 */
-	public function wp_hooks() {
+	protected function wp_hooks() {
 		add_action( 'widgets_init', '__return_false', 95 );
 	}
 

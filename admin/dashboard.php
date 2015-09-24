@@ -40,7 +40,7 @@ class CareLib_Admin_Dashboard {
 	 * Hook into WordPress.
 	 *
 	 * @since  0.2.0
-	 * @access public
+	 * @access protected
 	 * @return void
 	 */
 	protected function wp_hooks() {

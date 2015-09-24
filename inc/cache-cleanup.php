@@ -45,7 +45,7 @@ class CareLib_Cache_Cleanup {
 	 * Register our actions and filters.
 	 *
 	 * @since  0.2.0
-	 * @access public
+	 * @access protected
 	 * @return void
 	 */
 	protected function wp_hooks() {

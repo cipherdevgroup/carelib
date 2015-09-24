@@ -235,7 +235,7 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @return booleen true on singular entries by default
+	 * @return bool true on singular entries by default
 	 */
 	protected function is_full_content() {
 		return apply_filters( "{$this->prefix}_is_full_content", is_singular() );
