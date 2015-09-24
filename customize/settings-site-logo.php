@@ -26,9 +26,6 @@ class CareLib_Customize_Settings_Site_Logo extends CareLib_Customize_Base {
 	 * @uses CareLib_Site_Logo::sanitize_checkbox()
 	 */
 	public function register( $wp_customize ) {
-		//Update the Customizer section title for discoverability.
-		$wp_customize->get_section( 'title_tagline' )->title = __( 'Site Title, Tagline, and Logo', 'carelib' );
-
 		// Disable the display header text control from the custom header feature.
 		if ( current_theme_supports( 'custom-header' ) ) {
 			$wp_customize->remove_control( 'display_header_text' );
