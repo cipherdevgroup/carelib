@@ -56,7 +56,9 @@ class CareLib_Site_Logo {
 		}
 		$this->is_supported = true;
 		$this->wp_hooks();
-		carelib_get( 'customize-setup-settings' )->add_logo_support();
+		if ( is_customize_preview() ) {
+			carelib_get( 'customize-setup-settings' )->add_logo_support();
+		}
 	}
 
 	/**
