@@ -25,8 +25,15 @@ class CareLib_Site_Logo {
 
 	/**
 	 * Stores our current logo settings.
+	 *
+	 * @since 0.2.0
+	 * @var   string
 	 */
 	protected $logo;
+
+	protected $size = 'full';
+
+	protected $is_supported = false;
 
 	/**
 	 * Constructor method.
@@ -43,8 +50,13 @@ class CareLib_Site_Logo {
 	 *
 	 * @return object CareLib_Site_Logo
 	 */
-	public function run() {
+	public function add_support() {
+		if ( function_exists( 'jetpack_the_site_logo' ) ) {
+			return;
+		}
+		$this->is_supported = true;
 		$this->wp_hooks();
+		carelib_get( 'customize-setup-settings' )->add_logo_support();
 	}
 
 	/**
@@ -62,6 +74,33 @@ class CareLib_Site_Logo {
 		add_filter( 'body_class',              array( $this, 'body_classes' ) );
 		add_filter( 'image_size_names_choose', array( $this, 'media_manager_image_sizes' ) );
 		add_filter( 'display_media_states',    array( $this, 'add_media_state' ) );
+	}
+
+	/**
+	 * Get the logo image size.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string Size specified in add_theme_support declaration, or 'full' default.
+	 */
+	public function get_size() {
+		$valid_sizes = get_intermediate_image_sizes();
+		$valid_sizes[] = 'full';
+
+		return in_array( $this->size, $valid_sizes ) ? $this->size : 'full';
+	}
+
+	/**
+	 * Return our instance, creating a new one if necessary.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return object CareLib_Site_Logo
+	 */
+	public function set_size( $size ) {
+		$this->size = (string) $size;
+
+		return $this;
 	}
 
 	/**
@@ -173,7 +212,7 @@ class CareLib_Site_Logo {
 	 * @return boolean True if there is an active logo, false otherwise
 	 */
 	public function has_site_logo() {
-		return ( isset( $this->logo['id'] ) && 0 !== $this->logo['id'] ) ? current_theme_supports( 'site-logo' ) : false;
+		return ( isset( $this->logo['id'] ) && 0 !== $this->logo['id'] ) ? $this->is_supported : false;
 	}
 
 	/**
@@ -224,7 +263,7 @@ class CareLib_Site_Logo {
 	 *
 	 * @since 0.1.0
 	 * @uses CareLib_Logo::logo
-	 * @uses CareLib_Logo::theme_size()
+	 * @uses CareLib_Logo::get_size()
 	 * @uses CareLib_Logo::has_site_logo()
 	 * @uses CareLib::is_customizer_preview()
 	 * @uses esc_url()
@@ -235,11 +274,11 @@ class CareLib_Site_Logo {
 	 */
 	function the_site_logo() {
 		$logo = $this->logo;
-		$size = $this->theme_size();
+		$size = $this->get_size();
 
 		// Bail if no logo is set. Leave a placeholder if we're in the Customizer, though (needed for the live preview).
 		if ( ! $this->has_site_logo() ) {
-			if ( carelib()->is_customizer_preview() ) {
+			if ( is_customize_preview() ) {
 				printf( '<a href="%1$s" class="site-logo-link" style="display:none;"><img class="site-logo" data-size="%2$s" /></a>',
 					esc_url( home_url( '/' ) ),
 					esc_attr( $size )
@@ -263,25 +302,6 @@ class CareLib_Site_Logo {
 		);
 
 		echo apply_filters( 'the_site_logo', $html, $logo, $size );
-	}
-
-	/**
-	 * Determine image size to use for the logo.
-	 *
-	 * @uses get_theme_support()
-	 * @return string Size specified in add_theme_support declaration, or 'thumbnail' default
-	 */
-	public function theme_size() {
-		$args        = get_theme_support( 'site-logo' );
-		$valid_sizes = get_intermediate_image_sizes();
-
-		// Add 'full' to the list of accepted values.
-		$valid_sizes[] = 'full';
-
-		// If the size declared in add_theme_support is valid, use it; otherwise, just go with 'thumbnail'.
-		$size = ( isset( $args[0]['size'] ) && in_array( $args[0]['size'], $valid_sizes ) ) ? $args[0]['size'] : 'thumbnail';
-
-		return $size;
 	}
 
 }

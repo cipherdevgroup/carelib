@@ -32,10 +32,8 @@ class CareLib_Admin_Dashboard {
 	 * @access public
 	 * @return void
 	 */
-	public function run() {
-		if ( current_theme_supports( 'theme-dashboard' ) ) {
-			$this->wp_hooks();
-		}
+	public function add_support() {
+		$this->wp_hooks();
 	}
 
 	/**
