@@ -73,7 +73,7 @@ class CareLib_Customize_Section_Fonts extends WP_Customize_Section {
 							<?php
 							$text = sprintf(
 								__( 'Enter a Kit ID to make custom fonts from Typekit available in each dropdown. %s', 'carelib' ),
-								sprintf( '<a href="https://audiotheme.com/support/kb/typekit/">%s</a>', esc_html__( 'Learn more.', 'carelib' ) )
+								sprintf( '<a href="http://support.wpsitecare.com/typekit/">%s</a>', esc_html__( 'Learn more.', 'carelib' ) )
 							);
 
 							echo wp_kses( $text, array( 'a' => array( 'href' => array() ) ) );
