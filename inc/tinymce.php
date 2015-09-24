@@ -11,7 +11,7 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Admin_TinyMCE {
+class CareLib_TinyMCE {
 
 	/**
 	 * Get our class up and running!
