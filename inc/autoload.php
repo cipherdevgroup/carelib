@@ -26,8 +26,8 @@ class CareLib_Autoload {
 	 *
 	 * @since 0.2.0
 	 */
-	public function __construct( $dir ) {
-		$this->dir = $dir;
+	public function __construct( $file ) {
+		$this->dir = trailingslashit( dirname( $file ) );
 		$this->register_autoloaders();
 	}
 

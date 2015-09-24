@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @version 0.1.0
  */
-class CareLib {
+class CareLib_Library {
 
 	/**
 	 * Our library version number.
@@ -121,7 +121,6 @@ class CareLib {
 	 */
 	public function run() {
 		if ( $this->file && $this->dir && $this->uri ) {
-			$this->autoload();
 			$this->build();
 		}
 	}
@@ -212,17 +211,6 @@ class CareLib {
 			get_theme_root_uri(),
 			wp_normalize_path( $path )
 		);
-	}
-
-	/**
-	 * Load all plugin classes when they're instantiated.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function autoload() {
-		new CareLib_Autoload( $this->dir );
 	}
 
 	/**

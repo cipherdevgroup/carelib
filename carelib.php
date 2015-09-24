@@ -11,8 +11,8 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/library.php';
-require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/autoload.php';
+require_once dirname( __FILE__ ) . '/inc/autoload.php';
+new CareLib_Autoload( __FILE__ );
 
 /**
  * Grab an instance of the main library class.
@@ -27,7 +27,7 @@ require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/autoload.php';
  * @return  object CareLib
  */
 function carelib() {
-	return CareLib::get_instance( __FILE__ );
+	return CareLib_Library::get_instance( __FILE__ );
 }
 
 /**
