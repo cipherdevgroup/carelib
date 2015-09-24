@@ -18,6 +18,7 @@
  * @since   0.2.0
  */
 class CareLib_Fonts {
+
 	/**
 	 * Registered fonts.
 	 *
@@ -61,6 +62,28 @@ class CareLib_Fonts {
 		foreach ( $objects as $object ) {
 			carelib_get( $object )->fonts_hooks();
 		}
+	}
+
+	/**
+	 * Get all registered fonts.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return array $fonts Array of fonts.
+	 */
+	public function get_fonts() {
+		return (array) $this->fonts;
+	}
+
+	/**
+	 * Get all registered text groups.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return array $groups Array of groups.
+	 */
+	public function get_text_groups() {
+		return (array) $this->text_groups;
 	}
 
 	/**
