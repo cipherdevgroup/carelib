@@ -256,6 +256,55 @@ class CareLib_Fonts {
 	}
 
 	/**
+	 * Sanitize a font.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  array $value Value to sanitize.
+	 * @return array
+	 */
+	public function sanitize_font( $value ) {
+		$defaults = array(
+			'family'  => '',
+			'stack'   => '',
+			'service' => '',
+		);
+
+		$value = wp_parse_args( (array) $value, $defaults );
+		$value = array_intersect_key( $value, $defaults );
+
+		$value['family']  = $this->fonts->sanitize_font_family( $value['family'] );
+		$value['stack']   = $this->sanitize_font_stack( $value['stack'] );
+		$value['service'] = sanitize_key( $value['service'] );
+
+		return $value;
+	}
+
+	/**
+	 * Sanitize a font family name.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string $value Font family name.
+	 * @return string
+	 */
+	public function sanitize_font_family( $value ) {
+		return preg_replace( '#[^a-zA-Z0-9 ]#', '', $value );
+	}
+
+	/**
+	 * Sanitize a font stack.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string $value Font stack.
+	 * @return string
+	 */
+	public function sanitize_font_stack( $value ) {
+		return preg_replace( '#[^a-zA-Z0-9_,\'" -]#', '', $value );
+	}
+
+	/**
 	 * Retrieve font subsets to load.
 	 *
 	 * @since 0.2.0

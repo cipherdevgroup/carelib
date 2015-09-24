@@ -15,9 +15,11 @@ defined( 'ABSPATH' ) || exit;
 class CareLib_Customize_Setup_Register {
 
 	protected $layouts;
+	protected $fonts;
 
 	public function __construct() {
 		$this->layouts = carelib_get( 'layouts' );
+		$this->fonts   = carelib_get( 'fonts' );
 	}
 
 	/**
@@ -127,11 +129,11 @@ class CareLib_Customize_Setup_Register {
 			'transport'         => 'postMessage',
 		) );
 
-		foreach ( carelib_get( 'fonts' )->get_text_groups() as $group ) {
+		foreach ( $this->fonts->get_text_groups() as $group ) {
 			$id = $group['id'] . '_font';
 
 			$wp_customize->add_setting( $id, array(
-				'sanitize_callback' => array( $this, 'sanitize_font' ),
+				'sanitize_callback' => array( $this->fonts, 'sanitize_font' ),
 				'transport'         => 'postMessage',
 			) );
 
@@ -145,55 +147,6 @@ class CareLib_Customize_Setup_Register {
 				'tags'          => $group['tags'],
 			) ) );
 		}
-	}
-
-	/**
-	 * Sanitize a font.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  array $value Value to sanitize.
-	 * @return array
-	 */
-	public function sanitize_font( $value ) {
-		$defaults = array(
-			'family'  => '',
-			'stack'   => '',
-			'service' => '',
-		);
-
-		$value = wp_parse_args( (array) $value, $defaults );
-		$value = array_intersect_key( $value, $defaults );
-
-		$value['family']  = $this->sanitize_font_family( $value['family'] );
-		$value['stack']   = $this->sanitize_font_stack( $value['stack'] );
-		$value['service'] = sanitize_key( $value['service'] );
-
-		return $value;
-	}
-
-	/**
-	 * Sanitize a font family name.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $value Font family name.
-	 * @return string
-	 */
-	public function sanitize_font_family( $value ) {
-		return preg_replace( '#[^a-zA-Z0-9 ]#', '', $value );
-	}
-
-	/**
-	 * Sanitize a font stack.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $value Font stack.
-	 * @return string
-	 */
-	public function sanitize_font_stack( $value ) {
-		return preg_replace( '#[^a-zA-Z0-9_,\'" -]#', '', $value );
 	}
 
 }
