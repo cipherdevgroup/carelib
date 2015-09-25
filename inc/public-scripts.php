@@ -43,7 +43,7 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	 * @return void
 	 */
 	public function add_fonts_support() {
-		$this->fonts = carelib_get( 'fonts-hooks' )->public_styles( $this );
+		$this->fonts = carelib_get( 'fonts-hooks' )->public_scripts( $this );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	 * @return void
 	 */
 	public function enqueue_fonts_scripts() {
-		if ( ! $this->is_typekit_active() || is_customize_preview() ) {
+		if ( ! $this->fonts->is_typekit_active() || is_customize_preview() ) {
 			return;
 		}
 
