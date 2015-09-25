@@ -25,7 +25,7 @@ class CareLib_Fonts {
 	 * @since 0.2.0
 	 * @var   array
 	 */
-	protected $fonts;
+	protected static $fonts;
 
 	/**
 	 * Registered text groups.
@@ -33,7 +33,7 @@ class CareLib_Fonts {
 	 * @since 0.2.0
 	 * @var   array
 	 */
-	protected $text_groups;
+	protected static $text_groups;
 
 	/**
 	 * Constructor method.
@@ -72,7 +72,7 @@ class CareLib_Fonts {
 	 * @return array $fonts Array of fonts.
 	 */
 	public function get_fonts() {
-		return (array) $this->fonts;
+		return (array) self::$fonts;
 	}
 
 	/**
@@ -83,7 +83,7 @@ class CareLib_Fonts {
 	 * @return array $groups Array of groups.
 	 */
 	public function get_text_groups() {
-		return (array) $this->text_groups;
+		return (array) self::$text_groups;
 	}
 
 	/**
@@ -98,8 +98,6 @@ class CareLib_Fonts {
 		foreach ( $fonts as $font ) {
 			$this->add_font( $font, false );
 		}
-
-		return $this;
 	}
 
 	/**
@@ -111,14 +109,12 @@ class CareLib_Fonts {
 	 * @return object CareLib_Fonts
 	 */
 	public function add_font( $font ) {
-		$this->fonts[] = wp_parse_args( $font, array(
+		self::$fonts[] = wp_parse_args( $font, array(
 			'family'  => '',
 			'stack'   => '',
 			'service' => 'google',
 			'tags'    => array(),
 		) );
-
-		return $this;
 	}
 
 	/**
@@ -130,16 +126,14 @@ class CareLib_Fonts {
 	 * @return object CareLib_Fonts
 	 */
 	public function remove_font( $family ) {
-		foreach ( $this->fonts as $key => $font ) {
+		foreach ( self::$fonts as $key => $font ) {
 			if ( $font['family'] === $family ) {
-				unset( $this->fonts[ $key ] );
+				unset( self::$fonts[ $key ] );
 			}
 		}
 
 		// Reset the array indexes.
-		$this->fonts = array_values( $this->fonts );
-
-		return $this;
+		self::$fonts = array_values( self::$fonts );
 	}
 
 	/**
@@ -151,7 +145,7 @@ class CareLib_Fonts {
 	 * @return object CareLib_Fonts
 	 */
 	public function register_text_group( $group ) {
-		$this->text_groups[] = wp_parse_args( $group, array(
+		self::$text_groups[] = wp_parse_args( $group, array(
 			'id'          => '',
 			'label'       => '',
 			'description' => '',
@@ -162,8 +156,6 @@ class CareLib_Fonts {
 			'tags'        => array(),
 			'service'     => 'google',
 		) );
-
-		return $this;
 	}
 
 	/**
@@ -178,8 +170,6 @@ class CareLib_Fonts {
 		foreach ( $groups as $group ) {
 			$this->register_text_group( $group );
 		}
-
-		return $this;
 	}
 
 	/**
@@ -193,7 +183,7 @@ class CareLib_Fonts {
 		$url      = '';
 		$families = array();
 
-		foreach ( $this->text_groups as $group ) {
+		foreach ( self::$text_groups as $group ) {
 			$setting = get_theme_mod( $group['id'] . '_font', array() );
 
 			// Don't attempt to load if the service isn't Google.
@@ -240,10 +230,10 @@ class CareLib_Fonts {
 			return false;
 		}
 
-		foreach ( $this->text_groups as $group ) {
+		foreach ( self::$text_groups as $group ) {
 			$setting = get_theme_mod( $group['id'] . '_font', array() );
 
-			// Don't attempt to load if the service isn't Google.
+			// Don't attempt to load if the service isn't Typekit.
 			if (
 				( empty( $setting['family'] ) && 'typekit' === $group['service'] ) ||
 				( ! empty( $setting['family'] ) && 'typekit' === $setting['service'] )
@@ -273,7 +263,7 @@ class CareLib_Fonts {
 		$value = wp_parse_args( (array) $value, $defaults );
 		$value = array_intersect_key( $value, $defaults );
 
-		$value['family']  = $this->fonts->sanitize_font_family( $value['family'] );
+		$value['family']  = $this->sanitize_font_family( $value['family'] );
 		$value['stack']   = $this->sanitize_font_stack( $value['stack'] );
 		$value['service'] = sanitize_key( $value['service'] );
 
@@ -344,7 +334,7 @@ class CareLib_Fonts {
 	public function get_css() {
 		$css = '';
 
-		foreach ( $this->text_groups as $group ) {
+		foreach ( self::$text_groups as $group ) {
 			$setting = get_theme_mod( $group['id'] . '_font', array() );
 
 			if ( empty( $setting['stack'] ) || $setting['family'] === $group['family'] ) {
