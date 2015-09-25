@@ -140,13 +140,6 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 	 * @return void
 	 */
 	public function enqueue_fonts_controls() {
-		wp_enqueue_style(
-			'carelib-customize-controls-fonts',
-			esc_url( $this->css_uri( 'customize-controls-fonts.css' ) ),
-			array(),
-			'1.0.0'
-		);
-
 		wp_enqueue_script(
 			'carelib-customize-controls-fonts',
 			esc_url( $this->js_uri( 'customize-controls-fonts.js' ) ),
