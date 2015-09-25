@@ -147,6 +147,14 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 			'1.0.0'
 		);
 
+		wp_enqueue_script(
+			'carelib-customize-controls-fonts',
+			esc_url( $this->js_uri( 'customize-controls-fonts.js' ) ),
+			array( 'customize-controls', 'wp-backbone', 'webfontloader' ),
+			'1.0.0',
+			true
+		);
+
 		wp_localize_script( 'carelib-customize-controls-fonts', 'carelibFontsControlsSettings', array(
 			'fonts' => $this->fonts->get_fonts(),
 			'l10n'  => array(
