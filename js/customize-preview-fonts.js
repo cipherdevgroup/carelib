@@ -1,4 +1,4 @@
-/*global _:false, _carelibThemeFontsPreviewSettings:false, Backbone:false, wp:false */
+/*global _:false, carelibFontsPreviewSettings:false, Backbone:false, wp:false */
 
 (function( window, $, _, Backbone, wp, undefined ) {
 	'use strict';
@@ -6,7 +6,7 @@
 	var api = wp.customize,
 		app = {},
 		loadedFonts = [],
-		settings = _carelibThemeFontsPreviewSettings;
+		settings = carelibFontsPreviewSettings;
 
 	_.extend( app, { model: {}, view: {} } );
 

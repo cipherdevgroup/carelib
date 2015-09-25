@@ -126,7 +126,7 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 			true
 		);
 
-		wp_localize_script( 'carelib-customize-preview-fonts', '_carelibThemeFontsPreviewSettings', array(
+		wp_localize_script( 'carelib-customize-preview-fonts', 'carelibFontsPreviewSettings', array(
 			'groups'  => $this->fonts->get_text_groups(),
 			'subsets' => $this->fonts->get_subsets(),
 		) );
@@ -155,7 +155,7 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 			true
 		);
 
-		wp_localize_script( 'carelib-customize-controls-fonts', '_carelibThemeFontsControlsSettings', array(
+		wp_localize_script( 'carelib-customize-controls-fonts', 'carelibFontsControlsSettings', array(
 			'fonts' => $this->fonts->get_fonts(),
 			'l10n'  => array(
 				'reset'       => esc_html__( 'Reset', 'carelib' ),

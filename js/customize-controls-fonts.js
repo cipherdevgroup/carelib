@@ -1,11 +1,11 @@
-/*global _:false, _carelibThemeFontsControlsSettings:false, Backbone:false, wp:false */
+/*global _:false, carelibFontsControlsSettings:false, Backbone:false, wp:false */
 
 (function( window, $, _, Backbone, wp, undefined ) {
 	'use strict';
 
 	var api = wp.customize,
 		app = {},
-		settings = _carelibThemeFontsControlsSettings;
+		settings = carelibFontsControlsSettings;
 
 	_.extend( app, { model: {}, view: {} } );
 
