@@ -19,6 +19,19 @@
 class CareLib_Fonts_Hooks extends CareLib_Fonts {
 
 	/**
+	 * Add customize register actions and filters for the CareLib_Fonts feature.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return object CareLib_Fonts_Hooks
+	 */
+	public function customize_register( CareLib_Customize_Setup_Register $class ) {
+		add_action( 'customize_register', array( $class, 'customize_register_fonts' ) );
+
+		return $this;
+	}
+
+	/**
 	 * Add customize scripts actions and filters for the CareLib_Fonts feature.
 	 *
 	 * @since  0.2.0
@@ -34,19 +47,6 @@ class CareLib_Fonts_Hooks extends CareLib_Fonts {
 	}
 
 	/**
-	 * Add customize register actions and filters for the CareLib_Fonts feature.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return object CareLib_Fonts_Hooks
-	 */
-	public function customize_register( CareLib_Customize_Setup_Register $class ) {
-		add_action( 'customize_register', array( $class, 'customize_register_fonts' ) );
-
-		return $this;
-	}
-
-	/**
 	 * Add public scripts actions and filters for the CareLib_Fonts feature.
 	 *
 	 * @since  0.2.0
@@ -54,7 +54,7 @@ class CareLib_Fonts_Hooks extends CareLib_Fonts {
 	 * @return object CareLib_Fonts_Hooks
 	 */
 	public function public_scripts( CareLib_Public_Scripts $class ) {
-		add_action( 'wp_enqueue_scripts', array( $class, 'register_fonts_scripts' ) );
+		add_action( 'init', array( $class, 'register_fonts_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $class, 'enqueue_fonts_scripts' ) );
 
 		return $this;
