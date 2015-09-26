@@ -18,7 +18,6 @@
  * @since   0.2.0
  */
 class CareLib_Fonts {
-
 	/**
 	 * Registered fonts.
 	 *
@@ -62,6 +61,8 @@ class CareLib_Fonts {
 		foreach ( $objects as $object ) {
 			carelib_get( $object )->add_fonts_support();
 		}
+
+		return $this;
 	}
 
 	/**
@@ -386,5 +387,4 @@ class CareLib_Fonts {
 			array( 'family' => 'Vollkorn',           'stack' => '"Vollkorn", serif',              'tags' => array( 'content' ) ),
 		) );
 	}
-
 }
