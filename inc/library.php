@@ -93,24 +93,6 @@ class CareLib_Library {
 	}
 
 	/**
-	 * Return the main CareLib instance.
-	 *
-	 * Allows the main library methods to be accessed without repeatedly
-	 * instantiating the class needlessly.
-	 *
-	 * @since 0.1.0
-	 * @access public
-	 * @static
-	 * @return CareLib
-	 */
-	public static function get_instance( $file ) {
-		if ( null === self::$instance ) {
-			self::$instance = new self( $file );
-		}
-		return self::$instance;
-	}
-
-	/**
 	 * Set the prefix to be used by filters throughout the library.
 	 *
 	 * @since  0.2.0
@@ -199,6 +181,24 @@ class CareLib_Library {
 	 */
 	public function get_uri( $path = '' ) {
 		return $this->uri . ltrim( $path );
+	}
+
+	/**
+	 * Return the main CareLib instance.
+	 *
+	 * Allows the main library methods to be accessed without repeatedly
+	 * instantiating the class needlessly.
+	 *
+	 * @since 0.1.0
+	 * @access public
+	 * @static
+	 * @return CareLib
+	 */
+	public static function get_instance( $file ) {
+		if ( null === self::$instance ) {
+			self::$instance = new self( $file );
+		}
+		return self::$instance;
 	}
 
 	/**
