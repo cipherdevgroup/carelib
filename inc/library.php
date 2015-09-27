@@ -69,6 +69,17 @@ class CareLib_Library {
 	private static $instance;
 
 	/**
+	 * Constructor method.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
+	public function __construct( $file ) {
+		$this->set_paths( $file );
+	}
+
+	/**
 	 * Setup all paths used throughout the library.
 	 *
 	 * @since  0.1.0
@@ -94,8 +105,7 @@ class CareLib_Library {
 	 */
 	public static function get_instance( $file ) {
 		if ( null === self::$instance ) {
-			self::$instance = new self();
-			self::$instance->set_paths( $file );
+			self::$instance = new self( $file );
 		}
 		return self::$instance;
 	}
@@ -224,5 +234,4 @@ class CareLib_Library {
 	protected function build() {
 		CareLib_Factory::get( 'library-factory' )->run();
 	}
-
 }
