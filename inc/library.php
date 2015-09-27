@@ -131,7 +131,7 @@ class CareLib_Library {
 	 */
 	public function run() {
 		if ( $this->file && $this->dir && $this->uri ) {
-			$this->build();
+			CareLib_Factory::get( 'library-factory' )->run();
 		}
 	}
 
@@ -221,17 +221,5 @@ class CareLib_Library {
 			get_theme_root_uri(),
 			wp_normalize_path( $path )
 		);
-	}
-
-	/**
-	 * Store a reference to our classes and get them running.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @param  $factory string the name of our factory class
-	 * @return void
-	 */
-	protected function build() {
-		CareLib_Factory::get( 'library-factory' )->run();
 	}
 }
