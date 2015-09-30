@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Library_Factory extends CareLib_Factory {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -38,24 +37,22 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	 * @return void
 	 */
 	public function run() {
-		add_action( 'after_setup_theme', array( $this, 'build_library' ), -95 );
+		add_action( 'after_setup_theme', array( $this, 'build_objects' ), -95 );
 	}
 
 	/**
-	 * Build an array of default classes to run by default.
+	 * Build an array of classes to run by default.
 	 *
 	 * @since  0.2.0
 	 * @access protected
 	 * @return array $classes the default library classes to be built on init
 	 */
-	protected function get_default_classes() {
+	protected function get_classes() {
 		$classes = array(
 			'cache-cleanup',
 			'customize-setup-factory',
 			'i18n',
-			'layouts',
 			'sidebar',
-			'support-factory',
 			'support',
 			'tinymce',
 		);
@@ -84,10 +81,9 @@ class CareLib_Library_Factory extends CareLib_Factory {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	public function build_library() {
-		foreach ( (array) $this->get_default_classes() as $class ) {
+	public function build_objects() {
+		foreach ( (array) $this->get_classes() as $class ) {
 			self::get( $class )->run();
 		}
 	}
-
 }

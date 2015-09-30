@@ -38,7 +38,7 @@ class CareLib_Customize_Setup_Factory extends CareLib_Factory {
 	 * @return void
 	 */
 	public function run() {
-		add_action( 'after_setup_theme', array( $this, 'build_customize' ) );
+		add_action( 'after_setup_theme', array( $this, 'build_objects' ) );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class CareLib_Customize_Setup_Factory extends CareLib_Factory {
 	 * @access protected
 	 * @return array $classes the default library classes to be built on init
 	 */
-	protected function get_customize_classes() {
+	protected function get_classes() {
 		$classes = array();
 
 		if ( is_customize_preview() ) {
@@ -69,10 +69,9 @@ class CareLib_Customize_Setup_Factory extends CareLib_Factory {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	public function build_customize() {
-		foreach ( (array) $this->get_customize_classes() as $class ) {
+	public function build_objects() {
+		foreach ( (array) $this->get_classes() as $class ) {
 			self::get( "customize-setup-{$class}" )->run();
 		}
 	}
-
 }

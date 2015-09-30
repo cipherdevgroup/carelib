@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Admin_Factory extends CareLib_Factory {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -38,7 +37,7 @@ class CareLib_Admin_Factory extends CareLib_Factory {
 	 * @return void
 	 */
 	public function run() {
-		add_action( 'after_setup_theme', array( $this, 'build_admin' ), -90 );
+		add_action( 'after_setup_theme', array( $this, 'build_objects' ), -90 );
 	}
 
 	/**
@@ -48,9 +47,8 @@ class CareLib_Admin_Factory extends CareLib_Factory {
 	 * @access protected
 	 * @return array $classes the default library classes to be built on init
 	 */
-	protected function get_admin_classes() {
+	protected function get_classes() {
 		return apply_filters( "{$this->prefix}_admin_classes", array(
-			'metabox-post-layouts',
 			'metabox-post-styles',
 			'metabox-post-templates',
 			'scripts',
@@ -66,10 +64,9 @@ class CareLib_Admin_Factory extends CareLib_Factory {
 	 * @param  $factory string the name of our factory class
 	 * @return void
 	 */
-	public function build_admin() {
-		foreach ( (array) $this->get_admin_classes() as $class ) {
+	public function build_objects() {
+		foreach ( (array) $this->get_classes() as $class ) {
 			self::get( "admin-{$class}" )->run();
 		}
 	}
-
 }
