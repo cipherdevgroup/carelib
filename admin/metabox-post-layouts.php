@@ -12,7 +12,26 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
+class CareLib_Admin_Metabox_Post_Layouts {
+
+	protected $layouts;
+
+	/**
+	 * Library prefix which can be set within themes.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	protected $prefix;
+
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.2.0
+	 */
+	public function __construct() {
+		$this->prefix = carelib()->get_prefix();
+	}
 
 	/**
 	 * Get our class up and running!
@@ -22,20 +41,8 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 	 * @uses   CareLib_Admin_Metabox_Post_Layout::$wp_hooks
 	 * @return void
 	 */
-	public function run() {
-		$this->wp_hooks();
-	}
-
-	/**
-	 * Register our actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function wp_hooks() {
-		add_action( 'load-post.php',     array( $this, 'metabox_hooks' ) );
-		add_action( 'load-post-new.php', array( $this, 'metabox_hooks' ) );
+	public function add_layouts_support() {
+		$this->layouts = carelib_get( 'layouts-hooks' )->load_metabox( $this );
 	}
 
 	/**
@@ -45,7 +52,7 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 	 * @access public
 	 * @return void
 	 */
-	public function metabox_hooks() {
+	public function setup_metabox() {
 		add_action( 'add_meta_boxes',  array( $this, 'add' ),  10, 2 );
 		add_action( 'save_post',       array( $this, 'save' ), 10, 2 );
 		add_action( 'add_attachment',  array( $this, 'save' ) );
@@ -63,7 +70,7 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 	 */
 	public function add( $post_type ) {
 		$support = post_type_supports( $post_type, 'theme-layouts' );
-		$control = $this->allow_layout_control();
+		$control = $this->layouts->allow_layout_control();
 		if ( ! current_user_can( 'edit_theme_options' ) || ! $support || ! $control ) {
 			return;
 		}
@@ -100,9 +107,9 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 	 * @return void
 	 */
 	public function box( $post, $box ) {
-		$post_layout  = $this->get_post_layout( $post->ID );
+		$post_layout  = $this->layouts->get_post_layout( $post->ID );
 		$post_layout  = $post_layout ? $post_layout : 'default';
-		$post_layouts = $this->get_layouts();
+		$post_layouts = $this->layouts->get_layouts();
 		require_once carelib()->get_dir() . 'admin/templates/metabox-post-layouts.php';
 	}
 
@@ -125,17 +132,16 @@ class CareLib_Admin_Metabox_Post_Layouts extends CareLib_Layouts {
 		}
 
 		$input   = isset( $_POST['carelib-post-layout'] ) ? $_POST['carelib-post-layout'] : '';
-		$current = $this->get_post_layout( $post_id );
+		$current = $this->layouts->get_post_layout( $post_id );
 
 		if ( $input === $current ) {
 			return false;
 		}
 
 		if ( empty( $input ) ) {
-			return $this->delete_post_layout( $post_id );
+			return $this->layouts->delete_post_layout( $post_id );
 		}
 
-		return $this->set_post_layout( $post_id, sanitize_key( $input ) );
+		return $this->layouts->set_post_layout( $post_id, sanitize_key( $input ) );
 	}
-
 }

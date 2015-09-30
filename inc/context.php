@@ -246,7 +246,7 @@ class CareLib_Context {
 		}
 
 		// Theme layouts.
-		if ( current_theme_supports( 'theme-layouts' ) ) {
+		if ( carelib_get( 'layouts' )->has_support() ) {
 			$classes[] = sanitize_html_class( 'layout-' . carelib_get( 'layouts' )->get_theme_layout() );
 		}
 

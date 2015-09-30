@@ -17,10 +17,6 @@ class CareLib_Customize_Setup_Register {
 	protected $layouts;
 	protected $fonts;
 
-	public function __construct() {
-		$this->layouts = carelib_get( 'layouts' );
-	}
-
 	/**
 	 * Get our class up and running!
 	 *
@@ -41,7 +37,6 @@ class CareLib_Customize_Setup_Register {
 	 */
 	protected function wp_hooks() {
 		add_action( 'customize_register', array( $this, 'load_customize_classes' ), 0 );
-		add_action( 'customize_register', array( $this, 'customize_register' ),    10 );
 	}
 
 	/**
@@ -53,6 +48,17 @@ class CareLib_Customize_Setup_Register {
 	 */
 	public function add_fonts_support() {
 		$this->fonts = carelib_get( 'fonts-hooks' )->customize_register( $this );
+	}
+
+	/**
+	 * Add support for the CareLib Layouts feature.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function add_layouts_support() {
+		$this->layouts = carelib_get( 'layouts-hooks' )->customize_register( $this );
 	}
 
 	/**
@@ -77,7 +83,7 @@ class CareLib_Customize_Setup_Register {
 	 * @access public
 	 * @return void
 	 */
-	public function customize_register( $wp_customize ) {
+	public function customize_register_layouts( $wp_customize ) {
 		// Always add the layout section so that theme devs can utilize it.
 		$wp_customize->add_section(
 			'layout',
@@ -147,5 +153,4 @@ class CareLib_Customize_Setup_Register {
 			) ) );
 		}
 	}
-
 }

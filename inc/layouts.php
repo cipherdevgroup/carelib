@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Layouts {
-
 	/**
 	 * Array of layout objects.
 	 *
@@ -21,6 +20,24 @@ class CareLib_Layouts {
 	 * @var    array
 	 */
 	protected static $layouts = array();
+
+	/**
+	 * The name of the default layout.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @var    array
+	 */
+	protected static $default = 'default';
+
+	/**
+	 * Whether or not the current theme has enabled support for layouts.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @var    array
+	 */
+	protected static $has_support = false;
 
 	/**
 	 * Library prefix which can be set within themes.
@@ -46,8 +63,20 @@ class CareLib_Layouts {
 	 * @access public
 	 * @return void
 	 */
-	public function run() {
+	public function add_support() {
+		self::$has_support = true;
+
 		$this->wp_hooks();
+
+		if ( is_customize_preview() ) {
+			carelib_get( 'customize-setup-register' )->add_layouts_support();
+		}
+
+		if ( is_admin( ) ) {
+			carelib_get( 'admin-metabox-post-layouts' )->add_layouts_support();
+		}
+
+		return $this;
 	}
 
 	/**
@@ -58,9 +87,20 @@ class CareLib_Layouts {
 	 * @return void
 	 */
 	protected function wp_hooks() {
-		add_action( 'init',                                 array( $this, 'register_layouts' ), 95 );
-		add_filter( 'current_theme_supports-theme-layouts', array( $this, 'theme_layouts_support' ), 10, 3 );
-		add_filter( "{$this->prefix}_get_theme_layout",     array( $this, 'filter_layout' ), 5 );
+		add_action( 'init',                             array( $this, 'register_layouts' ), 95 );
+		add_filter( "{$this->prefix}_get_theme_layout", array( $this, 'filter_layout' ), 5 );
+	}
+
+	/**
+	 * Check if the current theme has layouts support.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string  $name
+	 * @return bool
+	 */
+	public function has_support() {
+		return (bool) self::$has_support;
 	}
 
 	/**
@@ -99,6 +139,10 @@ class CareLib_Layouts {
 	 * @return void
 	 */
 	public function register_layouts() {
+		if ( ! self::$has_support ) {
+			return false;
+		}
+
 		$this->register_layout(
 			'default',
 			array(
@@ -112,28 +156,21 @@ class CareLib_Layouts {
 
 		// Hook for registering theme layouts. Theme should always register on this hook.
 		do_action( "{$this->prefix}_register_layouts" );
+
+		return true;
 	}
 
 	/**
-	 * Return an array of the available theme layouts.
+	 * Set the default layout.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  bool   $supports
-	 * @param  array  $args
-	 * @param  array  $feature
-	 * @return bool
+	 * @return string
 	 */
-	public function theme_layouts_support( $supports, $args, $feature ) {
-		if ( ! isset( $args[0] ) || ! in_array( $args[0], array( 'customize', 'post_meta' ) ) ) {
-			return $supports;
-		}
+	public function set_default( $value ) {
+		self::$default = (string) $value;
 
-		if ( is_array( $feature[0] ) && isset( $feature[0][ $args[0] ] ) && false === $feature[0][ $args[0] ] ) {
-			$supports = false;
-		}
-
-		return $supports;
+		return $this;
 	}
 
 	/**
@@ -250,9 +287,7 @@ class CareLib_Layouts {
 	 * @return string
 	 */
 	public function get_default_layout() {
-		$support = get_theme_support( 'theme-layouts' );
-
-		return isset( $support[0] ) && isset( $support[0]['default'] ) ? $support[0]['default'] : 'default';
+		return self::$default;
 	}
 
 	/**
@@ -279,7 +314,6 @@ class CareLib_Layouts {
 
 		return $this->get_post_layout( $post_id ) === $layout ? true : false;
 	}
-
 
 	/**
 	 * Checks if a user/author has a specific layout.
@@ -365,5 +399,4 @@ class CareLib_Layouts {
 	public function delete_user_layout( $user_id ) {
 		return delete_user_meta( $user_id, $this->get_meta_key() );
 	}
-
 }
