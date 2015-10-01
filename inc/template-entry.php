@@ -269,21 +269,19 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * Remove all actions from THA entry hooks and filter the WordPress post
-	 * content to return null.
+	 * Remove all actions from THA entry hooks.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
-	public function null_entry() {
+	public function null_entry_containers() {
 		remove_all_actions( 'tha_entry_top' );
 		remove_all_actions( 'tha_entry_before' );
 		remove_all_actions( 'tha_entry_content_before' );
 		remove_all_actions( 'tha_entry_content_after' );
 		remove_all_actions( 'tha_entry_bottom' );
 		remove_all_actions( 'tha_entry_after' );
-		$this->null_entry_content();
 	}
 
 	/**
@@ -297,6 +295,19 @@ class CareLib_Template_Entry {
 	public function null_entry_content() {
 		add_action( 'tha_entry_content_before',   array( $this, 'null_the_content' ), 99 );
 		remove_action( 'tha_entry_content_after', array( $this, 'null_the_content' ),  5 );
+	}
+
+	/**
+	 * Remove all actions from THA entry hooks and filter the WordPress post
+	 * content to return null.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function null_entry() {
+		$this->null_entry_containers();
+		$this->null_entry_content();
 	}
 
 	/**
