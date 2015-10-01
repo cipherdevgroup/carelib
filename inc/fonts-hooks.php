@@ -11,13 +11,12 @@
  */
 
 /**
- * Class for custom fonts feature.
+ * Class for hooking methods to support the fonts feature.
  *
  * @package CareLib
  * @since   0.2.0
  */
 class CareLib_Fonts_Hooks extends CareLib_Fonts {
-
 	/**
 	 * Add customize register actions and filters for the CareLib_Fonts feature.
 	 *
@@ -90,5 +89,4 @@ class CareLib_Fonts_Hooks extends CareLib_Fonts {
 
 		return $this;
 	}
-
 }
