@@ -31,6 +31,17 @@ class CareLib_Template_Archive {
 	}
 
 	/**
+	 * Wrapper for is_archive which also includes search results.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function is_archive() {
+		return is_archive() || is_search();
+	}
+
+	/**
 	 * Determine if we're viewing a "plural" page.
 	 *
 	 * Note that this is similar to, but not quite the same as `!is_singular()`,
