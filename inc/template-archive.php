@@ -63,7 +63,7 @@ class CareLib_Template_Archive {
 	 * @return bool true if we're on a blog archive page.
 	 */
 	public function is_blog_archive() {
-		return is_plural() && ! ( is_post_type_archive() || is_tax() );
+		return $this->is_plural() && ! ( is_post_type_archive() || is_tax() );
 	}
 
 	/**
