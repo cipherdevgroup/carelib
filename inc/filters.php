@@ -17,7 +17,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Filters {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -89,7 +88,6 @@ class CareLib_Filters {
 		add_filter( 'the_author_posts_link',          array( $this, 'the_author_posts_link' ),          5 );
 		add_filter( 'get_comment_author_link',        array( $this, 'get_comment_author_link' ),        5 );
 		add_filter( 'get_comment_author_url_link',    array( $this, 'get_comment_author_url_link' ),    5 );
-		add_filter( 'comment_reply_link',             array( $this, 'comment_reply_link_filter' ),      5 );
 		add_filter( 'get_avatar',                     array( $this, 'get_avatar' ),                     5 );
 		add_filter( 'comments_popup_link_attributes', array( $this, 'comments_popup_link_attributes' ), 5 );
 	}
@@ -221,18 +219,6 @@ class CareLib_Filters {
 	}
 
 	/**
-	 * Adds microdata to the comment reply link.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $link
-	 * @return string
-	 */
-	public function comment_reply_link_filter( $link ) {
-		return preg_replace( '/(<a\s)/i', '$1itemprop="replyToUrl" ', $link );
-	}
-
-	/**
 	 * Adds microdata to avatars.
 	 *
 	 * @since  0.2.0
@@ -358,5 +344,4 @@ class CareLib_Filters {
 
 		return apply_filters( "{$this->prefix}_archive_description", $desc );
 	}
-
 }
