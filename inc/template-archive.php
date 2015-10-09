@@ -31,9 +31,10 @@ class CareLib_Template_Archive {
 	}
 
 	/**
-	 * Function for figuring out if we're viewing a "plural" page. In WP, these pages are archives,
-	 * search results, and the home/blog posts index. Note that this is similar to, but not quite
-	 * the same as `!is_singular()`, which wouldn't account for the 404 page.
+	 * Determine if we're viewing a "plural" page.
+	 *
+	 * Note that this is similar to, but not quite the same as `!is_singular()`,
+	 * which wouldn't account for the 404 page.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -44,14 +45,14 @@ class CareLib_Template_Archive {
 	}
 
 	/**
-	 * Helper function to determine if we're within a blog section archive.
+	 * Determine if we're within a blog section archive.
 	 *
 	 * @since  0.1.1
 	 * @access public
 	 * @return bool true if we're on a blog archive page.
 	 */
 	public function is_blog_archive() {
-		return is_home() || is_archive() && ! ( is_post_type_archive() || is_tax() );
+		return is_plural() && ! ( is_post_type_archive() || is_tax() );
 	}
 
 	/**
@@ -234,5 +235,4 @@ class CareLib_Template_Archive {
 
 		return apply_filters( "{$this->prefix}_posts_navigation", $output, $args );
 	}
-
 }
