@@ -27,7 +27,7 @@ class CareLib_Template_Comments {
 	 * @since 0.2.0
 	 * @var   string
 	 */
-	public static $comment_template = array();
+	protected static $comment_template = array();
 
 	/**
 	 * Constructor method.
@@ -94,5 +94,4 @@ class CareLib_Template_Comments {
 			require self::$comment_template[ $comment_type ];
 		}
 	}
-
 }
