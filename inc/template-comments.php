@@ -39,36 +39,6 @@ class CareLib_Template_Comments {
 	}
 
 	/**
-	 * Return the comment reply link.
-	 *
-	 * Note that WP's `comment_reply_link()` doesn't work outside of
-	 * `wp_list_comments()` without passing in the proper arguments.
-	 *
-	 * This function is just a wrapper for `get_comment_reply_link()`, which
-	 * adds in the arguments automatically.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  array  $args
-	 * @return string
-	 */
-	public function get_reply_link( $args = array() ) {
-		if ( ! get_option( 'thread_comments' ) || in_array( get_comment_type(), array( 'pingback', 'trackback' ) ) ) {
-			return '';
-		}
-
-		$args = wp_parse_args(
-			$args,
-			array(
-				'depth'     => intval( $GLOBALS['comment_depth'] ),
-				'max_depth' => get_option( 'thread_comments_depth' ),
-			)
-		);
-
-		return get_comment_reply_link( $args );
-	}
-
-	/**
 	 * Uses the $comment_type to determine which comment template should be used.
 	 * Once the template is located, it is loaded for use.
 	 *
