@@ -60,6 +60,13 @@ class CareLib_Library {
 	 */
 	private $uri = false;
 
+	private $factories = array(
+		'admin',
+		'global',
+		'public',
+		'customize-setup',
+	);
+
 	/**
 	 * A single instance of the main library class.
 	 *
@@ -77,6 +84,28 @@ class CareLib_Library {
 	 */
 	public function __construct( $file ) {
 		$this->set_paths( $file );
+	}
+
+	/**
+	 * Fix asset directory path on Windows installations.
+	 *
+	 * Because we don't know where the library is located, we need to
+	 * generate a URI based on the library directory path. In order to do
+	 * this, we are replacing the theme root directory portion of the
+	 * library directory with the theme root URI.
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @uses   get_theme_root()
+	 * @uses   get_theme_root_uri()
+	 * @return string a normalized uri string
+	 */
+	protected function normalize_uri( $path ) {
+		return str_replace(
+			wp_normalize_path( get_theme_root() ),
+			get_theme_root_uri(),
+			wp_normalize_path( $path )
+		);
 	}
 
 	/**
@@ -112,8 +141,9 @@ class CareLib_Library {
 	 * @return void
 	 */
 	public function run() {
-		if ( $this->file && $this->dir && $this->uri ) {
-			CareLib_Factory::get( 'library-factory' )->run();
+		foreach ( $this->factories as $factory ) {
+			$object = CareLib_Factory::get( "{$factory}-factory" );
+			$object->run();
 		}
 	}
 
@@ -199,27 +229,5 @@ class CareLib_Library {
 			self::$instance = new self( $file );
 		}
 		return self::$instance;
-	}
-
-	/**
-	 * Fix asset directory path on Windows installations.
-	 *
-	 * Because we don't know where the library is located, we need to
-	 * generate a URI based on the library directory path. In order to do
-	 * this, we are replacing the theme root directory portion of the
-	 * library directory with the theme root URI.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @uses   get_theme_root()
-	 * @uses   get_theme_root_uri()
-	 * @return string a normalized uri string
-	 */
-	protected function normalize_uri( $path ) {
-		return str_replace(
-			wp_normalize_path( get_theme_root() ),
-			get_theme_root_uri(),
-			wp_normalize_path( $path )
-		);
 	}
 }

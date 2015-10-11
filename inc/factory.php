@@ -12,6 +12,13 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Factory {
+	/**
+	 * A list of required library object names.
+	 *
+	 * @since 0.2.0
+	 * @var   array
+	 */
+	protected $required = array();
 
 	/**
 	 * The saved library objects.
@@ -69,4 +76,24 @@ class CareLib_Factory {
 		return self::build( $object, $name, $args );
 	}
 
+	/**
+	 * Run and store a reference to objects which are required for the plugin
+	 * to operate.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  $factory string the name of our factory class
+	 * @return void
+	 */
+	public function build_required_objects() {
+		if ( empty( $this->required ) ) {
+			throw new InvalidArgumentException(
+				'No required objects have been defined.'
+			);
+		}
+		foreach ( $this->required as $class ) {
+			$object = self::get( $class );
+			$object->run();
+		}
+	}
 }
