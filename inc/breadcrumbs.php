@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Breadcrumbs {
-
 	/**
 	* Library prefix which can be set within themes.
 	*
@@ -122,5 +121,4 @@ class CareLib_Breadcrumbs {
 		}
 		return false;
 	}
-
 }

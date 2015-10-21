@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Admin_Dashboard {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -21,6 +20,11 @@ class CareLib_Admin_Dashboard {
 	 */
 	protected $prefix;
 
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.2.0
+	 */
 	public function __construct() {
 		$this->prefix = carelib()->get_prefix();
 	}
@@ -179,5 +183,4 @@ class CareLib_Admin_Dashboard {
 	public function dashboard_page() {
 		require_once carelib()->get_dir() . 'admin/templates/dashboard.php';
 	}
-
 }

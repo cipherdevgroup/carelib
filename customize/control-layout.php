@@ -12,7 +12,6 @@
  */
 
 class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_Image {
-
 	/**
 	 * The default customizer section this control is attached to.
 	 *
@@ -22,6 +21,12 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	 */
 	public $section = 'layout';
 
+	/**
+	 * Placeholder for the CareLib_Layouts class.
+	 *
+	 * @since 0.2.0
+	 * @var   object
+	 */
 	protected $layouts;
 
 	/**

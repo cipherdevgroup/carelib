@@ -19,7 +19,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Media_Grabber {
-
 	/**
 	 * The HTML version of the media to return.
 	 *
@@ -486,5 +485,4 @@ class CareLib_Media_Grabber {
 		}
 		return array( $max_width, $max_height );
 	}
-
 }

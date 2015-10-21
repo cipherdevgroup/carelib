@@ -16,7 +16,6 @@
  */
 
 class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
-
 	/**
 	 * The type of customize control being rendered.
 	 *

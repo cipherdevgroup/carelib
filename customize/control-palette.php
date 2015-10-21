@@ -9,7 +9,6 @@
  */
 
 class CareLib_Customize_Control_Palette extends WP_Customize_Control {
-
 	/**
 	 * The type of customize control being rendered.
 	 *

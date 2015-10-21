@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_TinyMCE {
-
 	/**
 	 * Get our class up and running!
 	 *
@@ -245,5 +244,4 @@ class CareLib_TinyMCE {
 		echo $this->fonts->get_css(); // WPCS: XSS OK.
 		exit;
 	}
-
 }

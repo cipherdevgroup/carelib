@@ -13,7 +13,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Template_Media {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -66,5 +65,4 @@ class CareLib_Template_Media {
 	public function get_video_attachment() {
 		return $this->media_grabber( array( 'type' => 'video' ) );
 	}
-
 }

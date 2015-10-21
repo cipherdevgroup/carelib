@@ -14,7 +14,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Settings_Site_Logo extends CareLib_Customize_Base {
-
 	/**
 	 * Add our logo uploader to the Customizer.
 	 *
@@ -115,5 +114,4 @@ class CareLib_Customize_Settings_Site_Logo extends CareLib_Customize_Base {
 		// If the new setting doesn't point to a valid attachment, reset it.
 		return array( 'id' => 0, 'sizes' => array(), 'url' => '' );
 	}
-
 }

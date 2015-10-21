@@ -13,7 +13,12 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
-
+	/**
+	 * Placeholder for the CareLib_Fonts_Hooks class.
+	 *
+	 * @since 0.2.0
+	 * @var   object
+	 */
 	protected $fonts;
 
 	/**
@@ -180,5 +185,4 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 		</script>
 		<?php
 	}
-
 }

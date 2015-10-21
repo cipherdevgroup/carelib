@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Menu {
-
 	/**
 	 * Function for grabbing a WP nav menu theme location name.
 	 *
@@ -44,5 +43,4 @@ class CareLib_Menu {
 		$templates[] = 'template-parts/menu/menu.php';
 		locate_template( $templates, true );
 	}
-
 }

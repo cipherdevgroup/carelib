@@ -15,7 +15,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Sidebar {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -125,5 +124,4 @@ class CareLib_Sidebar {
 		$templates[] = 'template-parts/sidebar/sidebar.php';
 		locate_template( $templates, true );
 	}
-
 }

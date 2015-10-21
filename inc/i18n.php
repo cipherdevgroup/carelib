@@ -15,7 +15,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_i18n {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -286,5 +285,4 @@ class CareLib_i18n {
 
 		return sanitize_key( preg_replace( '/.*?_(.*?)$/i', '$1', $locale ) );
 	}
-
 }

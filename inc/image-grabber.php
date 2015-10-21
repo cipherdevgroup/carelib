@@ -9,7 +9,6 @@
  */
 
 class CareLib_Image_Grabber {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -610,5 +609,4 @@ class CareLib_Image_Grabber {
 
 		update_post_meta( $args['post_id'], $args['meta_key_save'], $image['src'], $meta );
 	}
-
 }

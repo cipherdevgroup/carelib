@@ -14,7 +14,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Layout {
-
 	/**
 	 * Arguments for creating the layout object.
 	 *
@@ -272,5 +271,4 @@ class CareLib_Layout {
 	public function set_post_types( $value ) {
 		$this->args['post_types'] = (array) $value;
 	}
-
 }

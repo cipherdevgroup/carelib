@@ -15,7 +15,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Meta {
-
 	/**
 	 * The layouts class object.
 	 *
@@ -107,5 +106,4 @@ class CareLib_Meta {
 			'__return_false'
 		);
 	}
-
 }

@@ -12,7 +12,12 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
-
+	/**
+	 * The current post's custom templates.
+	 *
+	 * @since 0.2.0
+	 * @var   array
+	 */
 	protected static $templates = array();
 
 	/**
@@ -167,5 +172,4 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 
 		return self::$templates[ $post_type ] = array_flip( $post_templates );
 	}
-
 }

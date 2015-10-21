@@ -15,7 +15,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Template_Entry {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -466,5 +465,4 @@ class CareLib_Template_Entry {
 		preg_match( '/<a\s[^>]*?href=[\'"](.+?)[\'"]/is', make_clickable( $content ), $matches );
 		return ! empty( $matches[1] ) ? esc_url_raw( $matches[1] ) : '';
 	}
-
 }

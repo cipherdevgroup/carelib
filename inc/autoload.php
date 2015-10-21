@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Autoload {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -129,5 +128,4 @@ class CareLib_Autoload {
 			$this->build_file( 'customize/', $this->format_class( $class, 'Customize_' ) )
 		);
 	}
-
 }

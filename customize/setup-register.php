@@ -13,8 +13,20 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Setup_Register {
-
+	/**
+	 * Placeholder for the CareLib_Layouts_Hooks class.
+	 *
+	 * @since 0.2.0
+	 * @var   object
+	 */
 	protected $layouts;
+
+	/**
+	 * Placeholder for the CareLib_Fonts_Hooks class.
+	 *
+	 * @since 0.2.0
+	 * @var   object
+	 */
 	protected $fonts;
 
 	/**

@@ -12,7 +12,12 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Styles {
-
+	/**
+	 * The current post's custom stylesheets.
+	 *
+	 * @since 0.2.0
+	 * @var   array
+	 */
 	protected static $styles = array();
 
 	/**
@@ -164,5 +169,4 @@ class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Styles {
 
 		return self::$styles[ $post_type ] = array_flip( self::$styles[ $post_type ] );
 	}
-
 }

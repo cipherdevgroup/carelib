@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Public_Scripts extends CareLib_Scripts {
-
 	/**
 	 * Get our class up and running!
 	 *
@@ -109,5 +108,4 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 			echo '<script>try{Typekit.load({ async: true });}catch(e){}</script>';
 		}
 	}
-
 }

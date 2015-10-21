@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 abstract class CareLib_Styles extends CareLib_Scripts {
-
 	/**
 	 * Return the path to the library css directory with a trailing slash.
 	 *
@@ -86,5 +85,4 @@ abstract class CareLib_Styles extends CareLib_Scripts {
 	public function get_style_meta_key() {
 		return apply_filters( "{$this->prefix}_style_meta_key", 'Stylesheet' );
 	}
-
 }

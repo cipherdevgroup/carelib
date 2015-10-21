@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Head {
-
 	/**
 	 * Get our class up and running!
 	 *
@@ -84,5 +83,4 @@ class CareLib_Head {
 	public function canihas_js() {
 		echo '<script type="text/javascript">document.documentElement.className = "has-js";</script>' . "\n";
 	}
-
 }

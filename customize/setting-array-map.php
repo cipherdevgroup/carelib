@@ -12,7 +12,6 @@
  */
 
 class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
-
 	/**
 	 * The sanitize callback function to run over each element of the array.
 	 *
@@ -50,5 +49,4 @@ class CareLib_Customize_Setting_Array_Map extends WP_Customize_Setting {
 	public function map( $value ) {
 		return apply_filters( "customize_sanitize_{$this->id}", $value, $this );
 	}
-
 }

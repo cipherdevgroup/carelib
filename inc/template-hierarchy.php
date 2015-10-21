@@ -17,7 +17,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Template_Hierarchy {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -272,5 +271,4 @@ class CareLib_Template_Hierarchy {
 	public function get_post_template_meta_key( $post_id ) {
 		return sprintf( '_wp_%s_template', get_post_type( $post_id ) );
 	}
-
 }

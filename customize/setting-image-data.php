@@ -17,7 +17,6 @@
  */
 
 class CareLib_Customize_Setting_Image_Data extends WP_Customize_Setting {
-
 	/**
 	 * Overwrites the `update()` method so we can save some extra data.
 	 *

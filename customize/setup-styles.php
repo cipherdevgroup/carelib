@@ -13,7 +13,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Setup_Styles extends CareLib_Styles {
-
 	/**
 	 * Get our class up and running!
 	 *
@@ -51,5 +50,4 @@ class CareLib_Customize_Setup_Styles extends CareLib_Styles {
 			$this->version
 		);
 	}
-
 }

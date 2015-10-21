@@ -18,7 +18,6 @@
 defined( 'ABSPATH' ) || exit;
 
 abstract class CareLib_Customize_Base {
-
 	/**
 	 * An array of choices used for sanitizing multi-select fields.
 	 *
@@ -154,5 +153,4 @@ abstract class CareLib_Customize_Base {
 		}
 		return $choices;
 	}
-
 }

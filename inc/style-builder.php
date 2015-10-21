@@ -17,7 +17,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Style_Builder {
-
 	/**
 	 * The array for storing added CSS rule data.
 	 *
@@ -264,5 +263,4 @@ class CareLib_Style_Builder {
 		 */
 		return apply_filters( "{$this->prefix}_css_parse_declarations", $output, $declarations, $tab );
 	}
-
 }

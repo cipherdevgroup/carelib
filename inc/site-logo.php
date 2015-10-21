@@ -14,7 +14,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Site_Logo {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -305,5 +304,4 @@ class CareLib_Site_Logo {
 
 		echo apply_filters( 'the_site_logo', $html, $logo, $size );
 	}
-
 }

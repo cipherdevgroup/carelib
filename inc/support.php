@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Support {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -99,5 +98,4 @@ class CareLib_Support {
 		add_post_type_support( 'product',           'theme-layouts' );
 		add_post_type_support( 'restaurant_item',   'theme-layouts' );
 	}
-
 }

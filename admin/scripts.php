@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Admin_Scripts extends CareLib_Scripts {
-
 	/**
 	 * Get our class up and running!
 	 *
@@ -52,5 +51,4 @@ class CareLib_Admin_Scripts extends CareLib_Scripts {
 			true
 		);
 	}
-
 }

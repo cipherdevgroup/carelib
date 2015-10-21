@@ -13,7 +13,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Context {
-
 	/**
 	 * Get our class up and running!
 	 *

@@ -24,7 +24,6 @@ class CareLib_Customize_Settings_Breadcrumbs extends CareLib_Customize_Base {
 	 * @return void
 	 */
 	public function register( $wp_customize ) {
-
 		$this->section = "{$this->prefix}_breadcrumbs";
 
 		$wp_customize->add_section(
@@ -60,5 +59,4 @@ class CareLib_Customize_Settings_Breadcrumbs extends CareLib_Customize_Base {
 			);
 		}
 	}
-
 }

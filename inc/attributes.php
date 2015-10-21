@@ -22,7 +22,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Attributes {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -697,5 +696,4 @@ class CareLib_Attributes {
 
 		return $attr;
 	}
-
 }

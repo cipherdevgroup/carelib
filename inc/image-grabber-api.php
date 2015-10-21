@@ -9,7 +9,6 @@
  */
 
 class CareLib_Image_Grabber_API extends CareLib_Image_Grabber {
-
 	/**
 	 * Return a grabbed image.
 	 *
@@ -36,5 +35,4 @@ class CareLib_Image_Grabber_API extends CareLib_Image_Grabber {
 
 		return empty( $image ) ? false : "{$args['before']}{$image}{$args['after']}";
 	}
-
 }

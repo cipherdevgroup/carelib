@@ -13,7 +13,12 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Admin_Metabox_Post_Layouts {
-
+	/**
+	 * Placeholder for the CareLib_Layouts_Hooks class.
+	 *
+	 * @since 0.2.0
+	 * @var   object
+	 */
 	protected $layouts;
 
 	/**

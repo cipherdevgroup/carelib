@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Cache_Cleanup {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -93,5 +92,4 @@ class CareLib_Cache_Cleanup {
 	public function delete_image_cache_by_meta( $meta_id, $post_id ) {
 		return $this->delete_image_cache( $post_id );
 	}
-
 }

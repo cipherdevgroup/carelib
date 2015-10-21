@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Template_Archive {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *

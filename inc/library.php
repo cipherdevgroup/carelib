@@ -17,7 +17,6 @@ defined( 'ABSPATH' ) || exit;
  * @version 0.1.0
  */
 class CareLib_Library {
-
 	/**
 	 * Our library version number.
 	 *

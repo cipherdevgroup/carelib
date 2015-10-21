@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Public_Styles extends CareLib_Styles {
-
 	/**
 	 * The absolute path to the parent stylesheet with a trailing slash.
 	 *
@@ -309,5 +308,4 @@ class CareLib_Public_Styles extends CareLib_Styles {
 			wp_add_inline_style( "{$this->prefix}-style", $css );
 		}
 	}
-
 }

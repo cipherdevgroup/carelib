@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 abstract class CareLib_Scripts {
-
 	/**
 	 * Library version number to append to scripts.
 	 *
@@ -93,5 +92,4 @@ abstract class CareLib_Scripts {
 	public function js_uri( $path ) {
 		return carelib()->get_uri( 'js/' ) . $path;
 	}
-
 }

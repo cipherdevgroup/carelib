@@ -12,7 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Template_Global {
-
 	/**
 	 * Library prefix which can be set within themes.
 	 *
@@ -340,5 +339,4 @@ class CareLib_Template_Global {
 
 		return empty( $blog_url ) ? '' : esc_url( $blog_url );
 	}
-
 }

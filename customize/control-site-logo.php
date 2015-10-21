@@ -125,5 +125,4 @@ class CareLib_Customize_Control_Site_Logo extends WP_Customize_Control {
 		<div class="actions"></div>
 		<?php
 	}
-
 }

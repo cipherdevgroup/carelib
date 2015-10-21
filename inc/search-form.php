@@ -16,7 +16,12 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Search_Form {
-
+	/**
+	 * A unique identifier for each search form.
+	 *
+	 * @since 0.1.0
+	 * @var   int
+	 */
 	protected $id;
 
 	/**
@@ -27,6 +32,11 @@ class CareLib_Search_Form {
 	 */
 	protected $prefix;
 
+	/**
+	 * Constructor method.
+	 *
+	 * @since 0.1.0
+	 */
 	public function __construct() {
 		$this->prefix = carelib()->get_prefix();
 	}
@@ -132,5 +142,4 @@ class CareLib_Search_Form {
 		}
 		return $this->id;
 	}
-
 }

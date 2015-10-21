@@ -13,7 +13,6 @@
 defined( 'ABSPATH' ) || exit;
 
 class CareLib_Customize_Setup_Settings {
-
 	/**
 	 * Get our class up and running!
 	 *
@@ -45,5 +44,4 @@ class CareLib_Customize_Setup_Settings {
 			carelib_get( 'customize-settings-breadcrumbs' );
 		}
 	}
-
 }
