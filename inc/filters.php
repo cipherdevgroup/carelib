@@ -75,7 +75,8 @@ class CareLib_Filters {
 		add_filter( "{$this->prefix}_archive_description", 'shortcode_unautop', 35 );
 
 		// Default excerpt more.
-		add_filter( 'excerpt_more', array( $this, 'excerpt_more' ), 5 );
+		add_filter( 'excerpt_more',          array( $this, 'excerpt_more' ), 5 );
+		add_filter( 'the_content_more_link', array( $this, 'excerpt_more' ), 5 );
 
 		// Add an itemprop of "image" to WordPress attachment images.
 		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'attachment_image_itemprop' ) );
@@ -105,7 +106,7 @@ class CareLib_Filters {
 		if ( 0 !== strpos( $text, '<a' ) ) {
 			$text = sprintf( ' <a rel="nofollow" href="%s" class="more-link">%s</a>',
 				esc_url( get_permalink() ),
-				trim( $text )
+				trim( apply_filters( "{$this->prefix}_read_more_text", $text ) )
 			);
 		}
 		return $text;
