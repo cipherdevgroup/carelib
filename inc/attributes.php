@@ -65,6 +65,7 @@ class CareLib_Attributes {
 		add_filter( "{$prefix}_footer",         array( $this, 'footer' ),         5 );
 		add_filter( "{$prefix}_content",        array( $this, 'content' ),        5 );
 		add_filter( "{$prefix}_sidebar",        array( $this, 'sidebar' ),        5, 2 );
+		add_filter( "{$prefix}_menu-toggle",    array( $this, 'menu_toggle' ),    5, 2 );
 		add_filter( "{$prefix}_menu",           array( $this, 'menu' ),           5, 2 );
 		add_filter( "{$prefix}_nav",            array( $this, 'nav' ),            5, 2 );
 		add_filter( "{$prefix}_wrap",           array( $this, 'wrap' ),           5, 2 );
@@ -281,6 +282,29 @@ class CareLib_Attributes {
 
 		$attr['itemscope'] = 'itemscope';
 		$attr['itemtype']  = 'http://schema.org/WPSideBar';
+
+		return $attr;
+	}
+
+	/**
+	 * Menu toggle attributes.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  array   $attr
+	 * @param  string  $context
+	 * @return array
+	 */
+	public function menu_toggle( $attr, $context ) {
+		$attr['class']         = 'menu-toggle';
+		$attr['role']          = 'button';
+		$attr['aria-expanded'] = 'false';
+		$attr['aria-pressed']  = 'false';
+
+		if ( ! empty( $context ) ) {
+			$attr['id']     = "menu-toggle-{$context}";
+			$attr['class'] .= " menu-toggle-{$context}";
+		}
 
 		return $attr;
 	}
