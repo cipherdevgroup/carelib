@@ -123,9 +123,11 @@ class CareLib_Search_Form {
 	 */
 	protected function get_button() {
 		return sprintf(
-			'<button type="submit" aria-label="%1$s"><span class="screen-reader-text">%2$s</span></button>',
+			'<button type="submit" aria-label="%1$s">%2$s</button>',
 			esc_attr( apply_filters( "{$this->prefix}_search_button_label", __( 'Search', 'carelib' ) ) ),
-			esc_attr( apply_filters( "{$this->prefix}_search_button_text", __( 'Search', 'carelib' ) ) )
+			apply_filters( "{$this->prefix}_search_button_text", sprintf( '<span class="screen-reader-text">%s</span>',
+				esc_html__( 'Search', 'carelib' )
+			) )
 		);
 	}
 
