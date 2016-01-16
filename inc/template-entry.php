@@ -46,8 +46,8 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access protected
-	 * @param  $id mixed the desired title's post id
-	 * @param  $link string the desired title's link URI
+	 * @param  mixed  $id the desired title's post id.
+	 * @param  string $link the desired title's link URI.
 	 * @return string
 	 */
 	protected function get_formatted_title( $id = '', $link = '' ) {
@@ -77,7 +77,7 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  $args array
+	 * @param  array $args Empty array if no arguments.
 	 * @return string
 	 */
 	public function get_entry_title( $args = array() ) {
@@ -117,7 +117,7 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @param  $args array
+	 * @param  array $args Empty array if no arguments.
 	 * @return string
 	 */
 	public function get_entry_published( $args = array() ) {
@@ -134,7 +134,12 @@ class CareLib_Template_Entry {
 		$args = wp_parse_args( $args, $defaults );
 
 		$output  = isset( $args['before'] ) ? $args['before'] : '';
-		$output .= sprintf( $args['wrap'], $this->attr->get_attr( $args['attr'] ), $args['date'] );
+
+		$output .= sprintf( $args['wrap'],
+			$this->attr->get_attr( $args['attr'] ),
+			$args['date']
+		);
+
 		$output .= isset( $args['after'] ) ? $args['after'] : '';
 
 		return apply_filters( "{$this->prefix}_entry_published", $output, $args );
@@ -155,7 +160,7 @@ class CareLib_Template_Entry {
 	 * Output passes through "{$this->prefix}_get_entry_comments_link" filter before returning.
 	 *
 	 * @since  0.1.0
-	 * @param  $args array Empty array if no arguments.
+	 * @param  array $args Empty array if no arguments.
 	 * @return string output
 	 */
 	public function get_entry_comments_link( $args = array() ) {
@@ -175,21 +180,38 @@ class CareLib_Template_Entry {
 			return;
 		}
 
-		// I really would rather not do this, but WordPress is forcing me to.
-		ob_start();
-		comments_number( $args['zero'], $args['one'], $args['more'] );
-		$comments = ob_get_clean();
+		$html = '';
+		$link = get_comments_link();
+		$text = get_comments_number_text( $args['zero'], $args['one'], $args['more'] );
 
-		$comments = sprintf( '<a rel="nofollow" href="%s">%s</a>',
-			get_comments_link(),
-			$comments
+		$html .= isset( $args['before'] ) ? $args['before'] : '';
+
+		$html .= sprintf( '<span class="entry-comments-link"><a rel="nofollow" href="%s">%s</a></span>',
+			$link,
+			$text
 		);
 
-		$output  = isset( $args['before'] ) ? $args['before'] : '';
-		$output .= '<span class="entry-comments-link">' . $comments . '</span>';
-		$output .= isset( $args['after'] ) ? $args['after'] : '';
+		$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( "{$this->prefix}_entry_comments_link", $output, $args );
+		return apply_filters( "{$this->prefix}_entry_comments_link", $html, $link, $text );
+	}
+
+	/**
+	 * Backwards compatible wrapper for get_the_author_posts_link() which was
+	 * added to WordPress core in 4.4.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string
+	 */
+	protected function get_the_author_posts_link() {
+		if ( function_exists( 'get_the_author_posts_link' ) ) {
+			return get_the_author_posts_link();
+		}
+
+		ob_start();
+		the_author_posts_link();
+		return ob_get_clean();
 	}
 
 	/**
@@ -197,7 +219,7 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  array   $args
+	 * @param  array $args Empty array if no arguments.
 	 * @return string
 	 */
 	public function get_entry_author( $args = array() ) {
@@ -214,16 +236,17 @@ class CareLib_Template_Entry {
 
 		$html = '';
 
-		// Output buffering to get the author posts link.
-		ob_start();
-		the_author_posts_link();
-		$link = ob_get_clean();
+		$html .= $args['before'];
 
-		if ( $link ) {
-			$html .= $args['before'];
-			$html .= sprintf( $args['wrap'], $this->attr->get_attr( 'entry-author' ), sprintf( $args['text'], $link ) );
-			$html .= $args['after'];
+		if ( $link = $this->get_the_author_posts_link() ) {
+			$html .= sprintf(
+				$args['wrap'],
+				$this->attr->get_attr( 'entry-author' ),
+				sprintf( $args['text'], $link )
+			);
 		}
+
+		$html .= $args['after'];
 
 		return apply_filters( "{$this->prefix}_entry_author", $html, $args );
 	}
@@ -258,7 +281,7 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int    $post_id
+	 * @param  int $post_id The ID of the post to check for content.
 	 * @return bool
 	 */
 	public function entry_has_content( $post_id = 0 ) {
@@ -328,12 +351,10 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  array   $args
+	 * @param  array $args Empty array if no arguments.
 	 * @return string
 	 */
 	public function get_entry_terms( $args = array() ) {
-		$html = '';
-
 		$defaults = array(
 			'post_id'    => get_the_ID(),
 			'taxonomy'   => 'category',
@@ -349,9 +370,17 @@ class CareLib_Template_Entry {
 
 		$terms = get_the_term_list( $args['post_id'], $args['taxonomy'], '', $args['sep'], '' );
 
+		$html = '';
+
 		if ( $terms ) {
 			$html .= $args['before'];
-			$html .= sprintf( $args['wrap'], $this->attr->get_attr( 'entry-terms', $args['taxonomy'] ), sprintf( $args['text'], $terms ) );
+
+			$html .= sprintf(
+				$args['wrap'],
+				$this->attr->get_attr( 'entry-terms', $args['taxonomy'] ),
+				sprintf( $args['text'], $terms )
+			);
+
 			$html .= $args['after'];
 		}
 
@@ -363,7 +392,7 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access protected
-	 * @param  $object object a post object to use for retrieving the name
+	 * @param  object $object a post object to use for retrieving the name.
 	 * @return mixed null if no object is provided, otherwise the label string
 	 */
 	protected function get_post_type_name( $object ) {
@@ -386,7 +415,7 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @param  $args array
+	 * @param  array $args Empty array if no arguments.
 	 * @return string
 	 */
 	public function get_post_navigation( $args = array() ) {
@@ -414,7 +443,7 @@ class CareLib_Template_Entry {
 		$types = (array) $args['post_types'];
 
 		// Bail if we're not on a single entry. All post types except pages are allowed by default.
-		if ( ! is_singular( $types ) || ( ! in_array( 'page', $types ) && is_page() ) ) {
+		if ( ! is_singular( $types ) || ( ! in_array( 'page', $types, true ) && is_page() ) ) {
 			return;
 		}
 
@@ -457,8 +486,8 @@ class CareLib_Template_Entry {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $content
-	 * @return string
+	 * @param  string $content The content to search for links.
+	 * @return string The content with links made clickable.
 	 */
 	public function get_content_url( $content ) {
 		// Catch links that are not wrapped in an '<a>' tag.
