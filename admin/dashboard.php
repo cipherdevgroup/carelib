@@ -164,7 +164,7 @@ class CareLib_Admin_Dashboard {
 	 */
 	function dashboard_menu() {
 		$theme = wp_get_theme();
-		add_dashboard_page(
+		add_theme_page(
 			$theme['Name'],
 			$theme['Name'],
 			'manage_options',
