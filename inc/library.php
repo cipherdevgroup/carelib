@@ -95,16 +95,13 @@ class CareLib_Library {
 	 *
 	 * @since  0.1.0
 	 * @access protected
-	 * @uses   get_theme_root()
+	 * @uses   trailingslashit()
+	 * @uses   get_template_directory()
 	 * @uses   get_theme_root_uri()
-	 * @return string a normalized uri string
+	 * @return string a normalized uri string.
 	 */
 	protected function normalize_uri( $path ) {
-		return str_replace(
-			wp_normalize_path( get_theme_root() ),
-			get_theme_root_uri(),
-			wp_normalize_path( $path )
-		);
+		return trailingslashit( get_theme_root_uri() ) . strstr( wp_normalize_path( $path ), basename( get_template_directory() ) );
 	}
 
 	/**
@@ -117,7 +114,7 @@ class CareLib_Library {
 	public function set_paths( $file ) {
 		$this->file = $file;
 		$this->dir  = trailingslashit( dirname( $file ) );
-		$this->uri  = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
+		$this->uri  = trailingslashit( $this->normalize_uri( $this->dir ) );
 	}
 
 	/**
