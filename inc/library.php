@@ -41,7 +41,7 @@ class CareLib_Library {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $file = false;
+	private static $file = false;
 
 	/**
 	 * The library's directory path with a trailing slash.
@@ -49,7 +49,7 @@ class CareLib_Library {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $dir = false;
+	private static $dir = false;
 
 	/**
 	 * The library directory URL with a trailing slash.
@@ -57,7 +57,7 @@ class CareLib_Library {
 	 * @since 0.1.0
 	 * @var   string
 	 */
-	private $uri = false;
+	private static $uri = false;
 
 	private $factories = array(
 		'admin',
@@ -82,7 +82,7 @@ class CareLib_Library {
 	 * @return void
 	 */
 	public function __construct( $file ) {
-		$this->set_paths( $file );
+		$this->set_file( $file );
 	}
 
 	/**
@@ -105,16 +105,36 @@ class CareLib_Library {
 	}
 
 	/**
-	 * Setup all paths used throughout the library.
+	 * Setup the root file used throughout the library.
 	 *
 	 * @since  0.1.0
 	 * @access public
 	 * @param  string $file the absolute path to the library's root file.
 	 */
-	public function set_paths( $file ) {
-		$this->file = $file;
-		$this->dir  = trailingslashit( dirname( $file ) );
-		$this->uri  = trailingslashit( $this->normalize_uri( $this->dir ) );
+	public function set_file( $file ) {
+		self::$file = $file;
+	}
+
+	/**
+	 * Setup the root directory path used throughout the library.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  string $file the absolute path to the library's root file.
+	 */
+	public function set_dir( $file ) {
+		self::$dir = trailingslashit( dirname( $file ) );
+	}
+
+	/**
+	 * Setup the root directory URI used throughout the library.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  string $file the absolute path to the library's root file.
+	 */
+	public function set_uri( $file ) {
+		self::$uri = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
 	}
 
 	/**
@@ -195,7 +215,11 @@ class CareLib_Library {
 	 * @return string
 	 */
 	public function get_dir( $path = '' ) {
-		return $this->dir . ltrim( $path );
+		if ( ! self::$dir ) {
+			$this->set_dir( self::$file );
+		}
+
+		return self::$dir . ltrim( $path );
 	}
 
 	/**
@@ -206,7 +230,11 @@ class CareLib_Library {
 	 * @return string
 	 */
 	public function get_uri( $path = '' ) {
-		return $this->uri . ltrim( $path );
+		if ( ! self::$uri ) {
+			$this->set_uri( self::$file );
+		}
+
+		return self::$uri . ltrim( $path );
 	}
 
 	/**
