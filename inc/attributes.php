@@ -70,18 +70,18 @@ class CareLib_Attributes {
 		add_filter( "{$prefix}_nav",            array( $this, 'nav' ),            5, 2 );
 		add_filter( "{$prefix}_wrap",           array( $this, 'wrap' ),           5, 2 );
 
-		# Header attributes.
+		// Header attributes.
 		add_filter( "{$prefix}_head",             array( $this, 'head' ),             5 );
 		add_filter( "{$prefix}_branding",         array( $this, 'branding' ),         5 );
 		add_filter( "{$prefix}_site-title",       array( $this, 'site_title' ),       5 );
 		add_filter( "{$prefix}_site-description", array( $this, 'site_description' ), 5 );
 
-		# Archive page header attributes.
+		// Archive page header attributes.
 		add_filter( "{$prefix}_archive-header",      array( $this, 'archive_header' ),      5 );
 		add_filter( "{$prefix}_archive-title",       array( $this, 'archive_title' ),       5 );
 		add_filter( "{$prefix}_archive-description", array( $this, 'archive_description' ), 5 );
 
-		# Post-specific attributes.
+		// Post-specific attributes.
 		add_filter( "{$prefix}_post",            array( $this, 'post' ),            5 );
 		add_filter( "{$prefix}_entry",           array( $this, 'post' ),            5 ); // Alternate for "post".
 		add_filter( "{$prefix}_entry-title",     array( $this, 'entry_title' ),     5 );
@@ -91,7 +91,7 @@ class CareLib_Attributes {
 		add_filter( "{$prefix}_entry-summary",   array( $this, 'entry_summary' ),   5 );
 		add_filter( "{$prefix}_entry-terms",     array( $this, 'entry_terms' ),     5, 2 );
 
-		# Comment specific attributes.
+		// Comment specific attributes.
 		add_filter( "{$prefix}_comment",           array( $this, 'comment' ),           5 );
 		add_filter( "{$prefix}_comment-author",    array( $this, 'comment_author' ),    5 );
 		add_filter( "{$prefix}_comment-published", array( $this, 'comment_published' ), 5 );
@@ -110,8 +110,8 @@ class CareLib_Attributes {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $slug     The slug/ID of the element (e.g., 'sidebar').
-	 * @param  string  $context  A specific context (e.g., 'primary').
+	 * @param  string $slug The slug/ID of the element (e.g., 'sidebar').
+	 * @param  string $context A specific context (e.g., 'primary').
 	 * @return string
 	 */
 	public function get_attr( $slug, $context = '', $attr = array() ) {
@@ -122,7 +122,7 @@ class CareLib_Attributes {
 		);
 
 		if ( empty( $attr ) ) {
-			$attr['class'] = $slug;
+			$attr['class'] = sanitize_html_class( $slug );
 		}
 
 		foreach ( $attr as $name => $value ) {
