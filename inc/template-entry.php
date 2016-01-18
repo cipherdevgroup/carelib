@@ -82,6 +82,7 @@ class CareLib_Template_Entry {
 	 */
 	public function get_entry_title( $args = array() ) {
 		$is_main  = is_singular() && is_main_query();
+
 		$defaults = apply_filters( "{$this->prefix}_entry_title_defaults",
 			array(
 				'tag'     => $is_main ? 'h1' : 'h2',
@@ -95,21 +96,24 @@ class CareLib_Template_Entry {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$id   = isset( $args['post_id'] ) ? $args['post_id'] : '';
-		$attr = isset( $args['attr'] ) ? $this->attr->get_attr( $args['attr'] ) : '';
-		$link = isset( $args['link'] ) ? $args['link'] : '';
+		// Bail if required args have been removed via a filter.
+		if ( ! isset( $args['tag'], $args['post_id'], $args['attr'], $args['link'] ) ) {
+			return false;
+		}
 
-		$output = isset( $args['before'] ) ? $args['before'] : '';
+		$html = '';
 
-		$output .= sprintf( '<%1$s %2$s>%3$s</%1$s>',
+		$html .= isset( $args['before'] ) ? $args['before'] : '';
+
+		$html .= sprintf( '<%1$s %2$s>%3$s</%1$s>',
 			$args['tag'],
-			$attr,
-			$this->get_formatted_title( $id, $link )
+			$this->attr->get_attr( $args['attr'] ),
+			$this->get_formatted_title( $args['post_id'], $args['link'] )
 		);
 
-		$output .= isset( $args['after'] ) ? $args['after'] : '';
+		$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( "{$this->prefix}_entry_title", $output, $args );
+		return apply_filters( "{$this->prefix}_entry_title", $html, $args );
 	}
 
 	/**
@@ -123,26 +127,33 @@ class CareLib_Template_Entry {
 	public function get_entry_published( $args = array() ) {
 		$defaults = apply_filters( "{$this->prefix}_entry_published_defaults",
 			array(
-				'before' => '',
-				'after'  => '',
 				'attr'   => 'entry-published',
 				'date'   => get_the_date(),
 				'wrap'   => '<time %s>%s</time>',
+				'before' => '',
+				'after'  => '',
 			)
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$output  = isset( $args['before'] ) ? $args['before'] : '';
+		// Bail if required args have been removed via a filter.
+		if ( ! isset( $args['attr'], $args['date'], $args['wrap'] ) ) {
+			return false;
+		}
 
-		$output .= sprintf( $args['wrap'],
+		$html = '';
+
+		$html .= isset( $args['before'] ) ? $args['before'] : '';
+
+		$html .= sprintf( $args['wrap'],
 			$this->attr->get_attr( $args['attr'] ),
 			$args['date']
 		);
 
-		$output .= isset( $args['after'] ) ? $args['after'] : '';
+		$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( "{$this->prefix}_entry_published", $output, $args );
+		return apply_filters( "{$this->prefix}_entry_published", $html, $args );
 	}
 
 	/**
@@ -166,23 +177,31 @@ class CareLib_Template_Entry {
 	public function get_entry_comments_link( $args = array() ) {
 		$defaults = apply_filters( "{$this->prefix}_entry_comments_link_defaults",
 			array(
-				'after'       => '',
-				'before'      => '',
 				'hide_if_off' => 'enabled',
 				'more'        => __( '% Comments', 'carelib' ),
 				'one'         => __( '1 Comment', 'carelib' ),
 				'zero'        => __( 'Leave a Comment', 'carelib' ),
+				'before'      => '',
+				'after'       => '',
 			)
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		if ( ! comments_open() && 'enabled' === $args['hide_if_off'] ) {
-			return;
+		$required = isset(
+			$args['hide_if_off'],
+			$args['more'],
+			$args['one'],
+			$args['zero']
+		);
+
+		// Bail if required args have been removed via a filter or comments are closed.
+		if ( ! $required || ! ( comments_open() && 'enabled' === $args['hide_if_off'] ) ) {
+			return false;
 		}
 
-		$html = '';
 		$link = get_comments_link();
 		$text = get_comments_number_text( $args['zero'], $args['one'], $args['more'] );
+		$html = '';
 
 		$html .= isset( $args['before'] ) ? $args['before'] : '';
 
@@ -193,7 +212,7 @@ class CareLib_Template_Entry {
 
 		$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return apply_filters( "{$this->prefix}_entry_comments_link", $html, $link, $text );
+		return apply_filters( "{$this->prefix}_entry_comments_link", $html, $link, $text, $args );
 	}
 
 	/**
@@ -215,7 +234,8 @@ class CareLib_Template_Entry {
 	}
 
 	/**
-	 * Get the current post's author in The Loop and link to their archive page.
+	 * Get the current post's author in The Loop and optionally link to their
+	 * archive page.
 	 *
 	 * @since  0.2.0
 	 * @access public
@@ -226,27 +246,31 @@ class CareLib_Template_Entry {
 		$defaults = apply_filters( "{$this->prefix}_entry_author_defaults",
 			array(
 				'text'   => '%s',
+				'link'   => $this->get_the_author_posts_link(),
+				'attr'   => 'entry-author',
+				'wrap'   => '<span %s>%s</span>',
 				'before' => '',
 				'after'  => '',
-				'wrap'   => '<span %s>%s</span>',
 			)
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$html = '';
-
-		$html .= $args['before'];
-
-		if ( $link = $this->get_the_author_posts_link() ) {
-			$html .= sprintf(
-				$args['wrap'],
-				$this->attr->get_attr( 'entry-author' ),
-				sprintf( $args['text'], $link )
-			);
+		// Bail if required args have been removed via a filter.
+		if ( ! isset( $args['text'], $args['link'], $args['attr'], $args['wrap'] ) ) {
+			return false;
 		}
 
-		$html .= $args['after'];
+		$html = '';
+
+		$html .= isset( $args['before'] ) ? $args['before'] : '';
+
+		$html .= sprintf( $args['wrap'],
+			$this->attr->get_attr( $args['attr'] ),
+			sprintf( $args['text'], $args['link'] )
+		);
+
+		$html .= isset( $args['after'] ) ? $args['after'] : '';
 
 		return apply_filters( "{$this->prefix}_entry_author", $html, $args );
 	}
@@ -359,32 +383,52 @@ class CareLib_Template_Entry {
 			'post_id'    => get_the_ID(),
 			'taxonomy'   => 'category',
 			'text'       => '%s',
-			'before'     => '',
-			'after'      => '',
 			'wrap'       => '<span %s>%s</span>',
 			// Translators: Separates tags, categories, etc. when displaying a post.
 			'sep'        => _x( ', ', 'taxonomy terms separator', 'carelib' ),
+			'before'     => '',
+			'after'      => '',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$terms = get_the_term_list( $args['post_id'], $args['taxonomy'], '', $args['sep'], '' );
+		$required = isset(
+			$args['post_id'],
+			$args['taxonomy'],
+			$args['text'],
+			$args['wrap'],
+			$args['sep']
+		);
+
+		// Bail if required args have been removed via a filter.
+		if ( ! $required ) {
+			return false;
+		}
+
+		$terms = get_the_term_list(
+			$args['post_id'],
+			$args['taxonomy'],
+			'',
+			$args['sep'],
+			''
+		);
+
+		if ( ! $terms ) {
+			return false;
+		}
 
 		$html = '';
 
-		if ( $terms ) {
-			$html .= $args['before'];
+		$html .= isset( $args['before'] ) ? $args['before'] : '';
 
-			$html .= sprintf(
-				$args['wrap'],
-				$this->attr->get_attr( 'entry-terms', $args['taxonomy'] ),
-				sprintf( $args['text'], $terms )
-			);
+		$html .= sprintf( $args['wrap'],
+			$this->attr->get_attr( 'entry-terms', $args['taxonomy'] ),
+			sprintf( $args['text'], $terms )
+		);
 
-			$html .= $args['after'];
-		}
+		$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-		return $html;
+		return apply_filters( "{$this->prefix}_entry_terms", $html, $terms, $args );
 	}
 
 	/**
@@ -430,8 +474,8 @@ class CareLib_Template_Entry {
 				'post_types'     => array(),
 				'prev_format'    => '<span class="nav-previous">%link</span>',
 				'next_format'    => '<span class="nav-next">%link</span>',
-				'prev_text'      => __( 'Previous', 'carelib' ) . esc_attr( $name ),
-				'next_text'      => __( 'Next', 'carelib' ) . esc_attr( $name ),
+				'prev_text'      => __( 'Previous', 'carelib' ) . esc_html( $name ),
+				'next_text'      => __( 'Next', 'carelib' ) . esc_html( $name ),
 				'in_same_term'   => false,
 				'excluded_terms' => '',
 				'taxonomy'       => 'category',
@@ -444,10 +488,26 @@ class CareLib_Template_Entry {
 
 		// Bail if we're not on a single entry. All post types except pages are allowed by default.
 		if ( ! is_singular( $types ) || ( ! in_array( 'page', $types, true ) && is_page() ) ) {
-			return;
+			return false;
+		}
+
+		$required = isset(
+			$args['prev_format'],
+			$args['prev_text'],
+			$args['next_format'],
+			$args['next_text'],
+			$args['in_same_term'],
+			$args['excluded_terms'],
+			$args['taxonomy']
+		);
+
+		// Bail if required args have been removed via a filter.
+		if ( ! $required ) {
+			return false;
 		}
 
 		$links = '';
+
 		// Previous post link. Can be filtered via WP Core's previous_post_link filter.
 		$links .= get_adjacent_post_link(
 			$args['prev_format'],
@@ -457,6 +517,7 @@ class CareLib_Template_Entry {
 			true,
 			$args['taxonomy']
 		);
+
 		// Next post link. Can be filtered via WP Core's next_post_link filter.
 		$links .= get_adjacent_post_link(
 			$args['next_format'],
@@ -469,16 +530,13 @@ class CareLib_Template_Entry {
 
 		// Bail if we don't have any posts to link to.
 		if ( empty( $links ) ) {
-			return;
+			return false;
 		}
 
-		$output = '';
-
-		$output .= '<nav ' . $this->attr->get_attr( 'nav', 'single' ) . '>';
-		$output .= $links;
-		$output .= '</nav><!-- .nav-single -->';
-
-		return $output;
+		return sprintf( '<nav %s>%s</nav><!-- .nav-single -->',
+			$this->attr->get_attr( 'nav', 'single' ),
+			$links
+		);
 	}
 
 	/**
