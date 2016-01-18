@@ -2,10 +2,12 @@
 /**
  * Autoload all library files.
  *
- * @package   CareLib
- * @copyright Copyright (c) 2015, WP Site Care, LLC
- * @license   GPL-2.0+
- * @since     0.2.0
+ * @package    CareLib
+ * @subpackage CareLib\Classes
+ * @author     Robert Neu
+ * @copyright  Copyright (c) 2015, WP Site Care, LLC
+ * @license    GPL-2.0+
+ * @since      0.2.0
  */
 
 // Prevent direct access.
@@ -21,9 +23,10 @@ class CareLib_Autoload {
 	protected $dir;
 
 	/**
-	 * Constructor method.
+	 * Set up properties and register the autoloaders.
 	 *
 	 * @since 0.2.0
+	 * @param string $file The absolute path to the library's root file.
 	 */
 	public function __construct( $file ) {
 		$this->dir = trailingslashit( dirname( $file ) );
@@ -48,8 +51,8 @@ class CareLib_Autoload {
 	 *
 	 * @since  0.2.0
 	 * @access protected
-	 * @param  string $class the name of the class to replace
-	 * @param  string $prefix an optional prefix to replace in the class name
+	 * @param  string $class the name of the class to replace.
+	 * @param  string $prefix an optional prefix to replace in the class name.
 	 * @return string
 	 */
 	protected function format_class( $class, $prefix = '' ) {
@@ -61,8 +64,8 @@ class CareLib_Autoload {
 	 *
 	 * @since  0.2.0
 	 * @access protected
-	 * @param  string $path the relative path to the file to be formatted
-	 * @param  string $file the slug of the file to be formatted
+	 * @param  string $path the relative path to the file to be formatted.
+	 * @param  string $file the slug of the file to be formatted.
 	 * @return string the formatted path to a file
 	 */
 	protected function build_file( $path, $file ) {
@@ -74,6 +77,7 @@ class CareLib_Autoload {
 	 *
 	 * @since  0.2.0
 	 * @access protected
+	 * @param  string $file the absolute path of the file to be loaded.
 	 * @return bool true if a file is loaded, false otherwise
 	 */
 	protected function require_file( $file ) {
@@ -89,6 +93,7 @@ class CareLib_Autoload {
 	 *
 	 * @since  0.2.0
 	 * @access protected
+	 * @param  string $class The name of the class to be autoloaded.
 	 * @return bool true if a file is loaded, false otherwise
 	 */
 	protected function autoloader( $class ) {
@@ -102,6 +107,7 @@ class CareLib_Autoload {
 	 *
 	 * @since  0.2.0
 	 * @access protected
+	 * @param  string $class The name of the class to be autoloaded.
 	 * @return bool true if a file is loaded, false otherwise
 	 */
 	protected function admin_autoloader( $class ) {
@@ -118,6 +124,7 @@ class CareLib_Autoload {
 	 *
 	 * @since  0.2.0
 	 * @access protected
+	 * @param  string $class The name of the class to be autoloaded.
 	 * @return bool true if a file is loaded, false otherwise
 	 */
 	protected function customize_autoloader( $class ) {
