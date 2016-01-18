@@ -84,7 +84,6 @@ class CareLib_Customize_Setup_Register {
 	 * @return void
 	 */
 	public function load_customize_classes( $wp_customize ) {
-		$wp_customize->register_control_type( 'CareLib_Customize_Control_Palette' );
 		$wp_customize->register_control_type( 'CareLib_Customize_Control_Radio_Image' );
 	}
 
