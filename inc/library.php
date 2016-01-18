@@ -31,7 +31,7 @@ class CareLib_Library {
 	 * Used to prefix filters to make them unique.
 	 *
 	 * @since 0.1.0
-	 * @type  string
+	 * @var   string
 	 */
 	private $prefix = 'carelib';
 
@@ -58,13 +58,6 @@ class CareLib_Library {
 	 * @var   string
 	 */
 	private static $uri = false;
-
-	private $factories = array(
-		'admin',
-		'global',
-		'public',
-		'customize-setup',
-	);
 
 	/**
 	 * A single instance of the main library class.
@@ -95,6 +88,7 @@ class CareLib_Library {
 	 *
 	 * @since  0.1.0
 	 * @access protected
+	 * @param  string $path the absolute path to the library's root directory.
 	 * @uses   trailingslashit()
 	 * @uses   get_template_directory()
 	 * @uses   get_theme_root_uri()
@@ -157,9 +151,16 @@ class CareLib_Library {
 	 * @return void
 	 */
 	public function run() {
-		foreach ( $this->factories as $factory ) {
-			$object = CareLib_Factory::get( "{$factory}-factory" );
-			$object->run();
+		CareLib_Factory::get( 'global-factory' );
+
+		if ( is_admin() ) {
+			CareLib_Factory::get( 'admin-factory' );
+		} else {
+			CareLib_Factory::get( 'public-factory' );
+		}
+
+		if ( is_customize_preview() ) {
+			CareLib_Factory::get( 'customize-setup-factory' );
 		}
 	}
 

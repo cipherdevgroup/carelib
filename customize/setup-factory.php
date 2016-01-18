@@ -32,9 +32,7 @@ class CareLib_Customize_Setup_Factory extends CareLib_Factory {
 	 * @access public
 	 * @return void
 	 */
-	public function run() {
-		if ( is_customize_preview() ) {
-			add_action( 'after_setup_theme', array( $this, 'build_required_objects' ) );
-		}
+	public function __construct() {
+		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ) );
 	}
 }

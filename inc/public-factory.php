@@ -37,9 +37,7 @@ class CareLib_Public_Factory extends CareLib_Factory {
 	 * @access public
 	 * @return void
 	 */
-	public function run() {
-		if ( ! is_admin() ) {
-			add_action( 'after_setup_theme', array( $this, 'build_required_objects' ), -95 );
-		}
+	public function __construct() {
+		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ), -95 );
 	}
 }

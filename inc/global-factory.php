@@ -33,7 +33,7 @@ class CareLib_Global_Factory extends CareLib_Factory {
 	 * @access public
 	 * @return void
 	 */
-	public function run() {
+	public function __construct() {
 		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ), -95 );
 	}
 }
