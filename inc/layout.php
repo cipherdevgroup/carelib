@@ -5,7 +5,7 @@
  * Registration is handled in the `CareLib_Layouts` class in `class-layouts.php`.
  *
  * @package   CareLib
- * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
  * @since     0.2.0
  */

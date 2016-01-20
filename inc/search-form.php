@@ -7,7 +7,7 @@
  * search form.
  *
  * @package   CareLib
- * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
  * @since     0.1.0
  */
