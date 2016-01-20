@@ -6,7 +6,7 @@
  * template tags that WordPress core does not currently handle.
  *
  * @package   CareLib
- * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
  * @since     0.2.0
  */
@@ -178,6 +178,7 @@ class CareLib_Template_Entry {
 		$defaults = apply_filters( "{$this->prefix}_entry_comments_link_defaults",
 			array(
 				'hide_if_off' => 'enabled',
+				'attr'        => 'entry-comments-link',
 				'more'        => __( '% Comments', 'carelib' ),
 				'one'         => __( '1 Comment', 'carelib' ),
 				'zero'        => __( 'Leave a Comment', 'carelib' ),
@@ -189,6 +190,7 @@ class CareLib_Template_Entry {
 
 		$required = isset(
 			$args['hide_if_off'],
+			$args['attr'],
 			$args['more'],
 			$args['one'],
 			$args['zero']
@@ -205,7 +207,8 @@ class CareLib_Template_Entry {
 
 		$html .= isset( $args['before'] ) ? $args['before'] : '';
 
-		$html .= sprintf( '<span class="entry-comments-link"><a rel="nofollow" href="%s">%s</a></span>',
+		$html .= sprintf( '<span %s><a rel="nofollow" href="%s">%s</a></span>',
+			$args['attr'],
 			$link,
 			$text
 		);
@@ -381,6 +384,7 @@ class CareLib_Template_Entry {
 	public function get_entry_terms( $args = array() ) {
 		$defaults = array(
 			'post_id'    => get_the_ID(),
+			'attr'       => 'entry-terms',
 			'taxonomy'   => 'category',
 			'text'       => '%s',
 			'wrap'       => '<span %s>%s</span>',
@@ -394,6 +398,7 @@ class CareLib_Template_Entry {
 
 		$required = isset(
 			$args['post_id'],
+			$args['attr'],
 			$args['taxonomy'],
 			$args['text'],
 			$args['wrap'],
@@ -422,7 +427,7 @@ class CareLib_Template_Entry {
 		$html .= isset( $args['before'] ) ? $args['before'] : '';
 
 		$html .= sprintf( $args['wrap'],
-			$this->attr->get_attr( 'entry-terms', $args['taxonomy'] ),
+			$this->attr->get_attr( $args['attr'], $args['taxonomy'] ),
 			sprintf( $args['text'], $terms )
 		);
 
