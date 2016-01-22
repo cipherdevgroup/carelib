@@ -3,34 +3,6 @@
  * @version 20150507
  */
 
-/* Palette Control
--------------------------------------------- */
-
-.customize-control-palette label {
-	display: block;
-	padding: 0 10px 10px;
-}
-
-.customize-control-palette label.selected {
-	padding-top: 5px;
-	background-color: #ddd;
-}
-
-.customize-control-palette .palette-label {
-	line-height: 28px;
-}
-
-.customize-control-palette .palette-block {
-	display: table;
-	width:   100%;
-	height:  45px;
-}
-
-.customize-control-palette .palette-color {
-	display: table-cell;
-	height:  100%;
-}
-
 /* Radio Image Control
 -------------------------------------------- */
 
