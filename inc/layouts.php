@@ -181,15 +181,16 @@ class CareLib_Layouts {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  string  $theme_layout
-	 * @return string
+	 * @param  string $theme_layout The current global theme layout.
+	 * @return string The modified theme layout based on which page is viewed.
 	 */
 	public function filter_layout( $theme_layout ) {
 		if ( is_singular() ) {
 			$layout = $this->get_post_layout( get_queried_object_id() );
-		}
-		if ( is_author() ) {
+		} elseif ( is_author() ) {
 			$layout = $this->get_user_layout( get_queried_object_id() );
+		} elseif ( carelib_get( 'template-archive' )->is_blog_archive() ) {
+			$layout = $this->get_post_layout( get_option( 'page_for_posts' ) );
 		}
 
 		return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
