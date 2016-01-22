@@ -15,18 +15,18 @@ defined( 'ABSPATH' ) || exit;
 
 class CareLib_Theme {
 	/**
-	 * Library prefix which can be set within themes.
+	 * The theme object.
 	 *
 	 * @since 0.2.0
-	 * @var   string
+	 * @var   WP_Theme
 	 */
 	protected static $theme;
 
 	/**
-	 * Library prefix which can be set within themes.
+	 * The parent theme object.
 	 *
 	 * @since 0.2.0
-	 * @var   string
+	 * @var   WP_Theme
 	 */
 	protected static $parent;
 
