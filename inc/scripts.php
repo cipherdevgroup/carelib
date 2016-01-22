@@ -65,27 +65,4 @@ abstract class CareLib_Scripts {
 	public function get_suffix() {
 		return $this->suffix;
 	}
-
-	/**
-	 * Return the current theme's version number.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function theme_version() {
-		if ( null !== self::$theme_version ) {
-			return self::$theme_version;
-		}
-
-		if ( defined( 'CHILD_THEME_VERSION' ) ) {
-			self::$theme_version = PARENT_THEME_VERSION;
-		} elseif ( defined( 'PARENT_THEME_VERSION' ) ) {
-			self::$theme_version = PARENT_THEME_VERSION;
-		} else {
-			self::$theme_version = carelib_get( 'theme' )->get()->get( 'Version' );
-		}
-
-		return self::$theme_version;
-	}
 }
