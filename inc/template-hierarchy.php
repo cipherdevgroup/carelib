@@ -180,7 +180,7 @@ class CareLib_Template_Hierarchy {
 		$post_type = get_post_type();
 
 		// Allow for custom templates entered into comments_template( $file ).
-		$template = str_replace( carelib_get( 'paths' )->get_template_dir(), '', $template );
+		$template = str_replace( carelib_get( 'paths' )->get_parent_dir(), '', $template );
 
 		if ( 'comments.php' !== $template ) {
 			$templates[] = $template;
