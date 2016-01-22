@@ -50,41 +50,6 @@ class CareLib_Image_Grabber {
 		$this->prefix = carelib()->get_prefix();
 	}
 
-	protected function setup_args( $args ) {
-		$args = wp_parse_args( $args, apply_filters( "{$this->prefix}_image_grabber_defaults",
-			array(
-				'post_id'           => get_the_ID(),
-				'meta_key'          => array( 'Thumbnail', 'thumbnail' ),
-				'featured'          => true,
-				'attachment'        => true,
-				'size'              => has_image_size( 'post-thumbnail' ) ? 'post-thumbnail': 'thumbnail',
-				'srcset_sizes'      => array(),
-				'default_image'     => false,
-				'link_to_post'      => true,
-				'link_class'        => false,
-				'image_class'       => false,
-				'width'             => false,
-				'height'            => false,
-				'format'            => 'img',
-				'meta_key_save'     => false,
-				'thumbnail_id_save' => false,
-				'cache'             => true,
-				'before'            => '',
-				'after'             => '',
-			)
-		) );
-
-		if ( empty( $args['post_id'] ) ) {
-			return false;
-		}
-
-		if ( 'array' === $args['format'] ) {
-			$args['link_to_post'] = false;
-		}
-
-		return $args;
-	}
-
 	/**
 	 * Setup object caching if it's enabled.
 	 *
