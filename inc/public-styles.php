@@ -69,13 +69,14 @@ class CareLib_Public_Styles extends CareLib_Styles {
 			"{$this->prefix}-parent",
 			$this->get_parent_stylesheet_uri(),
 			array(),
-			$this->theme_version()
+			carelib_get( 'theme' )->get_parent_version()
 		);
+
 		wp_register_style(
 			"{$this->prefix}-style",
 			get_stylesheet_uri(),
 			array(),
-			$this->theme_version()
+			carelib_get( 'theme' )->get_version()
 		);
 	}
 

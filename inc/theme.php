@@ -59,4 +59,37 @@ class CareLib_Theme {
 
 		return self::$parent;
 	}
+
+	/**
+	 * Return the fallback version by getting it from the WP_Theme object.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string The current theme's version number.
+	 */
+	public function get_fallback_version() {
+		return $this->get()->get( 'Version' );
+	}
+
+	/**
+	 * Return the version number of the current parent theme.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string The current parent theme's version number.
+	 */
+	public function get_parent_version() {
+		return defined( 'PARENT_THEME_VERSION' ) ? PARENT_THEME_VERSION : $this->get_fallback_version();
+	}
+
+	/**
+	 * Return the version number of the current theme.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string The current theme's version number.
+	 */
+	public function get_version() {
+		return defined( 'CHILD_THEME_VERSION' ) ? CHILD_THEME_VERSION : $this->get_parent_version();
+	}
 }
