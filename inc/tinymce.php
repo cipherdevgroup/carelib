@@ -38,17 +38,6 @@ class CareLib_TinyMCE {
 	}
 
 	/**
-	 * Add support for the CareLib Fonts feature.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function add_fonts_support() {
-		$this->fonts = carelib_get( 'fonts-hooks' )->tinymce( $this );
-	}
-
-	/**
 	 * Add styleselect button to the end of the first row of TinyMCE buttons.
 	 *
 	 * @since  0.1.0
@@ -174,74 +163,5 @@ class CareLib_TinyMCE {
 		$args['style_formats'] = wp_json_encode( $formats );
 
 		return $args;
-	}
-
-	/**
-	 * Register assets for enqueueing on demand.
-	 *
-	 * @since 0.2.0
-	 */
-	public function add_editor_style() {
-		if ( $url = $this->fonts->get_google_fonts_url() ) {
-			add_editor_style( $url );
-		}
-	}
-
-	/**
-	 * Register TinyMCE settings.
-	 *
-	 * Adds the Typekit Kit ID to the settings for loading in the editor.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @param  array $settings TinyMCE settings.
-	 * @return array
-	 */
-	public function register_tinymce_settings( $settings ) {
-		$settings['carelibFontsTypekitId'] = get_theme_mod( 'carelib_fonts_typekit_id', '' );
-		return $settings;
-	}
-
-	/**
-	 * Register a TinyMCE plugin for loading custom fonts.
-	 *
-	 * Loads a Typekit Kit.
-	 *
-	 * @param  array $external_plugins List of external plugins.
-	 * @return array
-	 */
-	public function register_tinymce_plugin( $external_plugins ) {
-		if ( $this->fonts->is_typekit_active() ) {
-			$external_plugins['carelibfonts'] = carelib()->get_uri( 'js/tinymce-fonts.js' );
-		}
-
-		return $external_plugins;
-	}
-
-	/**
-	 * Register a dynamic style sheet URL for the editor.
-	 *
-	 * This needs to be registered after the main theme style sheet.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @param string $stylesheets Comma-separated list of style sheet URLs.
-	 */
-	public function add_dynamic_styles( $stylesheets ) {
-		$stylesheets .= ',' . add_query_arg( 'action', 'carelib-fonts-editor-css', admin_url( 'admin-ajax.php' ) );
-		return $stylesheets;
-	}
-
-	/**
-	 * Output editor styles for custom fonts.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @link http://wordpress.stackexchange.com/a/120835
-	 */
-	public function output_dynamic_styles() {
-		header( 'Content-Type: text/css' );
-		echo $this->fonts->get_css(); // WPCS: XSS OK.
-		exit;
 	}
 }

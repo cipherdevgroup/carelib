@@ -22,14 +22,6 @@ class CareLib_Customize_Setup_Register {
 	protected $layouts;
 
 	/**
-	 * Placeholder for the CareLib_Fonts_Hooks class.
-	 *
-	 * @since 0.2.0
-	 * @var   object
-	 */
-	protected $fonts;
-
-	/**
 	 * Get our class up and running!
 	 *
 	 * @since  0.2.0
@@ -49,17 +41,6 @@ class CareLib_Customize_Setup_Register {
 	 */
 	protected function wp_hooks() {
 		add_action( 'customize_register', array( $this, 'load_customize_classes' ), 0 );
-	}
-
-	/**
-	 * Add support for the CareLib Fonts feature.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function add_fonts_support() {
-		$this->fonts = carelib_get( 'fonts-hooks' )->customize_register( $this );
 	}
 
 	/**
@@ -123,45 +104,5 @@ class CareLib_Customize_Setup_Register {
 				array( 'label' => esc_html__( 'Global Layout', 'carelib' ) )
 			)
 		);
-	}
-
-	/**
-	 * Register Customizer settings and controls.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
-	 */
-	public function customize_register_fonts( $wp_customize ) {
-		$wp_customize->register_section_type( 'CareLib_Customize_Section_Fonts' );
-
-		$wp_customize->add_section( new CareLib_Customize_Section_Fonts( $wp_customize, 'carelib_fonts', array(
-			'title'       => esc_html__( 'Fonts', 'carelib' ),
-			'priority'    => 50,
-		) ) );
-
-		$wp_customize->add_setting( 'carelib_fonts_typekit_id', array(
-			'sanitize_callback' => 'sanitize_text_field',
-			'transport'         => 'postMessage',
-		) );
-
-		foreach ( $this->fonts->get_text_groups() as $group ) {
-			$id = $group['id'] . '_font';
-
-			$wp_customize->add_setting( $id, array(
-				'sanitize_callback' => array( $this->fonts, 'sanitize_font' ),
-				'transport'         => 'postMessage',
-			) );
-
-			$wp_customize->add_control( new CareLib_Customize_Control_Font( $wp_customize, $id, array(
-				'label'         => $group['label'],
-				'description'   => $group['description'],
-				'section'       => 'carelib_fonts',
-				'settings'      => $id,
-				'default_font'  => $group['family'],
-				'exclude_fonts' => $group['exclude'],
-				'tags'          => $group['tags'],
-			) ) );
-		}
 	}
 }

@@ -45,14 +45,6 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	protected $child_uri;
 
 	/**
-	 * A reference to the CareLib_Fonts class.
-	 *
-	 * @since 0.2.0
-	 * @var   CareLib_Fonts
-	 */
-	protected $fonts;
-
-	/**
 	 * Constructor method.
 	 *
 	 * @since 0.2.0
@@ -90,17 +82,6 @@ class CareLib_Public_Styles extends CareLib_Styles {
 		add_filter( 'stylesheet_uri',        array( $this, 'min_stylesheet_uri' ),    5, 2 );
 		add_filter( 'stylesheet_uri',        array( $this, 'style_filter' ),         15 );
 		add_filter( 'locale_stylesheet_uri', array( $this, 'locale_stylesheet_uri' ), 5 );
-	}
-
-	/**
-	 * Add support for the CareLib Fonts feature.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function add_fonts_support() {
-		$this->fonts = carelib_get( 'fonts-hooks' )->public_styles( $this );
 	}
 
 	/**
@@ -279,33 +260,5 @@ class CareLib_Public_Styles extends CareLib_Styles {
 		$locale_style = $this->get_locale_style();
 
 		return $locale_style ? esc_url( $locale_style ) : $stylesheet_uri;
-	}
-
-	/**
-	 * Enqueue fonts.
-	 *
-	 * @since 0.2.0
-	 */
-	public function enqueue_fonts_styles() {
-		if ( $url = $this->fonts->get_google_fonts_url() ) {
-			wp_enqueue_style( 'carelib-fonts-google', $url );
-		}
-	}
-
-	/**
-	 * Add embedded styles to render custom fonts for text groups.
-	 *
-	 * The Customizer JavaScript handles CSS, so short-circuit if the current
-	 * request is a Customizer preview frame.
-	 *
-	 * @since 0.2.0
-	 */
-	public function add_inline_fonts_styles() {
-		if ( is_customize_preview() ) {
-			return;
-		}
-		if ( $css = $this->fonts->get_css() ) {
-			wp_add_inline_style( "{$this->prefix}-style", $css );
-		}
 	}
 }

@@ -35,17 +35,6 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	}
 
 	/**
-	 * Add support for the CareLib Fonts feature.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function add_fonts_support() {
-		$this->fonts = carelib_get( 'fonts-hooks' )->public_scripts( $this );
-	}
-
-	/**
 	 * Enqueue front-end scripts for the library.
 	 *
 	 * @since  0.2.0
@@ -55,57 +44,6 @@ class CareLib_Public_Scripts extends CareLib_Scripts {
 	public function enqueue_scripts() {
 		if ( is_singular() && get_option( 'thread_comments' ) && comments_open() ) {
 			wp_enqueue_script( 'comment-reply' );
-		}
-	}
-
-	/**
-	 * Register assets required by the fonts feature for enqueueing on-demand.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function register_fonts_scripts() {
-		wp_register_script(
-			'webfontloader',
-			'https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js',
-			array(),
-			'1.5.18'
-		);
-	}
-
-	/**
-	 * Enqueue fonts scripts.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function enqueue_fonts_scripts() {
-		if ( ! $this->fonts->is_typekit_active() || is_customize_preview() ) {
-			return;
-		}
-
-		// Enqueue the Typekit kit.
-		$kit_id = get_theme_mod( 'carelib_fonts_typekit_id', '' );
-		wp_enqueue_script(
-			'carelib-fonts-typekit',
-			sprintf( 'https://use.typekit.net/%s.js', sanitize_key( $kit_id ) )
-		);
-
-		add_action( 'wp_head', array( $this, 'load_typekit_fonts' ) );
-	}
-
-	/**
-	 * Load Typekit fonts when the kit script is enqueued.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function load_typekit_fonts() {
-		if ( wp_script_is( 'carelib-fonts-typekit', 'done' ) ) {
-			echo '<script>try{Typekit.load({ async: true });}catch(e){}</script>';
 		}
 	}
 }
