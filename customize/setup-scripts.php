@@ -52,13 +52,6 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 			$this->version,
 			true
 		);
-		wp_register_script(
-			'site-logo-control',
-			esc_url( $this->js_uri( "site-logo-control{$this->suffix}.js" ) ),
-			array( 'media-views', 'customize-controls', 'underscore' ),
-			'',
-			true
-		);
 	}
 
 	/**
@@ -73,13 +66,6 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 			'carelib-customize-preview',
 			$this->js_uri( "customize-preview{$this->suffix}.js" ),
 			array( 'jquery' ),
-			$this->version,
-			true
-		);
-		wp_register_script(
-			'site-logo-preview',
-			esc_url( $this->js_uri( "site-logo-preview{$this->suffix}.js" ) ),
-			array( 'media-views' ),
 			$this->version,
 			true
 		);

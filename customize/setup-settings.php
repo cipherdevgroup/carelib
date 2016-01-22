@@ -35,10 +35,6 @@ class CareLib_Customize_Setup_Settings {
 		add_action( 'init', array( $this, 'load_customizer_settings' ), 0 );
 	}
 
-	public function add_logo_support() {
-		carelib_get( 'customize-settings-site-logo' );
-	}
-
 	public function load_customizer_settings() {
 		if ( carelib_get( 'breadcrumbs' )->plugin_is_active() ) {
 			carelib_get( 'customize-settings-breadcrumbs' );
