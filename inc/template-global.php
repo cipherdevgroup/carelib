@@ -105,52 +105,6 @@ class CareLib_Template_Global {
 	}
 
 	/**
-	 * Retrieve the site logo URL or ID (URL by default). Pass in the string
-	 * 'id' for ID.
-	 *
-	 * @since  0.1.0
-	 * @uses   CareLib_Site_Logo::get_site_logo
-	 * @param  string $format the format to return
-	 * @return mixed The URL or ID of our site logo, false if not set
-	 */
-	public function get_logo( $format = 'url' ) {
-		if ( function_exists( 'jetpack_the_site_logo' ) ) {
-			return jetpack_get_site_logo( $format );
-		}
-		return carelib_get( 'site-logo' )->get_site_logo( $format );
-	}
-
-	/**
-	 * Determine if a site logo is assigned or not.
-	 *
-	 * @since  0.1.0
-	 * @uses   CareLib_Site_Logo::has_site_logo
-	 * @return boolean True if there is an active logo, false otherwise
-	 */
-	public function has_logo() {
-		if ( function_exists( 'jetpack_the_site_logo' ) ) {
-			return jetpack_has_site_logo();
-		}
-		return carelib_get( 'site-logo' )->has_site_logo();
-	}
-
-	/**
-	 * Output an <img> tag of the site logo, at the size specified
-	 * in the theme's add_theme_support() declaration.
-	 *
-	 * @since  0.1.0
-	 * @uses   CareLib_Site_Logo::the_site_logo
-	 * @return void
-	 */
-	public function the_logo() {
-		if ( function_exists( 'jetpack_the_site_logo' ) ) {
-			jetpack_the_site_logo();
-			return;
-		}
-		carelib_get( 'site-logo' )->the_site_logo();
-	}
-
-	/**
 	 * Display our breadcrumbs based on selections made in the WordPress customizer.
 	 *
 	 * @since  0.1.0
