@@ -13,36 +13,12 @@ defined( 'ABSPATH' ) || exit;
 
 class CareLib_Public_Styles extends CareLib_Styles {
 	/**
-	 * The absolute path to the parent stylesheet with a trailing slash.
+	 * A placeholder for the CareLib_Paths class.
 	 *
 	 * @since 0.2.0
-	 * @var   string
+	 * @var   CareLib_Paths
 	 */
-	protected $parent;
-
-	/**
-	 * The absolute path to the child stylesheet with a trailing slash.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $child;
-
-	/**
-	 * The URI to the parent stylesheet with a trailing slash.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $parent_uri;
-
-	/**
-	 * The URI to the child stylesheet with a trailing slash.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $child_uri;
+	protected $paths;
 
 	/**
 	 * Constructor method.
@@ -50,10 +26,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	 * @since 0.2.0
 	 */
 	public function __construct() {
-		$this->parent     = trailingslashit( get_template_directory() );
-		$this->child      = trailingslashit( get_stylesheet_directory() );
-		$this->parent_uri = trailingslashit( get_template_directory_uri() );
-		$this->child_uri  = trailingslashit( get_stylesheet_directory_uri() );
+		$this->paths = carelib_get( 'paths' );
 		parent::__construct();
 	}
 
@@ -117,11 +90,11 @@ class CareLib_Public_Styles extends CareLib_Styles {
 	 */
 	public function get_parent_stylesheet_uri() {
 		// Get the parent theme stylesheet.
-		$stylesheet_uri = $this->parent_uri . 'style.css';
+		$stylesheet_uri = $this->paths->get_parent_uri() . 'style.css';
 
 		// If a '.min' version of the parent theme stylesheet exists, use it.
-		if ( $this->suffix && file_exists( $this->parent . "style{$this->suffix}.css" ) ) {
-			$stylesheet_uri = $this->parent_uri . "style{$this->suffix}.css";
+		if ( $this->suffix && file_exists( $this->paths->get_parent_dir() . "style{$this->suffix}.css" ) ) {
+			$stylesheet_uri = $this->paths->get_parent_uri() . "style{$this->suffix}.css";
 		}
 
 		return apply_filters( 'get_parent_stylesheet_uri', $stylesheet_uri );
@@ -148,7 +121,7 @@ class CareLib_Public_Styles extends CareLib_Styles {
 		// Change the stylesheet name to 'style.min.css'.
 		$stylesheet = str_replace( '.css', "{$this->suffix}.css", $stylesheet );
 
-		if ( file_exists( $this->child . $stylesheet ) ) {
+		if ( file_exists( $this->paths->get_child_dir() . $stylesheet ) ) {
 			$stylesheet_uri = esc_url( trailingslashit( $stylesheet_dir_uri ) . $stylesheet );
 		}
 
@@ -169,13 +142,13 @@ class CareLib_Public_Styles extends CareLib_Styles {
 
 		foreach ( (array) $file_names as $file ) {
 			// If the file exists in the stylesheet (child theme) directory.
-			if ( is_child_theme() && file_exists( $this->child . $file ) ) {
-				$located = $this->child_uri . $file;
+			if ( is_child_theme() && file_exists( $this->paths->get_child_dir() . $file ) ) {
+				$located = $this->paths->get_child_uri() . $file;
 				break;
 			}
 			// If the file exists in the template (parent theme) directory.
-			if ( file_exists( $this->parent . $file ) ) {
-				$located = $this->parent_uri . $file;
+			if ( file_exists( $this->paths->get_parent_dir() . $file ) ) {
+				$located = $this->paths->get_parent_uri() . $file;
 				break;
 			}
 		}

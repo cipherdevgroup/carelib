@@ -24,20 +24,12 @@ class CareLib_i18n {
 	protected $prefix;
 
 	/**
-	 * Library prefix which can be set within themes.
+	 * A placeholder for the CareLib_Paths class.
 	 *
 	 * @since 0.2.0
-	 * @var   string
+	 * @var   CareLib_Paths
 	 */
-	protected $parent;
-
-	/**
-	 * Library prefix which can be set within themes.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $child;
+	protected $paths;
 
 	/**
 	 * Constructor method.
@@ -46,8 +38,7 @@ class CareLib_i18n {
 	 */
 	public function __construct() {
 		$this->prefix = carelib()->get_prefix();
-		$this->parent = trailingslashit( get_template_directory() );
-		$this->child  = trailingslashit( get_stylesheet_directory() );
+		$this->paths = carelib_get( 'paths' );
 	}
 
 	/**
@@ -130,7 +121,7 @@ class CareLib_i18n {
 	 * @return string
 	 */
 	protected function get_parent_domain_path() {
-		if ( file_exists( trailingslashit( get_template_directory() ) . 'languages' ) ) {
+		if ( file_exists( $this->paths->get_parent_dir() . 'languages' ) ) {
 			return 'languages';
 		}
 		$theme = wp_get_theme( get_template() );
@@ -149,7 +140,7 @@ class CareLib_i18n {
 		if ( ! is_child_theme() ) {
 			return '';
 		}
-		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . 'languages' ) ) {
+		if ( file_exists( $this->paths->get_child_dir() . 'languages' ) ) {
 			return 'languages';
 		}
 		$theme = wp_get_theme();
@@ -175,8 +166,8 @@ class CareLib_i18n {
 		$locale = strtolower( str_replace( '_', '-', get_locale() ) );
 
 		// Define locale functions files.
-		$child_func = $this->child  . $this->get_child_domain_path()  . "/{$locale}.php";
-		$theme_func = $this->parent . $this->get_parent_domain_path() . "/{$locale}.php";
+		$child_func = $this->paths->get_child_dir()  . $this->get_child_domain_path()  . "/{$locale}.php";
+		$theme_func = $this->paths->get_parent_dir() . $this->get_parent_domain_path() . "/{$locale}.php";
 
 		// If file exists in child theme.
 		if ( is_child_theme() && file_exists( $child_func ) ) {
@@ -204,14 +195,14 @@ class CareLib_i18n {
 		// Load theme textdomain.
 		load_theme_textdomain(
 			$this->get_parent_textdomain(),
-			$this->parent . $this->get_parent_domain_path()
+			$this->paths->get_parent_dir() . $this->get_parent_domain_path()
 		);
 
 		// Load child theme textdomain.
 		if ( is_child_theme() ) {
 			load_child_theme_textdomain(
 				$this->get_child_textdomain(),
-				$this->child . $this->get_child_domain_path()
+				$this->paths->get_child_dir() . $this->get_child_domain_path()
 			);
 		}
 	}
@@ -239,7 +230,7 @@ class CareLib_i18n {
 
 			// Get just the theme path and file name for the mofile.
 			$mofile_short = str_replace( "{$locale}.mo", "{$domain}-{$locale}.mo", $mofile );
-			$mofile_short = str_replace( array( $this->parent, $this->child ), '', $mofile_short );
+			$mofile_short = str_replace( array( $this->paths->get_parent_dir(), $this->paths->get_child_dir() ), '', $mofile_short );
 
 			// Attempt to find the correct mofile.
 			$locate_mofile = locate_template( array( $mofile_short ) );
