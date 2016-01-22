@@ -13,17 +13,6 @@ defined( 'ABSPATH' ) || exit;
 
 abstract class CareLib_Styles extends CareLib_Scripts {
 	/**
-	 * Return the path to the library css directory with a trailing slash.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function css_uri( $path ) {
-		return carelib()->get_uri( 'css/' ) . $path;
-	}
-
-	/**
 	 * Gets a post style.
 	 *
 	 * @since  0.2.0

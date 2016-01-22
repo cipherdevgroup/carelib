@@ -3,12 +3,13 @@
  * The main CareLib library class.
  *
  * @package    CareLib
+ * @subpackage CareLib\Classes
+ * @author     Robert Neu
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
  * @since      0.1.0
  */
 
-// Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -26,6 +27,14 @@ class CareLib_Library {
 	const VERSION = '0.1.0';
 
 	/**
+	 * The main library file.
+	 *
+	 * @since 0.2.0
+	 * @var   string
+	 */
+	private $file = false;
+
+	/**
 	 * Prefix to prevent conflicts.
 	 *
 	 * Used to prefix filters to make them unique.
@@ -34,30 +43,6 @@ class CareLib_Library {
 	 * @var   string
 	 */
 	private $prefix = 'carelib';
-
-	/**
-	 * The main library file.
-	 *
-	 * @since 0.1.0
-	 * @var   string
-	 */
-	private static $file = false;
-
-	/**
-	 * The library's directory path with a trailing slash.
-	 *
-	 * @since 0.1.0
-	 * @var   string
-	 */
-	private static $dir = false;
-
-	/**
-	 * The library directory URL with a trailing slash.
-	 *
-	 * @since 0.1.0
-	 * @var   string
-	 */
-	private static $uri = false;
 
 	/**
 	 * A single instance of the main library class.
@@ -76,71 +61,6 @@ class CareLib_Library {
 	 */
 	public function __construct( $file ) {
 		$this->set_file( $file );
-	}
-
-	/**
-	 * Fix asset directory path on Windows installations.
-	 *
-	 * Because we don't know where the library is located, we need to
-	 * generate a URI based on the library directory path. In order to do
-	 * this, we are replacing the theme root directory portion of the
-	 * library directory with the theme root URI.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @param  string $path the absolute path to the library's root directory.
-	 * @uses   trailingslashit()
-	 * @uses   get_template_directory()
-	 * @uses   get_theme_root_uri()
-	 * @return string a normalized uri string.
-	 */
-	protected function normalize_uri( $path ) {
-		return trailingslashit( get_theme_root_uri() ) . strstr( wp_normalize_path( $path ), basename( get_template_directory() ) );
-	}
-
-	/**
-	 * Setup the root file used throughout the library.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  string $file the absolute path to the library's root file.
-	 */
-	public function set_file( $file ) {
-		self::$file = $file;
-	}
-
-	/**
-	 * Setup the root directory path used throughout the library.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  string $file the absolute path to the library's root file.
-	 */
-	public function set_dir( $file ) {
-		self::$dir = trailingslashit( dirname( $file ) );
-	}
-
-	/**
-	 * Setup the root directory URI used throughout the library.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @param  string $file the absolute path to the library's root file.
-	 */
-	public function set_uri( $file ) {
-		self::$uri = trailingslashit( $this->normalize_uri( dirname( $file ) ) );
-	}
-
-	/**
-	 * Set the prefix to be used by filters throughout the library.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return CareLib
-	 */
-	public function set_prefix( $prefix ) {
-		$this->prefix = sanitize_key( $prefix );
-		return $this;
 	}
 
 	/**
@@ -187,14 +107,52 @@ class CareLib_Library {
 	}
 
 	/**
+	 * Setup the root file used throughout the library.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string $file the absolute path to the library's root file.
+	 * @return CareLib
+	 */
+	public function set_file( $file ) {
+		$this->file = $file;
+
+		return $this;
+	}
+
+	/**
+	 * Set the prefix to be used by filters throughout the library.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return CareLib
+	 */
+	public function set_prefix( $prefix ) {
+		$this->prefix = sanitize_key( $prefix );
+
+		return $this;
+	}
+
+	/**
+	 * Getter method for reading the protected version variable.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return string CareLib_Library::VERSION The library's version number.
+	 */
+	public function get_version() {
+		return self::VERSION;
+	}
+
+	/**
 	 * Getter method for reading the protected version variable.
 	 *
 	 * @since  0.2.0
 	 * @access public
 	 * @return bool
 	 */
-	public function get_version() {
-		return self::VERSION;
+	public function get_file() {
+		return $this->file;
 	}
 
 	/**
@@ -202,40 +160,10 @@ class CareLib_Library {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @return bool
+	 * @return string CareLib_Library::$prefix The library's prefix.
 	 */
 	public function get_prefix() {
 		return $this->prefix;
-	}
-
-	/**
-	 * Return the path to the CareLib directory with a trailing slash.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_dir( $path = '' ) {
-		if ( ! self::$dir ) {
-			$this->set_dir( self::$file );
-		}
-
-		return self::$dir . ltrim( $path );
-	}
-
-	/**
-	 * Return the URI to the CareLib directory with a trailing slash.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_uri( $path = '' ) {
-		if ( ! self::$uri ) {
-			$this->set_uri( self::$file );
-		}
-
-		return self::$uri . ltrim( $path );
 	}
 
 	/**

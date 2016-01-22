@@ -45,7 +45,7 @@ class CareLib_Customize_Setup_Styles extends CareLib_Styles {
 	public function register_controls() {
 		wp_register_style(
 			'carelib-customize-controls',
-			$this->css_uri( "customize-controls{$this->suffix}.css" ),
+			carelib_get( 'paths' )->get_css_uri( "customize-controls{$this->suffix}.css" ),
 			array(),
 			$this->version
 		);

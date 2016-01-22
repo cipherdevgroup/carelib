@@ -45,13 +45,13 @@ class CareLib_Admin_Styles extends CareLib_Styles {
 	public function register() {
 		wp_register_style(
 			'carelib-admin',
-			$this->css_uri( "carelib-admin{$this->suffix}.css" ),
+			carelib_get( 'paths' )->get_css_uri( "carelib-admin{$this->suffix}.css" ),
 			null,
 			$this->version
 		);
 		wp_register_style(
 			'carelib-dashboard',
-			$this->css_uri( "carelib-dashboard{$this->suffix}.css" ),
+			carelib_get( 'paths' )->get_css_uri( "carelib-dashboard{$this->suffix}.css" ),
 			null,
 			$this->version
 		);

@@ -81,15 +81,4 @@ abstract class CareLib_Scripts {
 		}
 		return self::$theme_version;
 	}
-
-	/**
-	 * Return the path to the library JavaScript directory with a trailing slash.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function js_uri( $path ) {
-		return carelib()->get_uri( 'js/' ) . $path;
-	}
 }

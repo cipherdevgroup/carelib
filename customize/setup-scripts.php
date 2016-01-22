@@ -47,7 +47,7 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 	public function register_controls() {
 		wp_register_script(
 			'carelib-customize-controls',
-			$this->js_uri( "customize-controls{$this->suffix}.js" ),
+			carelib_get( 'paths' )->get_js_uri( "customize-controls{$this->suffix}.js" ),
 			array( 'customize-controls' ),
 			$this->version,
 			true
@@ -64,7 +64,7 @@ class CareLib_Customize_Setup_Scripts extends CareLib_Scripts {
 	public function register_preview() {
 		wp_register_script(
 			'carelib-customize-preview',
-			$this->js_uri( "customize-preview{$this->suffix}.js" ),
+			carelib_get( 'paths' )->get_js_uri( "customize-preview{$this->suffix}.js" ),
 			array( 'jquery' ),
 			$this->version,
 			true

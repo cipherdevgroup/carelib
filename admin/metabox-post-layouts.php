@@ -115,7 +115,7 @@ class CareLib_Admin_Metabox_Post_Layouts {
 		$post_layout  = $this->layouts->get_post_layout( $post->ID );
 		$post_layout  = $post_layout ? $post_layout : 'default';
 		$post_layouts = $this->layouts->get_layouts();
-		require_once carelib()->get_dir() . 'admin/templates/metabox-post-layouts.php';
+		require_once carelib_get( 'paths' )->get_dir() . 'admin/templates/metabox-post-layouts.php';
 	}
 
 	/**

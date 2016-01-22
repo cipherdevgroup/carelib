@@ -45,7 +45,7 @@ class CareLib_Admin_Scripts extends CareLib_Scripts {
 	public function register() {
 		wp_register_script(
 			'carelib-dashboard',
-			$this->js_uri( "carelib-dashboard{$this->suffix}.js" ),
+			carelib_get( 'paths' )->get_js_uri( "carelib-dashboard{$this->suffix}.js" ),
 			array( 'jquery-ui-tabs' ),
 			$this->version,
 			true
