@@ -81,7 +81,7 @@ class CareLib_i18n {
 			return sanitize_key( $domain );
 		}
 
-		$theme  = wp_get_theme( get_template() );
+		$theme  = carelib_get( 'theme' )->get_parent();
 		$domain = $theme->get( 'TextDomain' ) ? $theme->get( 'TextDomain' ) : get_template();
 
 		return sanitize_key( $domain );
@@ -107,7 +107,7 @@ class CareLib_i18n {
 			return sanitize_key( $domain );
 		}
 
-		$theme  = wp_get_theme();
+		$theme  = carelib_get( 'theme' )->get();
 		$domain = $theme->get( 'TextDomain' ) ? $theme->get( 'TextDomain' ) : get_stylesheet();
 
 		return sanitize_key( $domain );
@@ -124,7 +124,7 @@ class CareLib_i18n {
 		if ( file_exists( $this->paths->get_parent_dir() . 'languages' ) ) {
 			return 'languages';
 		}
-		$theme = wp_get_theme( get_template() );
+		$theme = carelib_get( 'theme' )->get_parent();
 
 		return $theme->get( 'DomainPath' ) ? trim( $theme->get( 'DomainPath' ), '/' ) : 'languages';
 	}
@@ -143,7 +143,7 @@ class CareLib_i18n {
 		if ( file_exists( $this->paths->get_child_dir() . 'languages' ) ) {
 			return 'languages';
 		}
-		$theme = wp_get_theme();
+		$theme = carelib_get( 'theme' )->get();
 
 		return $theme->get( 'DomainPath' ) ? trim( $theme->get( 'DomainPath' ), '/' ) : 'languages';
 	}

@@ -229,7 +229,7 @@ class CareLib_Template_Global {
 	 * @return string
 	 */
 	public function get_theme_link() {
-		$theme   = wp_get_theme( get_template() );
+		$theme = carelib_get( 'theme' )->get_parent();
 		$allowed = array(
 			'abbr'    => array( 'title' => true ),
 			'acronym' => array( 'title' => true ),
@@ -257,7 +257,7 @@ class CareLib_Template_Global {
 			return '';
 		}
 
-		$theme   = wp_get_theme();
+		$theme   = carelib_get( 'theme' )->get();
 		$allowed = array(
 			'abbr'    => array( 'title' => true ),
 			'acronym' => array( 'title' => true ),

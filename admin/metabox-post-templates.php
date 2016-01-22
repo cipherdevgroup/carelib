@@ -151,11 +151,11 @@ class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
 		$post_templates = array();
 
 		// Get the theme PHP files one level deep.
-		$files = wp_get_theme( get_template() )->get_files( 'php', 1 );
+		$files = carelib_get( 'theme' )->get_parent()->get_files( 'php', 1 );
 
 		// If a child theme is active, get its files and merge with the parent theme files.
 		if ( is_child_theme() ) {
-			$files = array_merge( $files, wp_get_theme()->get_files( 'php', 1 ) );
+			$files = array_merge( $files, carelib_get( 'theme' )->get()->get_files( 'php', 1 ) );
 		}
 
 		foreach ( $files as $file => $path ) {

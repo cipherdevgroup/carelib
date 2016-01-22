@@ -145,10 +145,10 @@ class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Styles {
 
 		self::$styles[ $post_type ] = array();
 
-		$files = wp_get_theme( get_template() )->get_files( 'css', 2 );
+		$files = carelib_get( 'theme' )->get_parent()->get_files( 'css', 2 );
 
 		if ( is_child_theme() ) {
-			$files = array_merge( $files, wp_get_theme()->get_files( 'css', 2 ) );
+			$files = array_merge( $files, carelib_get( 'theme' )->get()->get_files( 'css', 2 ) );
 		}
 
 		foreach ( $files as $file => $path ) {

@@ -163,7 +163,7 @@ class CareLib_Admin_Dashboard {
 	 * @return  void
 	 */
 	function dashboard_menu() {
-		$theme = wp_get_theme();
+		$theme = carelib_get( 'theme' )->get();
 		add_theme_page(
 			$theme['Name'],
 			$theme['Name'],
