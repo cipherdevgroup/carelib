@@ -181,6 +181,6 @@ class CareLib_Admin_Dashboard {
 	 * @return  void
 	 */
 	public function dashboard_page() {
-		require_once carelib()->get_dir() . 'admin/templates/dashboard.php';
+		require_once carelib_get( 'paths' )->get_dir( 'admin/templates/dashboard.php' );
 	}
 }
