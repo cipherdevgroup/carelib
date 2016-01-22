@@ -3,12 +3,13 @@
  * Load all required library files.
  *
  * @package    CareLib
+ * @subpackage CareLib\Init
+ * @author     Robert Neu
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
  * @since      0.1.0
  */
 
-// Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
 require_once dirname( __FILE__ ) . '/inc/autoload.php';
@@ -21,7 +22,7 @@ new CareLib_Autoload( __FILE__ );
  *
  * Example:
  *
- * <?php carelib()->is_customizer_preview(); ?>
+ * <?php carelib()->get_version(); ?>
  *
  * @since   0.1.0
  * @return  object CareLib
