@@ -112,7 +112,11 @@ class CareLib_Paths {
 	 * @return void
 	 */
 	public function set_parent_dir() {
-		self::$parent_dir = trailingslashit( get_template_directory() );
+		if ( defined( 'PARENT_THEME_DIR' ) ) {
+			self::$parent_dir = PARENT_THEME_DIR;
+		} else {
+			self::$parent_dir = trailingslashit( get_template_directory() );
+		}
 	}
 
 	/**
@@ -123,7 +127,11 @@ class CareLib_Paths {
 	 * @return void
 	 */
 	public function set_parent_uri() {
-		self::$parent_uri = trailingslashit( get_template_directory_uri() );
+		if ( defined( 'PARENT_THEME_URI' ) ) {
+			self::$parent_uri = PARENT_THEME_URI;
+		} else {
+			self::$parent_uri = trailingslashit( get_template_directory_uri() );
+		}
 	}
 
 	/**
@@ -134,7 +142,11 @@ class CareLib_Paths {
 	 * @return void
 	 */
 	public function set_child_dir() {
-		self::$child_dir = trailingslashit( get_stylesheet_directory() );
+		if ( defined( 'CHILD_THEME_DIR' ) ) {
+			self::$child_dir = CHILD_THEME_DIR;
+		} else {
+			self::$child_dir = trailingslashit( get_stylesheet_directory() );
+		}
 	}
 
 	/**
@@ -145,7 +157,11 @@ class CareLib_Paths {
 	 * @return void
 	 */
 	public function set_child_uri() {
-		self::$child_uri = trailingslashit( get_stylesheet_directory_uri() );
+		if ( defined( 'CHILD_THEME_URI' ) ) {
+			self::$child_uri = CHILD_THEME_URI;
+		} else {
+			self::$child_uri = trailingslashit( get_stylesheet_directory_uri() );
+		}
 	}
 
 	/**
