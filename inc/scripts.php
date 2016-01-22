@@ -74,11 +74,18 @@ abstract class CareLib_Scripts {
 	 * @return string
 	 */
 	public function theme_version() {
-		if ( is_null( self::$theme_version ) ) {
-			if ( $theme = wp_get_theme() ) {
-				self::$theme_version = wp_get_theme()->get( 'Version' );
-			}
+		if ( null !== self::$theme_version ) {
+			return self::$theme_version;
 		}
+
+		if ( defined( 'CHILD_THEME_VERSION' ) ) {
+			self::$theme_version = PARENT_THEME_VERSION;
+		} elseif ( defined( 'PARENT_THEME_VERSION' ) ) {
+			self::$theme_version = PARENT_THEME_VERSION;
+		} else {
+			self::$theme_version = carelib_get( 'theme' )->get()->get( 'Version' );
+		}
+
 		return self::$theme_version;
 	}
 }
