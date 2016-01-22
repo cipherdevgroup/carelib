@@ -3,7 +3,7 @@
  * A Helper class for retrieving images.
  *
  * @package   CareLib
- * @copyright Copyright (c) 2015, WP Site Care, LLC
+ * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
  * @since     0.2.0
  */
@@ -327,10 +327,9 @@ class CareLib_Image_Grabber {
 		if ( ! $args['link_to_post'] ) {
 			return $html;
 		}
-		return sprintf( '<a href="%s"%s title="%s">%s</a>',
+		return sprintf( '<a href="%s"%s>%s</a>',
 			get_permalink( $args['post_id'] ),
 			$this->format_class( $args['link_class'] ),
-			esc_attr( apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) ) ),
 			$html
 		);
 	}
@@ -345,9 +344,12 @@ class CareLib_Image_Grabber {
 	 * @return string $image Formatted image markup.
 	 */
 	protected function format_image_html( $args, $image ) {
-		$image_alt = apply_filters( 'the_title', get_post_field( 'post_title', $args['post_id'] ) );
+		$image_alt = '';
+
 		if ( ! empty( $image['alt'] ) ) {
 			$image_alt = $image['alt'];
+		} else {
+			$image_alt = get_the_title( $args['post_id'] );
 		}
 
 		if ( isset( $image['post_thumbnail_id'] ) ) {
@@ -360,7 +362,7 @@ class CareLib_Image_Grabber {
 
 		$html = sprintf( '<img src="%s" alt="%s" class="%s" %s%s%s />',
 			$image['src'],
-			wp_strip_all_tags( $image_alt, true ),
+			esc_attr( $image_alt, true ),
 			$this->build_image_classes( $args, $image ),
 			$this->format_srcset( $image ),
 			$this->format_size( $args, $image, 'width' ),
@@ -565,7 +567,7 @@ class CareLib_Image_Grabber {
 			'src'     => $image[0],
 			'width'   => $image[1],
 			'height'  => $image[2],
-			'alt'     => trim( wp_strip_all_tags( $alt, true ) ),
+			'alt'     => trim( esc_attr( $alt, true ) ),
 			'caption' => get_post_field( 'post_excerpt', $id ),
 			'srcset'  => $this->get_srcset( $id, $image ),
 		);
