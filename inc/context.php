@@ -44,20 +44,18 @@ class CareLib_Context {
 	 * conditional checks within the theme. It returns an array of contexts
 	 * based on what page a visitor is currently viewing on the site.
 	 *
-	 * @since  0.7.0
-	 * @access public
+	 * @since  0.2.0
+	 * @access protected
 	 * @return array
 	 */
-	function get_context() {
+	protected function get_context() {
 		$context   = array();
 		$object    = get_queried_object();
 		$object_id = get_queried_object_id();
 
 		if ( is_front_page() ) {
 			$context[] = 'home';
-		}
-
-		if ( is_home() ) {
+		} elseif ( is_home() ) {
 			$context[] = 'blog';
 		}
 
@@ -65,9 +63,7 @@ class CareLib_Context {
 			$context[] = 'singular';
 			$context[] = "singular-{$object->post_type}";
 			$context[] = "singular-{$object->post_type}-{$object_id}";
-		}
-
-		if ( is_archive() ) {
+		} elseif ( is_archive() ) {
 			$context[] = 'archive';
 
 			if ( is_post_type_archive() ) {
@@ -78,58 +74,38 @@ class CareLib_Context {
 				}
 
 				$context[] = "archive-{$post_type}";
-			}
-
-			if ( is_tax() || is_category() || is_tag() ) {
+			} elseif ( is_tax() || is_category() || is_tag() ) {
 				$context[] = 'taxonomy';
 				$context[] = "taxonomy-{$object->taxonomy}";
 				$context[] = "taxonomy-{$object->taxonomy}-" . sanitize_html_class( $object->slug, $object->term_id );
-			}
-
-			if ( is_author() ) {
+			} elseif ( is_author() ) {
 				$user_id = get_query_var( 'author' );
 				$context[] = 'user';
 				$context[] = 'user-' . sanitize_html_class( get_the_author_meta( 'user_nicename', $user_id ), $user_id );
-			}
-
-			if ( is_date() ) {
+			} elseif ( is_date() ) {
 				$context[] = 'date';
 
 				if ( is_year() ) {
 					$context[] = 'year';
-				}
-
-				if ( is_month() ) {
+				} elseif ( is_month() ) {
 					$context[] = 'month';
-				}
-
-				if ( get_query_var( 'w' ) ) {
+				} elseif ( get_query_var( 'w' ) ) {
 					$context[] = 'week';
-				}
-
-				if ( is_day() ) {
+				} elseif ( is_day() ) {
 					$context[] = 'day';
 				}
-			}
-
-			if ( is_time() ) {
+			} elseif ( is_time() ) {
 				$context[] = 'time';
 
 				if ( get_query_var( 'hour' ) ) {
 					$context[] = 'hour';
-				}
-
-				if ( get_query_var( 'minute' ) ) {
+				} elseif ( get_query_var( 'minute' ) ) {
 					$context[] = 'minute';
 				}
 			}
-		}
-
-		if ( is_search() ) {
+		} elseif ( is_search() ) {
 			$context[] = 'search';
-		}
-
-		if ( is_404() ) {
+		} elseif ( is_404() ) {
 			$context[] = 'error-404';
 		}
 
@@ -149,7 +125,7 @@ class CareLib_Context {
 	 * @param  string|array $class
 	 * @return array
 	 */
-	function body_class_filter( $classes, $class ) {
+	public function body_class_filter( $classes, $class ) {
 		// WordPress class for uses when WordPress isn't always the only system on the site.
 		$classes = array( 'wordpress' );
 
@@ -268,7 +244,7 @@ class CareLib_Context {
 	 * @param  int          $post_id
 	 * @return array
 	 */
-	function post_class_filter( $classes, $class, $post_id ) {
+	public function post_class_filter( $classes, $class, $post_id ) {
 		if ( is_admin() ) {
 			return $classes;
 		}
@@ -282,7 +258,7 @@ class CareLib_Context {
 
 		foreach ( $classes as $key => $class ) {
 
-			if ( in_array( $class, $remove ) ) {
+			if ( in_array( $class, $remove, true ) ) {
 				unset( $classes[ $key ] );
 			} else {
 				$classes[ $key ] = str_replace( 'tag-', 'post_tag-', $class );
@@ -329,12 +305,12 @@ class CareLib_Context {
 	 * @param  int          $comment_id
 	 * @return array
 	 */
-	function comment_class_filter( $classes, $class, $comment_id ) {
+	public function comment_class_filter( $classes, $class, $comment_id ) {
 
 		$comment = get_comment( $comment_id );
 
 		// If the comment type is 'pingback' or 'trackback', add the 'ping' comment class.
-		if ( in_array( $comment->comment_type, array( 'pingback', 'trackback' ) ) ) {
+		if ( in_array( $comment->comment_type, array( 'pingback', 'trackback' ), true ) ) {
 			$classes[] = 'ping';
 		}
 
@@ -356,7 +332,7 @@ class CareLib_Context {
 		$avatar_types = apply_filters( 'get_avatar_comment_types', array( 'comment' ) );
 
 		// If avatars are enabled and the comment types can display avatars, add the 'has-avatar' class.
-		if ( get_option( 'show_avatars' ) && in_array( $comment->comment_type, $avatar_types ) ) {
+		if ( get_option( 'show_avatars' ) && in_array( $comment->comment_type, $avatar_types, true ) ) {
 			$classes[] = 'has-avatar';
 		}
 
