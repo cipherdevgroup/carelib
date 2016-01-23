@@ -11,29 +11,28 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Global_Factory extends CareLib_Factory {
+class CareLib_Factory_Admin extends CareLib_Factory {
 	/**
-	 * A list of required global library object names.
+	 * A list of required admin library object names.
 	 *
 	 * @since 0.2.0
 	 * @var   array
 	 */
 	protected $required = array(
-		'cache-cleanup',
-		'i18n',
-		'sidebar',
-		'support',
-		'tinymce',
+		'admin-metabox-post-styles',
+		'admin-metabox-post-templates',
+		'admin-scripts',
+		'admin-styles',
 	);
 
 	/**
 	 * Method to fire all actions within the class.
 	 *
-	 * @since  0.2.0
+	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ), -95 );
+		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ), -90 );
 	}
 }

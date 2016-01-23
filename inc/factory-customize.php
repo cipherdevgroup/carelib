@@ -1,6 +1,6 @@
 <?php
 /**
- * Build all the default classes necessary for the library to run.
+ * Build all the default classes necessary for the customizer features to run.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
@@ -11,28 +11,28 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Admin_Factory extends CareLib_Factory {
+class CareLib_Factory_Customize extends CareLib_Factory {
 	/**
-	 * A list of required admin library object names.
+	 * A list of required customize library object names.
 	 *
 	 * @since 0.2.0
 	 * @var   array
 	 */
 	protected $required = array(
-		'admin-metabox-post-styles',
-		'admin-metabox-post-templates',
-		'admin-scripts',
-		'admin-styles',
+		'customize-setup-register',
+		'customize-setup-scripts',
+		'customize-setup-settings',
+		'customize-setup-styles',
 	);
 
 	/**
 	 * Method to fire all actions within the class.
 	 *
-	 * @since  0.1.0
+	 * @since  0.2.0
 	 * @access public
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ), -90 );
+		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ) );
 	}
 }

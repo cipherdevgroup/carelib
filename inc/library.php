@@ -71,16 +71,16 @@ class CareLib_Library {
 	 * @return void
 	 */
 	public function run() {
-		CareLib_Factory::get( 'global-factory' );
+		CareLib_Factory::get( 'factory-global' );
 
 		if ( is_admin() ) {
-			CareLib_Factory::get( 'admin-factory' );
+			CareLib_Factory::get( 'factory-admin' );
 		} else {
-			CareLib_Factory::get( 'public-factory' );
+			CareLib_Factory::get( 'factory-public' );
 		}
 
 		if ( is_customize_preview() ) {
-			CareLib_Factory::get( 'customize-setup-factory' );
+			CareLib_Factory::get( 'factory-customize' );
 		}
 	}
 

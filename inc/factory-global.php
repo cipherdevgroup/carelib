@@ -1,6 +1,6 @@
 <?php
 /**
- * Build all the default classes necessary for the customizer features to run.
+ * Build all the default classes necessary for the library to run.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
@@ -11,18 +11,19 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Customize_Setup_Factory extends CareLib_Factory {
+class CareLib_Factory_Global extends CareLib_Factory {
 	/**
-	 * A list of required customize library object names.
+	 * A list of required global library object names.
 	 *
 	 * @since 0.2.0
 	 * @var   array
 	 */
 	protected $required = array(
-		'customize-setup-register',
-		'customize-setup-scripts',
-		'customize-setup-settings',
-		'customize-setup-styles',
+		'cache-cleanup',
+		'i18n',
+		'sidebar',
+		'support',
+		'tinymce',
 	);
 
 	/**
@@ -33,6 +34,6 @@ class CareLib_Customize_Setup_Factory extends CareLib_Factory {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ) );
+		add_action( 'after_setup_theme', array( $this, 'build_required_objects' ), -95 );
 	}
 }

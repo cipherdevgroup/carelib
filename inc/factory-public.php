@@ -11,7 +11,7 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Public_Factory extends CareLib_Factory {
+class CareLib_Factory_Public extends CareLib_Factory {
 	/**
 	 * A list of required public library object names.
 	 *
