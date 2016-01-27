@@ -37,14 +37,6 @@ abstract class CareLib_Scripts {
 	protected $suffix;
 
 	/**
-	 * The current theme's version number.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected static $theme_version;
-
-	/**
 	 * Constructor method.
 	 *
 	 * @since 0.2.0
