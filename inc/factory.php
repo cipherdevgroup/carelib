@@ -46,16 +46,17 @@ class CareLib_Factory {
 			self::$objects[ $object ] = array();
 		}
 
-		$class_name = 'CareLib_' . ucwords( str_replace( '-', '_', $object ) );
+		$class = str_replace( '-', '_', $object );
+		$class = "carelib_{$class}";
 
-		if ( ! class_exists( $class_name ) ) {
+		if ( ! class_exists( $class ) ) {
 			throw new InvalidArgumentException(
 				"No class exists for the '{$object}' object."
 			);
 		}
 
 		if ( empty( self::$objects[ $object ][ $name ] ) ) {
-			self::$objects[ $object ][ $name ] = new $class_name( $args );
+			self::$objects[ $object ][ $name ] = new $class( $args );
 		}
 
 		return self::$objects[ $object ][ $name ];

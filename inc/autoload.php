@@ -29,20 +29,7 @@ class CareLib_Autoload {
 	 */
 	public function __construct( $file ) {
 		$this->dir = trailingslashit( dirname( $file ) );
-		$this->register_autoloaders();
-	}
-
-	/**
-	 * Register all of our autoloaders.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function register_autoloaders() {
 		spl_autoload_register( array( $this, 'autoloader' ) );
-		spl_autoload_register( array( $this, 'admin_autoloader' ) );
-		spl_autoload_register( array( $this, 'customize_autoloader' ) );
 	}
 
 	/**
@@ -55,7 +42,7 @@ class CareLib_Autoload {
 	 * @return string
 	 */
 	protected function format_class( $class, $prefix = '' ) {
-		return strtolower( str_replace( '_', '-', str_replace( "CareLib_{$prefix}", '', $class ) ) );
+		return str_replace( '_', '-', str_replace( "carelib_{$prefix}", '', $class ) );
 	}
 
 	/**
@@ -96,9 +83,26 @@ class CareLib_Autoload {
 	 * @return bool true if a file is loaded, false otherwise
 	 */
 	protected function autoloader( $class ) {
-		return $this->require_file(
-			$this->build_file( 'inc/', $this->format_class( $class ) )
-		);
+		$class  = strtolower( $class );
+		$loaded = false;
+
+		if ( false === strpos( $class, 'carelib' ) ) {
+			return $loaded;
+		}
+
+		$loaded = $this->require_includes( $class );
+
+		if ( false !== strpos( $class, 'admin' ) ) {
+
+			$loaded = $this->require_admin( $class );
+
+		} elseif ( false !== strpos( $class, 'customize' ) ) {
+
+			$loaded = $this->require_customize( $class );
+
+		}
+
+		return $loaded;
 	}
 
 	/**
@@ -109,13 +113,11 @@ class CareLib_Autoload {
 	 * @param  string $class The name of the class to be autoloaded.
 	 * @return bool true if a file is loaded, false otherwise
 	 */
-	protected function admin_autoloader( $class ) {
-		if ( false === strpos( $class, 'Admin' ) ) {
-			return false;
-		}
-		return $this->require_file(
-			$this->build_file( 'admin/', $this->format_class( $class, 'Admin_' ) )
-		);
+	protected function require_admin( $class ) {
+		return $this->require_file( $this->build_file(
+			'admin/',
+			$this->format_class( $class, 'admin_' )
+		) );
 	}
 
 	/**
@@ -126,12 +128,25 @@ class CareLib_Autoload {
 	 * @param  string $class The name of the class to be autoloaded.
 	 * @return bool true if a file is loaded, false otherwise
 	 */
-	protected function customize_autoloader( $class ) {
-		if ( false === strpos( $class, 'Customize' ) ) {
-			return false;
-		}
-		return $this->require_file(
-			$this->build_file( 'customize/', $this->format_class( $class, 'Customize_' ) )
-		);
+	protected function require_customize( $class ) {
+		return $this->require_file( $this->build_file(
+			'customize/',
+			$this->format_class( $class, 'customize_' )
+		) );
+	}
+
+	/**
+	 * Load all admin library classes when they're instantiated.
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @param  string $class The name of the class to be autoloaded.
+	 * @return bool true if a file is loaded, false otherwise
+	 */
+	protected function require_includes( $class ) {
+		return $this->require_file( $this->build_file(
+			'inc/',
+			$this->format_class( $class )
+		) );
 	}
 }
