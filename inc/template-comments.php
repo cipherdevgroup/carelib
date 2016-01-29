@@ -48,11 +48,11 @@ class CareLib_Template_Comments {
 	 * so each comment template is only located once if it is needed. The
 	 * following comments will use the saved template.
 	 *
-	 * @since  0.2.3
+	 * @since  0.2.0
 	 * @access public
-	 * @param  $comment object the comment object.
-	 * @param  $args array list of arguments passed from wp_list_comments().
-	 * @param  $depth integer What level the particular comment is.
+	 * @param  object  $comment the comment object.
+	 * @param  array   $args list of arguments passed from wp_list_comments().
+	 * @param  integer $depth What level the particular comment is.
 	 * @return void
 	 */
 	public function comments_callback( $comment, $args, $depth ) {
@@ -91,6 +91,19 @@ class CareLib_Template_Comments {
 		// If a template was found, load the template.
 		if ( ! empty( self::$comment_template[ $comment_type ] ) ) {
 			require self::$comment_template[ $comment_type ];
+		}
+	}
+
+	/**
+	 * Output the comments template.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function comments_template() {
+		if ( apply_filters( "{$this->prefix}_display_comments", ! ( is_page() || is_attachment() ) ) ) {
+			comments_template();
 		}
 	}
 }
