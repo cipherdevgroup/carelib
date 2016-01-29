@@ -81,7 +81,7 @@ class CareLib_Template_Archive {
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @return void
+	 * @return string
 	 */
 	public function get_single_author_title() {
 		return get_the_author_meta( 'display_name', absint( get_query_var( 'author' ) ) );
@@ -191,7 +191,7 @@ class CareLib_Template_Archive {
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @param  $args array
+	 * @param  array $args An optional list of options.
 	 * @return string
 	 */
 	public function get_posts_navigation( $args = array() ) {
