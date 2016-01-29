@@ -42,6 +42,28 @@ class CareLib_Template_Entry {
 	}
 
 	/**
+	 * Determine if the current view should contain an entry header.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool true on all views by default.
+	 */
+	public function has_entry_header() {
+		return (bool) apply_filters( "{$this->prefix}_has_entry_header", true );
+	}
+
+	/**
+	 * Determine if the current view should contain entry header meta.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool true on all views except single pages by default.
+	 */
+	public function has_entry_header_meta() {
+		return (bool) apply_filters( "{$this->prefix}_has_entry_header_meta", ! is_page() );
+	}
+
+	/**
 	 * Protected helper function to format the entry title's display.
 	 *
 	 * @since  0.2.0
