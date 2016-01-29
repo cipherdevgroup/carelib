@@ -31,6 +31,19 @@ class CareLib_Template_Hooks {
 	}
 
 	/**
+	 * Add a custom action for the archive header.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function archive_header() {
+		if ( carelib_get( 'template-archive' )->has_archive_header() ) {
+			do_action( "{$this->prefix}_archive_header" );
+		}
+	}
+
+	/**
 	 * Add a custom hook for the entry header.
 	 *
 	 * @since  0.2.0

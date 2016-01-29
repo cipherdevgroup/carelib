@@ -55,6 +55,17 @@ class CareLib_Template_Archive {
 	}
 
 	/**
+	 * Determine whether or not to display an archive header.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function has_archive_header() {
+		return (bool) apply_filters( "{$this->prefix}_has_archive_header", is_archive() || is_search() );
+	}
+
+	/**
 	 * Retrieve the general archive title.
 	 *
 	 * @since  0.2.0
