@@ -303,6 +303,20 @@ class CareLib_Layouts {
 	}
 
 	/**
+	 * Force a layout and return the slug.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @param  string $layout the slug of the layout to be forced.
+	 * @return string the slug of the forced layout.
+	 */
+	public function force_layout( $layout ) {
+		add_filter( "{$this->prefix}_allow_layout_control", '__return_false' );
+
+		return $layout;
+	}
+
+	/**
 	 * Checks a post if it has a specific layout.
 	 *
 	 * @since  0.2.0
