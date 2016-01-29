@@ -317,11 +317,23 @@ class CareLib_Layouts {
 	}
 
 	/**
+	 * Check whether the current layout includes a sidebar.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string|array $sidebar_layouts A list of layouts which contain sidebars.
+	 * @return bool true if the current layout includes a sidebar
+	 */
+	public function layout_has_sidebar( $sidebar_layouts ) {
+		return ! in_array( $this->get_theme_layout(), (array) $sidebar_layouts, true );
+	}
+
+	/**
 	 * Checks a post if it has a specific layout.
 	 *
 	 * @since  0.2.0
 	 * @access public
-	 * @param  int $post_id
+	 * @param  int $layout
 	 * @return bool
 	 */
 	public function has_post_layout( $layout, $post_id = '' ) {
