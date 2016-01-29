@@ -371,6 +371,40 @@ class CareLib_Template_Entry {
 	}
 
 	/**
+	 * Determine if the current view should contain entry footer meta.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function has_entry_footer_meta() {
+		$has_meta = false;
+
+		if ( has_category() || has_tag() ) {
+			$has_meta = true;
+		}
+
+		return (bool) apply_filters( "{$this->prefix}_has_entry_footer_meta", $has_meta );
+	}
+
+	/**
+	 * Determine if the current view should contain an entry footer.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function has_entry_footer() {
+		$has_footer = false;
+
+		if ( $this->has_entry_footer_meta() ) {
+			$has_footer = true;
+		}
+
+		return (bool) apply_filters( "{$this->prefix}_has_entry_footer", $has_footer );
+	}
+
+	/**
 	 * Replacement for template tags like `the_category()`, `the_terms()`, etc.
 	 *
 	 * These core WordPress template tags don't offer proper translation and
