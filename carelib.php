@@ -21,6 +21,8 @@ if ( ! isset( $GLOBALS['carelib_prefix'] ) ) {
 	$GLOBALS['carelib_prefix'] = 'carelib';
 }
 
+$GLOBALS['carelib_prefix'] = sanitize_key( $GLOBALS['carelib_prefix'] );
+
 /**
  * The current version of CareLib.
  *
