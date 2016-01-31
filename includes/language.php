@@ -42,10 +42,6 @@ function _carelib_get_parent_textdomain() {
  * @return string The textdomain of the child theme.
  */
 function _carelib_get_child_textdomain() {
-	if ( ! is_child_theme() ) {
-		return '';
-	}
-
 	$domain = apply_filters( "{$GLOBALS['carelib_prefix']}_child_textdomain", '' );
 
 	// If the textdomain has been set, return it.
