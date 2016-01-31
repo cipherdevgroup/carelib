@@ -27,8 +27,8 @@ function _carelib_get_parent_textdomain() {
 		return sanitize_key( $domain );
 	}
 
-	$theme  = carelib_get_parent();
-	$domain = $theme->get( 'TextDomain' ) ? $theme->get( 'TextDomain' ) : get_template();
+	$textdomain = carelib_get_parent()->get( 'TextDomain' );
+	$domain = $textdomain ? $textdomain : get_template();
 
 	return sanitize_key( $domain );
 }
@@ -53,8 +53,8 @@ function _carelib_get_child_textdomain() {
 		return sanitize_key( $domain );
 	}
 
-	$theme  = carelib_get_theme();
-	$domain = $theme->get( 'TextDomain' ) ? $theme->get( 'TextDomain' ) : get_stylesheet();
+	$textdomain = carelib_get_theme()->get( 'TextDomain' );
+	$domain = $textdomain ? $textdomain : get_stylesheet();
 
 	return sanitize_key( $domain );
 }
@@ -70,9 +70,10 @@ function _carelib_get_parent_domain_path() {
 	if ( file_exists( carelib_get_parent_dir( 'languages' ) ) ) {
 		return 'languages';
 	}
-	$theme = carelib_get_parent();
 
-	return $theme->get( 'DomainPath' ) ? trim( $theme->get( 'DomainPath' ), '/' ) : 'languages';
+	$path = carelib_get_parent()->get( 'DomainPath' );
+
+	return $path ? trim( $path, '/' ) : 'languages';
 }
 
 /**
@@ -83,15 +84,13 @@ function _carelib_get_parent_domain_path() {
  * @return string
  */
 function _carelib_get_child_domain_path() {
-	if ( ! is_child_theme() ) {
-		return '';
-	}
 	if ( file_exists( carelib_get_child_dir( 'languages' ) ) ) {
 		return 'languages';
 	}
-	$theme = carelib_get_theme();
 
-	return $theme->get( 'DomainPath' ) ? trim( $theme->get( 'DomainPath' ), '/' ) : 'languages';
+	$path = carelib_get_theme()->get( 'DomainPath' );
+
+	return $path ? trim( $path, '/' ) : 'languages';
 }
 
 /**
@@ -110,14 +109,15 @@ function _carelib_get_child_domain_path() {
  */
 function carelib_load_locale_functions() {
 	$locale = strtolower( str_replace( '_', '-', get_locale() ) );
+	$theme_func = carelib_get_parent_dir( _carelib_get_parent_domain_path() . "/{$locale}.php" );
 
-	// Define locale functions files.
-	$child_func = carelib_get_child_dir()  . _carelib_get_child_domain_path()  . "/{$locale}.php";
-	$theme_func = carelib_get_parent_dir() . _carelib_get_parent_domain_path() . "/{$locale}.php";
+	if ( is_child_theme() ) {
 
-	// If file exists in child theme.
-	if ( is_child_theme() && file_exists( $child_func ) ) {
-		require_once( $child_func );
+		$child_func = carelib_get_child_dir( _carelib_get_child_domain_path()  . "/{$locale}.php" );
+
+		if ( file_exists( $child_func ) ) {
+			require_once( $child_func );
+		}
 	}
 
 	// If file exists in parent theme.
@@ -141,14 +141,14 @@ function carelib_load_textdomains() {
 	// Load theme textdomain.
 	load_theme_textdomain(
 		_carelib_get_parent_textdomain(),
-		carelib_get_parent_dir() . _carelib_get_parent_domain_path()
+		carelib_get_parent_dir( _carelib_get_parent_domain_path() )
 	);
 
 	// Load child theme textdomain.
 	if ( is_child_theme() ) {
 		load_child_theme_textdomain(
 			_carelib_get_child_textdomain(),
-			carelib_get_child_dir() . _carelib_get_child_domain_path()
+			carelib_get_child_dir( _carelib_get_child_domain_path() )
 		);
 	}
 }
