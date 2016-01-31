@@ -42,7 +42,7 @@ function carelib_framework( $name = '' ) {
 	}
 	$templates[] = 'templates/framework.php';
 
-	locate_template( $templates, true );
+	return locate_template( $templates, true );
 }
 
 /**
@@ -88,7 +88,7 @@ function carelib_get_site_description() {
  *
  * @since  0.2.0
  * @access public
- * @param  string  $avatar
+ * @param  string $avatar
  * @return string
  */
 function carelib_get_avatar( $avatar ) {
@@ -105,7 +105,7 @@ function carelib_get_avatar( $avatar ) {
  *
  * @since  0.1.0
  * @access public
- * @param  $args array options for how the link will be formatted
+ * @param  array $args options for how the link will be formatted.
  * @return string an escaped link to the WordPress customizer panel.
  */
 function carelib_get_customizer_link( $args = array() ) {
