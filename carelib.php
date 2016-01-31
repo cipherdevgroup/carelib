@@ -32,15 +32,6 @@ define( 'CARELIB_VERSION', '1.0.0' );
  */
 define( 'CARELIB_DIR', trailingslashit( dirname( __FILE__ ) ) );
 
-/**
- * The absolute path to the template's root directory with a trailing slash.
- *
- * @since 1.0.0
- * @uses  get_template_directory_uri()
- * @uses  trailingslashit()
- */
-define( 'CARELIB_URI', trailingslashit( get_theme_root_uri() ) . strstr( wp_normalize_path( dirname( __FILE__ ) ), basename( get_template_directory() ) ) );
-
 if ( ! defined( 'PARENT_THEME_DIR' ) ) {
 	/**
 	 * The absolute path to the template's root directory with a trailing slash.

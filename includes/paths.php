@@ -31,7 +31,7 @@ function carelib_get_dir( $path = '' ) {
  * @return string
  */
 function carelib_get_uri( $path = '' ) {
-	return CARELIB_URI . ltrim( $path );
+	return trailingslashit( get_theme_root_uri() ) . strstr( wp_normalize_path( dirname( __FILE__ ) ), basename( get_template_directory() ) ) . ltrim( $path );
 }
 
 /**
@@ -43,7 +43,7 @@ function carelib_get_uri( $path = '' ) {
  * @return string
  */
 function carelib_get_css_uri( $path ) {
-	return CARELIB_URI . 'css/' . ltrim( $path );
+	return carelib_get_uri( 'css/' ) . ltrim( $path );
 }
 
 /**
@@ -55,7 +55,7 @@ function carelib_get_css_uri( $path ) {
  * @return string
  */
 function carelib_get_js_uri( $path ) {
-	return CARELIB_URI . 'js/' . ltrim( $path );
+	return carelib_get_uri( 'js/' ) . ltrim( $path );
 }
 
 /**
