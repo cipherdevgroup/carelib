@@ -12,52 +12,13 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get things running!
- *
- * @since  0.2.0
- * @access public
- * @return void
- */
-function carelib_add_support() {
-	$this->wp_hooks();
-}
-
-/**
- * Hook into WordPress.
- *
- * @since  0.2.0
- * @access protected
- * @return void
- */
-function _carelib_wp_hooks() {
-	add_action( 'admin_init',            'carelib_register_settings' ),  10 );
-	add_action( 'admin_menu',            'carelib_dashboard_menu' ),     10 );
-	add_action( 'after_switch_theme',    'carelib_dashboard_setup' ),    10 );
-	add_action( 'after_switch_theme',    'carelib_dashboard_redirect' ), 12 );
-	add_action( 'switch_theme',          'carelib_dashboard_cleanup' ),  10 );
-	add_action( 'admin_enqueue_scripts', 'carelib_dashboard_scripts' ),  10 );
-	add_action( 'admin_notices',         'carelib_dashboard_notices' ),  10 );
-}
-
-/**
- * Add options and fire a redirect when the theme is first activated.
- *
- * @since   0.2.0
- * @access  public
- * @return  void
- */
-function register_settings() {
-
-}
-
-/**
  * Set up the dashboard options.
  *
  * @since   0.2.0
  * @access  public
  * @return  void
  */
-function dashboard_setup() {
+function carelib_dashboard_setup() {
 	if ( is_network_admin() ) {
 		return;
 	}
@@ -66,13 +27,31 @@ function dashboard_setup() {
 }
 
 /**
+ * Add the WordPress Theme Dashboard to the main WordPress dashboard menu.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_menu() {
+	$theme = carelib_get_theme();
+	add_theme_page(
+		$theme['Name'],
+		$theme['Name'],
+		'edit_theme_options',
+		"{$GLOBALS['carelib_prefix']}-dashboard",
+		'carelib_dashboard_page'
+	);
+}
+
+/**
  * Add options and fire a redirect when the theme is first activated.
  *
  * @since   0.2.0
  * @access  public
  * @return  void
  */
-function dashboard_redirect() {
+function carelib_dashboard_redirect() {
 	// Bail if this isn't the first time our theme has been activated.
 	if ( is_network_admin() || ! get_option( "{$GLOBALS['carelib_prefix']}_dashboard_redirect" ) ) {
 		return;
@@ -92,7 +71,7 @@ function dashboard_redirect() {
  * @access  public
  * @return  void
  */
-function dashboard_cleanup() {
+function carelib_dashboard_cleanup() {
 	delete_option( "{$GLOBALS['carelib_prefix']}_dashboard_redirect" );
 }
 
@@ -103,7 +82,7 @@ function dashboard_cleanup() {
  * @access  public
  * @return  void
  */
-function is_dashboard_page() {
+function carelib_is_dashboard_page() {
 	if ( ! function_exists( 'get_current_screen' ) ) {
 		return false;
 	}
@@ -121,8 +100,8 @@ function is_dashboard_page() {
  * @access  public
  * @return  void
  */
-function dashboard_scripts() {
-	if ( $this->is_dashboard_page() ) {
+function carelib_dashboard_scripts() {
+	if ( carelib_is_dashboard_page() ) {
 		wp_enqueue_script( 'carelib-dashboard' );
 		wp_enqueue_style( 'carelib-dashboard' );
 	}
@@ -135,26 +114,8 @@ function dashboard_scripts() {
  * @access  public
  * @return  void
  */
-function dashboard_notices() {
+function carelib_dashboard_notices() {
 	do_action( "{$GLOBALS['carelib_prefix']}_dashboard_notices" );
-}
-
-/**
- * Add the WordPress Theme Dashboard to the main WordPress dashboard menu.
- *
- * @since   0.2.0
- * @access  public
- * @return  void
- */
-function dashboard_menu() {
-	$theme = carelib_get_theme();
-	add_theme_page(
-		$theme['Name'],
-		$theme['Name'],
-		'manage_options',
-		"{$GLOBALS['carelib_prefix']}-dashboard",
-		'carelib_dashboard_page' )
-	);
 }
 
 /**
