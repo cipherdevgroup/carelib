@@ -306,3 +306,27 @@ function carelib_get_posts_navigation( $args = array() ) {
 
 	return apply_filters( "{$GLOBALS['carelib_prefix']}_posts_navigation", $output, $args );
 }
+
+/**
+ * Gets the "blog" (posts page) page URL. `home_url()` will not always work for
+ * this because it returns the front page URL. Sometimes the blog page URL is
+ * set to a different page. This function handles both scenarios.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_blog_url() {
+	if ( 'posts' === get_option( 'show_on_front' ) ) {
+		return home_url();
+	}
+
+	$blog_url = '';
+	$page_for_posts = (int) get_option( 'page_for_posts' );
+
+	if ( 0 !== $page_for_posts ) {
+		$blog_url = get_permalink( $page_for_posts );
+	}
+
+	return esc_url( $blog_url );
+}
