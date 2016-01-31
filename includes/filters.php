@@ -119,7 +119,5 @@ add_filter( 'mce_buttons', 'carelib_tinymce_add_styleselect', 99 );
 add_filter( 'mce_buttons_2', 'carelib_tinymce_disable_styleselect', 99 );
 add_filter( 'tiny_mce_before_init', 'carelib_tinymce_formats', 99 );
 
-add_filter( 'load_textdomain_mofile', 'carelib_load_textdomain_mofile', 10, 2 );
-
 add_action( 'init', 'carelib_register_layouts', 95 );
 add_filter( "{$carelib_prefix}_get_theme_layout", 'carelib_filter_layout', 5 );

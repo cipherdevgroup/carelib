@@ -154,41 +154,6 @@ function carelib_load_textdomains() {
 }
 
 /**
- * Filter the 'load_textdomain_mofile' filter hook so that we can change
- * the directory and file name of the mofile for translations.
- *
- * This allows child themes to have a folder called /languages with
- * translations of their parent theme so that the translations aren't lost
- * on a parent theme upgrade.
- *
- * @since  0.2.0
- * @access public
- * @param  string $mofile File name of the .mo file.
- * @param  string $domain The textdomain currently being filtered.
- * @return string
- */
-function carelib_load_textdomain_mofile( $mofile, $domain ) {
-	// If the $domain is for the parent or child theme, search for a $domain-$locale.mo file.
-	if ( _carelib_get_parent_textdomain() === $domain || _carelib_get_child_textdomain() === $domain ) {
-
-		// Get the locale.
-		$locale = get_locale();
-
-		// Get just the theme path and file name for the mofile.
-		$mofile_short = str_replace( "{$locale}.mo", "{$domain}-{$locale}.mo", $mofile );
-		$mofile_short = str_replace( array( carelib_get_parent_dir(), carelib_get_child_dir() ), '', $mofile_short );
-
-		// Attempt to find the correct mofile.
-		$locate_mofile = locate_template( array( $mofile_short ) );
-
-		// Return the mofile.
-		return $locate_mofile ? $locate_mofile : $mofile;
-	}
-
-	return $mofile;
-}
-
-/**
  * Gets the language for the currently-viewed page. It strips the region
  * from the locale if needed and just returns the language code.
  *
