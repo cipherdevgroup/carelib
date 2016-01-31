@@ -26,7 +26,7 @@ function carelib_get_menu_location_name( $location ) {
  *
  * @since  0.2.0
  * @access public
- * @param  string  $name
+ * @param  string $name
  * @return void
  */
 function carelib_get_menu( $name = null ) {
@@ -37,5 +37,6 @@ function carelib_get_menu( $name = null ) {
 	}
 	$templates[] = 'template-parts/menu.php';
 	$templates[] = 'template-parts/menu/menu.php';
+
 	locate_template( $templates, true );
 }

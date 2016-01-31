@@ -67,11 +67,13 @@ function carelib_get_sidebar_name( $sidebar_id ) {
  *
  * @since  0.2.0
  * @access public
- * @param  string  $name
+ * @param  string $name The name of the sidebar to load.
  * @return void
  */
 function carelib_get_sidebar( $name = null ) {
-	do_action( 'get_sidebar', $name ); // Core WordPress hook
+	// Core WordPress hook.
+	do_action( 'get_sidebar', $name );
+
 	$templates = array();
 	if ( ! empty( $name ) ) {
 		$templates[] = "sidebar-{$name}.php";
@@ -79,5 +81,6 @@ function carelib_get_sidebar( $name = null ) {
 	}
 	$templates[] = 'sidebar.php';
 	$templates[] = 'template-parts/sidebar/sidebar.php';
+
 	locate_template( $templates, true );
 }

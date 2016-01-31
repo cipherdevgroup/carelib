@@ -22,7 +22,7 @@
  *
  * @since  0.2.0
  * @param  string $name The name of the specialized template.
- * @return bool
+ * @return void
  */
 function carelib_framework( $name = '' ) {
 	$templates = array();
@@ -42,7 +42,7 @@ function carelib_framework( $name = '' ) {
 	}
 	$templates[] = 'templates/framework.php';
 
-	return locate_template( $templates, true );
+	locate_template( $templates, true );
 }
 
 /**
