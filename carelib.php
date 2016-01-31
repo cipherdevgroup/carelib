@@ -12,6 +12,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * The prefix used by filters throughout the library.
+ *
+ * @since 1.0.0
+ */
 if ( ! isset( $GLOBALS['carelib_prefix'] ) ) {
 	$GLOBALS['carelib_prefix'] = 'carelib';
 }
@@ -31,50 +36,6 @@ define( 'CARELIB_VERSION', '1.0.0' );
  * @uses  trailingslashit()
  */
 define( 'CARELIB_DIR', trailingslashit( dirname( __FILE__ ) ) );
-
-if ( ! defined( 'PARENT_THEME_DIR' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_template_directory()
-	 * @uses  trailingslashit()
-	 */
-	define( 'PARENT_THEME_DIR', trailingslashit( get_template_directory() ) );
-}
-
-if ( ! defined( 'PARENT_THEME_URI' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_template_directory_uri()
-	 * @uses  trailingslashit()
-	 */
-	define( 'PARENT_THEME_URI', trailingslashit( get_template_directory_uri() ) );
-}
-
-if ( ! defined( 'CHILD_THEME_DIR' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_stylesheet_directory()
-	 * @uses  trailingslashit()
-	 */
-	define( 'CHILD_THEME_DIR', trailingslashit( get_stylesheet_directory() ) );
-}
-
-if ( ! defined( 'PARENT_THEME_URI' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_stylesheet_directory_uri()
-	 * @uses  trailingslashit()
-	 */
-	define( 'CHILD_THEME_URI', trailingslashit( get_stylesheet_directory_uri() ) );
-}
 
 add_action( 'after_setup_theme', 'carelib_includes', -95 );
 /**
