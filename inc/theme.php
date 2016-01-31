@@ -11,85 +11,69 @@
  * @since      0.2.0
  */
 
-defined( 'ABSPATH' ) || exit;
+/**
+ * Return a single instance of the current theme's WP_Theme object.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return WP_Theme A single instance of the WP_Theme object.
+ */
+function carelib_get_theme() {
+	static $theme;
 
-class CareLib_Theme {
-	/**
-	 * The theme object.
-	 *
-	 * @since 0.2.0
-	 * @var   WP_Theme
-	 */
-	protected static $theme;
-
-	/**
-	 * The parent theme object.
-	 *
-	 * @since 0.2.0
-	 * @var   WP_Theme
-	 */
-	protected static $parent;
-
-	/**
-	 * Return a single instance of the current theme's WP_Theme object.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return WP_Theme A single instance of the WP_Theme object.
-	 */
-	public function get() {
-		if ( null === self::$theme ) {
-			self::$theme = wp_get_theme();
-		}
-
-		return self::$theme;
+	if ( null === $theme ) {
+		$theme = wp_get_theme();
 	}
 
-	/**
-	 * Return a single instance of the parent theme's WP_Theme object.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return WP_Theme A single instance of the parent's WP_Theme object.
-	 */
-	public function get_parent() {
-		if ( null === self::$parent ) {
-			self::$parent = wp_get_theme( get_template() );
-		}
+	return $theme;
+}
 
-		return self::$parent;
+/**
+ * Return a single instance of the parent theme's WP_Theme object.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return WP_Theme A single instance of the parent's WP_Theme object.
+ */
+function carelib_get_parent() {
+	static $parent;
+
+	if ( null === $parent ) {
+		$parent = wp_get_theme( get_template() );
 	}
 
-	/**
-	 * Return the fallback version by getting it from the WP_Theme object.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string The current theme's version number.
-	 */
-	public function get_fallback_version() {
-		return $this->get()->get( 'Version' );
-	}
+	return $parent;
+}
 
-	/**
-	 * Return the version number of the current parent theme.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string The current parent theme's version number.
-	 */
-	public function get_parent_version() {
-		return defined( 'PARENT_THEME_VERSION' ) ? PARENT_THEME_VERSION : $this->get_fallback_version();
-	}
+/**
+ * Return the fallback version by getting it from the WP_Theme object.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string The current theme's version number.
+ */
+function carelib_get_fallback_version() {
+	return carelib_get_theme()->get( 'Version' );
+}
 
-	/**
-	 * Return the version number of the current theme.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string The current theme's version number.
-	 */
-	public function get_version() {
-		return defined( 'CHILD_THEME_VERSION' ) ? CHILD_THEME_VERSION : $this->get_parent_version();
-	}
+/**
+ * Return the version number of the current parent theme.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string The current parent theme's version number.
+ */
+function carelib_get_parent_version() {
+	return defined( 'PARENT_THEME_VERSION' ) ? PARENT_THEME_VERSION : carelib_get_fallback_version();
+}
+
+/**
+ * Return the version number of the current theme.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string The current theme's version number.
+ */
+function carelib_get_theme_version() {
+	return defined( 'CHILD_THEME_VERSION' ) ? CHILD_THEME_VERSION : carelib_get_parent_version();
 }

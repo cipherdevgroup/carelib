@@ -12,86 +12,67 @@
 
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Template_Hooks {
-	/**
-	 * Library prefix which can be set within themes.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $prefix;
-
-	/**
-	 * Constructor method.
-	 *
-	 * @since 0.2.0
-	 */
-	public function __construct() {
-		$this->prefix = carelib()->get_prefix();
+/**
+ * Add a custom action for the archive header.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_archive_header() {
+	if ( carelib_has_archive_header() ) {
+		do_action( "{$GLOBALS['carelib_prefix']}_archive_header" );
 	}
+}
 
-	/**
-	 * Add a custom action for the archive header.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function archive_header() {
-		if ( carelib_get( 'template-archive' )->has_archive_header() ) {
-			do_action( "{$this->prefix}_archive_header" );
-		}
+/**
+ * Add a custom hook for the entry header.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_entry_header() {
+	if ( carelib_has_entry_header() ) {
+		do_action( "{$GLOBALS['carelib_prefix']}_entry_header" );
 	}
+}
 
-	/**
-	 * Add a custom hook for the entry header.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function entry_header() {
-		if ( carelib_get( 'template-entry' )->has_entry_header() ) {
-			do_action( "{$this->prefix}_entry_header" );
-		}
+/**
+ * Add a custom hook for the entry meta.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_entry_header_meta() {
+	if ( carelib_has_entry_header_meta() ) {
+		do_action( "{$GLOBALS['carelib_prefix']}_entry_header_meta" );
 	}
+}
 
-	/**
-	 * Add a custom hook for the entry meta.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function entry_header_meta() {
-		if ( carelib_get( 'template-entry' )->has_entry_header_meta() ) {
-			do_action( "{$this->prefix}_entry_header_meta" );
-		}
+/**
+ * Add a custom hook for the entry footer if the current view has an entry footer.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_entry_footer() {
+	if ( carelib_has_entry_footer() ) {
+		do_action( "{$GLOBALS['carelib_prefix']}_entry_footer" );
 	}
+}
 
-	/**
-	 * Add a custom hook for the entry footer if the current view has an entry footer.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function entry_footer() {
-		if ( carelib_get( 'template-entry' )->has_entry_footer() ) {
-			do_action( "{$this->prefix}_entry_footer" );
-		}
-	}
-
-	/**
-	 * Add a custom hook for the entry footer if the current view has an entry footer.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function entry_footer_meta() {
-		if ( carelib_get( 'template-entry' )->has_entry_footer_meta() ) {
-			do_action( "{$this->prefix}_entry_footer_meta" );
-		}
+/**
+ * Add a custom hook for the entry footer if the current view has an entry footer.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_entry_footer_meta() {
+	if ( carelib_has_entry_footer_meta() ) {
+		do_action( "{$GLOBALS['carelib_prefix']}_entry_footer_meta" );
 	}
 }

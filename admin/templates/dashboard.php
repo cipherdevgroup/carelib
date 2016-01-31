@@ -11,23 +11,23 @@
 <div id="theme-dashboard" class="wrap theme-dashboard">
 
 	<section id="dashboard-top" class="dashboard-top">
-		<?php do_action( "{$this->prefix}_dashboard_top" ); ?>
+		<?php do_action( "{$GLOBALS['carelib_prefix']}_dashboard_top" ); ?>
 	</section><!-- #dashboard-top -->
 
 	<div id="dashboard-container" class="dashboard-contaner">
 
 		<ul id="dashboard-menu" class="dashboard-menu">
-			<?php do_action( "{$this->prefix}_dashboard_menu_items" ); ?>
+			<?php do_action( "{$GLOBALS['carelib_prefix']}_dashboard_menu_items" ); ?>
 		</ul><!-- #dashboard-menu -->
 
 		<section id="dashboard-content" class="dashboard-content">
-			<?php do_action( "{$this->prefix}_dashboard_content" ); ?>
+			<?php do_action( "{$GLOBALS['carelib_prefix']}_dashboard_content" ); ?>
 		</section><!-- #dashboard-content -->
 
 	</div><!-- #dashboard-container -->
 
 	<section id="dashboard-sidebar" class="dashboard-sidebar">
-		<?php do_action( "{$this->prefix}_dashboard_sidebar" ); ?>
+		<?php do_action( "{$GLOBALS['carelib_prefix']}_dashboard_sidebar" ); ?>
 	</section><!-- #dashboard-sidebar -->
 
 </div><!-- #theme-dashboard -->

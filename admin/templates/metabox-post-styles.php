@@ -18,4 +18,4 @@
 		<?php endforeach; ?>
 	</select>
 </p>
-<?php wp_nonce_field( "{$this->prefix}_update_post_style", "{$this->prefix}-post_style_nonce" ); ?>
+<?php wp_nonce_field( "{$GLOBALS['carelib_prefix']}_update_post_style", "{$GLOBALS['carelib_prefix']}-post_style_nonce" ); ?>

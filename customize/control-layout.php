@@ -39,15 +39,13 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	 * @param  array   $args
 	 * @return void
 	 */
-	public function __construct( $manager, $id, $args = array() ) {
-		$this->layouts = carelib_get( 'layouts' );
-
+	function __construct( $manager, $id, $args = array() ) {
 		// Array of allowed layouts. Pass via `$args['layouts']`.
-		$allowed = ! empty( $args['layouts'] ) ? $args['layouts'] : array_keys( $this->layouts->get_layouts() );
+		$allowed = ! empty( $args['layouts'] ) ? $args['layouts'] : array_keys( carelib_get_layouts() );
 
 		// Loop through each of the layouts and add it to the choices array with proper key/value pairs.
-		foreach ( $this->layouts->get_layouts() as $layout ) {
-			if ( in_array( $layout->get_name(), $allowed ) && ! ( 'theme_layout' === $id && false === $layout->is_global() ) && $layout->get_image() ) {
+		foreach ( carelib_get_layouts() as $layout ) {
+			if ( in_array( $layout->get_name(), $allowed, true ) && ! ( 'theme_layout' === $id && false === $layout->is_global() ) && $layout->get_image() ) {
 
 				$args['choices'][ $layout->get_name() ] = array(
 					'label' => $layout->get_label(),

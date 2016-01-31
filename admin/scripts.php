@@ -8,47 +8,21 @@
  * @since     0.1.0
  */
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
+/**
+ * Registers admin styles.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_admin_register_scripts() {
+	$suffix = carelib_get_suffix();
 
-class CareLib_Admin_Scripts extends CareLib_Scripts {
-	/**
-	 * Get our class up and running!
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @uses   CareLib_Admin_Metabox_Post_Layout::$wp_hooks
-	 * @return void
-	 */
-	public function run() {
-		$this->wp_hooks();
-	}
-
-	/**
-	 * Register our actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function wp_hooks() {
-		add_action( 'admin_enqueue_scripts',  array( $this, 'register' ), 0 );
-	}
-
-	/**
-	 * Registers admin styles.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function register() {
-		wp_register_script(
-			'carelib-dashboard',
-			carelib_get( 'paths' )->get_js_uri( "carelib-dashboard{$this->suffix}.js" ),
-			array( 'jquery-ui-tabs' ),
-			$this->version,
-			true
-		);
-	}
+	wp_register_script(
+		'carelib-dashboard',
+		carelib_get_js_uri( "carelib-dashboard{$suffix}.js" ),
+		array( 'jquery-ui-tabs' ),
+		CARELIB_VERSION,
+		true
+	);
 }

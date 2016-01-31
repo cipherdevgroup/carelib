@@ -11,162 +11,130 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Admin_Metabox_Post_Styles extends CareLib_Admin_Styles {
-	/**
-	 * The current post's custom stylesheets.
-	 *
-	 * @since 0.2.0
-	 * @var   array
-	 */
-	protected static $styles = array();
+/**
+ * Register our metabox actions and filters.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_metabox_post_styles_actions() {
+	add_action( 'add_meta_boxes',  'carelib_metabox_post_styles_add',  10, 2 );
+	add_action( 'save_post',       'carelib_metabox_post_styles_save', 10, 2 );
+	add_action( 'add_attachment',  'carelib_metabox_post_styles_save' );
+	add_action( 'edit_attachment', 'carelib_metabox_post_styles_save' );
+}
 
-	/**
-	 * Get our class up and running!
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @uses   CareLib_Admin_Metabox_Post_Layout::$wp_hooks
-	 * @return void
-	 */
-	public function run() {
-		$this->wp_hooks();
+/**
+ * Adds the style meta box.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string  $post_type
+ * @param  object  $post
+ * @return void
+ */
+function carelib_metabox_post_styles_add( $post_type, $post ) {
+	$styles = carelib_get_post_styles( $post_type );
+	if ( ! empty( $styles ) && current_user_can( 'edit_theme_options' ) ) {
+		add_meta_box(
+			'carelib-post-style',
+			esc_html__( 'Style', 'carelib' ),
+			'carelib_metabox_post_styles_box',
+			$post_type,
+			'side',
+			'default'
+		);
+	}
+}
+
+/**
+ * Callback function for displaying the style meta box.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  object  $object
+ * @param  array   $box
+ * @return void
+ */
+function carelib_metabox_post_styles_box( $post, $box ) {
+	$styles     = carelib_get_post_styles( $post->post_type );
+	$post_style = carelib_get_post_style( $post->ID );
+
+	require_once carelib_get_dir( 'admin/templates/metabox-post-style.php' );
+}
+
+/**
+ * Saves the post style when submitted via the style meta box.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int      $post_id The ID of the current post being saved.
+ * @param  object   $post    The post object currently being saved.
+ * @return void|int
+ */
+function carelib_metabox_post_styles_save( $post_id, $post = '' ) {
+	$no  = "{$GLOBALS['carelib_prefix']}_post_style_nonce";
+	$act = "{$GLOBALS['carelib_prefix']}_update_post_style";
+
+	// Verify the nonce for the post formats meta box.
+	if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {
+		return false;
 	}
 
-	/**
-	 * Register our actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function wp_hooks() {
-		add_action( 'load-post.php',     array( $this, 'metabox_hooks' ) );
-		add_action( 'load-post-new.php', array( $this, 'metabox_hooks' ) );
+	$input   = isset( $_POST['carelib-post-style'] ) ? $_POST['carelib-post-style'] : '';
+	$current = carelib_get_post_style( $post_id );
+
+	if ( $input === $current ) {
+		return false;
 	}
 
-	/**
-	 * Register our metabox actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function metabox_hooks() {
-		add_action( 'add_meta_boxes',  array( $this, 'add' ),  10, 2 );
-		add_action( 'save_post',       array( $this, 'save' ), 10, 2 );
-		add_action( 'add_attachment',  array( $this, 'save' ) );
-		add_action( 'edit_attachment', array( $this, 'save' ) );
+	if ( empty( $input ) ) {
+		return carelib_delete_post_style( $post_id );
 	}
 
-	/**
-	 * Adds the style meta box.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $post_type
-	 * @param  object  $post
-	 * @return void
-	 */
-	public function add( $post_type, $post ) {
-		$styles = $this->get_post_styles( $post_type );
-		if ( ! empty( $styles ) && current_user_can( 'edit_theme_options' ) ) {
-			add_meta_box(
-				'carelib-post-style',
-				esc_html__( 'Style', 'carelib' ),
-				array( $this, 'box' ),
-				$post_type,
-				'side',
-				'default'
-			);
+	return carelib_set_post_style( $post_id, $input );
+}
+
+/**
+ * Gets the stylesheet files within the parent or child theme and checks if
+ * they have the 'Style Name' header. If any files are found, they are
+ * returned in an array.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return array
+ */
+function carelib_get_post_styles( $post_type = 'post' ) {
+	static $styles = array();
+
+	if ( ! empty( $styles[ $post_type ] ) ) {
+		return $styles[ $post_type ];
+	}
+
+	$styles[ $post_type ] = array();
+
+	$files = carelib_get_parent()->get_files( 'css', 2 );
+
+	if ( is_child_theme() ) {
+		$files = array_merge( $files, carelib_get_theme()->get_files( 'css', 2 ) );
+	}
+
+	foreach ( $files as $file => $path ) {
+		$headers = get_file_data(
+			$path,
+			array(
+				'Style Name'         => 'Style Name',
+				"{$post_type} Style" => "{$post_type} Style",
+			)
+		);
+
+		if ( ! empty( $headers['Style Name'] ) ) {
+			$styles[ $post_type ][ $file ] = $headers['Style Name'];
+		} elseif ( ! empty( $headers[ "{$post_type} Style" ] ) ) {
+			$styles[ $post_type ][ $file ] = $headers[ "{$post_type} Style" ];
 		}
 	}
 
-	/**
-	 * Callback function for displaying the style meta box.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  object  $object
-	 * @param  array   $box
-	 * @return void
-	 */
-	public function box( $post, $box ) {
-		$styles     = $this->get_post_styles( $post->post_type );
-		$post_style = $this->get_post_style( $post->ID );
-
-		require_once carelib_get( 'paths' )->get_dir( 'admin/templates/metabox-post-style.php' );
-	}
-
-	/**
-	 * Saves the post style when submitted via the style meta box.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int      $post_id The ID of the current post being saved.
-	 * @param  object   $post    The post object currently being saved.
-	 * @return void|int
-	 */
-	public function save( $post_id, $post = '' ) {
-		$no  = "{$this->prefix}_post_style_nonce";
-		$act = "{$this->prefix}_update_post_style";
-
-		// Verify the nonce for the post formats meta box.
-		if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {
-			return false;
-		}
-
-		$input   = isset( $_POST['carelib-post-style'] ) ? $_POST['carelib-post-style'] : '';
-		$current = $this->get_post_style( $post_id );
-
-		if ( $input === $current ) {
-			return false;
-		}
-
-		if ( empty( $input ) ) {
-			return $this->delete_post_style( $post_id );
-		}
-
-		return $this->set_post_style( $post_id, $input );
-	}
-
-	/**
-	 * Gets the stylesheet files within the parent or child theme and checks if
-	 * they have the 'Style Name' header. If any files are found, they are
-	 * returned in an array.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return array
-	 */
-	public function get_post_styles( $post_type = 'post' ) {
-		if ( ! empty( self::$styles[ $post_type ] ) ) {
-			return self::$styles[ $post_type ];
-		}
-
-		self::$styles[ $post_type ] = array();
-
-		$files = carelib_get( 'theme' )->get_parent()->get_files( 'css', 2 );
-
-		if ( is_child_theme() ) {
-			$files = array_merge( $files, carelib_get( 'theme' )->get()->get_files( 'css', 2 ) );
-		}
-
-		foreach ( $files as $file => $path ) {
-			$headers = get_file_data(
-				$path,
-				array(
-					'Style Name'         => 'Style Name',
-					"{$post_type} Style" => "{$post_type} Style",
-				)
-			);
-
-			if ( ! empty( $headers['Style Name'] ) ) {
-				self::$styles[ $post_type ][ $file ] = $headers['Style Name'];
-			} elseif ( ! empty( $headers[ "{$post_type} Style" ] ) ) {
-				self::$styles[ $post_type ][ $file ] = $headers[ "{$post_type} Style" ];
-			}
-		}
-
-		return self::$styles[ $post_type ] = array_flip( self::$styles[ $post_type ] );
-	}
+	return $styles[ $post_type ] = array_flip( $styles[ $post_type ] );
 }

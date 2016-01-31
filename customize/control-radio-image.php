@@ -32,7 +32,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	 * @access public
 	 * @return void
 	 */
-	public function enqueue() {
+	function enqueue() {
 		wp_enqueue_script( 'carelib-customize-controls' );
 		wp_enqueue_style( 'carelib-customize-controls' );
 	}
@@ -44,7 +44,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	 * @access public
 	 * @return void
 	 */
-	public function to_json() {
+	function to_json() {
 		parent::to_json();
 
 		// We need to make sure we have the correct image URL.
@@ -64,7 +64,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	 * @access public
 	 * @return void
 	 */
-	public function content_template() {
+	function content_template() {
 		?>
 		<# if ( ! data.choices ) {
 			return;

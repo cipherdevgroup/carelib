@@ -11,36 +11,34 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Menu {
-	/**
-	 * Function for grabbing a WP nav menu theme location name.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @param  string  $location
-	 * @return string
-	 */
-	function get_location_name( $location ) {
-		$locations = get_registered_nav_menus();
-		return isset( $locations[ $location ] ) ? $locations[ $location ] : '';
-	}
+/**
+ * Function for grabbing a WP nav menu theme location name.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  string  $location
+ * @return string
+ */
+function carelib_get_menu_location_name( $location ) {
+	$locations = get_registered_nav_menus();
+	return isset( $locations[ $location ] ) ? $locations[ $location ] : '';
+}
 
-	/**
-	 * Get a specified menu template.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $name
-	 * @return void
-	 */
-	public function template( $name = null ) {
-		$templates = array();
-		if ( '' !== $name ) {
-			$templates[] = "template-parts/menu-{$name}.php";
-			$templates[] = "template-parts/menu/{$name}.php";
-		}
-		$templates[] = 'template-parts/menu.php';
-		$templates[] = 'template-parts/menu/menu.php';
-		locate_template( $templates, true );
+/**
+ * Get a specified menu template.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string  $name
+ * @return void
+ */
+function carelib_get_menu( $name = null ) {
+	$templates = array();
+	if ( '' !== $name ) {
+		$templates[] = "template-parts/menu-{$name}.php";
+		$templates[] = "template-parts/menu/{$name}.php";
 	}
+	$templates[] = 'template-parts/menu.php';
+	$templates[] = 'template-parts/menu/menu.php';
+	locate_template( $templates, true );
 }

@@ -11,419 +11,382 @@
 // Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-class CareLib_Layouts {
-	/**
-	 * Array of layout objects.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @var    array
-	 */
-	protected static $layouts = array();
+/**
+ * Check if the current theme has layouts support.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string  $name
+ * @return bool
+ */
+function carelib_has_layout_support() {
+	return current_theme_supports( 'theme-layouts' );
+}
 
-	/**
-	 * The name of the default layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @var    array
-	 */
-	protected static $default = 'default';
+/**
+ * Check if a layout exists.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string  $name
+ * @return bool
+ */
+function carelib_layout_exists( $name ) {
+	$layouts = carelib_get_layouts();
 
-	/**
-	 * Whether or not the current theme has enabled support for layouts.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @var    array
-	 */
-	protected static $has_support = false;
+	return isset( $layouts[ $name ] );
+}
 
-	/**
-	 * Library prefix which can be set within themes.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $prefix;
+/**
+ * Register a new layout object
+ *
+ * @see    CareLib_Layout::__construct()
+ * @since  0.2.0
+ * @access public
+ * @param  string  $name
+ * @param  array   $args
+ * @return void
+ */
+function carelib_register_layout( $name, $args = array() ) {
+	global $_carelib_layouts;
 
-	/**
-	 * Constructor method.
-	 *
-	 * @since 0.2.0
-	 */
-	public function __construct() {
-		$this->prefix = carelib()->get_prefix();
+	if ( ! isset( $_carelib_layouts ) ) {
+		$_carelib_layouts = array();
 	}
 
-	/**
-	 * Get our class up and running!
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function add_support() {
-		self::$has_support = true;
+	if ( ! carelib_layout_exists( $name ) ) {
+		$_carelib_layouts[ $name ] = new CareLib_Layout( $name, $args );
+	}
+}
 
-		$this->wp_hooks();
-
-		if ( is_customize_preview() ) {
-			carelib_get( 'customize-setup-register' )->add_layouts_support();
-		}
-
-		if ( is_admin( ) ) {
-			carelib_get( 'admin-metabox-post-layouts' )->add_layouts_support();
-		}
-
-		return $this;
+/**
+ * Register the default theme layouts.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_register_layouts() {
+	if ( ! carelib_has_layout_support() ) {
+		return false;
 	}
 
-	/**
-	 * Register our actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function wp_hooks() {
-		add_action( 'init',                             array( $this, 'register_layouts' ), 95 );
-		add_filter( "{$this->prefix}_get_theme_layout", array( $this, 'filter_layout' ), 5 );
+	carelib_register_layout(
+		'default',
+		array(
+			// Translators: Default theme layout option.
+			'label'            => esc_html_x( 'Default', 'theme layout', 'carelib' ),
+			'is_global_layout' => false,
+			'_builtin'         => true,
+			'_internal'        => true,
+		)
+	);
+
+	// Hook for registering theme layouts. Theme should always register on this hook.
+	do_action( "{$GLOBALS['carelib_prefix']}_register_layouts" );
+
+	return true;
+}
+
+/**
+ * Set a default layout.
+ *
+ * Allow a user to identify a layout as being the default layout on a new
+ * install, as well as serve as the fallback layout.
+ *
+ * @since  0.2.0
+ * @param  string $name Name of layout to set as default.
+ * @return boolean|string False if layout is not registered. ID otherwise.
+ */
+function carelib_set_default_layout( $name ) {
+	$layouts = carelib_get_layouts();
+
+	// Don't allow unregistered layouts.
+	if ( ! isset( $layouts[ $name ] ) ) {
+		return false;
 	}
 
-	/**
-	 * Check if the current theme has layouts support.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $name
-	 * @return bool
-	 */
-	public function has_support() {
-		return (bool) self::$has_support;
-	}
-
-	/**
-	 * Check if a layout exists.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $name
-	 * @return bool
-	 */
-	public function layout_exists( $name ) {
-		return isset( self::$layouts[ $name ] );
-	}
-
-	/**
-	 * Register a new layout object
-	 *
-	 * @see    CareLib_Layout::__construct()
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $name
-	 * @param  array   $args
-	 * @return void
-	 */
-	public function register_layout( $name, $args = array() ) {
-		if ( ! $this->layout_exists( $name ) ) {
-			self::$layouts[ $name ] = new CareLib_Layout( $name, $args );
+	// Remove default flag for all other layouts.
+	foreach ( (array) $layouts as $id => $object ) {
+		if ( 'default' === $id ) {
+			$object->set_name( $name );
 		}
 	}
 
-	/**
-	 * Register the default theme layouts.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function register_layouts() {
-		if ( ! self::$has_support ) {
-			return false;
-		}
+	return $name;
+}
 
-		$this->register_layout(
-			'default',
-			array(
-				// Translators: Default theme layout option.
-				'label'            => esc_html_x( 'Default', 'theme layout', 'carelib' ),
-				'is_global_layout' => false,
-				'_builtin'         => true,
-				'_internal'        => true,
-			)
-		);
-
-		// Hook for registering theme layouts. Theme should always register on this hook.
-		do_action( "{$this->prefix}_register_layouts" );
-
-		return true;
+/**
+ * Default filter on the `theme_mod_theme_layout` hook.
+ *
+ * By default, we'll check for per-post or per-author layouts saved as
+ * metadata. If set, we'll filter. Else, just return the global layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $theme_layout The current global theme layout.
+ * @return string The modified theme layout based on which page is viewed.
+ */
+function carelib_filter_layout( $theme_layout ) {
+	if ( is_singular() ) {
+		$layout = carelib_get_post_layout( get_queried_object_id() );
+	} elseif ( is_author() ) {
+		$layout = carelib_get_user_layout( get_queried_object_id() );
+	} elseif ( carelib_is_blog_archive() ) {
+		$layout = carelib_get_post_layout( get_option( 'page_for_posts' ) );
 	}
 
-	/**
-	 * Set the default layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function set_default( $value ) {
-		self::$default = (string) $value;
+	return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
+}
 
-		return $this;
+/**
+ * Wrapper function for returning the metadata key used for objects that can
+ * use layouts.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_layout_meta_key() {
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_layout_meta_key", 'Layout' );
+}
+
+/**
+ * Gets a post layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int     $post_id
+ * @return bool
+ */
+function carelib_get_post_layout( $post_id ) {
+	return get_post_meta( $post_id, carelib_get_layout_meta_key(), true );
+}
+
+/**
+ * Gets a user layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int     $user_id
+ * @return bool
+ */
+function carelib_get_user_layout( $user_id ) {
+	return get_user_meta( $user_id, carelib_get_layout_meta_key(), true );
+}
+
+/**
+ * Get all layout objects.
+ *
+ * @since  0.2.0
+ * @access public
+ * @global array $_carelib_layouts Holds all layouts data.
+ * @return object
+ */
+function carelib_get_layouts() {
+	global $_carelib_layouts;
+
+	if ( ! isset( $_carelib_layouts ) ) {
+		$_carelib_layouts = array();
 	}
 
-	/**
-	 * Default filter on the `theme_mod_theme_layout` hook.
-	 *
-	 * By default, we'll check for per-post or per-author layouts saved as
-	 * metadata. If set, we'll filter. Else, just return the global layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $theme_layout The current global theme layout.
-	 * @return string The modified theme layout based on which page is viewed.
-	 */
-	public function filter_layout( $theme_layout ) {
-		if ( is_singular() ) {
-			$layout = $this->get_post_layout( get_queried_object_id() );
-		} elseif ( is_author() ) {
-			$layout = $this->get_user_layout( get_queried_object_id() );
-		} elseif ( carelib_get( 'template-archive' )->is_blog_archive() ) {
-			$layout = $this->get_post_layout( get_option( 'page_for_posts' ) );
-		}
+	return (array) $_carelib_layouts;
+}
 
-		return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
-	}
+/**
+ * Get a layout object.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $name
+ * @return object|bool
+ */
+function carelib_get_layout( $name ) {
+	$layouts = carelib_get_layouts();
 
-	/**
-	 * Wrapper function for returning the metadata key used for objects that can
-	 * use layouts.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_meta_key() {
-		return apply_filters( "{$this->prefix}_layout_meta_key", 'Layout' );
-	}
+	return carelib_layout_exists( $name ) ? $layouts[ $name ] : false;
+}
 
-	/**
-	 * Gets a post layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $post_id
-	 * @return bool
-	 */
-	public function get_post_layout( $post_id ) {
-		return get_post_meta( $post_id, $this->get_meta_key(), true );
-	}
+/**
+ * Get the theme layout.
+ *
+ * This is the global theme layout defined. Other functions filter the
+ * available `theme_mod_theme_layout` hook to overwrite this.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_theme_layout() {
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_get_theme_layout", carelib_get_global_layout() );
+}
 
-	/**
-	 * Gets a user layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int     $user_id
-	 * @return bool
-	 */
-	public function get_user_layout( $user_id ) {
-		return get_user_meta( $user_id, $this->get_meta_key(), true );
-	}
+/**
+ * Returns the theme mod used for the global layout setting.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_global_layout() {
+	return get_theme_mod( 'theme_layout', carelib_get_default_layout() );
+}
 
-	/**
-	 * Get all layout objects.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return object
-	 */
-	public function get_layouts() {
-		return self::$layouts;
-	}
+/**
+ * Returns the default layout defined by the theme.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_default_layout() {
+	$layouts = carelib_get_layouts();
 
-	/**
-	 * Get a layout object.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $name
-	 * @return object|bool
-	 */
-	public function get_layout( $name ) {
-		return $this->layout_exists( $name ) ? self::$layouts[ $name ] : false;
-	}
+	$name = 'default';
 
-	/**
-	 * Get the theme layout.
-	 *
-	 * This is the global theme layout defined. Other functions filter the
-	 * available `theme_mod_theme_layout` hook to overwrite this.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_theme_layout() {
-		return apply_filters( "{$this->prefix}_get_theme_layout", $this->get_global_layout() );
-	}
-
-	/**
-	 * Returns the theme mod used for the global layout setting.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_global_layout() {
-		return get_theme_mod( 'theme_layout', $this->get_default_layout() );
-	}
-
-	/**
-	 * Returns the default layout defined by the theme.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_default_layout() {
-		return self::$default;
-	}
-
-	/**
-	 * Determines whether or not a user should be able to control the layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return bool
-	 */
-	public function allow_layout_control() {
-		return apply_filters( "{$this->prefix}_allow_layout_control", true );
-	}
-
-	/**
-	 * Force a layout and return the slug.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $layout the slug of the layout to be forced.
-	 * @return string the slug of the forced layout.
-	 */
-	public function force_layout( $layout ) {
-		add_filter( "{$this->prefix}_allow_layout_control", '__return_false' );
-
-		return $layout;
-	}
-
-	/**
-	 * Check whether the current layout includes a sidebar.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  string|array $sidebar_layouts A list of layouts which contain sidebars.
-	 * @return bool true if the current layout includes a sidebar
-	 */
-	public function layout_has_sidebar( $sidebar_layouts ) {
-		return ! in_array( $this->get_theme_layout(), (array) $sidebar_layouts, true );
-	}
-
-	/**
-	 * Checks a post if it has a specific layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int $layout
-	 * @return bool
-	 */
-	public function has_post_layout( $layout, $post_id = '' ) {
-		$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
-
-		return $this->get_post_layout( $post_id ) === $layout ? true : false;
-	}
-
-	/**
-	 * Checks if a user/author has a specific layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $layout
-	 * @param  int $user_id
-	 * @return bool
-	 */
-	public function has_user_layout( $layout, $user_id = '' ) {
-		$user_id = empty( $user_id ) ? absint( get_query_var( 'author' ) ) : $user_id;
-
-		return $this->get_user_layout( $user_id ) === $layout ? true : false;
-	}
-
-	/**
-	 * Sets a post layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int $post_id
-	 * @param  string $layout
-	 * @return bool
-	 */
-	public function set_post_layout( $post_id, $layout ) {
-		if ( 'default' !== $layout ) {
-			return update_post_meta( $post_id, $this->get_meta_key(), $layout );
-		}
-		return $this->delete_post_layout( $post_id );
-	}
-
-	/**
-	 * Sets a user layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int $user_id
-	 * @param  string $layout
-	 * @return bool
-	 */
-	public function set_user_layout( $user_id, $layout ) {
-		if ( 'default' !== $layout ) {
-			return update_user_meta( $user_id, $this->get_meta_key(), $layout );
-		}
-		return $this->delete_user_layout( $user_id );
-	}
-
-	/**
-	 * Unregisters a layout object.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $name
-	 * @return void
-	 */
-	public function unregister_layout( $name ) {
-		if ( $this->layout_exists( $name ) ) {
-			unset( self::$layouts[ $name ] );
+	foreach ( (array) $layouts as $id => $object ) {
+		if ( 'default' === $id ) {
+			$name = $object->get_name( $name );
 		}
 	}
 
-	/**
-	 * Deletes a post layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int $post_id
-	 * @return bool
-	 */
-	public function delete_post_layout( $post_id ) {
-		return delete_post_meta( $post_id, $this->get_meta_key() );
-	}
+	return $name;
+}
 
-	/**
-	 * Deletes user layout.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int $user_id
-	 * @return bool
-	 */
-	public function delete_user_layout( $user_id ) {
-		return delete_user_meta( $user_id, $this->get_meta_key() );
+/**
+ * Determines whether or not a user should be able to control the layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return bool
+ */
+function carelib_allow_layout_control() {
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_allow_layout_control", true );
+}
+
+/**
+ * Force a layout and return the slug.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $layout the slug of the layout to be forced.
+ * @return string the slug of the forced layout.
+ */
+function carelib_force_layout( $layout ) {
+	add_filter( "{$GLOBALS['carelib_prefix']}_allow_layout_control", '__return_false' );
+
+	return $layout;
+}
+
+/**
+ * Check whether the current layout includes a sidebar.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string|array $sidebar_layouts A list of layouts which contain sidebars.
+ * @return bool true if the current layout includes a sidebar
+ */
+function carelib_layout_has_sidebar( $sidebar_layouts ) {
+	return ! in_array( carelib_get_theme_layout(), (array) $sidebar_layouts, true );
+}
+
+/**
+ * Checks a post if it has a specific layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int $layout
+ * @return bool
+ */
+function carelib_has_post_layout( $layout, $post_id = '' ) {
+	$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
+
+	return carelib_get_post_layout( $post_id ) === $layout ? true : false;
+}
+
+/**
+ * Checks if a user/author has a specific layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $layout
+ * @param  int $user_id
+ * @return bool
+ */
+function carelib_has_user_layout( $layout, $user_id = '' ) {
+	$user_id = empty( $user_id ) ? absint( get_query_var( 'author' ) ) : $user_id;
+
+	return carelib_get_user_layout( $user_id ) === $layout ? true : false;
+}
+
+/**
+ * Sets a post layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int $post_id
+ * @param  string $layout
+ * @return bool
+ */
+function carelib_set_post_layout( $post_id, $layout ) {
+	if ( 'default' !== $layout ) {
+		return update_post_meta( $post_id, carelib_get_layout_meta_key(), $layout );
 	}
+	return carelib_delete_post_layout( $post_id );
+}
+
+/**
+ * Sets a user layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int $user_id
+ * @param  string $layout
+ * @return bool
+ */
+function carelib_set_user_layout( $user_id, $layout ) {
+	if ( 'default' !== $layout ) {
+		return update_user_meta( $user_id, carelib_get_layout_meta_key(), $layout );
+	}
+	return carelib_delete_user_layout( $user_id );
+}
+
+/**
+ * Unregisters a layout object.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $name
+ * @return void
+ */
+function carelib_unregister_layout( $name ) {
+	$layouts = carelib_get_layouts();
+
+	if ( carelib_layout_exists( $name ) ) {
+		unset( $layouts[ $name ] );
+	}
+}
+
+/**
+ * Deletes a post layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int $post_id
+ * @return bool
+ */
+function carelib_delete_post_layout( $post_id ) {
+	return delete_post_meta( $post_id, carelib_get_layout_meta_key() );
+}
+
+/**
+ * Deletes user layout.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int $user_id
+ * @return bool
+ */
+function carelib_delete_user_layout( $user_id ) {
+	return delete_user_meta( $user_id, carelib_get_layout_meta_key() );
 }

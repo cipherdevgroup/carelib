@@ -8,85 +8,198 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
+/**
+ * Build a Google Fonts string.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $families the font families to include.
+ * @param  bool   $editor_style set to true if string is being used as editor style.
+ * @return string
+ */
+function carelib_google_fonts_string( $families, $editor_style = false ) {
+	$string = "https://fonts.googleapis.com/css?family={$families}";
+	return $editor_style ? str_replace( ',', '%2C', $string ) : $string;
+}
 
-abstract class CareLib_Styles extends CareLib_Scripts {
-	/**
-	 * Gets a post style.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int $post_id The post ID associated with the style.
-	 * @return bool
-	 */
-	public function get_post_style( $post_id ) {
-		return get_post_meta( $post_id, $this->get_style_meta_key(), true );
+/**
+ * Register front-end stylesheets for the library.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_register_styles() {
+	wp_register_style(
+		"{$GLOBALS['carelib_prefix']}-parent",
+		carelib_get_parent_stylesheet_uri(),
+		array(),
+		carelib_get_parent_version()
+	);
+
+	wp_register_style(
+		"{$GLOBALS['carelib_prefix']}-style",
+		get_stylesheet_uri(),
+		array(),
+		carelib_get_theme_version()
+	);
+}
+
+/**
+ * Returns the parent theme stylesheet URI. Will return the active theme's
+ * stylesheet URI if no child theme is active. Be sure to check
+ * `is_child_theme()` when using.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_parent_stylesheet_uri() {
+	$suffix = carelib_get_suffix();
+
+	// Get the parent theme stylesheet.
+	$stylesheet_uri = carelib_get_parent_uri() . 'style.css';
+
+	// If a '.min' version of the parent theme stylesheet exists, use it.
+	if ( $suffix && file_exists( carelib_get_parent_dir() . "style{$suffix}.css" ) ) {
+		$stylesheet_uri = carelib_get_parent_uri() . "style{$suffix}.css";
 	}
 
-	/**
-	 * Sets a post style.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int    $post_id The post ID associated with the style to be set.
-	 * @param  string $style The style to be set.
-	 * @return bool
-	 */
-	public function set_post_style( $post_id, $style ) {
-		return update_post_meta( $post_id, $this->get_style_meta_key(), $style );
+	return apply_filters( 'get_parent_stylesheet_uri', $stylesheet_uri );
+}
+
+/**
+ * Filter the 'stylesheet_uri' to load a minified version of 'style.css'
+ * file if it is available.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $stylesheet_uri The URI of the active theme's stylesheet.
+ * @param  string $stylesheet_dir_uri The directory URI of the active theme's stylesheet.
+ * @return string $stylesheet_uri
+ */
+function carelib_min_stylesheet_uri( $stylesheet_uri, $stylesheet_dir_uri ) {
+	$suffix = carelib_get_suffix();
+
+	if ( ! $suffix ) {
+		return $stylesheet_uri;
 	}
 
-	/**
-	 * Deletes a post style.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int $post_id The post ID associated with the style to be deleted.
-	 * @return bool
-	 */
-	public function delete_post_style( $post_id ) {
-		return delete_post_meta( $post_id, $this->get_style_meta_key() );
+	// Remove the stylesheet directory URI from the file name.
+	$stylesheet = str_replace( trailingslashit( $stylesheet_dir_uri ), '', $stylesheet_uri );
+
+	// Change the stylesheet name to 'style.min.css'.
+	$stylesheet = str_replace( '.css', "{$suffix}.css", $stylesheet );
+
+	if ( file_exists( carelib_get_child_dir() . $stylesheet ) ) {
+		$stylesheet_uri = esc_url( trailingslashit( $stylesheet_dir_uri ) . $stylesheet );
 	}
 
-	/**
-	 * Checks a post if it has a specific style.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $style The post style to check for.
-	 * @param  int    $post_id The ID of the post to check.
-	 * @return bool
-	 */
-	public function has_post_style( $style, $post_id = '' ) {
-		if ( empty( $post_id ) ) {
-			$post_id = get_the_ID();
+	return $stylesheet_uri;
+}
+
+/**
+ * Retrieve the theme file with the highest priority that exists.
+ *
+ * @since  0.2.0
+ * @access public
+ * @link   http://core.trac.wordpress.org/ticket/18302
+ * @param  array  $file_names The files to search for.
+ * @return string
+ */
+function _carelib_locate_theme_file( $file_names ) {
+	$located = '';
+
+	foreach ( (array) $file_names as $file ) {
+		// If the file exists in the stylesheet (child theme) directory.
+		if ( is_child_theme() && file_exists( carelib_get_child_dir() . $file ) ) {
+			$located = carelib_get_child_uri() . $file;
+			break;
 		}
-		return $this->get_post_style( $post_id ) === $style ? true : false;
+		// If the file exists in the template (parent theme) directory.
+		if ( file_exists( carelib_get_parent_dir() . $file ) ) {
+			$located = carelib_get_parent_uri() . $file;
+			break;
+		}
 	}
 
-	/**
-	 * Wrapper function for returning the metadata key used for objects that can use styles.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return string
-	 */
-	public function get_style_meta_key() {
-		return apply_filters( "{$this->prefix}_style_meta_key", 'Stylesheet' );
+	return $located;
+}
+
+/**
+ * Filters the 'stylesheet_uri' and checks if a post has a style that should
+ * overwrite the theme's primary `style.css`.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string  $stylesheet_uri
+ * @return string
+ */
+function carelib_style_filter( $stylesheet_uri ) {
+	if ( ! is_singular() ) {
+		return $stylesheet_uri;
+	}
+	$style = carelib_get_post_style( get_queried_object_id() );
+
+	if ( $style && $style_uri = _carelib_locate_theme_file( array( $style ) ) ) {
+		$stylesheet_uri = $style_uri;
 	}
 
-	/**
-	 * Build a Google Fonts string.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $families the font families to include.
-	 * @param  bool   $editor_style set to true if string is being used as editor style.
-	 * @return string
-	 */
-	public function google_fonts_string( $families, $editor_style = false ) {
-		$string = "https://fonts.googleapis.com/css?family={$families}";
-		return $editor_style ? str_replace( ',', '%2C', $string ) : $string;
+	return $stylesheet_uri;
+}
+
+/**
+ * Searches for a locale stylesheet. This function looks for stylesheets in
+ * the `css` folder in the following order:
+ *
+ * 1) $lang-$region.css,
+ * 2) $region.css,
+ * 3) $lang.css,
+ * 4) $text_direction.css.
+ *
+ * It first checks the child theme for these files. If they are not present,
+ * it will check the parent theme. This is much more robust than the
+ * WordPress locale stylesheet, allowing for multiple variations and a more
+ * flexible hierarchy.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_locale_style() {
+	$styles = array();
+
+	// Get the locale, language, and region.
+	$locale = strtolower( str_replace( '_', '-', get_locale() ) );
+	$lang   = strtolower( carelib_get_language() );
+	$region = strtolower( carelib_get_region() );
+
+	$styles[] = "css/{$locale}.css";
+
+	if ( $region !== $locale ) {
+		$styles[] = "css/{$region}.css";
 	}
+
+	if ( $lang !== $locale ) {
+		$styles[] = "css/{$lang}.css";
+	}
+
+	$styles[] = is_rtl() ? 'css/rtl.css' : 'css/ltr.css';
+
+	return _carelib_locate_theme_file( $styles );
+}
+
+/**
+ * Filters `locale_stylesheet_uri` with a more robust version for checking
+ * locale/language/region/direction stylesheets.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string  $stylesheet_uri
+ * @return string
+ */
+function carelib_locale_stylesheet_uri( $stylesheet_uri ) {
+	$locale_style = carelib_get_locale_style();
+
+	return $locale_style ? esc_url( $locale_style ) : $stylesheet_uri;
 }
