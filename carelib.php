@@ -7,7 +7,7 @@
  * @author     Robert Neu
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
- * @since      0.1.0
+ * @since      1.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,14 +19,14 @@ if ( ! isset( $GLOBALS['carelib_prefix'] ) ) {
 /**
  * The current version of CareLib.
  *
- * @since 0.1.0
+ * @since 1.0.0
  */
-define( 'CARELIB_VERSION', '0.1.0' );
+define( 'CARELIB_VERSION', '1.0.0' );
 
 /**
  * The absolute path to CareLib's root directory with a trailing slash.
  *
- * @since 0.1.0
+ * @since 1.0.0
  * @uses  get_template_directory()
  * @uses  trailingslashit()
  */
@@ -35,7 +35,7 @@ define( 'CARELIB_DIR', trailingslashit( dirname( __FILE__ ) ) );
 /**
  * The absolute path to the template's root directory with a trailing slash.
  *
- * @since 0.1.0
+ * @since 1.0.0
  * @uses  get_template_directory_uri()
  * @uses  trailingslashit()
  */
@@ -45,7 +45,7 @@ if ( ! defined( 'PARENT_THEME_DIR' ) ) {
 	/**
 	 * The absolute path to the template's root directory with a trailing slash.
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 * @uses  get_template_directory()
 	 * @uses  trailingslashit()
 	 */
@@ -56,7 +56,7 @@ if ( ! defined( 'PARENT_THEME_URI' ) ) {
 	/**
 	 * The absolute path to the template's root directory with a trailing slash.
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 * @uses  get_template_directory_uri()
 	 * @uses  trailingslashit()
 	 */
@@ -67,7 +67,7 @@ if ( ! defined( 'CHILD_THEME_DIR' ) ) {
 	/**
 	 * The absolute path to the template's root directory with a trailing slash.
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 * @uses  get_stylesheet_directory()
 	 * @uses  trailingslashit()
 	 */
@@ -78,7 +78,7 @@ if ( ! defined( 'PARENT_THEME_URI' ) ) {
 	/**
 	 * The absolute path to the template's root directory with a trailing slash.
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 * @uses  get_stylesheet_directory_uri()
 	 * @uses  trailingslashit()
 	 */
@@ -86,38 +86,52 @@ if ( ! defined( 'PARENT_THEME_URI' ) ) {
 }
 
 add_action( 'after_setup_theme', 'carelib_includes', -95 );
+/**
+ * Include all library files within a hookable function.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
 function carelib_includes() {
-	require_once CARELIB_DIR . 'inc/attributes.php';
-	require_once CARELIB_DIR . 'inc/breadcrumbs.php';
-	require_once CARELIB_DIR . 'inc/cache-cleanup.php';
-	require_once CARELIB_DIR . 'inc/class-layout.php';
-	require_once CARELIB_DIR . 'inc/context.php';
-	require_once CARELIB_DIR . 'inc/head.php';
-	require_once CARELIB_DIR . 'inc/image.php';
-	require_once CARELIB_DIR . 'inc/language.php';
-	require_once CARELIB_DIR . 'inc/layouts.php';
-	require_once CARELIB_DIR . 'inc/menu.php';
-	require_once CARELIB_DIR . 'inc/meta.php';
-	require_once CARELIB_DIR . 'inc/paths.php';
-	require_once CARELIB_DIR . 'inc/scripts.php';
-	require_once CARELIB_DIR . 'inc/search-form.php';
-	require_once CARELIB_DIR . 'inc/sidebar.php';
-	require_once CARELIB_DIR . 'inc/styles-post.php';
-	require_once CARELIB_DIR . 'inc/styles.php';
-	require_once CARELIB_DIR . 'inc/support.php';
-	require_once CARELIB_DIR . 'inc/template-archive.php';
-	require_once CARELIB_DIR . 'inc/template-comments.php';
-	require_once CARELIB_DIR . 'inc/template-entry.php';
-	require_once CARELIB_DIR . 'inc/template-global.php';
-	require_once CARELIB_DIR . 'inc/template-hierarchy.php';
-	require_once CARELIB_DIR . 'inc/template-hooks.php';
-	require_once CARELIB_DIR . 'inc/theme.php';
-	require_once CARELIB_DIR . 'inc/tinymce.php';
-	require_once CARELIB_DIR . 'inc/actions.php';
-	require_once CARELIB_DIR . 'inc/filters.php';
+	require_once CARELIB_DIR . 'includes/attributes.php';
+	require_once CARELIB_DIR . 'includes/breadcrumbs.php';
+	require_once CARELIB_DIR . 'includes/cache-cleanup.php';
+	require_once CARELIB_DIR . 'includes/class-layout.php';
+	require_once CARELIB_DIR . 'includes/context.php';
+	require_once CARELIB_DIR . 'includes/head.php';
+	require_once CARELIB_DIR . 'includes/image.php';
+	require_once CARELIB_DIR . 'includes/language.php';
+	require_once CARELIB_DIR . 'includes/layouts.php';
+	require_once CARELIB_DIR . 'includes/menu.php';
+	require_once CARELIB_DIR . 'includes/meta.php';
+	require_once CARELIB_DIR . 'includes/paths.php';
+	require_once CARELIB_DIR . 'includes/scripts.php';
+	require_once CARELIB_DIR . 'includes/search-form.php';
+	require_once CARELIB_DIR . 'includes/sidebar.php';
+	require_once CARELIB_DIR . 'includes/styles-post.php';
+	require_once CARELIB_DIR . 'includes/styles.php';
+	require_once CARELIB_DIR . 'includes/support.php';
+	require_once CARELIB_DIR . 'includes/template-archive.php';
+	require_once CARELIB_DIR . 'includes/template-comments.php';
+	require_once CARELIB_DIR . 'includes/template-entry.php';
+	require_once CARELIB_DIR . 'includes/template-global.php';
+	require_once CARELIB_DIR . 'includes/template-hierarchy.php';
+	require_once CARELIB_DIR . 'includes/template-hooks.php';
+	require_once CARELIB_DIR . 'includes/theme.php';
+	require_once CARELIB_DIR . 'includes/tinymce.php';
+	require_once CARELIB_DIR . 'includes/actions.php';
+	require_once CARELIB_DIR . 'includes/filters.php';
 }
 
 add_action( 'after_setup_theme', 'carelib_admin_includes', -95 );
+/**
+ * Include all admin files within a hookable function.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
 function carelib_admin_includes() {
 	if ( is_admin() ) {
 	//	require_once CARELIB_DIR . 'admin/dashboard.php';
@@ -131,6 +145,13 @@ function carelib_admin_includes() {
 }
 
 add_action( 'after_setup_theme', 'carelib_customize_includes', -95 );
+/**
+ * Include all customizer files within a hookable function.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
 function carelib_customize_includes() {
 	if ( is_customize_preview() ) {
 		require_once CARELIB_DIR . 'customize/control-radio-image.php';
