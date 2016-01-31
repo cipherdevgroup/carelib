@@ -50,7 +50,6 @@ add_action( 'after_setup_theme', 'carelib_includes', -95 );
 function carelib_includes() {
 	require_once CARELIB_DIR . 'includes/attributes.php';
 	require_once CARELIB_DIR . 'includes/breadcrumbs.php';
-	require_once CARELIB_DIR . 'includes/cache-cleanup.php';
 	require_once CARELIB_DIR . 'includes/class-layout.php';
 	require_once CARELIB_DIR . 'includes/context.php';
 	require_once CARELIB_DIR . 'includes/head.php';
