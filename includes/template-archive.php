@@ -8,9 +8,6 @@
  * @since      0.2.0
  */
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Determine if we're viewing a "plural" page.
  *

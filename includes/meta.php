@@ -11,9 +11,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Registers the library's custom metadata keys and sets up the sanitize
  * callback function.

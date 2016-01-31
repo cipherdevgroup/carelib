@@ -9,9 +9,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Register customizer controls scripts.
  *

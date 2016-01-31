@@ -10,9 +10,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 class CareLib_Layout {
 	/**
 	 * Arguments for creating the layout object.

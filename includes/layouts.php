@@ -8,9 +8,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Check if the current theme has layouts support.
  *

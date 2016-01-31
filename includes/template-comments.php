@@ -8,9 +8,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Adds microdata to the comment author link.
  *

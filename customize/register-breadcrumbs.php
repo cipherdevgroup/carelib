@@ -8,9 +8,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 function carelib_customize_load_breadcrumb_settings() {
 	if ( carelib_breadcrumb_plugin_is_active() ) {
 		add_action( 'customize_register', 'carelib_register_breadcrumb_settings', 15 );

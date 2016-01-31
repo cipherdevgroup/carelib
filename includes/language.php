@@ -11,9 +11,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Gets the parent theme textdomain. This allows the library to recognize
  * the proper textdomain of the parent theme.

@@ -10,8 +10,6 @@
  * @since      0.2.0
  */
 
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Add a custom action for the archive header.
  *

@@ -11,9 +11,6 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Determine if the current view should contain an entry header.
  *
