@@ -8,168 +8,133 @@
  * @since     0.2.0
  */
 
-// Prevent direct access.
-defined( 'ABSPATH' ) || exit;
+/**
+ * Register our metabox actions and filters.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return void
+ */
+function carelib_metabox_post_template_actions() {
+	add_action( 'add_meta_boxes',  'carelib_metabox_post_template_add',  10, 2 );
+	add_action( 'save_post',       'carelib_metabox_post_template_save', 10, 2 );
+	add_action( 'add_attachment',  'carelib_metabox_post_template_save' );
+	add_action( 'edit_attachment', 'carelib_metabox_post_template_save' );
+}
 
-class CareLib_Admin_Metabox_Post_Templates extends CareLib_Template_Hierarchy {
-	/**
-	 * The current post's custom templates.
-	 *
-	 * @since 0.2.0
-	 * @var   array
-	 */
-	protected static $templates = array();
+/**
+ * Adds the post template meta box for all public post types, excluding the
+ * 'page' post type since WordPress core already handles page templates.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string  $post_type
+ * @param  object  $post
+ * @return void
+ */
+function carelib_metabox_post_template_add( $post_type, $post ) {
+	$templates = carelib_get_post_templates( $post_type );
 
-	/**
-	 * Get our class up and running!
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @uses   CareLib_Admin_Metabox_Post_Layout::$wp_hooks
-	 * @return void
-	 */
-	public function run() {
-		$this->wp_hooks();
+	if ( ! empty( $templates ) && 'page' !== $post_type ) {
+		add_meta_box(
+			'carelib-post-template',
+			esc_html__( 'Template', 'carelib' ),
+			'carelib_metabox_post_template_box',
+			$post_type,
+			'side',
+			'default'
+		);
+	}
+}
+
+/**
+ * Displays the post template meta box.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  object $post
+ * @param  array  $box
+ * @return void
+ */
+function carelib_metabox_post_template_box( $post, $box ) {
+	$templates     = carelib_get_post_templates( $post->post_type );
+	$post_template = carelib_get_post_template( $post->ID );
+
+	require_once carelib_get_dir( 'admin/templates/metabox-post-template.php' );
+}
+
+/**
+ * Saves the post template meta box settings as post metadata.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  int    $post_id The ID of the current post being saved.
+ * @param  object $post    The post object currently being saved.
+ * @return void|int
+ */
+function carelib_metabox_post_template_save( $post_id, $post = '' ) {
+	$no  = "{$GLOBALS['carelib_prefix']}_post_template_nonce";
+	$act = "{$GLOBALS['carelib_prefix']}_update_post_template";
+
+	// Verify the nonce for the post formats meta box.
+	if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {
+		return false;
 	}
 
-	/**
-	 * Register our actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function wp_hooks() {
-		add_action( 'load-post.php',     array( $this, 'metabox_hooks' ) );
-		add_action( 'load-post-new.php', array( $this, 'metabox_hooks' ) );
+	$input   = isset( $_POST['carelib-post-template'] ) ? $_POST['carelib-post-template'] : '';
+	$current = carelib_get_post_template( $post_id );
+
+	if ( $input === $current ) {
+		return false;
 	}
 
-	/**
-	 * Register our metabox actions and filters.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function metabox_hooks() {
-		add_action( 'add_meta_boxes',  array( $this, 'add' ),  10, 2 );
-		add_action( 'save_post',       array( $this, 'save' ), 10, 2 );
-		add_action( 'add_attachment',  array( $this, 'save' ) );
-		add_action( 'edit_attachment', array( $this, 'save' ) );
+	if ( empty( $input ) ) {
+		return carelib_delete_post_template( $post_id );
 	}
 
-	/**
-	 * Adds the post template meta box for all public post types, excluding the
-	 * 'page' post type since WordPress core already handles page templates.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string  $post_type
-	 * @param  object  $post
-	 * @return void
-	 */
-	public function add( $post_type, $post ) {
-		$templates = $this->get_post_templates( $post_type );
-		if ( ! empty( $templates ) && 'page' !== $post_type ) {
-			add_meta_box(
-				'carelib-post-template',
-				esc_html__( 'Template', 'carelib' ),
-				array( $this, 'box' ),
-				$post_type,
-				'side',
-				'default'
-			);
+	return carelib_set_post_template( $post_id, sanitize_text_field( $input ) );
+}
+
+/**
+ * Get an array of available custom templates with a specific header.
+ *
+ * Ideally, this function would be used to grab custom singular post templates.
+ * It is a recreation of the WordPress page templates function because it
+ * doesn't allow for other types of templates.
+ *
+ * @since  0.2.0
+ * @access public
+ * @param  string $post_type      The name of the post type to get templates for.
+ * @return array  $post_templates The array of templates.
+ */
+function carelib_get_post_templates( $post_type = 'post' ) {
+	static $templates;
+
+	if ( ! empty( $templates ) && isset( $templates[ $post_type ] ) ) {
+		return $templates[ $post_type ];
+	}
+
+	$post_templates = array();
+
+	// Get the theme PHP files one level deep.
+	$files = carelib_get_parent()->get_files( 'php', 1 );
+
+	// If a child theme is active, get its files and merge with the parent theme files.
+	if ( is_child_theme() ) {
+		$files = array_merge( $files, carelib_get_theme()->get_files( 'php', 1 ) );
+	}
+
+	foreach ( $files as $file => $path ) {
+		// Get file data based on the post type singular name.
+		$headers = get_file_data(
+			$path,
+			array( "{$post_type} Template" => "{$post_type} Template" )
+		);
+
+		if ( ! empty( $headers[ "{$post_type} Template" ] ) ) {
+			$post_templates[ $file ] = $headers[ "{$post_type} Template" ];
 		}
 	}
 
-	/**
-	 * Displays the post template meta box.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  object  $object
-	 * @param  array   $box
-	 * @return void
-	 */
-	public function box( $post, $box ) {
-		$templates     = $this->get_post_templates( $post->post_type );
-		$post_template = $this->get_post_template( $post->ID );
-
-		require_once carelib_get( 'paths' )->get_dir() . 'admin/templates/metabox-post-template.php';
-	}
-
-	/**
-	 * Saves the post template meta box settings as post metadata. Note that this meta is sanitized using the
-	 * $this->sanitize_meta() callback function prior to being saved.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  int      $post_id The ID of the current post being saved.
-	 * @param  object   $post    The post object currently being saved.
-	 * @return void|int
-	 */
-	public function save( $post_id, $post = '' ) {
-		$no  = "{$this->prefix}_post_template_nonce";
-		$act = "{$this->prefix}_update_post_template";
-
-		// Verify the nonce for the post formats meta box.
-		if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {
-			return false;
-		}
-
-		$input   = isset( $_POST['carelib-post-template'] ) ? $_POST['carelib-post-template'] : '';
-		$current = $this->get_post_template( $post_id );
-
-		if ( $input === $current ) {
-			return false;
-		}
-
-		if ( empty( $input ) ) {
-			return $this->delete_post_template( $post_id );
-		}
-
-		return $this->set_post_template( $post_id, sanitize_text_field( $input ) );
-	}
-
-	/**
-	 * Get an array of available custom templates with a specific header.
-	 *
-	 * Ideally, this function would be used to grab custom singular post templates.
-	 * It is a recreation of the WordPress page templates function because it
-	 * doesn't allow for other types of templates.
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @param  string $post_type      The name of the post type to get templates for.
-	 * @return array  $post_templates The array of templates.
-	 */
-	public function get_post_templates( $post_type = 'post' ) {
-		if ( ! empty( self::$templates ) && isset( self::$templates[ $post_type ] ) ) {
-			return self::$templates[ $post_type ];
-		}
-
-		$post_templates = array();
-
-		// Get the theme PHP files one level deep.
-		$files = carelib_get( 'theme' )->get_parent()->get_files( 'php', 1 );
-
-		// If a child theme is active, get its files and merge with the parent theme files.
-		if ( is_child_theme() ) {
-			$files = array_merge( $files, carelib_get( 'theme' )->get()->get_files( 'php', 1 ) );
-		}
-
-		foreach ( $files as $file => $path ) {
-			// Get file data based on the post type singular name.
-			$headers = get_file_data(
-				$path,
-				array( "{$post_type} Template" => "{$post_type} Template" )
-			);
-
-			if ( ! empty( $headers[ "{$post_type} Template" ] ) ) {
-				$post_templates[ $file ] = $headers[ "{$post_type} Template" ];
-			}
-		}
-
-		return self::$templates[ $post_type ] = array_flip( $post_templates );
-	}
+	return $templates[ $post_type ] = array_flip( $post_templates );
 }

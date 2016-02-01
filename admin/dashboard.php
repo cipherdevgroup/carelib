@@ -8,179 +8,120 @@
  * @since     0.2.0
  */
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
+/**
+ * Set up the dashboard options.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_setup() {
+	if ( is_network_admin() ) {
+		return;
+	}
+	// Add the an option to redirect.
+	add_option( "{$GLOBALS['carelib_prefix']}_dashboard_redirect", true );
+}
 
-class CareLib_Admin_Dashboard {
-	/**
-	 * Library prefix which can be set within themes.
-	 *
-	 * @since 0.2.0
-	 * @var   string
-	 */
-	protected $prefix;
+/**
+ * Add the WordPress Theme Dashboard to the main WordPress dashboard menu.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_menu() {
+	$theme = carelib_get_theme();
+	add_theme_page(
+		$theme['Name'],
+		$theme['Name'],
+		'edit_theme_options',
+		"{$GLOBALS['carelib_prefix']}-dashboard",
+		'carelib_dashboard_page'
+	);
+}
 
-	/**
-	 * Constructor method.
-	 *
-	 * @since 0.2.0
-	 */
-	public function __construct() {
-		$this->prefix = carelib()->get_prefix();
+/**
+ * Add options and fire a redirect when the theme is first activated.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_redirect() {
+	// Bail if this isn't the first time our theme has been activated.
+	if ( is_network_admin() || ! get_option( "{$GLOBALS['carelib_prefix']}_dashboard_redirect" ) ) {
+		return;
 	}
 
-	/**
-	 * Get things running!
-	 *
-	 * @since  0.2.0
-	 * @access public
-	 * @return void
-	 */
-	public function add_support() {
-		$this->wp_hooks();
-	}
+	// Make sure this isn't run the next time the theme is activated.
+	update_option( "{$GLOBALS['carelib_prefix']}_dashboard_redirect", false );
 
-	/**
-	 * Hook into WordPress.
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function wp_hooks() {
-		add_action( 'admin_init',            array( $this, 'register_settings' ),  10 );
-		add_action( 'admin_menu',            array( $this, 'dashboard_menu' ),     10 );
-		add_action( 'after_switch_theme',    array( $this, 'dashboard_setup' ),    10 );
-		add_action( 'after_switch_theme',    array( $this, 'dashboard_redirect' ), 12 );
-		add_action( 'switch_theme',          array( $this, 'dashboard_cleanup' ),  10 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'dashboard_scripts' ),  10 );
-		add_action( 'admin_notices',         array( $this, 'dashboard_notices' ),  10 );
-	}
+	wp_safe_redirect( admin_url( "index.php?page={$GLOBALS['carelib_prefix']}-dashboard" ) );
+	exit;
+}
 
-	/**
-	 * Add options and fire a redirect when the theme is first activated.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function register_settings() {}
+/**
+ * Remove any option that won't be reused by other Flagship products.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_cleanup() {
+	delete_option( "{$GLOBALS['carelib_prefix']}_dashboard_redirect" );
+}
 
-	/**
-	 * Set up the dashboard options.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function dashboard_setup() {
-		if ( is_network_admin() ) {
-			return;
-		}
-		// Add the an option to redirect.
-		add_option( "{$this->prefix}_dashboard_redirect", true );
-	}
-
-	/**
-	 * Add options and fire a redirect when the theme is first activated.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function dashboard_redirect() {
-		// Bail if this isn't the first time our theme has been activated.
-		if ( is_network_admin() || ! get_option( "{$this->prefix}_dashboard_redirect" ) ) {
-			return;
-		}
-
-		// Make sure this isn't run the next time the theme is activated.
-		update_option( "{$this->prefix}_dashboard_redirect", false );
-
-		wp_safe_redirect( admin_url( "index.php?page={$this->prefix}-dashboard" ) );
-		exit;
-	}
-
-	/**
-	 * Remove any option that won't be reused by other Flagship products.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function dashboard_cleanup() {
-		delete_option( "{$this->prefix}_dashboard_redirect" );
-	}
-
-	/**
-	 * Helper function to find out if we're on the dashboard page.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function is_dashboard_page() {
-		if ( ! function_exists( 'get_current_screen' ) ) {
-			return false;
-		}
-		$screen = get_current_screen();
-		if ( is_object( $screen ) && "dashboard_page_{$this->prefix}-dashboard" === $screen->base ) {
-			return true;
-		}
+/**
+ * Helper function to find out if we're on the dashboard page.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_is_dashboard_page() {
+	if ( ! function_exists( 'get_current_screen' ) ) {
 		return false;
 	}
-
-	/**
-	 * Load scripts and styles for the Flagship dashboard.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function dashboard_scripts() {
-		if ( $this->is_dashboard_page() ) {
-			wp_enqueue_script( 'carelib-dashboard' );
-			wp_enqueue_style( 'carelib-dashboard' );
-		}
+	$screen = get_current_screen();
+	if ( is_object( $screen ) && "dashboard_page_{$GLOBALS['carelib_prefix']}-dashboard" === $screen->base ) {
+		return true;
 	}
+	return false;
+}
 
-	/**
-	 * Display all messages related to the Flagship dashboard.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function dashboard_notices() {
-		do_action( "{$this->prefix}_dashboard_notices" );
+/**
+ * Load scripts and styles for the Flagship dashboard.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_scripts() {
+	if ( carelib_is_dashboard_page() ) {
+		wp_enqueue_script( 'carelib-dashboard' );
+		wp_enqueue_style( 'carelib-dashboard' );
 	}
+}
 
-	/**
-	 * Add the WordPress Theme Dashboard to the main WordPress dashboard menu.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	function dashboard_menu() {
-		$theme = carelib_get( 'theme' )->get();
-		add_theme_page(
-			$theme['Name'],
-			$theme['Name'],
-			'manage_options',
-			"{$this->prefix}-dashboard",
-			array( $this, 'dashboard_page' )
-		);
-	}
+/**
+ * Display all messages related to the Flagship dashboard.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_notices() {
+	do_action( "{$GLOBALS['carelib_prefix']}_dashboard_notices" );
+}
 
-	/**
-	 * Include the base template for our dashboard page.
-	 *
-	 * @since   0.2.0
-	 * @access  public
-	 * @return  void
-	 */
-	public function dashboard_page() {
-		require_once carelib_get( 'paths' )->get_dir( 'admin/templates/dashboard.php' );
-	}
+/**
+ * Include the base template for our dashboard page.
+ *
+ * @since   0.2.0
+ * @access  public
+ * @return  void
+ */
+function carelib_dashboard_page() {
+	require_once carelib_get_dir( 'admin/templates/dashboard.php' );
 }
