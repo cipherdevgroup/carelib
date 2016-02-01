@@ -31,7 +31,7 @@ function carelib_get_dir( $path = '' ) {
  * @return string
  */
 function carelib_get_uri( $path = '' ) {
-	return trailingslashit( get_theme_root_uri() ) . strstr( wp_normalize_path( dirname( __FILE__ ) ), basename( get_template_directory() ) ) . ltrim( $path );
+	return trailingslashit( get_theme_root_uri() ) . strstr( wp_normalize_path( CARELIB_DIR ), basename( get_template_directory() ) ) . ltrim( $path );
 }
 
 /**
