@@ -96,6 +96,37 @@ function carelib_get_avatar( $avatar ) {
 }
 
 /**
+ * Return an arbitrary widget as a template tag.
+ *
+ * This is literally just an output buffer around WordPress core's the_widget
+ * function. I have no idea why core doesn't have a return function here.
+ *
+ * @since 1.0.0
+ *
+ * @global WP_Widget_Factory $wp_widget_factory
+ *
+ * @param string $widget   The widget's PHP class name (see class-wp-widget.php).
+ * @param array  $instance Optional. The widget's instance settings. Default empty array.
+ * @param array  $args {
+ *     Optional. Array of arguments to configure the display of the widget.
+ *
+ *     @type string $before_widget HTML content that will be prepended to the widget's HTML output.
+ *                                 Default `<div class="widget %s">`, where `%s` is the widget's class name.
+ *     @type string $after_widget  HTML content that will be appended to the widget's HTML output.
+ *                                 Default `</div>`.
+ *     @type string $before_title  HTML content that will be prepended to the widget's title when displayed.
+ *                                 Default `<h2 class="widgettitle">`.
+ *     @type string $after_title   HTML content that will be appended to the widget's title when displayed.
+ *                                 Default `</h2>`.
+ * }
+ */
+function carelib_get_the_widget( $widget, $instance = array(), $args = array() ) {
+	ob_start();
+	the_widget( $widget, $instance, $args );
+	return ob_get_clean();
+}
+
+/**
  * Format a link to the customizer panel.
  *
  * Since WordPress 4.1, the customizer panel allows for deeplinking, but setting
