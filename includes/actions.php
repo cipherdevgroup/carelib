@@ -38,3 +38,4 @@ add_action( 'wp_enqueue_scripts', 'carelib_register_styles', 0 );
 
 add_action( 'after_setup_theme', 'carelib_theme_support',     12 );
 add_action( 'init',              'carelib_post_type_support', 15 );
+add_action( 'init', 'carelib_register_layouts', 95 );
