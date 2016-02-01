@@ -200,7 +200,7 @@ function carelib_get_entry_comments_link( $args = array() ) {
 	$html .= isset( $args['before'] ) ? $args['before'] : '';
 
 	$html .= sprintf( '<span %s><a rel="nofollow" href="%s">%s</a></span>',
-		$args['attr'],
+		carelib_get_attr( $args['attr'] ),
 		$link,
 		$text
 	);
