@@ -13,7 +13,7 @@
  *
  * @since  2.0.0
  * @access public
- * @param  string  $location
+ * @param  string $location The ID of the menu location to look up.
  * @return string
  */
 function carelib_get_menu_location_name( $location ) {

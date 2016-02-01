@@ -205,31 +205,6 @@ function carelib_get_layout( $name ) {
 }
 
 /**
- * Get the theme layout.
- *
- * This is the global theme layout defined. Other functions filter the
- * available `theme_mod_theme_layout` hook to overwrite this.
- *
- * @since  0.2.0
- * @access public
- * @return string
- */
-function carelib_get_theme_layout() {
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_get_theme_layout", carelib_get_global_layout() );
-}
-
-/**
- * Returns the theme mod used for the global layout setting.
- *
- * @since  0.2.0
- * @access public
- * @return string
- */
-function carelib_get_global_layout() {
-	return get_theme_mod( 'theme_layout', carelib_get_default_layout() );
-}
-
-/**
  * Returns the default layout defined by the theme.
  *
  * @since  0.2.0
@@ -248,6 +223,31 @@ function carelib_get_default_layout() {
 	}
 
 	return $name;
+}
+
+/**
+ * Returns the theme mod used for the global layout setting.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_global_layout() {
+	return get_theme_mod( 'theme_layout', carelib_get_default_layout() );
+}
+
+/**
+ * Get the theme layout.
+ *
+ * This is the global theme layout defined. Other functions filter the
+ * available `theme_mod_theme_layout` hook to overwrite this.
+ *
+ * @since  0.2.0
+ * @access public
+ * @return string
+ */
+function carelib_get_theme_layout() {
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_get_theme_layout", carelib_get_global_layout() );
 }
 
 /**
