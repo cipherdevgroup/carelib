@@ -17,10 +17,8 @@
  * @return array $buttons modified TinyMCE buttons.
  */
 function carelib_tinymce_add_styleselect( $buttons ) {
-	// Get rid of styleselect if it's been added somewhere else.
-	if ( in_array( 'styleselect', $buttons, true ) ) {
-		unset( $buttons['styleselect'] );
-	}
+	unset( $buttons['styleselect'] );
+
 	array_push( $buttons, 'styleselect' );
 
 	return $buttons;
@@ -36,9 +34,8 @@ function carelib_tinymce_add_styleselect( $buttons ) {
  * @return array $buttons modified TinyMCE buttons.
  */
 function carelib_tinymce_disable_styleselect( $buttons ) {
-	if ( in_array( 'styleselect', $buttons, true ) ) {
-		unset( $buttons['styleselect'] );
-	}
+	unset( $buttons['styleselect'] );
+
 	return $buttons;
 }
 
