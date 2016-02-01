@@ -5,7 +5,7 @@
  * @package    CareLib
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
- * @since      0.2.0
+ * @since      1.0.0
  */
 
 /**
@@ -20,7 +20,7 @@
  * For the $name parameter, if the file is called `framework-special.php`
  * then specify "special".
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @param  string $name The name of the specialized template.
  * @return void
  */
@@ -29,7 +29,7 @@ function carelib_framework( $name = '' ) {
 	/**
 	 * Fires before the default framework template file is loaded.
 	 *
-	 * @since 0.2.0
+	 * @since 1.0.0
 	 * @param string $name The name of the specialized framework template.
 	 */
 	do_action( "{$GLOBALS['carelib_prefix']}_framework", $name, $templates );
@@ -48,7 +48,7 @@ function carelib_framework( $name = '' ) {
 /**
  * Returns the linked site title wrapped in an `<h1>` tag.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -68,7 +68,7 @@ function carelib_get_site_title() {
 /**
  * Return the site description wrapped in a `<p>` tag.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -86,7 +86,7 @@ function carelib_get_site_description() {
 /**
  * Adds microdata to avatars.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $avatar
  * @return string
@@ -103,7 +103,7 @@ function carelib_get_avatar( $avatar ) {
  * to deep link to a customzer panel or control, plus return to the correct page
  * when the customizer is exited by the user.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $args options for how the link will be formatted.
  * @return string an escaped link to the WordPress customizer panel.
@@ -135,7 +135,7 @@ function carelib_get_customizer_link( $args = array() ) {
 /**
  * Returns a formatted theme credit link.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -151,7 +151,7 @@ function carelib_get_credit_link() {
 /**
  * Returns formatted theme information.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -171,7 +171,7 @@ function carelib_get_theme_info() {
 /**
  * Returns a link back to the site.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -185,7 +185,7 @@ function carelib_get_site_link() {
 /**
  * Returns a link to WordPress.org.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -199,7 +199,7 @@ function carelib_get_wp_link() {
 /**
  * Returns a link to the parent theme URI.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -223,7 +223,7 @@ function carelib_get_theme_link() {
 /**
  * Returns a link to the child theme URI.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */

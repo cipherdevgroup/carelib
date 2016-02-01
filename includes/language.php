@@ -8,14 +8,14 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Gets the parent theme textdomain. This allows the library to recognize
  * the proper textdomain of the parent theme.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @return string The textdomain of the theme.
  */
@@ -37,7 +37,7 @@ function _carelib_get_parent_textdomain() {
  * Gets the child theme textdomain. This allows the library to recognize
  * the proper textdomain of the child theme.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @return string The textdomain of the child theme.
  */
@@ -58,7 +58,7 @@ function _carelib_get_child_textdomain() {
 /**
  * Returns the parent theme domain path. No slash.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @return string
  */
@@ -75,7 +75,7 @@ function _carelib_get_parent_domain_path() {
 /**
  * Returns the child theme domain path. No slash.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @return string
  */
@@ -99,7 +99,7 @@ function _carelib_get_child_domain_path() {
  * parent theme locale file. This is standard practice in core WP for
  * allowing pluggable functions if a theme author so desires.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -129,7 +129,7 @@ function carelib_load_locale_functions() {
  * This also utilizes the `Domain Path` header from `style.css`. It defaults
  * to the `languages` folder.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -153,7 +153,7 @@ function carelib_load_textdomains() {
  * Gets the language for the currently-viewed page. It strips the region
  * from the locale if needed and just returns the language code.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $locale
  * @return string
@@ -171,7 +171,7 @@ function carelib_get_language( $locale = '' ) {
  * from the locale if needed. Note that not all locales will have a region,
  * so this might actually return the same thing as `get_language()`.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $locale
  * @return string

@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Return a grabbed image.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param array $args {
  *     Optional. An array of arguments.
@@ -85,7 +85,7 @@ function carelib_get_image( $args = array() ) {
 /**
  * Setup object caching if it's enabled.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display an image.
  * @return bool true if cache has been set up, false otherwise
@@ -105,7 +105,7 @@ function _carelib_image_setup_cache( $args ) {
  * Uses object cache if it's available and enabled and falls back to a
  * stored image value to prevent multiple searches.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  int $post_id the post ID associated with the image to get
  * @return string|bool false if no cached image is found
@@ -125,7 +125,7 @@ function _carelib_image_get_cache( $post_id ) {
  * Uses object cache if it's available and always stores an image value to
  * prevent multiple searches.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display an image.
  * @param  string $html the formatted HTML of a grabbed image to save.
@@ -146,7 +146,7 @@ function _carelib_image_set_cache( $html, $args ) {
 /**
  * Search the content are for an image to grab. Use cache if it's available.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display an image.
  * @return bool|array $image a grabbed image properties or false if no image is found
@@ -174,7 +174,7 @@ function _carelib_image_find( $args ) {
 /**
  * Grab the image using a pre-defined order of available methods.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display an image.
  * @return bool|array $image a grabbed image properties or false if no image is found
@@ -210,7 +210,7 @@ function _carelib_image_get_by( $args ) {
 /**
  * Return the raw attributes of a grabbed image.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  string $html the formatted HTML of a grabbed image
  * @return array $output the raw attributes of a grabbed image
@@ -231,7 +231,7 @@ function _carelib_image_get_raw( $html ) {
 /**
  * Return a sanitized string of html classes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $classes a raw array of html classes to be sanitized.
  * @return array a sanitized array of lowercase html class values.
@@ -248,7 +248,7 @@ function _carelib_image_get_size( $args, $image, $type ) {
 /**
  * Build a sanitized string of html classes for our grabbed image.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
@@ -275,7 +275,7 @@ function _carelib_image_build_classes( $args, $image ) {
 /**
  * Return a formatted image size attribute.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  string $size the size attribute to format.
  * @param  string $type the type of attribute being formatted (height or width)
@@ -289,7 +289,7 @@ function _carelib_image_format_size( $args, $image, $type ) {
 /**
  * Return a formatted html class attribute.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  string $class the class attribute to format.
  * @return string a formatted html class.
@@ -301,7 +301,7 @@ function _carelib_image_format_class( $class ) {
 /**
  * Return a formatted image srcset attribute.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $srcset the array of srcset values to format.
  * @return string a formatted html srcset attribute.
@@ -314,7 +314,7 @@ function _carelib_image_format_srcset( $image ) {
  * Wrap a formatted <img> with a link to the associated post if the
  * argument has been set.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
@@ -334,7 +334,7 @@ function _carelib_image_maybe_add_link_wrapper( $html, $args ) {
 /**
  * Return a formatted <img> string.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
@@ -380,7 +380,7 @@ function _carelib_image_format_image_html( $args, $image ) {
 /**
  * Apply the post_thumbnail_html filter if a given image has a thumbnail id.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  string $html a formatted <img> string.
  * @param  array $args Arguments for how to load and display the image.
@@ -403,7 +403,7 @@ function _carelib_image_maybe_add_thumbnail_html( $html, $image, $args ) {
  * Format an image with appropriate alt text and class. Adds a link if the
  * argument is set.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
@@ -423,7 +423,7 @@ function _carelib_image_format_image( $args, $image ) {
 /**
  * Get image by custom field key.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @return array|bool Array of image attributes. | False if no image is found.
@@ -451,7 +451,7 @@ function _carelib_image_get_by_meta_key( $args ) {
 /**
  * Get the featured image (i.e., WP's post thumbnail).
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @return array|bool Array of image attributes. | False if no image is found.
@@ -474,7 +474,7 @@ function _carelib_image_get_by_featured_image( $args ) {
  * Uses get_children() to check if the post has images attached.  If image
  * attachments are found, loop through each.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @return array|bool Array of image attributes. | False if no image is found.
@@ -512,7 +512,7 @@ function _carelib_image_get_by_attachment( $args ) {
  * Adds an array of srcset image sources and descriptors based on the
  * `srcset_sizes` argument.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  int $id
  * @return void
@@ -540,7 +540,7 @@ function _carelib_image_get_srcset( $id ) {
 /**
  * Get a WordPress image attachment.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  int $id
  * @return void
@@ -573,7 +573,7 @@ function _carelib_image_get_attachment( $id, $args ) {
 /**
  * Set a default image.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @return array|bool Array of image attributes. | False if no image is found.
@@ -590,7 +590,7 @@ function _carelib_image_get_by_default( $args ) {
  * This allows users to set a custom meta key for their image. By doing
  * this, users can trim off database queries when grabbing attachments.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display the image.
  * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
@@ -612,7 +612,7 @@ function _carelib_image_get_meta_key_save( $args, $image ) {
 /**
  * Delete the image cache.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  int $post_id The ID of the post to delete the cache for.
  * @return bool true when cache is deleted, false otherwise
@@ -625,7 +625,7 @@ function _carelib_delete_image_cache( $post_id ) {
  * Delete the image cache for the specific post when the 'save_post' hook
  * is fired.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  int $post_id The ID of the post to delete the cache for.
  * @return bool true when cache is deleted, false otherwise
@@ -638,7 +638,7 @@ function carelib_delete_image_cache_by_post( $post_id ) {
  * Delete the image cache for a specific post when the 'added_post_meta',
  * 'deleted_post_meta', or 'updated_post_meta' hooks are called.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  int $meta_id The ID of the metadata being updated.
  * @param  int $post_id The ID of the post to delete the cache for.

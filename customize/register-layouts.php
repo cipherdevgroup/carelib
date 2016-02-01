@@ -6,7 +6,7 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
@@ -15,7 +15,7 @@
  * These are classes that extend the core `WP_Customize_*` classes to provide
  * theme authors access to functionality that core doesn't handle out of the box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -26,7 +26,7 @@ function carelib_customize_load_classes( $wp_customize ) {
 /**
  * Register customizer panels, sections, controls, and/or settings.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */

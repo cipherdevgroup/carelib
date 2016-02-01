@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Gets a post style.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id The post ID associated with the style.
  * @return bool
@@ -23,7 +23,7 @@ function carelib_get_post_style( $post_id ) {
 /**
  * Sets a post style.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int    $post_id The post ID associated with the style to be set.
  * @param  string $style The style to be set.
@@ -36,7 +36,7 @@ function carelib_set_post_style( $post_id, $style ) {
 /**
  * Deletes a post style.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id The post ID associated with the style to be deleted.
  * @return bool
@@ -48,7 +48,7 @@ function carelib_delete_post_style( $post_id ) {
 /**
  * Checks a post if it has a specific style.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $style The post style to check for.
  * @param  int    $post_id The ID of the post to check.
@@ -64,7 +64,7 @@ function carelib_has_post_style( $style, $post_id = '' ) {
 /**
  * Wrapper function for returning the metadata key used for objects that can use styles.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */

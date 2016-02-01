@@ -9,13 +9,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.1.0
+ * @since     1.0.0
  */
 
 /**
  * Get the search form elements and return them as a single string.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -29,7 +29,7 @@ function carelib_search_form_get_form() {
 /**
  * Get the search form label.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access protected
  * @return string
  */
@@ -53,7 +53,7 @@ function _carelib_search_form_get_input() {
 /**
  * Get the search form button element.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access protected
  * @return string
  */

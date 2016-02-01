@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Check if the current theme has layouts support.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $name
  * @return bool
@@ -23,7 +23,7 @@ function carelib_has_layout_support() {
 /**
  * Check if a layout exists.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $name
  * @return bool
@@ -38,7 +38,7 @@ function carelib_layout_exists( $name ) {
  * Register a new layout object
  *
  * @see    CareLib_Layout::__construct()
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $name
  * @param  array   $args
@@ -59,7 +59,7 @@ function carelib_register_layout( $name, $args = array() ) {
 /**
  * Register the default theme layouts.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -91,7 +91,7 @@ function carelib_register_layouts() {
  * Allow a user to identify a layout as being the default layout on a new
  * install, as well as serve as the fallback layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @param  string $name Name of layout to set as default.
  * @return boolean|string False if layout is not registered. ID otherwise.
  */
@@ -119,7 +119,7 @@ function carelib_set_default_layout( $name ) {
  * By default, we'll check for per-post or per-author layouts saved as
  * metadata. If set, we'll filter. Else, just return the global layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $theme_layout The current global theme layout.
  * @return string The modified theme layout based on which page is viewed.
@@ -140,7 +140,7 @@ function carelib_filter_layout( $theme_layout ) {
  * Wrapper function for returning the metadata key used for objects that can
  * use layouts.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -151,7 +151,7 @@ function carelib_get_layout_meta_key() {
 /**
  * Gets a post layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int     $post_id
  * @return bool
@@ -163,7 +163,7 @@ function carelib_get_post_layout( $post_id ) {
 /**
  * Gets a user layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int     $user_id
  * @return bool
@@ -175,7 +175,7 @@ function carelib_get_user_layout( $user_id ) {
 /**
  * Get all layout objects.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @global array $_carelib_layouts Holds all layouts data.
  * @return object
@@ -193,7 +193,7 @@ function carelib_get_layouts() {
 /**
  * Get a layout object.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $name
  * @return object|bool
@@ -207,7 +207,7 @@ function carelib_get_layout( $name ) {
 /**
  * Returns the default layout defined by the theme.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -228,7 +228,7 @@ function carelib_get_default_layout() {
 /**
  * Returns the theme mod used for the global layout setting.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -242,7 +242,7 @@ function carelib_get_global_layout() {
  * This is the global theme layout defined. Other functions filter the
  * available `theme_mod_theme_layout` hook to overwrite this.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -253,7 +253,7 @@ function carelib_get_theme_layout() {
 /**
  * Determines whether or not a user should be able to control the layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool
  */
@@ -264,7 +264,7 @@ function carelib_allow_layout_control() {
 /**
  * Force a layout and return the slug.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $layout the slug of the layout to be forced.
  * @return string the slug of the forced layout.
@@ -290,7 +290,7 @@ function carelib_layout_has_sidebar( $sidebar_layouts ) {
 /**
  * Checks a post if it has a specific layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $layout
  * @return bool
@@ -304,7 +304,7 @@ function carelib_has_post_layout( $layout, $post_id = '' ) {
 /**
  * Checks if a user/author has a specific layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $layout
  * @param  int $user_id
@@ -319,7 +319,7 @@ function carelib_has_user_layout( $layout, $user_id = '' ) {
 /**
  * Sets a post layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id
  * @param  string $layout
@@ -335,7 +335,7 @@ function carelib_set_post_layout( $post_id, $layout ) {
 /**
  * Sets a user layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $user_id
  * @param  string $layout
@@ -351,7 +351,7 @@ function carelib_set_user_layout( $user_id, $layout ) {
 /**
  * Unregisters a layout object.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $name
  * @return void
@@ -367,7 +367,7 @@ function carelib_unregister_layout( $name ) {
 /**
  * Deletes a post layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id
  * @return bool
@@ -379,7 +379,7 @@ function carelib_delete_post_layout( $post_id ) {
 /**
  * Deletes user layout.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $user_id
  * @return bool

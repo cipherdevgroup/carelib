@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Adds microdata to the comment author link.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $link
  * @return string
@@ -35,7 +35,7 @@ function carelib_get_comment_author_link( $link ) {
 /**
  * Adds microdata to the comment author URL link.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $link
  * @return string
@@ -64,7 +64,7 @@ function carelib_get_comment_author_url_link( $link ) {
  * so each comment template is only located once if it is needed. The
  * following comments will use the saved template.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  object  $comment the comment object.
  * @param  array   $args list of arguments passed from wp_list_comments().

@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Adds the meta charset to the header.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -22,7 +22,7 @@ function carelib_meta_charset() {
 /**
  * Adds the meta viewport to the header.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  */
 function carelib_meta_viewport() {
@@ -32,7 +32,7 @@ function carelib_meta_viewport() {
 /**
  * Adds the pingback link to the header.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -47,7 +47,7 @@ function carelib_link_pingback() {
 /**
  * Print an inline script which adds a class of 'has-js' to the <html> tag.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */

@@ -6,7 +6,7 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
@@ -16,7 +16,7 @@
  * conditional checks within the theme. It returns an array of contexts
  * based on what page a visitor is currently viewing on the site.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @return array
  */
@@ -91,7 +91,7 @@ function _carelib_get_context() {
  * and are backwards compatible with the original body class functionality
  * that existed prior to WordPress core adopting this feature.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array        $classes
  * @param  string|array $class
@@ -208,7 +208,7 @@ function carelib_body_class_filter( $classes, $class ) {
 /**
  * Filter the WordPress post class with a better set of default classes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array        $classes
  * @param  string|array $class
@@ -267,7 +267,7 @@ function carelib_post_class_filter( $classes, $class, $post_id ) {
 /**
  * Adds custom classes to the WordPress comment class.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array        $classes
  * @param  string|array $class

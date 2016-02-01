@@ -8,7 +8,7 @@
  * @author     Robert Neu
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
- * @since      0.2.0
+ * @since      1.0.0
  */
 
 if ( ! defined( 'PARENT_THEME_DIR' ) ) {
@@ -58,7 +58,7 @@ if ( ! defined( 'PARENT_THEME_URI' ) ) {
 /**
  * Return a single instance of the current theme's WP_Theme object.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return WP_Theme A single instance of the WP_Theme object.
  */
@@ -75,7 +75,7 @@ function carelib_get_theme() {
 /**
  * Return a single instance of the parent theme's WP_Theme object.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return WP_Theme A single instance of the parent's WP_Theme object.
  */
@@ -92,7 +92,7 @@ function carelib_get_parent() {
 /**
  * Return the fallback version by getting it from the WP_Theme object.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string The current theme's version number.
  */
@@ -103,7 +103,7 @@ function carelib_get_fallback_version() {
 /**
  * Return the version number of the current parent theme.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string The current parent theme's version number.
  */
@@ -114,7 +114,7 @@ function carelib_get_parent_version() {
 /**
  * Return the version number of the current theme.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string The current theme's version number.
  */

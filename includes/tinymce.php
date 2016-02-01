@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.1.0
+ * @since     1.0.0
  */
 
 /**
  * Add styleselect button to the end of the first row of TinyMCE buttons.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $buttons existing TinyMCE buttons.
  * @return array $buttons modified TinyMCE buttons.
@@ -30,7 +30,7 @@ function carelib_tinymce_add_styleselect( $buttons ) {
  * Remove styleselect button if it's been added to the second row of TinyMCE
  * buttons.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $buttons existing TinyMCE buttons.
  * @return array $buttons modified TinyMCE buttons.
@@ -45,7 +45,7 @@ function carelib_tinymce_disable_styleselect( $buttons ) {
 /**
  * Add our custom CareLib styles to the styleselect dropdown button.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $args existing TinyMCE arguments.
  * @return array $args modified TinyMCE arguments.

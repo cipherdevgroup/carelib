@@ -12,14 +12,14 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	/**
 	 * The type of customize control being rendered.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -28,7 +28,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	/**
 	 * Loads the library scripts/styles.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -40,7 +40,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	/**
 	 * Add custom parameters to pass to the JS via JSON.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -60,7 +60,7 @@ class CareLib_Customize_Control_Radio_Image extends WP_Customize_Control {
 	/**
 	 * Underscore JS template to handle the control's output.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return void
 	 */

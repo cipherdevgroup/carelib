@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Register our metabox actions and filters.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -25,7 +25,7 @@ function carelib_metabox_post_styles_actions() {
 /**
  * Adds the style meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $post_type
  * @param  object  $post
@@ -48,7 +48,7 @@ function carelib_metabox_post_styles_add( $post_type, $post ) {
 /**
  * Callback function for displaying the style meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  object  $object
  * @param  array   $box
@@ -64,7 +64,7 @@ function carelib_metabox_post_styles_box( $post, $box ) {
 /**
  * Saves the post style when submitted via the style meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int      $post_id The ID of the current post being saved.
  * @param  object   $post    The post object currently being saved.
@@ -98,7 +98,7 @@ function carelib_metabox_post_styles_save( $post_id, $post = '' ) {
  * they have the 'Style Name' header. If any files are found, they are
  * returned in an array.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return array
  */

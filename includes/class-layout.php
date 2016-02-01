@@ -7,14 +7,14 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 class CareLib_Layout {
 	/**
 	 * Arguments for creating the layout object.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -23,7 +23,7 @@ class CareLib_Layout {
 	/**
 	 * Register a new layout object
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args  {
@@ -62,7 +62,7 @@ class CareLib_Layout {
 	 * Magic method to return the layout name if someone tries to output the
 	 * layout object as a string.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string
 	 */
@@ -74,7 +74,7 @@ class CareLib_Layout {
 	 * Adds post type support for `theme-layouts` in the event that the layout has been
 	 * explicitly set for one or more post types.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @return void
 	 */
@@ -89,7 +89,7 @@ class CareLib_Layout {
 	/**
 	 * Return the layout name.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|bool false if no name has been set.
 	 */
@@ -100,7 +100,7 @@ class CareLib_Layout {
 	/**
 	 * Return the layout label.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|bool false if no label has been set.
 	 */
@@ -111,7 +111,7 @@ class CareLib_Layout {
 	/**
 	 * Return the layout image.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|bool false if no image has been set.
 	 */
@@ -122,7 +122,7 @@ class CareLib_Layout {
 	/**
 	 * Check whether or not the current layout is a global layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return bool
 	 */
@@ -133,7 +133,7 @@ class CareLib_Layout {
 	/**
 	 * Check whether or not the current layout is a post layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return bool
 	 */
@@ -144,7 +144,7 @@ class CareLib_Layout {
 	/**
 	 * Check whether or not the current layout is a user layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return bool
 	 */
@@ -155,7 +155,7 @@ class CareLib_Layout {
 	/**
 	 * Check whether or not the current layout is a built-in layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return bool
 	 */
@@ -166,7 +166,7 @@ class CareLib_Layout {
 	/**
 	 * Check whether or not the current layout is an internal layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return bool
 	 */
@@ -177,7 +177,7 @@ class CareLib_Layout {
 	/**
 	 * Get the supported post types property for the current layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return array
 	 */
@@ -188,7 +188,7 @@ class CareLib_Layout {
 	/**
 	 * Set the layout name.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  string $value
 	 * @return string
@@ -200,7 +200,7 @@ class CareLib_Layout {
 	/**
 	 * Set the layout label.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  string $value
 	 * @return string
@@ -212,7 +212,7 @@ class CareLib_Layout {
 	/**
 	 * Set the layout image.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  string $value
 	 * @return string
@@ -224,7 +224,7 @@ class CareLib_Layout {
 	/**
 	 * Set the global layout property for the current layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  bool $value
 	 * @return bool
@@ -236,7 +236,7 @@ class CareLib_Layout {
 	/**
 	 * Set the post layout property for the current layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  bool $value
 	 * @return bool
@@ -248,7 +248,7 @@ class CareLib_Layout {
 	/**
 	 * Set the user layout property for the current layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  bool $value
 	 * @return bool
@@ -260,7 +260,7 @@ class CareLib_Layout {
 	/**
 	 * Set the supported post types property for the current layout.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  array $value
 	 * @return array

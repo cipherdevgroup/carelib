@@ -8,7 +8,7 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
@@ -19,7 +19,7 @@
  * over and over. Theme authors are also expected to pass in the ID, name,
  * and description of the sidebar.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $args
  * @return string  Sidebar ID.
@@ -46,7 +46,7 @@ function carelib_register_sidebar( $args ) {
 /**
  * Return the name of a given dynamic sidebar.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @global array   $wp_registered_sidebars
  * @param  string  $sidebar_id
@@ -65,7 +65,7 @@ function carelib_get_sidebar_name( $sidebar_id ) {
 /**
  * Get a specified sidebar template.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $name The name of the sidebar to load.
  * @return void

@@ -15,7 +15,7 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
@@ -27,7 +27,7 @@
  * template file in the theme. So, one could support microformats instead
  * of microdata, if desired.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $slug The slug/ID of the element (e.g., 'sidebar').
  * @param  string $context A specific context (e.g., 'primary').
@@ -54,7 +54,7 @@ function carelib_get_attr( $slug, $context = '', $attr = array() ) {
 /**
  * Page wrap element attributes.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $attr
  * @return array
@@ -70,7 +70,7 @@ function carelib_attr_wrap( $attr, $context ) {
 /**
  * <body> element attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -94,7 +94,7 @@ function carelib_attr_body( $attr ) {
 /**
  * Page <header> element attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -112,7 +112,7 @@ function carelib_attr_header( $attr ) {
 /**
  * Page site container element attributes.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $attr
  * @return array
@@ -126,7 +126,7 @@ function carelib_attr_site_container( $attr ) {
 /**
  * Page site inner element attributes.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $attr
  * @return array
@@ -140,7 +140,7 @@ function carelib_attr_site_inner( $attr ) {
 /**
  * Page <footer> element attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -158,7 +158,7 @@ function carelib_attr_footer( $attr ) {
 /**
  * Main content container of the page attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -178,7 +178,7 @@ function carelib_attr_content( $attr ) {
 /**
  * Sidebar attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -208,7 +208,7 @@ function carelib_attr_sidebar( $attr, $context ) {
 /**
  * Menu toggle attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -231,7 +231,7 @@ function carelib_attr_menu_toggle( $attr, $context ) {
 /**
  * Nav menu attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -264,7 +264,7 @@ function carelib_attr_menu( $attr, $context ) {
  * Attributes for nav elements which aren't necessarily site navigation menus.
  * One example use case for this would be pagination and page link blocks.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -287,7 +287,7 @@ function carelib_attr_nav( $attr, $context ) {
 /**
  * <head> attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -302,7 +302,7 @@ function carelib_attr_head( $attr ) {
 /**
  * Branding (usually a wrapper for title and tagline) attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -317,7 +317,7 @@ function carelib_attr_branding( $attr ) {
 /**
  * Site title attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -334,7 +334,7 @@ function carelib_attr_site_title( $attr ) {
 /**
  * Site description attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -351,7 +351,7 @@ function carelib_attr_site_description( $attr ) {
 /**
  * Archive header attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -368,7 +368,7 @@ function carelib_attr_archive_header( $attr ) {
 /**
  * Archive title attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -384,7 +384,7 @@ function carelib_attr_archive_title( $attr ) {
 /**
  * Archive description attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -400,7 +400,7 @@ function carelib_attr_archive_description( $attr ) {
 /**
  * Post <article> element attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -433,7 +433,7 @@ function carelib_attr_post( $attr ) {
 /**
  * Post title attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -448,7 +448,7 @@ function carelib_attr_entry_title( $attr ) {
 /**
  * Post author attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -465,7 +465,7 @@ function carelib_attr_entry_author( $attr ) {
 /**
  * Post time/published attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -484,7 +484,7 @@ function carelib_attr_entry_published( $attr ) {
 /**
  * Post content (not excerpt) attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -503,7 +503,7 @@ function carelib_attr_entry_content( $attr ) {
 /**
  * Post summary/excerpt attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -518,7 +518,7 @@ function carelib_attr_entry_summary( $attr ) {
 /**
  * Post terms (tags, categories, etc.) attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @param  string  $context
@@ -542,7 +542,7 @@ function carelib_attr_entry_terms( $attr, $context ) {
 /**
  * Comment wrapper attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -563,7 +563,7 @@ function carelib_attr_comment( $attr ) {
 /**
  * Comment author attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -580,7 +580,7 @@ function carelib_attr_comment_author( $attr ) {
 /**
  * Comment time/published attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -599,7 +599,7 @@ function carelib_attr_comment_published( $attr ) {
 /**
  * Comment permalink attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array
@@ -615,7 +615,7 @@ function carelib_attr_comment_permalink( $attr ) {
 /**
  * Comment content/text attributes.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array   $attr
  * @return array

@@ -8,14 +8,14 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_Image {
 	/**
 	 * The default customizer section this control is attached to.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -24,7 +24,7 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	/**
 	 * Placeholder for the CareLib_Layouts class.
 	 *
-	 * @since 0.2.0
+	 * @since 1.0.0
 	 * @var   object
 	 */
 	protected $layouts;
@@ -32,7 +32,7 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 	/**
 	 * Set up our control.
 	 *
-	 * @since  0.2.0
+	 * @since  1.0.0
 	 * @access public
 	 * @param  object  $manager
 	 * @param  string  $id

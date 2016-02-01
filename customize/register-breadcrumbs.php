@@ -5,7 +5,7 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 function carelib_customize_load_breadcrumb_settings() {
@@ -17,7 +17,7 @@ function carelib_customize_load_breadcrumb_settings() {
 /**
  * Register our customizer breadcrumb options for the parent class to load.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  object  $wp_customize
  * @return void

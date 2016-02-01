@@ -7,13 +7,13 @@
  * @author     WP Site Care
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
- * @since      0.2.0
+ * @since      1.0.0
  */
 
 /**
  * Add a custom action for the archive header.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -26,7 +26,7 @@ function carelib_archive_header() {
 /**
  * Add a custom hook for the entry header.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -39,7 +39,7 @@ function carelib_entry_header() {
 /**
  * Add a custom hook for the entry meta.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -52,7 +52,7 @@ function carelib_entry_header_meta() {
 /**
  * Add a custom hook for the entry footer if the current view has an entry footer.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -65,7 +65,7 @@ function carelib_entry_footer() {
 /**
  * Add a custom hook for the entry footer if the current view has an entry footer.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */

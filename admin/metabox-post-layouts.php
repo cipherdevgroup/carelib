@@ -6,13 +6,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Register our metabox actions and filters.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -26,7 +26,7 @@ function carelib_metabox_post_layouts_actions() {
 /**
  * Adds the layout meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $post_type
  * @param  object  $post
@@ -55,7 +55,7 @@ function carelib_metabox_post_layouts_add( $post_type ) {
 /**
  * Loads the scripts/styles for the layout meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -66,7 +66,7 @@ function carelib_metabox_post_layouts_enqueue() {
 /**
  * Callback function for displaying the layout meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  object  $object
  * @param  array   $box
@@ -86,7 +86,7 @@ function carelib_metabox_post_layouts_box( $post, $box ) {
 /**
  * Saves the post layout when submitted via the layout meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int      $post_id The ID of the current post being saved.
  * @param  object   $post    The post object currently being saved.

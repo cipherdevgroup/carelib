@@ -10,7 +10,7 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
@@ -19,7 +19,7 @@
  * Because we don't really use index.php, this prevents searching for
  * templates multiple times when trying to load the default template.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $template
  * @return string $template
@@ -44,7 +44,7 @@ function carelib_index_include( $template ) {
  * taxonomy.php
  * archive.php
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $template
  * @return string Full path to file.
@@ -67,7 +67,7 @@ function carelib_taxonomy_template( $template ) {
  * Post templates can be loaded using a custom post template, by slug, or
  * by ID.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $template The default WordPress post template.
  * @return string $template The theme post template after all templates have been checked for.
@@ -103,7 +103,7 @@ function carelib_singular_template( $template ) {
  * be used if an actual page is supposed to be shown on the front.
  *
  * @link   http://www.chipbennett.net/2013/09/14/home-page-and-front-page-and-templates-oh-my/
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $template
  * @return string
@@ -119,7 +119,7 @@ function carelib_front_page_template( $template ) {
  * the post type of the current single post view. If this template is not
  * found, it falls back to the default "comments.php" template.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $template The comments template file name.
  * @return string $template The theme comments template after all templates have been checked for.
@@ -146,7 +146,7 @@ function carelib_comments_template( $template ) {
 /**
  * Get a post template.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id
  * @return bool
@@ -158,7 +158,7 @@ function carelib_get_post_template( $post_id ) {
 /**
  * Set a post template.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id
  * @param  string $template
@@ -171,7 +171,7 @@ function carelib_set_post_template( $post_id, $template ) {
 /**
  * Delete a post template.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id
  * @return bool
@@ -186,7 +186,7 @@ function carelib_delete_post_template( $post_id ) {
  * This is the equivalent of WordPress' `is_page_template()` function with
  * the exception that it works for all post types.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $template The name of the template to check for.
  * @param  int $post_id
@@ -212,7 +212,7 @@ function carelib_has_post_template( $template = '', $post_id = '' ) {
 /**
  * Return the post template meta key.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id
  * @return string

@@ -8,13 +8,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Determine if the current view should contain an entry header.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool true on all views by default.
  */
@@ -25,7 +25,7 @@ function carelib_has_entry_header() {
 /**
  * Determine if the current view should contain entry header meta.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool true on all views except single pages by default.
  */
@@ -36,7 +36,7 @@ function carelib_has_entry_header_meta() {
 /**
  * Protected helper function to format the entry title's display.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  mixed  $id the desired title's post id.
  * @param  string $link the desired title's link URI.
@@ -67,7 +67,7 @@ function _carelib_get_formatted_title( $id = '', $link = '' ) {
  * By default, all entry titles except the main title on single entries are
  * wrapped in an anchor tag pointed to the post's permalink.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array $args Empty array if no arguments.
  * @return string
@@ -111,7 +111,7 @@ function carelib_get_entry_title( $args = array() ) {
 /**
  * Get a post's published date and format it to be displayed in a template.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $args Empty array if no arguments.
  * @return string
@@ -162,7 +162,7 @@ function carelib_get_entry_published( $args = array() ) {
  *
  * Output passes through "{$GLOBALS['carelib_prefix']}_get_entry_comments_link" filter before returning.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @param  array $args Empty array if no arguments.
  * @return string output
  */
@@ -214,7 +214,7 @@ function carelib_get_entry_comments_link( $args = array() ) {
  * Backwards compatible wrapper for get_the_author_posts_link() which was
  * added to WordPress core in 4.4.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -232,7 +232,7 @@ function _carelib_get_the_author_posts_link() {
  * Get the current post's author in The Loop and optionally link to their
  * archive page.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array $args Empty array if no arguments.
  * @return string
@@ -274,7 +274,7 @@ function carelib_get_entry_author( $args = array() ) {
  * Filters the excerpt more output with internationalized text and a link to
  * the post.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $text
  * @return string
@@ -292,7 +292,7 @@ function carelib_excerpt_more( $text ) {
 /**
  * Add an image itemprop to attachment images.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @param  array $attr Existing attributes.
  * @return array Amended attributes.
  */
@@ -305,7 +305,7 @@ function carelib_attachment_image_itemprop( $attr ) {
  * Wraps the output of `wp_link_pages()` with `<p class="page-links">` if
  * it's simply wrapped in a `<p>` tag.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array  $args
  * @return array
@@ -320,7 +320,7 @@ function carelib_link_pages_args( $args ) {
  * `<span class="page-numbers">` so that they can also be styled. This makes
  * `wp_link_pages()` consistent with the output of `paginate_links()`.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $link
  * @return string
@@ -332,7 +332,7 @@ function carelib_link_pages_link( $link ) {
 /**
  * Adds microdata to the author posts link.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $link
  * @return string
@@ -357,7 +357,7 @@ function carelib_the_author_posts_link( $link ) {
  * that an '(Untitled)' title appears in that scenario, allowing for the
  * normal method to work.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $title
  * @return string
@@ -375,7 +375,7 @@ function carelib_untitled_post( $title ) {
  * Helper function to determine whether we should display the full content
  * or an excerpt.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool true on singular entries by default
  */
@@ -387,7 +387,7 @@ function _carelib_is_full_content() {
  * Returns either an excerpt or the content depending on what page the user is
  * currently viewing.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string the desired content
  */
@@ -399,7 +399,7 @@ function carelib_get_content() {
  * Checks if a post has any content. Useful if you need to check if the user
  * has written any content before performing any actions.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int $post_id The ID of the post to check for content.
  * @return bool
@@ -413,7 +413,7 @@ function carelib_entry_has_content( $post_id = 0 ) {
 /**
  * Remove all actions from THA entry hooks.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -430,7 +430,7 @@ function carelib_null_entry_containers() {
  * Filter the WordPress content to null between the entry_content_before
  * and entrY_content_after hook locations.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -443,7 +443,7 @@ function carelib_null_entry_content() {
  * Remove all actions from THA entry hooks and filter the WordPress post
  * content to return null.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -455,7 +455,7 @@ function carelib_null_entry() {
 /**
  * Hookable wrapper around a filter to null the WordPress core post content.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -466,7 +466,7 @@ function carelib_null_the_content() {
 /**
  * Determine if the current view should contain entry footer meta.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool
  */
@@ -483,7 +483,7 @@ function carelib_has_entry_footer_meta() {
 /**
  * Determine if the current view should contain an entry footer.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool
  */
@@ -503,7 +503,7 @@ function carelib_has_entry_footer() {
  * These core WordPress template tags don't offer proper translation and
  * RTL support without having to write a lot of messy code within templates.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  array $args Empty array if no arguments.
  * @return string
@@ -566,7 +566,7 @@ function carelib_get_entry_terms( $args = array() ) {
 /**
  * Retrieves the singular name label for a given post object.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access protected
  * @param  object $object a post object to use for retrieving the name.
  * @return mixed null if no object is provided, otherwise the label string
@@ -589,7 +589,7 @@ function _carelib_get_post_type_name( $object ) {
  * template tags directly. Until WordPress core gets its act together, I guess
  * I'll just have to duplicate code for no good reason.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $args Empty array if no arguments.
  * @return string
@@ -674,7 +674,7 @@ function carelib_get_post_navigation( $args = array() ) {
 /**
  * Gets a URL from the content, even if it's not wrapped in an <a> tag.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $content The content to search for links.
  * @return string The content with links made clickable.

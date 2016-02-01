@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Enqueue front-end scripts for the library.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -24,7 +24,7 @@ function carelib_enqueue_scripts() {
 /**
  * Helper function for getting the script/style `.min` suffix for minified files.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */

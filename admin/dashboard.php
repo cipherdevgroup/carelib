@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Set up the dashboard options.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */
@@ -26,7 +26,7 @@ function carelib_dashboard_setup() {
 /**
  * Add the WordPress Theme Dashboard to the main WordPress dashboard menu.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */
@@ -44,7 +44,7 @@ function carelib_dashboard_menu() {
 /**
  * Add options and fire a redirect when the theme is first activated.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */
@@ -64,7 +64,7 @@ function carelib_dashboard_redirect() {
 /**
  * Remove any option that won't be reused by other Flagship products.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */
@@ -75,7 +75,7 @@ function carelib_dashboard_cleanup() {
 /**
  * Helper function to find out if we're on the dashboard page.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */
@@ -93,7 +93,7 @@ function carelib_is_dashboard_page() {
 /**
  * Load scripts and styles for the Flagship dashboard.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */
@@ -107,7 +107,7 @@ function carelib_dashboard_scripts() {
 /**
  * Display all messages related to the Flagship dashboard.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */
@@ -118,7 +118,7 @@ function carelib_dashboard_notices() {
 /**
  * Include the base template for our dashboard page.
  *
- * @since   0.2.0
+ * @since   1.0.0
  * @access  public
  * @return  void
  */

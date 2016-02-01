@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Register our metabox actions and filters.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -26,7 +26,7 @@ function carelib_metabox_post_template_actions() {
  * Adds the post template meta box for all public post types, excluding the
  * 'page' post type since WordPress core already handles page templates.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $post_type
  * @param  object  $post
@@ -50,7 +50,7 @@ function carelib_metabox_post_template_add( $post_type, $post ) {
 /**
  * Displays the post template meta box.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  object $post
  * @param  array  $box
@@ -66,7 +66,7 @@ function carelib_metabox_post_template_box( $post, $box ) {
 /**
  * Saves the post template meta box settings as post metadata.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  int    $post_id The ID of the current post being saved.
  * @param  object $post    The post object currently being saved.
@@ -102,7 +102,7 @@ function carelib_metabox_post_template_save( $post_id, $post = '' ) {
  * It is a recreation of the WordPress page templates function because it
  * doesn't allow for other types of templates.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $post_type      The name of the post type to get templates for.
  * @return array  $post_templates The array of templates.

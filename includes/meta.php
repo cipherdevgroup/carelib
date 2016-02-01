@@ -8,14 +8,14 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Registers the library's custom metadata keys and sets up the sanitize
  * callback function.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -39,7 +39,7 @@ function carelib_register_post_template_meta() {
  * Registers the library's custom metadata keys and sets up the sanitize
  * callback function.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -62,7 +62,7 @@ function carelib_register_layouts_meta() {
  * Registers the library's custom metadata keys and sets up the sanitize
  * callback function.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */

@@ -5,7 +5,7 @@
  * @package    CareLib
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
- * @since      0.2.0
+ * @since      1.0.0
  */
 
 /**
@@ -14,7 +14,7 @@
  * Note that this is similar to, but not quite the same as `!is_singular()`,
  * which wouldn't account for the 404 page.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool
  */
@@ -25,7 +25,7 @@ function carelib_is_plural() {
 /**
  * Determine if we're within a blog section archive.
  *
- * @since  0.1.1
+ * @since  1.0.0
  * @access public
  * @return bool true if we're on a blog archive page.
  */
@@ -36,7 +36,7 @@ function carelib_is_blog_archive() {
 /**
  * Determine whether or not to display an archive header.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return bool
  */
@@ -47,7 +47,7 @@ function carelib_has_archive_header() {
 /**
  * Retrieve the general archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -58,7 +58,7 @@ function carelib_get_single_archive_title() {
 /**
  * Retrieve the author archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -69,7 +69,7 @@ function carelib_get_single_author_title() {
 /**
  * Retrieve the year archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -80,7 +80,7 @@ function carelib_get_single_year_title() {
 /**
  * Retrieve the week archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -96,7 +96,7 @@ function carelib_get_single_week_title() {
 /**
  * Retrieve the day archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -107,7 +107,7 @@ function carelib_get_single_day_title() {
 /**
  * Retrieve the hour archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -118,7 +118,7 @@ function carelib_get_single_hour_title() {
 /**
  * Retrieve the minute archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -131,7 +131,7 @@ function carelib_get_single_minute_title() {
 /**
  * Retrieve the minute + hour archive title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -142,7 +142,7 @@ function carelib_get_single_minute_hour_title() {
 /**
  * Retrieve the search results title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -155,7 +155,7 @@ function carelib_get_search_title() {
 /**
  * Retrieve the 404 page title.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -166,7 +166,7 @@ function carelib_get_404_title() {
 /**
  * Filters `get_the_archve_title` to add better archive titles than core.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $title
  * @return string
@@ -211,7 +211,7 @@ function carelib_archive_title( $title ) {
  * Filters `get_the_archve_description` to add better archive descriptions
  * than core.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $desc
  * @return string
@@ -250,7 +250,7 @@ function carelib_archive_description( $desc ) {
  * a loop of multiple entries. This takes care of all the annoying formatting
  * which usually would need to be done within a template.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  array $args An optional list of options.
  * @return string
@@ -312,7 +312,7 @@ function carelib_get_posts_navigation( $args = array() ) {
  * this because it returns the front page URL. Sometimes the blog page URL is
  * set to a different page. This function handles both scenarios.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */

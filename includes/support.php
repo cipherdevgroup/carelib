@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Sets up default theme support.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -30,7 +30,7 @@ function carelib_theme_support() {
 /**
  * Adds extra support for features not default to the core post types.
  *
- * @since 0.8.0
+ * @since  1.0.0
  * @access public
  * @return void
  */

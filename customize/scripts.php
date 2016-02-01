@@ -6,13 +6,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Register customizer controls scripts.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -31,7 +31,7 @@ function carelib_customize_register_controls_scripts() {
 /**
  * Register customizer preview scripts.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -50,7 +50,7 @@ function carelib_customize_register_preview_scripts() {
 /**
  * Register customizer preview scripts.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */

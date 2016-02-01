@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * Build a Google Fonts string.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $families the font families to include.
  * @param  bool   $editor_style set to true if string is being used as editor style.
@@ -25,7 +25,7 @@ function carelib_google_fonts_string( $families, $editor_style = false ) {
 /**
  * Register front-end stylesheets for the library.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return void
  */
@@ -50,7 +50,7 @@ function carelib_register_styles() {
  * stylesheet URI if no child theme is active. Be sure to check
  * `is_child_theme()` when using.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -72,7 +72,7 @@ function carelib_get_parent_stylesheet_uri() {
  * Filter the 'stylesheet_uri' to load a minified version of 'style.css'
  * file if it is available.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string $stylesheet_uri The URI of the active theme's stylesheet.
  * @param  string $stylesheet_dir_uri The directory URI of the active theme's stylesheet.
@@ -101,7 +101,7 @@ function carelib_min_stylesheet_uri( $stylesheet_uri, $stylesheet_dir_uri ) {
 /**
  * Retrieve the theme file with the highest priority that exists.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @link   http://core.trac.wordpress.org/ticket/18302
  * @param  array  $file_names The files to search for.
@@ -130,7 +130,7 @@ function _carelib_locate_theme_file( $file_names ) {
  * Filters the 'stylesheet_uri' and checks if a post has a style that should
  * overwrite the theme's primary `style.css`.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $stylesheet_uri
  * @return string
@@ -162,7 +162,7 @@ function carelib_style_filter( $stylesheet_uri ) {
  * WordPress locale stylesheet, allowing for multiple variations and a more
  * flexible hierarchy.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @return string
  */
@@ -193,7 +193,7 @@ function carelib_get_locale_style() {
  * Filters `locale_stylesheet_uri` with a more robust version for checking
  * locale/language/region/direction stylesheets.
  *
- * @since  0.2.0
+ * @since  1.0.0
  * @access public
  * @param  string  $stylesheet_uri
  * @return string

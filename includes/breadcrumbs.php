@@ -5,13 +5,13 @@
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
  * @license   GPL-2.0+
- * @since     0.2.0
+ * @since     1.0.0
  */
 
 /**
  * An array of breadcrumb locations.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @return array $breadcrumbs
  */
@@ -49,7 +49,7 @@ function carelib_get_breadcrumb_options() {
 /**
  * Display our breadcrumbs based on selections made in the WordPress customizer.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @return bool true if both our template tag and theme mod return true.
  */
@@ -81,7 +81,7 @@ function carelib_display_breadcrumbs() {
 /**
  * Check to see if a supported breadcrumbs plugin is active.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @return mixed false if no plugin is active, callback function name if one is
  */
