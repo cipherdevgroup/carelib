@@ -24,7 +24,7 @@ class CareLib_Library {
 	 * @since 0.1.0
 	 * @type  string
 	 */
-	const VERSION = '0.1.0';
+	const VERSION = '0.2.0';
 
 	/**
 	 * The main library file.
