@@ -65,6 +65,7 @@ function carelib_includes() {
 	require_once CARELIB_DIR . 'includes/styles-post.php';
 	require_once CARELIB_DIR . 'includes/styles.php';
 	require_once CARELIB_DIR . 'includes/support.php';
+	require_once CARELIB_DIR . 'includes/template-404.php';
 	require_once CARELIB_DIR . 'includes/template-archive.php';
 	require_once CARELIB_DIR . 'includes/template-comments.php';
 	require_once CARELIB_DIR . 'includes/template-entry.php';
