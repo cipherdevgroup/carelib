@@ -17,7 +17,7 @@
  * @param  bool   $editor_style set to true if string is being used as editor style.
  * @return string
  */
-function carelib_google_fonts_string( $families, $editor_style = false ) {
+function carelib_get_google_fonts_string( $families, $editor_style = false ) {
 	$string = "https://fonts.googleapis.com/css?family={$families}";
 	return $editor_style ? str_replace( ',', '%2C', $string ) : $string;
 }
