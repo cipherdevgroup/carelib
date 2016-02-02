@@ -102,9 +102,6 @@ function carelib_get_avatar( $avatar ) {
  * function. I have no idea why core doesn't have a return function here.
  *
  * @since 1.0.0
- *
- * @global WP_Widget_Factory $wp_widget_factory
- *
  * @param string $widget   The widget's PHP class name (see class-wp-widget.php).
  * @param array  $instance Optional. The widget's instance settings. Default empty array.
  * @param array  $args {
