@@ -79,5 +79,5 @@ function carelib_get_attachment_image_gallery() {
 	$title = esc_attr__( 'Related Images', 'carelib' );
 	$output = sprintf( $markup, $title, $gallery );
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_attachment_image_gallery", $output, $output, $markup, $title, $gallery );
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_attachment_image_gallery", $output, $markup, $title, $gallery );
 }
