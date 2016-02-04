@@ -124,6 +124,21 @@ function carelib_get_the_widget( $widget, $instance = array(), $args = array() )
 }
 
 /**
+ * Check whether or not the user is viewing the static front page.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool True if the user is viewing the static front page, false otherwise.
+ */
+function carelib_is_static_front_page() {
+	if ( is_front_page() && ! is_home() ) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
  * Format a link to the customizer panel.
  *
  * Since WordPress 4.1, the customizer panel allows for deeplinking, but setting
