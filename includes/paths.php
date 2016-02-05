@@ -22,6 +22,31 @@ function carelib_get_dir( $path = '' ) {
 	return CARELIB_DIR . ltrim( $path );
 }
 
+
+/**
+ * Fix asset directory path on Windows installations.
+ *
+ * Because we don't know where the library is located, we need to
+ * generate a URI based on the library directory path. In order to do
+ * this, we are replacing the theme root directory portion of the
+ * library directory with the theme root URI.
+ *
+ * @since  1.0.0
+ * @access protected
+ * @param  string $path the absolute path to the library's root directory.
+ * @uses   trailingslashit()
+ * @uses   get_template_directory()
+ * @uses   get_theme_root_uri()
+ * @return string a normalized uri string.
+ */
+function _carelib_normalize_uri( $path ) {
+	return str_replace(
+		wp_normalize_path( get_theme_root() ),
+		get_theme_root_uri(),
+		wp_normalize_path( $path )
+	);
+}
+
 /**
  * Return the URI to the CareLib directory with a trailing slash.
  *
@@ -31,7 +56,7 @@ function carelib_get_dir( $path = '' ) {
  * @return string
  */
 function carelib_get_uri( $path = '' ) {
-	return trailingslashit( get_theme_root_uri() ) . strstr( wp_normalize_path( CARELIB_DIR ), basename( get_template_directory() ) ) . ltrim( $path );
+	return _carelib_normalize_uri( CARELIB_DIR ) . ltrim( $path );
 }
 
 /**
