@@ -57,7 +57,7 @@ function carelib_dashboard_redirect() {
 	// Make sure this isn't run the next time the theme is activated.
 	update_option( "{$GLOBALS['carelib_prefix']}_dashboard_redirect", false );
 
-	wp_safe_redirect( admin_url( "index.php?page={$GLOBALS['carelib_prefix']}-dashboard" ) );
+	wp_safe_redirect( admin_url( "themes.php?page={$GLOBALS['carelib_prefix']}-dashboard" ) );
 	exit;
 }
 
