@@ -192,7 +192,7 @@ function carelib_body_class_filter( $classes, $class ) {
 	}
 
 	// Theme layouts.
-	if ( carelib_has_layout_support() ) {
+	if ( carelib_has_layouts() ) {
 		$classes[] = sanitize_html_class( 'layout-' . carelib_get_theme_layout() );
 	}
 

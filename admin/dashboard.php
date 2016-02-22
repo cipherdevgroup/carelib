@@ -77,7 +77,7 @@ function carelib_dashboard_cleanup() {
  *
  * @since   1.0.0
  * @access  public
- * @return  void
+ * @return  bool
  */
 function carelib_is_dashboard_page() {
 	if ( ! function_exists( 'get_current_screen' ) ) {

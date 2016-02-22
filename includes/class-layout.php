@@ -52,10 +52,6 @@ class CareLib_Layout {
 		) );
 
 		$this->args['name'] = $name;
-
-		if ( ! empty( $this->post_types ) ) {
-			$this->add_post_type_support();
-		}
 	}
 
 	/**
@@ -68,22 +64,6 @@ class CareLib_Layout {
 	 */
 	public function __toString() {
 		return (string) $this->name;
-	}
-
-	/**
-	 * Adds post type support for `theme-layouts` in the event that the layout has been
-	 * explicitly set for one or more post types.
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 * @return void
-	 */
-	protected function add_post_type_support() {
-		foreach ( (array) $this->post_types as $post_type ) {
-			if ( ! post_type_supports( $post_type, 'theme-layouts' ) ) {
-				add_post_type_support( $post_type, 'theme-layouts' );
-			}
-		}
 	}
 
 	/**

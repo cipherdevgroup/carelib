@@ -9,15 +9,35 @@
  */
 
 /**
- * Check if the current theme has layouts support.
+ * Get all layout objects.
+ *
+ * @since  1.0.0
+ * @access public
+ * @global array $_carelib_layouts Holds all layouts data.
+ * @return object
+ */
+function carelib_get_layouts() {
+	global $_carelib_layouts;
+
+	if ( ! isset( $_carelib_layouts ) ) {
+		$_carelib_layouts = array();
+	}
+
+	return (array) $_carelib_layouts;
+}
+
+/**
+ * Check if the current theme has layouts.
  *
  * @since  1.0.0
  * @access public
  * @param  string  $name
  * @return bool
  */
-function carelib_has_layout_support() {
-	return current_theme_supports( 'theme-layouts' );
+function carelib_has_layouts() {
+	$layouts = carelib_get_layouts();
+
+	return empty( $layouts );
 }
 
 /**
@@ -64,7 +84,7 @@ function carelib_register_layout( $name, $args = array() ) {
  * @return void
  */
 function carelib_register_layouts() {
-	if ( ! carelib_has_layout_support() ) {
+	if ( ! carelib_has_layouts() ) {
 		return false;
 	}
 
@@ -170,24 +190,6 @@ function carelib_get_post_layout( $post_id ) {
  */
 function carelib_get_user_layout( $user_id ) {
 	return get_user_meta( $user_id, carelib_get_layout_meta_key(), true );
-}
-
-/**
- * Get all layout objects.
- *
- * @since  1.0.0
- * @access public
- * @global array $_carelib_layouts Holds all layouts data.
- * @return object
- */
-function carelib_get_layouts() {
-	global $_carelib_layouts;
-
-	if ( ! isset( $_carelib_layouts ) ) {
-		$_carelib_layouts = array();
-	}
-
-	return (array) $_carelib_layouts;
 }
 
 /**

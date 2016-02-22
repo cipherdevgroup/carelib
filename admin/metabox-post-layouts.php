@@ -1,7 +1,6 @@
 <?php
 /**
- * Adds the layout meta box to the post editing screen for post types that
- * support `theme-layouts`.
+ * Adds the layout meta box to the post editing screen if layouts exist.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
@@ -33,10 +32,7 @@ function carelib_metabox_post_layouts_actions() {
  * @return void
  */
 function carelib_metabox_post_layouts_add( $post_type ) {
-	$support = post_type_supports( $post_type, 'theme-layouts' );
-	$control = carelib_allow_layout_control();
-
-	if ( ! current_user_can( 'edit_theme_options' ) || ! $support || ! $control ) {
+	if ( ! current_user_can( 'edit_theme_options' ) || ! carelib_allow_layout_control() || ! carelib_has_layouts() ) {
 		return;
 	}
 

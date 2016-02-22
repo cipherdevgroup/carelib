@@ -41,16 +41,4 @@ function carelib_post_type_support() {
 	// Add thumbnail support for audio and video attachments.
 	add_post_type_support( 'attachment:audio', 'thumbnail' );
 	add_post_type_support( 'attachment:video', 'thumbnail' );
-
-	// Add theme layouts support to core and custom post types.
-	add_post_type_support( 'post',              'theme-layouts' );
-	add_post_type_support( 'page',              'theme-layouts' );
-	add_post_type_support( 'attachment',        'theme-layouts' );
-
-	add_post_type_support( 'forum',             'theme-layouts' );
-	add_post_type_support( 'literature',        'theme-layouts' );
-	add_post_type_support( 'portfolio_item',    'theme-layouts' );
-	add_post_type_support( 'portfolio_project', 'theme-layouts' );
-	add_post_type_support( 'product',           'theme-layouts' );
-	add_post_type_support( 'restaurant_item',   'theme-layouts' );
 }
