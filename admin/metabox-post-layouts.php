@@ -16,10 +16,12 @@
  * @return void
  */
 function carelib_metabox_post_layouts_actions() {
-	add_action( 'add_meta_boxes',  'carelib_metabox_post_layouts_add',  10, 2 );
-	add_action( 'save_post',       'carelib_metabox_post_layouts_save', 10, 2 );
-	add_action( 'add_attachment',  'carelib_metabox_post_layouts_save' );
-	add_action( 'edit_attachment', 'carelib_metabox_post_layouts_save' );
+	if ( carelib_has_layouts() ) {
+		add_action( 'add_meta_boxes',  'carelib_metabox_post_layouts_add',  10, 2 );
+		add_action( 'save_post',       'carelib_metabox_post_layouts_save', 10, 2 );
+		add_action( 'add_attachment',  'carelib_metabox_post_layouts_save' );
+		add_action( 'edit_attachment', 'carelib_metabox_post_layouts_save' );
+	}
 }
 
 /**
@@ -27,8 +29,7 @@ function carelib_metabox_post_layouts_actions() {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $post_type
- * @param  object  $post
+ * @param  string $post_type The post type for the current view.
  * @return void
  */
 function carelib_metabox_post_layouts_add( $post_type ) {
@@ -64,8 +65,8 @@ function carelib_metabox_post_layouts_enqueue() {
  *
  * @since  1.0.0
  * @access public
- * @param  object  $object
- * @param  array   $box
+ * @param  object $post The current WordPress post object.
+ * @param  array  $box The current Meta box data.
  * @return void
  */
 function carelib_metabox_post_layouts_box( $post, $box ) {
@@ -84,8 +85,8 @@ function carelib_metabox_post_layouts_box( $post, $box ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int      $post_id The ID of the current post being saved.
- * @param  object   $post    The post object currently being saved.
+ * @param  int    $post_id The ID of the current post being saved.
+ * @param  object $post    The post object currently being saved.
  * @return void|int
  */
 function carelib_metabox_post_layouts_save( $post_id, $post = '' ) {

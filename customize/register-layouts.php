@@ -17,6 +17,7 @@
  *
  * @since  1.0.0
  * @access public
+ * @param  object $wp_customize The WordPress customizer API object.
  * @return void
  */
 function carelib_customize_load_classes( $wp_customize ) {
@@ -28,9 +29,14 @@ function carelib_customize_load_classes( $wp_customize ) {
  *
  * @since  1.0.0
  * @access public
+ * @param  object $wp_customize The WordPress customizer API object.
  * @return void
  */
 function carelib_customize_register_layouts( $wp_customize ) {
+	if ( ! carelib_has_layouts() ) {
+		return;
+	}
+
 	// Always add the layout section so that theme devs can utilize it.
 	$wp_customize->add_section(
 		'layout',

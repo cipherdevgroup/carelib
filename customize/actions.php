@@ -20,6 +20,4 @@ add_action( 'customize_preview_init',             'carelib_customize_register_pr
 add_action( 'customize_preview_init',             'carelib_customize_enqueue_preview_scripts',  10 );
 add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_styles', 0 );
 
-if ( carelib_has_layouts() ) {
-	add_action( 'customize_register', 'carelib_customize_register_layouts' );
-}
+add_action( 'customize_register', 'carelib_customize_register_layouts' );
