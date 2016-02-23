@@ -22,7 +22,6 @@ function carelib_get_dir( $path = '' ) {
 	return CARELIB_DIR . ltrim( $path );
 }
 
-
 /**
  * Fix asset directory path on Windows installations.
  *
