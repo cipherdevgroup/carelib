@@ -85,23 +85,6 @@ function carelib_register_layout( $name, $args = array() ) {
  */
 function carelib_register_layouts() {
 	do_action( "{$GLOBALS['carelib_prefix']}_register_layouts" );
-
-	if ( ! carelib_has_layouts() ) {
-		return false;
-	}
-
-	carelib_register_layout(
-		'default',
-		array(
-			// Translators: Default theme layout option.
-			'label'            => esc_html_x( 'Default', 'theme layout', 'carelib' ),
-			'is_global_layout' => false,
-			'_builtin'         => true,
-			'_internal'        => true,
-		)
-	);
-
-	return true;
 }
 
 /**
@@ -115,6 +98,17 @@ function carelib_register_layouts() {
  * @return boolean|string False if layout is not registered. ID otherwise.
  */
 function carelib_set_default_layout( $name ) {
+	carelib_register_layout(
+		'default',
+		array(
+			// Translators: Default theme layout option.
+			'label'            => esc_html_x( 'Default', 'theme layout', 'carelib' ),
+			'is_global_layout' => false,
+			'_builtin'         => true,
+			'_internal'        => true,
+		)
+	);
+
 	$layouts = carelib_get_layouts();
 
 	// Don't allow unregistered layouts.
@@ -122,14 +116,9 @@ function carelib_set_default_layout( $name ) {
 		return false;
 	}
 
-	// Remove default flag for all other layouts.
-	foreach ( (array) $layouts as $id => $object ) {
-		if ( 'default' === $id ) {
-			$object->set_name( $name );
-		}
-	}
+	$layouts['default']->set_name( $name );
 
-	return $name;
+	return true;
 }
 
 /**
