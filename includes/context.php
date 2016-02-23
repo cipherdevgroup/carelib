@@ -27,6 +27,10 @@ function _carelib_get_context() {
 
 	if ( is_front_page() ) {
 		$context[] = 'home';
+
+		if ( ! is_home() ) {
+			$context[] = 'static-home';
+		}
 	} elseif ( is_home() ) {
 		$context[] = 'blog';
 	}
