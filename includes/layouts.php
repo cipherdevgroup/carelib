@@ -37,7 +37,7 @@ function carelib_get_layouts() {
 function carelib_has_layouts() {
 	$layouts = carelib_get_layouts();
 
-	return empty( $layouts );
+	return ! empty( $layouts );
 }
 
 /**
@@ -84,6 +84,8 @@ function carelib_register_layout( $name, $args = array() ) {
  * @return void
  */
 function carelib_register_layouts() {
+	do_action( "{$GLOBALS['carelib_prefix']}_register_layouts" );
+
 	if ( ! carelib_has_layouts() ) {
 		return false;
 	}
@@ -98,9 +100,6 @@ function carelib_register_layouts() {
 			'_internal'        => true,
 		)
 	);
-
-	// Hook for registering theme layouts. Theme should always register on this hook.
-	do_action( "{$GLOBALS['carelib_prefix']}_register_layouts" );
 
 	return true;
 }
