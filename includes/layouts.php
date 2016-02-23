@@ -97,7 +97,7 @@ function carelib_register_layouts( $layouts ) {
  * @access public
  * @return void
  */
-function carelib_register_layouts() {
+function carelib_do_register_layouts() {
 	do_action( "{$GLOBALS['carelib_prefix']}_register_layouts" );
 }
 
