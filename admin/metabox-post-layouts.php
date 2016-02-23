@@ -32,7 +32,7 @@ function carelib_metabox_post_layouts_actions() {
  * @return void
  */
 function carelib_metabox_post_layouts_add( $post_type ) {
-	if ( ! current_user_can( 'edit_theme_options' ) || ! carelib_allow_layout_control() || ! carelib_has_layouts() ) {
+	if ( ! current_user_can( 'edit_theme_options' ) || ! carelib_allow_layout_control() ) {
 		return;
 	}
 

@@ -16,8 +16,11 @@ add_action( 'load-post.php',     'carelib_metabox_post_template_actions' );
 add_action( 'load-post-new.php', 'carelib_metabox_post_template_actions' );
 add_action( 'load-post.php',     'carelib_metabox_post_styles_actions' );
 add_action( 'load-post-new.php', 'carelib_metabox_post_styles_actions' );
-add_action( 'load-post.php',     'carelib_metabox_post_layouts_actions' );
-add_action( 'load-post-new.php', 'carelib_metabox_post_layouts_actions' );
+
+if ( carelib_has_layouts() ) {
+	add_action( 'load-post.php',     'carelib_metabox_post_layouts_actions' );
+	add_action( 'load-post-new.php', 'carelib_metabox_post_layouts_actions' );
+}
 
 if ( current_theme_supports( 'theme-dashboard' ) ) {
 	add_action( 'admin_menu',            'carelib_dashboard_menu',      0 );
