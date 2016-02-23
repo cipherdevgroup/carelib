@@ -77,7 +77,7 @@ function carelib_metabox_post_layouts_box( $post, $box ) {
 
 	$post_layouts = carelib_get_layouts();
 
-	require_once carelib_get_dir() . 'admin/templates/metabox-post-layouts.php';
+	require_once carelib_get_dir( 'admin/templates/metabox-post-layouts.php' );
 }
 
 /**
