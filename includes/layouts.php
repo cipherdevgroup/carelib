@@ -55,13 +55,13 @@ function carelib_layout_exists( $name ) {
 }
 
 /**
- * Register a new layout object
+ * Register a new layout object.
  *
  * @see    CareLib_Layout::__construct()
  * @since  1.0.0
  * @access public
- * @param  string  $name
- * @param  array   $args
+ * @param  string $name The name of the layout to be registered.
+ * @param  array  $args The properties of the layout to be registered.
  * @return void
  */
 function carelib_register_layout( $name, $args = array() ) {
@@ -73,6 +73,20 @@ function carelib_register_layout( $name, $args = array() ) {
 
 	if ( ! carelib_layout_exists( $name ) ) {
 		$_carelib_layouts[ $name ] = new CareLib_Layout( $name, $args );
+	}
+}
+
+/**
+ * Register multiple layout objects.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array $layouts A list of layouts and their associated properties.
+ * @return void
+ */
+function carelib_register_layouts( $layouts ) {
+	foreach ( (array) $layouts as $layout => $args ) {
+		carelib_register_layout( $layout, $args );
 	}
 }
 
