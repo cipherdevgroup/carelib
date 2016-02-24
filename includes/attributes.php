@@ -626,3 +626,23 @@ function carelib_attr_comment_content( $attr ) {
 
 	return $attr;
 }
+
+/**
+ * Filter attributes for the footer widgets widget area.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array $attr Existing attributes.
+ * @param  array $context The context where the attributes are being used.
+ * @return array $attr Amended attributes.
+ */
+function carelib_attr_footer_widgets( $attr, $context ) {
+	$attr['id']    = 'footer-widgets';
+	$attr['class'] = 'footer-widgets';
+
+	if ( ! empty( $context ) ) {
+		$attr['class'] .= " {$context}-footer-widgets";
+	}
+
+	return $attr;
+}

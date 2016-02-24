@@ -66,6 +66,7 @@ add_filter( "{$carelib_prefix}_attr_menu-toggle",    'carelib_attr_menu_toggle',
 add_filter( "{$carelib_prefix}_attr_menu",           'carelib_attr_menu',           5, 2 );
 add_filter( "{$carelib_prefix}_attr_nav",            'carelib_attr_nav',            5, 2 );
 add_filter( "{$carelib_prefix}_attr_wrap",           'carelib_attr_wrap',           5, 2 );
+add_filter( "{$carelib_prefix}_attr_footer-widgets", 'carelib_attr_footer_widgets', 5, 2 );
 
 // Header attributes.
 add_filter( "{$carelib_prefix}_attr_head",             'carelib_attr_head',             5 );
