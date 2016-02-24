@@ -641,6 +641,7 @@ function carelib_attr_footer_widgets( $attr, $context ) {
 	$attr['class'] = 'footer-widgets';
 
 	if ( ! empty( $context ) ) {
+		$attr['id']     = "{$context}-footer-widgets";
 		$attr['class'] .= " {$context}-footer-widgets";
 	}
 
