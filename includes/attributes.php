@@ -94,7 +94,7 @@ function carelib_attr_body( $attr ) {
  * @return array
  */
 function carelib_attr_site_header( $attr ) {
-	$attr['id']        = 'header';
+	$attr['id']        = 'site-header';
 	$attr['role']      = 'banner';
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/WPHeader';
@@ -139,7 +139,7 @@ function carelib_attr_site_inner( $attr ) {
  * @return array
  */
 function carelib_attr_site_footer( $attr ) {
-	$attr['id']        = 'footer';
+	$attr['id']        = 'site-footer';
 	$attr['role']      = 'contentinfo';
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/WPFooter';
@@ -306,7 +306,7 @@ function carelib_attr_head( $attr ) {
  * @return array
  */
 function carelib_attr_site_branding( $attr ) {
-	$attr['id'] = 'branding';
+	$attr['id'] = 'site-branding';
 
 	return $attr;
 }
