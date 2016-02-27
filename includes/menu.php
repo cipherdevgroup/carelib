@@ -18,7 +18,7 @@
  */
 function carelib_get_menu_location_name( $location ) {
 	$locations = get_registered_nav_menus();
-	return isset( $locations[ $location ] ) ? $locations[ $location ] : '';
+	return isset( $locations[ $location ] ) ? $locations[ $location ] : false;
 }
 
 /**
