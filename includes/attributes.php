@@ -245,12 +245,10 @@ function carelib_attr_menu_toggle( $attr, $context ) {
  * @return array
  */
 function carelib_attr_menu( $attr, $context ) {
-	$attr['class'] = 'menu';
 	$attr['role']  = 'navigation';
 
 	if ( ! empty( $context ) ) {
-		$attr['class'] .= " menu-{$context}";
-		$attr['id']     = "menu-{$context}";
+		$attr['id'] = "menu-{$context}";
 
 		if ( ! $menu_name = carelib_get_menu_location_name( $context ) ) {
 			// Translators: The %s is the menu name. This is used for the 'aria-label' attribute.
