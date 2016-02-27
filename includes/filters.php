@@ -55,11 +55,11 @@ add_filter( 'get_comment_author_link',        'carelib_get_comment_author_link',
 add_filter( 'get_comment_author_url_link',    'carelib_get_comment_author_url_link',    5 );
 add_filter( 'get_avatar',                     'carelib_get_avatar',                     5 );
 
+add_filter( "{$carelib_prefix}_attr_head",           'carelib_attr_head',           5 );
 add_filter( "{$carelib_prefix}_attr_body",           'carelib_attr_body',           5 );
-add_filter( "{$carelib_prefix}_attr_header",         'carelib_attr_header',         5 );
 add_filter( "{$carelib_prefix}_attr_site-container", 'carelib_attr_site_container', 5 );
 add_filter( "{$carelib_prefix}_attr_site-inner",     'carelib_attr_site_inner',     5 );
-add_filter( "{$carelib_prefix}_attr_footer",         'carelib_attr_footer',         5 );
+add_filter( "{$carelib_prefix}_attr_site-footer",    'carelib_attr_site_footer',    5 );
 add_filter( "{$carelib_prefix}_attr_content",        'carelib_attr_content',        5 );
 add_filter( "{$carelib_prefix}_attr_sidebar",        'carelib_attr_sidebar',        5, 2 );
 add_filter( "{$carelib_prefix}_attr_menu-toggle",    'carelib_attr_menu_toggle',    5, 2 );
@@ -68,8 +68,8 @@ add_filter( "{$carelib_prefix}_attr_nav",            'carelib_attr_nav',        
 add_filter( "{$carelib_prefix}_attr_footer-widgets", 'carelib_attr_footer_widgets', 5, 2 );
 
 // Header attributes.
-add_filter( "{$carelib_prefix}_attr_head",             'carelib_attr_head',             5 );
-add_filter( "{$carelib_prefix}_attr_branding",         'carelib_attr_branding',         5 );
+add_filter( "{$carelib_prefix}_attr_site-header",      'carelib_attr_site_header',      5 );
+add_filter( "{$carelib_prefix}_attr_site-branding",    'carelib_attr_site_branding',    5 );
 add_filter( "{$carelib_prefix}_attr_site-title",       'carelib_attr_site_title',       5 );
 add_filter( "{$carelib_prefix}_attr_site-description", 'carelib_attr_site_description', 5 );
 

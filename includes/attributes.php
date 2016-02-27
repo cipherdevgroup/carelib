@@ -93,9 +93,8 @@ function carelib_attr_body( $attr ) {
  * @param  array $attr Existing attributes.
  * @return array
  */
-function carelib_attr_header( $attr ) {
+function carelib_attr_site_header( $attr ) {
 	$attr['id']        = 'header';
-	$attr['class']     = 'site-header';
 	$attr['role']      = 'banner';
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/WPHeader';
@@ -139,9 +138,8 @@ function carelib_attr_site_inner( $attr ) {
  * @param  array $attr Existing attributes.
  * @return array
  */
-function carelib_attr_footer( $attr ) {
+function carelib_attr_site_footer( $attr ) {
 	$attr['id']        = 'footer';
-	$attr['class']     = 'site-footer';
 	$attr['role']      = 'contentinfo';
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/WPFooter';
@@ -309,9 +307,8 @@ function carelib_attr_head( $attr ) {
  * @param  array $attr Existing attributes.
  * @return array
  */
-function carelib_attr_branding( $attr ) {
-	$attr['id']    = 'branding';
-	$attr['class'] = 'site-branding';
+function carelib_attr_site_branding( $attr ) {
+	$attr['id'] = 'branding';
 
 	return $attr;
 }
