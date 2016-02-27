@@ -1,11 +1,6 @@
 <?php
 /**
- * Filters for theme-related WordPress features.
- *
- * These filters are for handling adding or modifying the output of common
- * WordPress template tags to make for a richer theme development experience
- * without having to resort to custom template tags. Many of the filters are
- * simply for adding HTML5 microdata.
+ * All the default filters within the library.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC

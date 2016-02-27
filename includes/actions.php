@@ -1,6 +1,6 @@
 <?php
 /**
- * Methods for interacting with `CareLib_Layout` objects.
+ * All the default actions within the library.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
