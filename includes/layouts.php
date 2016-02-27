@@ -262,7 +262,7 @@ function carelib_get_theme_layout() {
  * @return bool
  */
 function carelib_allow_layout_control() {
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_allow_layout_control", true );
+	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_allow_layout_control", true );
 }
 
 /**
