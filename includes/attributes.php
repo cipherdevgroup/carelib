@@ -39,7 +39,7 @@ function carelib_get_attr( $slug, $context = '', $attr = array() ) {
 	$class = sanitize_html_class( $slug );
 
 	if ( ! empty( $context ) ) {
-		$class = "{$slug} {$slug}-" . sanitize_html_class( $context );
+		$class = "{$class} {$class}-" . sanitize_html_class( $context );
 	}
 
 	$attr = array_merge(
