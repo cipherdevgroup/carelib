@@ -31,18 +31,28 @@
  * @access public
  * @param  string $slug The slug/ID of the element (e.g., 'sidebar').
  * @param  string $context A specific context (e.g., 'primary').
+ * @param  array  $attr A list of attributes passed-in directly.
  * @return string
  */
 function carelib_get_attr( $slug, $context = '', $attr = array() ) {
-	$out  = '';
+	$out   = '';
+	$class = sanitize_html_class( $slug );
+
+	if ( ! empty( $context ) ) {
+		$class = "{$slug} {$slug}-" . sanitize_html_class( $context );
+	}
+
 	$attr = array_merge(
-		(array) $attr,
-		(array) apply_filters( "{$GLOBALS['carelib_prefix']}_attr_{$slug}", $attr, $context )
+		array(
+			'class' => $class,
+		),
+		(array) $attr
 	);
 
-	if ( empty( $attr ) ) {
-		$attr['class'] = sanitize_html_class( $slug );
-	}
+	$attr = array_merge(
+		$attr,
+		(array) apply_filters( "{$GLOBALS['carelib_prefix']}_attr_{$slug}", $attr, $context )
+	);
 
 	foreach ( $attr as $name => $value ) {
 		$out .= ! empty( $value ) ? sprintf( ' %s="%s"', esc_html( $name ), esc_attr( $value ) ) : esc_html( " {$name}" );
@@ -52,27 +62,11 @@ function carelib_get_attr( $slug, $context = '', $attr = array() ) {
 }
 
 /**
- * Page wrap element attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
- */
-function carelib_attr_wrap( $attr, $context ) {
-	if ( empty( $context ) ) {
-		return $attr;
-	}
-	$attr['class'] = "wrap {$context}-wrap";
-	return $attr;
-}
-
-/**
  * <body> element attributes.
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_body( $attr ) {
@@ -96,7 +90,7 @@ function carelib_attr_body( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_header( $attr ) {
@@ -114,12 +108,12 @@ function carelib_attr_header( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_site_container( $attr ) {
-	$attr['id']    = 'site-container';
-	$attr['class'] = 'site-container';
+	$attr['id'] = 'site-container';
+
 	return $attr;
 }
 
@@ -128,12 +122,12 @@ function carelib_attr_site_container( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_site_inner( $attr ) {
-	$attr['id']    = 'site-inner';
-	$attr['class'] = 'site-inner';
+	$attr['id'] = 'site-inner';
+
 	return $attr;
 }
 
@@ -142,7 +136,7 @@ function carelib_attr_site_inner( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_footer( $attr ) {
@@ -160,13 +154,12 @@ function carelib_attr_footer( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_content( $attr ) {
-	$attr['id']       = 'content';
-	$attr['class']    = 'content';
-	$attr['role']     = 'main';
+	$attr['id']   = 'content';
+	$attr['role'] = 'main';
 
 	if ( ! is_singular( 'post' ) && ! is_home() && ! is_archive() ) {
 		$attr['itemprop'] = 'mainContentOfPage';
@@ -180,13 +173,12 @@ function carelib_attr_content( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
  * @return array
  */
 function carelib_attr_sidebar( $attr, $context ) {
-	$attr['class'] = 'sidebar';
-	$attr['role']  = 'complementary';
+	$attr['role'] = 'complementary';
 
 	if ( ! empty( $context ) ) {
 
@@ -206,23 +198,40 @@ function carelib_attr_sidebar( $attr, $context ) {
 }
 
 /**
- * Menu toggle attributes.
+ * Button attributes.
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
  * @return array
  */
-function carelib_attr_menu_toggle( $attr, $context ) {
-	$attr['class']         = 'menu-toggle';
+function carelib_attr_button( $attr, $context ) {
 	$attr['role']          = 'button';
 	$attr['aria-expanded'] = 'false';
 	$attr['aria-pressed']  = 'false';
 
 	if ( ! empty( $context ) ) {
-		$attr['id']     = "menu-toggle-{$context}";
-		$attr['class'] .= " menu-toggle-{$context}";
+		$attr['id'] = "button-{$context}";
+	}
+
+	return $attr;
+}
+
+/**
+ * Menu toggle attributes.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
+ * @return array
+ */
+function carelib_attr_menu_toggle( $attr, $context ) {
+	$attr = carelib_attr_button( $attr, $context );
+
+	if ( ! empty( $context ) ) {
+		$attr['id'] = "menu-toggle-{$context}";
 	}
 
 	return $attr;
@@ -233,8 +242,8 @@ function carelib_attr_menu_toggle( $attr, $context ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
  * @return array
  */
 function carelib_attr_menu( $attr, $context ) {
@@ -242,13 +251,10 @@ function carelib_attr_menu( $attr, $context ) {
 	$attr['role']  = 'navigation';
 
 	if ( ! empty( $context ) ) {
-
 		$attr['class'] .= " menu-{$context}";
 		$attr['id']     = "menu-{$context}";
 
-		$menu_name = carelib_get_menu_location_name( $context );
-
-		if ( ! empty( $menu_name ) ) {
+		if ( ! $menu_name = carelib_get_menu_location_name( $context ) ) {
 			// Translators: The %s is the menu name. This is used for the 'aria-label' attribute.
 			$attr['aria-label'] = esc_attr( sprintf( _x( '%s Menu', 'nav menu aria label', 'carelib' ), $menu_name ) );
 		}
@@ -266,20 +272,16 @@ function carelib_attr_menu( $attr, $context ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
  * @return array
  */
 function carelib_attr_nav( $attr, $context ) {
-	$class = 'nav';
+	$attr['role']  = 'navigation';
 
 	if ( ! empty( $context ) ) {
 		$attr['id'] = "nav-{$context}";
-		$class    .= " nav-{$context}";
 	}
-
-	$attr['class'] = $class;
-	$attr['role']  = 'navigation';
 
 	return $attr;
 }
@@ -289,7 +291,7 @@ function carelib_attr_nav( $attr, $context ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_head( $attr ) {
@@ -304,7 +306,7 @@ function carelib_attr_head( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_branding( $attr ) {
@@ -319,13 +321,11 @@ function carelib_attr_branding( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_site_title( $attr ) {
 	$attr['id']       = 'site-title';
-	$attr['class']    = 'site-title';
 	$attr['itemprop'] = 'headline';
 
 	return $attr;
@@ -336,13 +336,11 @@ function carelib_attr_site_title( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_site_description( $attr ) {
 	$attr['id']       = 'site-description';
-	$attr['class']    = 'site-description';
 	$attr['itemprop'] = 'description';
 
 	return $attr;
@@ -353,12 +351,10 @@ function carelib_attr_site_description( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_archive_header( $attr ) {
-	$attr['class']     = 'archive-header';
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/WebPageElement';
 
@@ -370,13 +366,11 @@ function carelib_attr_archive_header( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_archive_title( $attr ) {
-	$attr['class']     = 'archive-title';
-	$attr['itemprop']  = 'headline';
+	$attr['itemprop'] = 'headline';
 
 	return $attr;
 }
@@ -386,13 +380,11 @@ function carelib_attr_archive_title( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_archive_description( $attr ) {
-	$attr['class']     = 'archive-description';
-	$attr['itemprop']  = 'text';
+	$attr['itemprop'] = 'text';
 
 	return $attr;
 }
@@ -402,7 +394,7 @@ function carelib_attr_archive_description( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_post( $attr ) {
@@ -435,11 +427,10 @@ function carelib_attr_post( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_entry_title( $attr ) {
-	$attr['class']    = 'entry-title';
 	$attr['itemprop'] = 'headline';
 
 	return $attr;
@@ -450,11 +441,10 @@ function carelib_attr_entry_title( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_entry_author( $attr ) {
-	$attr['class']     = 'entry-author';
 	$attr['itemprop']  = 'author';
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/Person';
@@ -467,7 +457,7 @@ function carelib_attr_entry_author( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_entry_published( $attr ) {
@@ -486,11 +476,10 @@ function carelib_attr_entry_published( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_entry_content( $attr ) {
-	$attr['class']    = 'entry-content';
 	$attr['itemprop'] = 'text';
 
 	if ( 'post' === get_post_type() ) {
@@ -505,7 +494,7 @@ function carelib_attr_entry_content( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_entry_summary( $attr ) {
@@ -520,14 +509,12 @@ function carelib_attr_entry_summary( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
- * @param  string  $context
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
  * @return array
  */
 function carelib_attr_entry_terms( $attr, $context ) {
 	if ( ! empty( $context ) ) {
-		$attr['class'] = 'entry-terms ' . sanitize_html_class( $context );
-
 		if ( 'category' === $context ) {
 			$attr['itemprop'] = 'articleSection';
 		}
@@ -544,14 +531,14 @@ function carelib_attr_entry_terms( $attr, $context ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_comment( $attr ) {
 	$attr['id']    = 'comment-' . get_comment_ID();
 	$attr['class'] = join( ' ', get_comment_class() );
 
-	if ( in_array( get_comment_type(), array( '', 'comment' ) ) ) {
+	if ( in_array( get_comment_type(), array( '', 'comment' ), true ) ) {
 		$attr['itemprop']  = 'comment';
 		$attr['itemscope'] = 'itemscope';
 		$attr['itemtype']  = 'http://schema.org/Comment';
@@ -565,11 +552,10 @@ function carelib_attr_comment( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_comment_author( $attr ) {
-	$attr['class']     = 'comment-author';
 	$attr['itemprop']  = 'author';
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/Person';
@@ -582,11 +568,10 @@ function carelib_attr_comment_author( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_comment_published( $attr ) {
-	$attr['class']    = 'comment-published';
 	$attr['datetime'] = get_comment_time( 'Y-m-d\TH:i:sP' );
 
 	// Translators: Comment date/time "title" attribute.
@@ -601,11 +586,10 @@ function carelib_attr_comment_published( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_comment_permalink( $attr ) {
-	$attr['class']    = 'comment-permalink';
 	$attr['href']     = get_comment_link();
 	$attr['itemprop'] = 'url';
 
@@ -617,11 +601,10 @@ function carelib_attr_comment_permalink( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array   $attr
+ * @param  array $attr Existing attributes.
  * @return array
  */
 function carelib_attr_comment_content( $attr ) {
-	$attr['class']    = 'comment-content';
 	$attr['itemprop'] = 'text';
 
 	return $attr;
@@ -632,17 +615,13 @@ function carelib_attr_comment_content( $attr ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array $attr Existing attributes.
- * @param  array $context The context where the attributes are being used.
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
  * @return array $attr Amended attributes.
  */
 function carelib_attr_footer_widgets( $attr, $context ) {
-	$attr['id']    = 'footer-widgets';
-	$attr['class'] = 'footer-widgets';
-
-	if ( ! empty( $context ) ) {
-		$attr['id']     = "{$context}-footer-widgets";
-		$attr['class'] .= " {$context}-footer-widgets";
+	if ( empty( $context ) ) {
+		$attr['id'] = 'footer-widgets';
 	}
 
 	return $attr;
