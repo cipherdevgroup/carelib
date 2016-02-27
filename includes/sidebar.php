@@ -21,8 +21,8 @@
  *
  * @since  1.0.0
  * @access public
- * @param  array   $args
- * @return string  Sidebar ID.
+ * @param  array $args Options used to register a sidebar.
+ * @return string Sidebar ID.
  */
 function carelib_register_sidebar( $args ) {
 	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_sidebar_defaults", array(
@@ -48,8 +48,8 @@ function carelib_register_sidebar( $args ) {
  *
  * @since  1.0.0
  * @access public
- * @global array   $wp_registered_sidebars
- * @param  string  $sidebar_id
+ * @global array $wp_registered_sidebars
+ * @param  string $sidebar_id The ID of the sidebar to check.
  * @return string
  */
 function carelib_get_sidebar_name( $sidebar_id ) {
@@ -83,4 +83,15 @@ function carelib_get_sidebar( $name = null ) {
 	$templates[] = 'template-parts/sidebar/sidebar.php';
 
 	locate_template( $templates, true );
+}
+
+/**
+ * Return the id of the primary sidebar.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function carelib_get_primary_sidebar_id() {
+	return sanitize_key( (string) apply_filters( "{$GLOBALS['carelib_prefix']}_primary_sidebar_id", 'primary' ) );
 }
