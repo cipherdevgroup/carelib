@@ -70,12 +70,10 @@ function carelib_metabox_post_layouts_enqueue() {
  * @return void
  */
 function carelib_metabox_post_layouts_box( $post, $box ) {
-	$post_layout = 'default';
+	$current_layout = 'default';
 	if ( carelib_get_post_layout( $post->ID ) ) {
-		$post_layout = carelib_get_post_layout( $post->ID );
+		$current_layout = carelib_get_post_layout( $post->ID );
 	}
-
-	$post_layouts = carelib_get_layouts();
 
 	require_once carelib_get_dir( 'admin/templates/metabox-post-layouts.php' );
 }

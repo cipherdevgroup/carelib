@@ -31,7 +31,6 @@ function carelib_get_layouts() {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $name
  * @return bool
  */
 function carelib_has_layouts() {
@@ -45,13 +44,13 @@ function carelib_has_layouts() {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $name
+ * @param  string $layout_id The ID of the layout to check.
  * @return bool
  */
-function carelib_layout_exists( $name ) {
+function carelib_layout_exists( $layout_id ) {
 	$layouts = carelib_get_layouts();
 
-	return isset( $layouts[ $name ] );
+	return isset( $layouts[ $layout_id ] );
 }
 
 /**
@@ -60,19 +59,19 @@ function carelib_layout_exists( $name ) {
  * @see    CareLib_Layout::__construct()
  * @since  1.0.0
  * @access public
- * @param  string $name The name of the layout to be registered.
+ * @param  string $layout_id The ID of the layout to be registered.
  * @param  array  $args The properties of the layout to be registered.
  * @return void
  */
-function carelib_register_layout( $name, $args = array() ) {
+function carelib_register_layout( $layout_id, $args = array() ) {
 	global $_carelib_layouts;
 
 	if ( ! isset( $_carelib_layouts ) ) {
 		$_carelib_layouts = array();
 	}
 
-	if ( ! carelib_layout_exists( $name ) ) {
-		$_carelib_layouts[ $name ] = new CareLib_Layout( $name, $args );
+	if ( ! carelib_layout_exists( $layout_id ) ) {
+		$_carelib_layouts[ $layout_id ] = new CareLib_Layout( $layout_id, $args );
 	}
 }
 
@@ -85,8 +84,8 @@ function carelib_register_layout( $name, $args = array() ) {
  * @return void
  */
 function carelib_register_layouts( $layouts ) {
-	foreach ( (array) $layouts as $layout => $args ) {
-		carelib_register_layout( $layout, $args );
+	foreach ( (array) $layouts as $layout_id => $args ) {
+		carelib_register_layout( $layout_id, $args );
 	}
 }
 
@@ -175,7 +174,7 @@ function carelib_get_layout_meta_key() {
  *
  * @since  1.0.0
  * @access public
- * @param  int     $post_id
+ * @param  int $post_id The ID of the post from which the layout will be retrieved.
  * @return bool
  */
 function carelib_get_post_layout( $post_id ) {
@@ -187,7 +186,7 @@ function carelib_get_post_layout( $post_id ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int     $user_id
+ * @param  int $user_id The ID of the user from which the layout will be retrieved.
  * @return bool
  */
 function carelib_get_user_layout( $user_id ) {
@@ -199,13 +198,13 @@ function carelib_get_user_layout( $user_id ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string $name
+ * @param  string $layout_id The ID of the layout to get.
  * @return object|bool
  */
-function carelib_get_layout( $name ) {
+function carelib_get_layout( $layout_id ) {
 	$layouts = carelib_get_layouts();
 
-	return carelib_layout_exists( $name ) ? $layouts[ $name ] : false;
+	return carelib_layout_exists( $layout_id ) ? $layouts[ $layout_id ] : false;
 }
 
 /**
@@ -218,11 +217,11 @@ function carelib_get_layout( $name ) {
 function carelib_get_default_layout() {
 	$layouts = carelib_get_layouts();
 
-	$name = 'default';
+	$layout_id = 'default';
 
 	foreach ( (array) $layouts as $id => $object ) {
 		if ( 'default' === $id ) {
-			$name = $object->get_name( $name );
+			$name = $object->get_name( $layout_id );
 		}
 	}
 
@@ -255,28 +254,51 @@ function carelib_get_theme_layout() {
 }
 
 /**
- * Determines whether or not a user should be able to control the layout.
+ * Check whether a given post type has a specific layout.
  *
  * @since  1.0.0
  * @access public
- * @return bool
+ * @param  string         $post_type The post type to check.
+ * @param  CareLib_Layout $layout The layout to check.
+ * @return bool true if the current post type allows a given layout.
  */
-function carelib_allow_layout_control() {
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_allow_layout_control", true );
+function carelib_post_type_has_layout( $post_type, CareLib_Layout $layout ) {
+	$post_types = $layout->get_post_types();
+
+	if ( empty( $post_types ) ) {
+		return true;
+	}
+
+	return in_array( $post_type, $post_types, true );
 }
 
 /**
- * Force a layout and return the slug.
+ * Check a post if it has a specific layout.
  *
  * @since  1.0.0
  * @access public
- * @param  string $layout the slug of the layout to be forced.
- * @return string the slug of the forced layout.
+ * @param  int $layout
+ * @return bool
  */
-function carelib_force_layout( $layout ) {
-	add_filter( "{$GLOBALS['carelib_prefix']}_allow_layout_control", '__return_false' );
+function carelib_has_post_layout( CareLib_Layout $layout, $post_id = '' ) {
+	$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
 
-	return $layout;
+	return carelib_get_post_layout( $post_id ) === $layout ? true : false;
+}
+
+/**
+ * Checks if a user/author has a specific layout.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string $layout
+ * @param  int $user_id
+ * @return bool
+ */
+function carelib_has_user_layout( CareLib_Layout $layout, $user_id = '' ) {
+	$user_id = empty( $user_id ) ? absint( get_query_var( 'author' ) ) : $user_id;
+
+	return carelib_get_user_layout( $user_id ) === $layout ? true : false;
 }
 
 /**
@@ -292,35 +314,6 @@ function carelib_layout_has_sidebar( $sidebar_layouts ) {
 }
 
 /**
- * Checks a post if it has a specific layout.
- *
- * @since  1.0.0
- * @access public
- * @param  int $layout
- * @return bool
- */
-function carelib_has_post_layout( $layout, $post_id = '' ) {
-	$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
-
-	return carelib_get_post_layout( $post_id ) === $layout ? true : false;
-}
-
-/**
- * Checks if a user/author has a specific layout.
- *
- * @since  1.0.0
- * @access public
- * @param  string $layout
- * @param  int $user_id
- * @return bool
- */
-function carelib_has_user_layout( $layout, $user_id = '' ) {
-	$user_id = empty( $user_id ) ? absint( get_query_var( 'author' ) ) : $user_id;
-
-	return carelib_get_user_layout( $user_id ) === $layout ? true : false;
-}
-
-/**
  * Sets a post layout.
  *
  * @since  1.0.0
@@ -329,7 +322,7 @@ function carelib_has_user_layout( $layout, $user_id = '' ) {
  * @param  string $layout
  * @return bool
  */
-function carelib_set_post_layout( $post_id, $layout ) {
+function carelib_set_post_layout( $post_id, CareLib_Layout $layout ) {
 	if ( 'default' !== $layout ) {
 		return update_post_meta( $post_id, carelib_get_layout_meta_key(), $layout );
 	}
@@ -345,7 +338,7 @@ function carelib_set_post_layout( $post_id, $layout ) {
  * @param  string $layout
  * @return bool
  */
-function carelib_set_user_layout( $user_id, $layout ) {
+function carelib_set_user_layout( $user_id, CareLib_Layout $layout ) {
 	if ( 'default' !== $layout ) {
 		return update_user_meta( $user_id, carelib_get_layout_meta_key(), $layout );
 	}
@@ -390,4 +383,40 @@ function carelib_delete_post_layout( $post_id ) {
  */
 function carelib_delete_user_layout( $user_id ) {
 	return delete_user_meta( $user_id, carelib_get_layout_meta_key() );
+}
+
+/**
+ * Determine whether or not a user should be able to control the layout.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
+function carelib_allow_layout_control() {
+	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_allow_layout_control", true );
+}
+
+/**
+ * Determine whether or not a layout has been forced.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
+function carelib_is_layout_forced() {
+	return ! carelib_allow_layout_control();
+}
+
+/**
+ * Force a layout and return the id.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string $layout_id the id of the layout to be forced.
+ * @return string the slug of the forced layout.
+ */
+function carelib_force_layout( $layout_id ) {
+	add_filter( "{$GLOBALS['carelib_prefix']}_allow_layout_control", '__return_false' );
+
+	return $layout_id;
 }
