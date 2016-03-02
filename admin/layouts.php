@@ -45,3 +45,44 @@ function carelib_layout_has_post_metabox( CareLib_Layout $layout, $post_type ) {
 
 	return carelib_layout_has_meta_box( $layout, $post_type );
 }
+
+/**
+ * Disable the layout meta box if the current page uses a forced layout.
+ *
+ * @since  0.1.0
+ * @access public
+ * @param  string  $post_type The post type of the current post.
+ * @param  WP_Post $post The post type object of the current post.
+ * @return void
+ */
+function carelib_maybe_disable_post_layout_metabox( $post_type, $post ) {
+	if ( $post instanceof WP_Post && _carelib_admin_is_layout_forced( $post_type, $post->ID ) ) {
+		add_filter( "{$GLOBALS['carelib_prefix']}_allow_layout_control", '__return_false' );
+	}
+}
+
+
+/**
+ * Disable the layout meta box if the current page uses a forced layout.
+ *
+ * @since  0.1.0
+ * @access public
+ * @param  string  $post_type The post type of the current post.
+ * @param  WP_Post $post The post type object of the current post.
+ * @return bool
+ */
+function _carelib_admin_is_layout_forced( $post_type, $post_id ) {
+	if ( _carelib_is_post_type_layout_forced( $post_type ) ) {
+		return true;
+	}
+
+	if ( _carelib_is_post_layout_forced( $post_id ) ) {
+		return true;
+	}
+
+	if ( _carelib_is_template_layout_forced( $post_id ) ) {
+		return true;
+	}
+
+	return carelib_is_layout_forced();
+}

@@ -19,6 +19,7 @@ add_action( 'load-post-new.php', 'carelib_metabox_post_styles_actions' );
 
 add_action( 'load-post.php',     'carelib_metabox_post_layouts_actions' );
 add_action( 'load-post-new.php', 'carelib_metabox_post_layouts_actions' );
+add_action( 'add_meta_boxes',    'carelib_maybe_disable_post_layout_metabox', 5, 2 );
 
 if ( current_theme_supports( 'theme-dashboard' ) ) {
 	add_action( 'admin_menu',            'carelib_dashboard_menu',      0 );
