@@ -9,6 +9,24 @@
  */
 
 /**
+ * Add all of our theme dashboard actions if the current theme supports them.
+ *
+ * @since   1.0.0
+ * @access  public
+ * @return  void
+ */
+function carelib_maybe_add_theme_dashboard() {
+	if ( current_theme_supports( 'theme-dashboard' ) ) {
+		add_action( 'admin_menu',            'carelib_dashboard_menu',      0 );
+		add_action( 'after_switch_theme',    'carelib_dashboard_setup',    10 );
+		add_action( 'after_switch_theme',    'carelib_dashboard_redirect', 12 );
+		add_action( 'switch_theme',          'carelib_dashboard_cleanup',  10 );
+		add_action( 'admin_enqueue_scripts', 'carelib_dashboard_scripts',  10 );
+		add_action( 'admin_notices',         'carelib_dashboard_notices',  10 );
+	}
+}
+
+/**
  * Set up the dashboard options.
  *
  * @since   1.0.0
