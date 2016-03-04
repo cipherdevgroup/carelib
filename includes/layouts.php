@@ -147,14 +147,14 @@ function carelib_set_default_layout( $name ) {
  */
 function carelib_filter_layout( $theme_layout ) {
 	if ( is_singular() ) {
-		$layout = carelib_get_post_layout( get_queried_object_id() );
+		$layout_id = carelib_get_post_layout( get_queried_object_id() );
 	} elseif ( is_author() ) {
-		$layout = carelib_get_user_layout( get_queried_object_id() );
+		$layout_id = carelib_get_user_layout( get_queried_object_id() );
 	} elseif ( carelib_is_blog_archive() ) {
-		$layout = carelib_get_post_layout( get_option( 'page_for_posts' ) );
+		$layout_id = carelib_get_post_layout( get_option( 'page_for_posts' ) );
 	}
 
-	return ! empty( $layout ) && 'default' !== $layout ? $layout : $theme_layout;
+	return ! empty( $layout_id ) && 'default' !== $layout_id ? $layout_id : $theme_layout;
 }
 
 /**
@@ -277,13 +277,13 @@ function carelib_post_type_has_layout( $post_type, CareLib_Layout $layout ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int $layout
+ * @param  string $layout_id The ID of the layout to check.
  * @return bool
  */
-function carelib_has_post_layout( CareLib_Layout $layout, $post_id = '' ) {
+function carelib_has_post_layout( $layout_id, $post_id = '' ) {
 	$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
 
-	return carelib_get_post_layout( $post_id ) === $layout ? true : false;
+	return carelib_get_post_layout( $post_id ) === $layout_id ? true : false;
 }
 
 /**
@@ -291,14 +291,14 @@ function carelib_has_post_layout( CareLib_Layout $layout, $post_id = '' ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string $layout
+ * @param  string $layout_id The ID of the layout to check.
  * @param  int $user_id
  * @return bool
  */
-function carelib_has_user_layout( CareLib_Layout $layout, $user_id = '' ) {
+function carelib_has_user_layout( $layout_id, $user_id = '' ) {
 	$user_id = empty( $user_id ) ? absint( get_query_var( 'author' ) ) : $user_id;
 
-	return carelib_get_user_layout( $user_id ) === $layout ? true : false;
+	return carelib_get_user_layout( $user_id ) === $layout_id ? true : false;
 }
 
 /**
@@ -319,12 +319,12 @@ function carelib_layout_has_sidebar( $sidebar_layouts ) {
  * @since  1.0.0
  * @access public
  * @param  int $post_id
- * @param  string $layout
+ * @param  string $layout_id
  * @return bool
  */
-function carelib_set_post_layout( $post_id, CareLib_Layout $layout ) {
-	if ( 'default' !== $layout ) {
-		return update_post_meta( $post_id, carelib_get_layout_meta_key(), $layout );
+function carelib_set_post_layout( $post_id, $layout_id ) {
+	if ( 'default' !== $layout_id ) {
+		return update_post_meta( $post_id, carelib_get_layout_meta_key(), $layout_id );
 	}
 	return carelib_delete_post_layout( $post_id );
 }
@@ -338,9 +338,9 @@ function carelib_set_post_layout( $post_id, CareLib_Layout $layout ) {
  * @param  string $layout
  * @return bool
  */
-function carelib_set_user_layout( $user_id, CareLib_Layout $layout ) {
-	if ( 'default' !== $layout ) {
-		return update_user_meta( $user_id, carelib_get_layout_meta_key(), $layout );
+function carelib_set_user_layout( $user_id, $layout_id ) {
+	if ( 'default' !== $layout_id ) {
+		return update_user_meta( $user_id, carelib_get_layout_meta_key(), $layout_id );
 	}
 	return carelib_delete_user_layout( $user_id );
 }
