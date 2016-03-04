@@ -30,7 +30,7 @@ function carelib_has_entry_header() {
  * @return bool true on all views except single pages by default.
  */
 function carelib_has_entry_header_meta() {
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_has_entry_header_meta", ! is_page() );
+	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_has_entry_header_meta", ( 'post' === get_post_type() ) );
 }
 
 /**
