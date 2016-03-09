@@ -139,6 +139,56 @@ function carelib_is_static_front_page() {
 }
 
 /**
+ * Add all the WordPress default "the_content" filters to a specific hook.
+ *
+ * @since  1.0.0
+ * @access public
+ * @global $wp_embed
+ * @param  string $hook The action hook to add content filters to.
+ * @return void
+ */
+function carelib_add_the_content_filters( $hook ) {
+	global $wp_embed;
+
+	add_filter( $hook, array( $wp_embed, 'run_shortcode' ),  5 );
+	add_filter( $hook, array( $wp_embed, 'autoembed' ),      5 );
+	add_filter( $hook, 'wptexturize',                       10 );
+	add_filter( $hook, 'convert_smilies',                   12 );
+	add_filter( $hook, 'convert_chars',                     14 );
+	add_filter( $hook, 'wpautop',                           16 );
+	add_filter( $hook, 'shortcode_unautop',                 18 );
+	add_filter( $hook, 'prepend_attachment',                20 );
+	add_filter( $hook, 'wp_make_content_images_responsive', 22 );
+	add_filter( $hook, 'capital_P_dangit',                  24 );
+	add_filter( $hook, 'do_shortcode',                      26 );
+}
+
+/**
+ * Remove all the WordPress default "the_content" filters from a specific hook.
+ *
+ * @since  1.0.0
+ * @access public
+ * @global $wp_embed
+ * @param  string $hook The action hook to add content filters to.
+ * @return void
+ */
+function carelib_remove_the_content_filters( $hook ) {
+	global $wp_embed;
+
+	remove_filter( $hook, array( $wp_embed, 'run_shortcode' ),  5 );
+	remove_filter( $hook, array( $wp_embed, 'autoembed' ),      5 );
+	remove_filter( $hook, 'wptexturize',                       10 );
+	remove_filter( $hook, 'convert_smilies',                   12 );
+	remove_filter( $hook, 'convert_chars',                     14 );
+	remove_filter( $hook, 'wpautop',                           16 );
+	remove_filter( $hook, 'shortcode_unautop',                 18 );
+	remove_filter( $hook, 'prepend_attachment',                20 );
+	remove_filter( $hook, 'wp_make_content_images_responsive', 22 );
+	remove_filter( $hook, 'capital_P_dangit',                  24 );
+	remove_filter( $hook, 'do_shortcode',                      26 );
+}
+
+/**
  * Format a link to the customizer panel.
  *
  * Since WordPress 4.1, the customizer panel allows for deeplinking, but setting

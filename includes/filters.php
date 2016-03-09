@@ -23,15 +23,7 @@ add_filter( 'the_title', 'carelib_untitled_post' );
 add_filter( 'get_the_archive_title',       'carelib_archive_title',       5 );
 add_filter( 'get_the_archive_description', 'carelib_archive_description', 5 );
 
-// Use same default filters as 'the_content' with a little more flexibility.
-add_filter( "{$carelib_prefix}_archive_description", array( $wp_embed, 'run_shortcode' ), 5 );
-add_filter( "{$carelib_prefix}_archive_description", array( $wp_embed, 'autoembed' ),     5 );
-add_filter( "{$carelib_prefix}_archive_description", 'wptexturize',       10 );
-add_filter( "{$carelib_prefix}_archive_description", 'convert_smilies',   15 );
-add_filter( "{$carelib_prefix}_archive_description", 'convert_chars',     20 );
-add_filter( "{$carelib_prefix}_archive_description", 'wpautop',           25 );
-add_filter( "{$carelib_prefix}_archive_description", 'do_shortcode',      30 );
-add_filter( "{$carelib_prefix}_archive_description", 'shortcode_unautop', 35 );
+carelib_add_the_content_filters( "{$carelib_prefix}_archive_description" );
 
 // Default excerpt more.
 add_filter( 'excerpt_more',          'carelib_excerpt_more', 5 );
