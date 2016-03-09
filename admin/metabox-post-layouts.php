@@ -17,7 +17,7 @@
  */
 function carelib_metabox_post_layouts_actions() {
 	if ( carelib_has_layouts() ) {
-		add_action( 'add_meta_boxes',  'carelib_metabox_post_layouts_add',  10, 2 );
+		add_action( 'add_meta_boxes',  'carelib_metabox_post_layouts_add' );
 		add_action( 'save_post',       'carelib_metabox_post_layouts_save', 10, 2 );
 		add_action( 'add_attachment',  'carelib_metabox_post_layouts_save' );
 		add_action( 'edit_attachment', 'carelib_metabox_post_layouts_save' );
@@ -37,6 +37,12 @@ function carelib_metabox_post_layouts_add( $post_type ) {
 		return;
 	}
 
+	$obj = get_post_type_object( $post_type );
+
+	if ( ! is_object( $obj ) || ! $obj->public ) {
+		return;
+	}
+
 	add_meta_box(
 		'carelib-post-layout',
 		esc_html__( 'Layout', 'carelib' ),
@@ -46,17 +52,6 @@ function carelib_metabox_post_layouts_add( $post_type ) {
 		'default'
 	);
 
-	add_action( 'admin_enqueue_scripts', 'carelib_metabox_post_layouts_enqueue', 5 );
-}
-
-/**
- * Loads the scripts/styles for the layout meta box.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
-function carelib_metabox_post_layouts_enqueue() {
 	wp_enqueue_style( 'carelib-admin' );
 }
 
