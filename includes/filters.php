@@ -83,9 +83,6 @@ add_filter( "{$carelib_prefix}_attr_comment-permalink", 'carelib_attr_comment_pe
 add_filter( "{$carelib_prefix}_attr_comment-content",   'carelib_attr_comment_content',   5 );
 
 add_filter( 'template_include',    'carelib_index_include',      95 );
-add_filter( 'tag_template',        'carelib_taxonomy_template',   5 );
-add_filter( 'category_template',   'carelib_taxonomy_template',   5 );
-add_filter( 'taxonomy_template',   'carelib_taxonomy_template',   5 );
 add_filter( 'single_template',     'carelib_singular_template',   5 );
 add_filter( 'page_template',       'carelib_singular_template',   5 );
 add_filter( 'front_page_template', 'carelib_front_page_template', 5 ); // Doesn't work b/c bug with get_query_template().

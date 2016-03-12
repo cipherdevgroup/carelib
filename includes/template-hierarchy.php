@@ -32,36 +32,6 @@ function carelib_index_include( $template ) {
 }
 
 /**
- * Override WP's default template for category and tag archives.
- *
- * This allows better organization of taxonomy template files by making
- * categories and post tags work the same way as other taxonomies.
- *
- * Hierarchy:
- * -------------------------
- * taxonomy-$taxonomy-$term.php
- * taxonomy-$taxonomy.php
- * taxonomy.php
- * archive.php
- *
- * @since  1.0.0
- * @access public
- * @param  string $template
- * @return string Full path to file.
- */
-function carelib_taxonomy_template( $template ) {
-	$term = get_queried_object();
-
-	// Return the available templates.
-	return locate_template( array(
-		"taxonomy-{$term->taxonomy}-{$term->slug}.php",
-		"taxonomy-{$term->taxonomy}.php",
-		'taxonomy.php',
-		'archive.php',
-	) );
-}
-
-/**
  * Override the default single (singular post) template.
  *
  * Post templates can be loaded using a custom post template, by slug, or
