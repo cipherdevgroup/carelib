@@ -30,7 +30,7 @@ function carelib_is_plural() {
  * @return bool true if we're on a blog archive page.
  */
 function carelib_is_blog_archive() {
-	return carelib_is_plural() && ! ( is_post_type_archive() || is_tax() );
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_is_blog_archive", ( is_home() || is_archive() ) && ! ( is_post_type_archive() || is_tax() ) );
 }
 
 /**
