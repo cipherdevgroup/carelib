@@ -264,7 +264,7 @@ function carelib_get_posts_navigation( $args = array() ) {
 
 	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_posts_navigation_defaults",
 		array(
-			'format'         => 'pagination',
+			'nav_type'       => 'pagination',
 			'prev_link_text' => __( 'Newer Posts', 'carelib' ),
 			'next_link_text' => __( 'Older Posts', 'carelib' ),
 			'prev_text'      => sprintf(
@@ -280,28 +280,21 @@ function carelib_get_posts_navigation( $args = array() ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	$output = '';
-
-	$output .= '<nav ' . carelib_get_attr( 'nav', 'archive' ) . '>';
-	$output .= sprintf(
-		'<span class="nav-previous">%s</span>',
-		get_previous_posts_link( $args['prev_link_text'] )
-	);
-
-	$output .= sprintf(
-		'<span class="nav-next">%s</span>',
-		get_next_posts_link( $args['next_link_text'] )
-	);
-
-	$output .= '</nav><!-- .nav-archive -->';
-
-	if ( function_exists( 'the_posts_pagination' ) && 'pagination' === $args['format'] ) {
-		$output = get_the_posts_pagination(
-			array(
-				'prev_text' => $args['prev_text'],
-				'next_text' => $args['next_text'],
-			)
+	if ( function_exists( 'the_posts_pagination' ) && 'pagination' === $args['nav_type'] ) {
+		$output = get_the_posts_pagination( $args );
+	} else {
+		$output  = '<nav ' . carelib_get_attr( 'nav', 'archive' ) . '>';
+		$output .= sprintf(
+			'<span class="nav-previous">%s</span>',
+			get_previous_posts_link( $args['prev_link_text'] )
 		);
+
+		$output .= sprintf(
+			'<span class="nav-next">%s</span>',
+			get_next_posts_link( $args['next_link_text'] )
+		);
+
+		$output .= '</nav><!-- .nav-archive -->';
 	}
 
 	return apply_filters( "{$GLOBALS['carelib_prefix']}_posts_navigation", $output, $args );
