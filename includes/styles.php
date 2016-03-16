@@ -104,7 +104,7 @@ function carelib_min_stylesheet_uri( $stylesheet_uri, $stylesheet_dir_uri ) {
  * @since  1.0.0
  * @access public
  * @link   http://core.trac.wordpress.org/ticket/18302
- * @param  array  $file_names The files to search for.
+ * @param  array $file_names The files to search for.
  * @return string
  */
 function _carelib_locate_theme_file( $file_names ) {
@@ -132,7 +132,7 @@ function _carelib_locate_theme_file( $file_names ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $stylesheet_uri
+ * @param  string $stylesheet_uri
  * @return string
  */
 function carelib_style_filter( $stylesheet_uri ) {
@@ -195,7 +195,7 @@ function carelib_get_locale_style() {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $stylesheet_uri
+ * @param  string $stylesheet_uri
  * @return string
  */
 function carelib_locale_stylesheet_uri( $stylesheet_uri ) {
