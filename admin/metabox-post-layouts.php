@@ -52,6 +52,17 @@ function carelib_metabox_post_layouts_add( $post_type ) {
 		'default'
 	);
 
+	add_action( 'admin_enqueue_scripts', 'carelib_metabox_post_layouts_enqueue', 5 );
+}
+
+/**
+ * Loads the scripts/styles for the layout meta box.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
+function carelib_metabox_post_layouts_enqueue() {
 	wp_enqueue_style( 'carelib-admin' );
 }
 
