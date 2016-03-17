@@ -394,7 +394,7 @@ function carelib_attr_archive_description( $attr ) {
  */
 function carelib_attr_post( $attr ) {
 	$attr['id']    = 'post-0';
-	$attr['class'] = join( ' ', get_post_class() );
+	$attr['class'] = 'entry';
 
 	$post = get_post();
 	if ( is_object( $post ) ) {
