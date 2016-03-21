@@ -11,50 +11,6 @@
  * @since      1.0.0
  */
 
-if ( ! defined( 'PARENT_THEME_DIR' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_template_directory()
-	 * @uses  trailingslashit()
-	 */
-	define( 'PARENT_THEME_DIR', trailingslashit( get_template_directory() ) );
-}
-
-if ( ! defined( 'PARENT_THEME_URI' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_template_directory_uri()
-	 * @uses  trailingslashit()
-	 */
-	define( 'PARENT_THEME_URI', trailingslashit( get_template_directory_uri() ) );
-}
-
-if ( ! defined( 'CHILD_THEME_DIR' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_stylesheet_directory()
-	 * @uses  trailingslashit()
-	 */
-	define( 'CHILD_THEME_DIR', trailingslashit( get_stylesheet_directory() ) );
-}
-
-if ( ! defined( 'PARENT_THEME_URI' ) ) {
-	/**
-	 * The absolute path to the template's root directory with a trailing slash.
-	 *
-	 * @since 1.0.0
-	 * @uses  get_stylesheet_directory_uri()
-	 * @uses  trailingslashit()
-	 */
-	define( 'CHILD_THEME_URI', trailingslashit( get_stylesheet_directory_uri() ) );
-}
-
 /**
  * Return a single instance of the current theme's WP_Theme object.
  *
