@@ -88,21 +88,45 @@ function carelib_get_site_title( $args = array() ) {
 }
 
 /**
- * Return the site description wrapped in a `<p>` tag.
+ * Return the formatted site description.
  *
  * @since  1.0.0
  * @access public
+ * @param  array $args A list of arguments to control the output of the site description.
  * @return string
  */
-function carelib_get_site_description() {
-	if ( $desc = get_bloginfo( 'description' ) ) {
-		$desc = sprintf( '<p %s>%s</p>',
-			carelib_get_attr( 'site-description' ),
-			$desc
-		);
+function carelib_get_site_description( $args = array() ) {
+	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_site_description_defaults",
+		array(
+			'attr'        => 'site-description',
+			'description' => get_bloginfo( 'description' ),
+			'tag'         => 'p',
+			'wrap'        => '<%1$s %2$s>%3$s</%1$s>',
+			'before'      => '',
+			'after'       => '',
+		)
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	// Bail if required args have been removed via a filter.
+	if ( ! isset( $args['attr'], $args['description'], $args['tag'], $args['wrap'] ) ) {
+		return false;
 	}
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_site_description", $desc );
+	$html = '';
+
+	$html .= isset( $args['before'] ) ? $args['before'] : '';
+
+	$html .= sprintf( $args['wrap'],
+		$args['tag'],
+		carelib_get_attr( $args['attr'] ),
+		$args['description']
+	);
+
+	$html .= isset( $args['after'] ) ? $args['after'] : '';
+
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_site_description", $html, $args );
 }
 
 /**
