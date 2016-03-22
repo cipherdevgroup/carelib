@@ -46,23 +46,45 @@ function carelib_framework( $name = '' ) {
 }
 
 /**
- * Returns the linked site title wrapped in an `<h1>` tag.
+ * Returns the formatted site title.
  *
  * @since  1.0.0
  * @access public
+ * @param  array $args A list of arguments to control the output of the site title.
  * @return string
  */
-function carelib_get_site_title() {
-	if ( $title = get_bloginfo( 'name' ) ) {
-		$title = sprintf( '<%1$s %2$s><a href="%3$s" rel="home">%4$s</a></%1$s>',
-			is_front_page() || is_home() ? 'h1' : 'p',
-			carelib_get_attr( 'site-title' ),
-			esc_url( home_url() ),
-			$title
-		);
+function carelib_get_site_title( $args = array() ) {
+	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_site_title_defaults",
+		array(
+			'attr'   => 'site-title',
+			'title'  => '<a href="' . esc_url( home_url() ) . '" rel="home">' . get_bloginfo( 'name' ) . '</a>',
+			'tag'    => is_front_page() || is_home() ? 'h1' : 'p',
+			'wrap'   => '<%1$s %2$s>%3$s</%1$s>',
+			'before' => '',
+			'after'  => '',
+		)
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	// Bail if required args have been removed via a filter.
+	if ( ! isset( $args['attr'], $args['title'], $args['tag'], $args['wrap'] ) ) {
+		return false;
 	}
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_site_title", $title );
+	$html = '';
+
+	$html .= isset( $args['before'] ) ? $args['before'] : '';
+
+	$html .= sprintf( $args['wrap'],
+		$args['tag'],
+		carelib_get_attr( $args['attr'] ),
+		$args['title']
+	);
+
+	$html .= isset( $args['after'] ) ? $args['after'] : '';
+
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_site_title", $html, $args );
 }
 
 /**
