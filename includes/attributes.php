@@ -167,6 +167,23 @@ function carelib_attr_content( $attr ) {
 }
 
 /**
+ * Skip link element attributes.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array  $attr Existing attributes.
+ * @param  string $context A specific context (e.g., 'primary').
+ * @return array
+ */
+function carelib_attr_skip_link( $attr, $context ) {
+	if ( ! empty( $context ) ) {
+		$attr['id'] = 'skip-link-' . sanitize_html_class( $context );
+	}
+
+	return $attr;
+}
+
+/**
  * Sidebar attributes.
  *
  * @since  1.0.0

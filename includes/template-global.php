@@ -130,6 +130,47 @@ function carelib_get_site_description( $args = array() ) {
 }
 
 /**
+ * Output skip-to-content link markup for screen readers.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string $target The target for the link.
+ * @param  array  $args A list of arguments to control the output of the skip link.
+ * @return string
+ */
+function carelib_get_skip_link( $target, $args = array() ) {
+	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_skip_link_defaults",
+		array(
+			'attr'   => 'skip-link',
+			'text'   => sprintf( esc_html__( 'Skip to %s (Press enter)', 'carelib' ), $target ),
+			'before' => '',
+			'after'  => '',
+		), $target
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	// Bail if required args have been removed via a filter.
+	if ( ! isset( $args['attr'], $args['text'] ) ) {
+		return false;
+	}
+
+	$html = '';
+
+	$html .= isset( $args['before'] ) ? $args['before'] : '';
+
+	$html .= sprintf( '<div %s><a class="button screen-reader-text" href="#%s">%s</a></div><!-- .skip-link -->',
+		carelib_get_attr( $args['attr'], $target ),
+		esc_attr( $target ),
+		$args['text']
+	);
+
+	$html .= isset( $args['after'] ) ? $args['after'] : '';
+
+	return apply_filters( "{$GLOBALS['carelib_prefix']}_skip_link", $html, $target, $args );
+}
+
+/**
  * Adds microdata to avatars.
  *
  * @since  1.0.0

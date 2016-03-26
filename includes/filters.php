@@ -48,6 +48,7 @@ add_filter( "{$carelib_prefix}_attr_site-container", 'carelib_attr_site_containe
 add_filter( "{$carelib_prefix}_attr_site-inner",     'carelib_attr_site_inner',     5 );
 add_filter( "{$carelib_prefix}_attr_site-footer",    'carelib_attr_site_footer',    5 );
 add_filter( "{$carelib_prefix}_attr_content",        'carelib_attr_content',        5 );
+add_filter( "{$carelib_prefix}_attr_skip-link",      'carelib_attr_skip_link',      5, 2 );
 add_filter( "{$carelib_prefix}_attr_sidebar",        'carelib_attr_sidebar',        5, 2 );
 add_filter( "{$carelib_prefix}_attr_menu-toggle",    'carelib_attr_menu_toggle',    5, 2 );
 add_filter( "{$carelib_prefix}_attr_menu",           'carelib_attr_menu',           5, 2 );
