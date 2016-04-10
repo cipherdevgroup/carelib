@@ -76,8 +76,9 @@ function carelib_get_sidebar( $name = null ) {
 
 	$templates = array();
 	if ( ! empty( $name ) ) {
-		$templates[] = "sidebar-{$name}.php";
 		$templates[] = "template-parts/sidebar/{$name}.php";
+		$templates[] = "template-parts/sidebar-{$name}.php";
+		$templates[] = "sidebar-{$name}.php";
 	}
 	$templates[] = 'sidebar.php';
 
