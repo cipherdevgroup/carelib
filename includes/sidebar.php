@@ -80,7 +80,6 @@ function carelib_get_sidebar( $name = null ) {
 		$templates[] = "template-parts/sidebar/{$name}.php";
 	}
 	$templates[] = 'sidebar.php';
-	$templates[] = 'template-parts/sidebar/sidebar.php';
 
 	locate_template( $templates, true );
 }
