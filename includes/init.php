@@ -48,6 +48,7 @@ function carelib_includes() {
 	require_once CARELIB_DIR . 'includes/template-global.php';
 	require_once CARELIB_DIR . 'includes/template-hierarchy.php';
 	require_once CARELIB_DIR . 'includes/template-hooks.php';
+	require_once CARELIB_DIR . 'includes/template-load.php';
 	require_once CARELIB_DIR . 'includes/theme.php';
 	require_once CARELIB_DIR . 'includes/tinymce.php';
 	require_once CARELIB_DIR . 'includes/actions.php';

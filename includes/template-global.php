@@ -9,43 +9,6 @@
  */
 
 /**
- * Load the base theme framework template.
- *
- * This works similarly to WP core's `get_template_part` except it imposes
- * some restrictions on the template's name and location.
- *
- * It also uses `require_once` as there should only be a single framework
- * template loaded on any given page.
- *
- * For the $name parameter, if the file is called `framework-special.php`
- * then specify "special".
- *
- * @since  1.0.0
- * @param  string $name The name of the specialized template.
- * @return void
- */
-function carelib_framework( $name = '' ) {
-	$templates = array();
-	/**
-	 * Fires before the default framework template file is loaded.
-	 *
-	 * @since 1.0.0
-	 * @param string $name The name of the specialized framework template.
-	 */
-	do_action( "{$GLOBALS['carelib_prefix']}_framework", $name, $templates );
-
-	$name      = (string) $name;
-	$templates = (array) $templates;
-
-	if ( ! empty( $name ) ) {
-		$templates[] = "templates/framework-{$name}.php";
-	}
-	$templates[] = 'templates/framework.php';
-
-	locate_template( $templates, true );
-}
-
-/**
  * Returns the formatted site title.
  *
  * @since  1.0.0
