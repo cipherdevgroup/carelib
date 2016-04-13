@@ -60,7 +60,7 @@ function carelib_metabox_post_template_box( $post, $box ) {
 	$templates     = carelib_get_post_templates( $post->post_type );
 	$post_template = carelib_get_post_template( $post->ID );
 
-	require_once carelib_get_dir( 'admin/templates/metabox-post-template.php' );
+	require_once carelib_get_dir( 'admin/templates/metabox-post-templates.php' );
 }
 
 /**
