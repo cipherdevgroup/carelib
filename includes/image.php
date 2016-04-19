@@ -83,67 +83,6 @@ function carelib_get_image( $args = array() ) {
 }
 
 /**
- * Setup object caching if it's enabled.
- *
- * @since  1.0.0
- * @access protected
- * @param  array $args Arguments for how to load and display an image.
- * @return bool true if cache has been set up, false otherwise
- */
-function _carelib_image_setup_cache( $args ) {
-	if ( $args['cache'] ) {
-		self::$cache_key = md5( serialize( compact( array_keys( $args ) ) ) );
-		self::$cache     = (array) wp_cache_get( $args['post_id'], "{$GLOBALS['carelib_prefix']}_image_grabber" );
-		return true;
-	}
-	return false;
-}
-
-/**
- * Get a cached image.
- *
- * Uses object cache if it's available and enabled and falls back to a
- * stored image value to prevent multiple searches.
- *
- * @since  1.0.0
- * @access protected
- * @param  int $post_id the post ID associated with the image to get
- * @return string|bool false if no cached image is found
- */
-function _carelib_image_get_cache( $post_id ) {
-	if ( ! empty( self::$cache[ self::$cache_key ] ) ) {
-		return self::$cache[ self::$cache_key ];
-	} elseif ( ! empty( self::$images[ $post_id ] ) ) {
-		return self::$images[ $post_id ];
-	}
-	return false;
-}
-
-/**
- * Set a cached image.
- *
- * Uses object cache if it's available and always stores an image value to
- * prevent multiple searches.
- *
- * @since  1.0.0
- * @access protected
- * @param  array $args Arguments for how to load and display an image.
- * @param  string $html the formatted HTML of a grabbed image to save.
- * @return void
- */
-function _carelib_image_set_cache( $html, $args ) {
-	self::$images[ $args['post_id'] ] = $html;
-
-	if ( $args['cache'] ) {
-		wp_cache_set(
-			$args['post_id'],
-			array( self::$cache_key => $html ),
-			"{$GLOBALS['carelib_prefix']}_image_grabber"
-		);
-	}
-}
-
-/**
  * Search the content are for an image to grab. Use cache if it's available.
  *
  * @since  1.0.0
@@ -152,12 +91,6 @@ function _carelib_image_set_cache( $html, $args ) {
  * @return bool|array $image a grabbed image properties or false if no image is found
  */
 function _carelib_image_find( $args ) {
-	//_carelib_image_setup_cache( $args );
-
-	//if ( $cache = _carelib_image_get_cache( $args['post_id'] ) ) {
-	//	return $cache;
-	//}
-
 	if ( ! $image = _carelib_image_get_by( $args ) ) {
 		return false;
 	}
@@ -165,8 +98,6 @@ function _carelib_image_find( $args ) {
 	if ( ! empty( $args['meta_key_save'] ) ) {
 		_carelib_image_get_meta_key_save( $args, $image );
 	}
-
-	//_carelib_image_set_cache( _carelib_image_format_image( $args, $image ), $args );
 
 	return apply_filters( "{$GLOBALS['carelib_prefix']}_image_grabber_image", $image );
 }
