@@ -65,7 +65,7 @@ function carelib_get_parent_stylesheet_uri() {
 		$stylesheet_uri = carelib_get_parent_uri() . "style{$suffix}.css";
 	}
 
-	return apply_filters( 'get_parent_stylesheet_uri', $stylesheet_uri );
+	return apply_filters( 'parent_stylesheet_uri', $stylesheet_uri );
 }
 
 /**
