@@ -29,5 +29,7 @@ function carelib_enqueue_scripts() {
  * @return string
  */
 function carelib_get_suffix() {
-	return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	$enabled = (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_enable_suffix", defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG );
+
+	return $enabled ? '.min' : '';
 }
