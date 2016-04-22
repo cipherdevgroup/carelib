@@ -161,8 +161,8 @@ function _carelib_image_get_by( $args ) {
  *
  * @since  1.0.0
  * @access protected
- * @param  string $html the formatted HTML of a grabbed image
- * @return array $output the raw attributes of a grabbed image
+ * @param  string $html the formatted HTML of a grabbed image.
+ * @return array $output the raw attributes of a grabbed image.
  */
 function _carelib_image_get_raw( $html ) {
 	if ( empty( $html ) ) {
@@ -190,6 +190,16 @@ function _carelib_image_sanitize_classes( $classes ) {
 	return array_map( 'sanitize_html_class', $classes );
 }
 
+/**
+ * Return an image size attribute.
+ *
+ * @since  1.0.0
+ * @access protected
+ * @param  array  $args Arguments for how to load and display the image.
+ * @param  array  $image Array of image attributes ($image, $classes, $alt, $caption).
+ * @param  string $type The type of size to get EG height or width.
+ * @return string a formatted string of the image's size.
+ */
 function _carelib_image_get_size( $args, $image, $type ) {
 	return isset( $image[ $type ] ) ? $image[ $type ] : $args[ $type ];
 }
@@ -226,8 +236,9 @@ function _carelib_image_build_classes( $args, $image ) {
  *
  * @since  1.0.0
  * @access protected
- * @param  string $size the size attribute to format.
- * @param  string $type the type of attribute being formatted (height or width)
+ * @param  array  $args Arguments for how to load and display the image.
+ * @param  array  $image Array of image attributes ($image, $classes, $alt, $caption).
+ * @param  string $type the type of attribute being formatted (height or width).
  * @return string a formatted image size attribute of height or width.
  */
 function _carelib_image_format_size( $args, $image, $type ) {
@@ -252,7 +263,7 @@ function _carelib_image_format_class( $class ) {
  *
  * @since  1.0.0
  * @access protected
- * @param  array $srcset the array of srcset values to format.
+ * @param  array $image the array of image values to format.
  * @return string a formatted html srcset attribute.
  */
 function _carelib_image_format_srcset( $image ) {
@@ -265,8 +276,8 @@ function _carelib_image_format_srcset( $image ) {
  *
  * @since  1.0.0
  * @access protected
- * @param  array $args Arguments for how to load and display the image.
- * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+ * @param  string $html Markup for an image to possibly be wrapped..
+ * @param  array  $args Arguments for how to load and display the image.
  * @return string $image Formatted image markup.
  */
 function _carelib_image_maybe_add_link_wrapper( $html, $args ) {
@@ -332,8 +343,8 @@ function _carelib_image_format_image_html( $args, $image ) {
  * @since  1.0.0
  * @access protected
  * @param  string $html a formatted <img> string.
- * @param  array $args Arguments for how to load and display the image.
- * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+ * @param  array  $image Array of image attributes ($image, $classes, $alt, $caption).
+ * @param  array  $args Arguments for how to load and display the image.
  * @return string $image Formatted image markup.
  */
 function _carelib_image_maybe_add_thumbnail_html( $html, $image, $args ) {
@@ -463,8 +474,8 @@ function _carelib_image_get_by_attachment( $args ) {
  *
  * @since  1.0.0
  * @access protected
- * @param  int $id
- * @return void
+ * @param  int $id The ID of the current attachment.
+ * @return false|array A list of srcset image sizes.
  */
 function _carelib_image_get_srcset( $id ) {
 	if ( empty( $args['srcset_sizes'] ) ) {
@@ -491,8 +502,9 @@ function _carelib_image_get_srcset( $id ) {
  *
  * @since  1.0.0
  * @access protected
- * @param  int $id
- * @return void
+ * @param  int   $id The ID of the current attachment.
+ * @param  array $args Arguments for how to load and display the image.
+ * @return false|array A list of image attributes.
  */
 function _carelib_image_get_attachment( $id, $args ) {
 	if ( false === $id ) {
