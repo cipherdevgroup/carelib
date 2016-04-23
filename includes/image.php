@@ -38,9 +38,7 @@
  * @return string|array the raw image string or an array of image attributes.
  */
 function carelib_get_image( $args = array() ) {
-	global $carelib_prefix;
-
-	$args = wp_parse_args( $args, apply_filters( "{$carelib_prefix}_image_defaults",
+	$args = wp_parse_args( $args, apply_filters( "{$GLOBALS['carelib_prefix']}_image_defaults",
 		array(
 			'post_id'           => get_the_ID(),
 			'meta_key'          => array( 'Thumbnail', 'thumbnail' ),
@@ -71,27 +69,7 @@ function carelib_get_image( $args = array() ) {
 		$args['link_to_post'] = false;
 	}
 
-	$key = md5( serialize( compact( array_keys( $args ) ) ) );
-
-	$cache = (array) wp_cache_get( $args['post_id'], "{$carelib_prefix}_image" );
-
-	if ( ! isset( $cache[ $key ] ) || empty( $cache ) ) {
-
-		$image = _carelib_image_find( $args );
-
-		if ( $image ) {
-
-			if ( is_array( $image ) ) {
-				$image = _carelib_image_format_image( $args, $image );
-			}
-
-			$cache[ $key ] = $image;
-
-			wp_cache_set( $args['post_id'], $cache, "{$carelib_prefix}_image" );
-		}
-	} else {
-		$image = $cache[ $key ];
-	}
+	$image = _carelib_image_get_cached_image( $args );
 
 	if ( 'array' === $args['format'] ) {
 		return _carelib_image_get_raw( $image );
@@ -101,12 +79,45 @@ function carelib_get_image( $args = array() ) {
 }
 
 /**
+ * Return the cached image if it exists, otherwise search for the image and set
+ * the cache for the next usage.
+ *
+ * @since  1.0.0
+ * @access protected
+ * @param  array $args Arguments for how to load and display an image.
+ * @return bool|array $image Image properties or false if no image is found.
+ */
+function _carelib_image_get_cached_image( $args ) {
+	global $carelib_prefix;
+
+	$key = md5( serialize( compact( array_keys( $args ) ) ) );
+
+	$cache = (array) wp_cache_get( $args['post_id'], "{$carelib_prefix}_image" );
+
+	if ( isset( $cache[ $key ] ) ) {
+		return $cache[ $key ];
+	}
+
+	$image = _carelib_image_find( $args );
+
+	if ( $image ) {
+		$image = _carelib_image_format_image( $args, $image );
+
+		$cache[ $key ] = $image;
+
+		wp_cache_set( $args['post_id'], $cache, "{$carelib_prefix}_image" );
+	}
+
+	return $image;
+}
+
+/**
  * Search the content are for an image to grab. Use cache if it's available.
  *
  * @since  1.0.0
  * @access protected
  * @param  array $args Arguments for how to load and display an image.
- * @return bool|array $image a grabbed image properties or false if no image is found
+ * @return bool|array $image Image properties or false if no image is found.
  */
 function _carelib_image_find( $args ) {
 	if ( ! $image = _carelib_image_get_by( $args ) ) {
