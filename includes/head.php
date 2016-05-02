@@ -52,5 +52,5 @@ function carelib_link_pingback() {
  * @return void
  */
 function carelib_canihas_js() {
-	echo '<script type="text/javascript">document.documentElement.className = "has-js";</script>' . "\n";
+	echo '<script type="text/javascript">document.documentElement.classList.add("has-js");</script>' . "\n";
 }
