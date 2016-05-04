@@ -2,10 +2,10 @@
  * Admin Stylesheet.
  */
 
-/* Radio Image Control (Post Layout)
+/* Layouts Image Control
 -------------------------------------------- */
 
-#carelib-post-layout input[type="radio"] {
+#carelib-layouts input[type="radio"] {
 	clip:     rect(1px, 1px, 1px, 1px);
 	height:   1px;
 	overflow: hidden;
@@ -13,7 +13,7 @@
 	width:    1px;
 }
 
-#carelib-post-layout img {
+#carelib-layouts img {
 	box-sizing: border-box;
 	max-width:  100%;
 	height:     auto;
@@ -21,11 +21,11 @@
 	border:     4px solid transparent;
 }
 
-#carelib-post-layout img:hover,
-#carelib-post-layout img:focus {
+#carelib-layouts img:hover,
+#carelib-layouts img:focus {
 	border-color: #ddd;
 }
 
-#carelib-post-layout input:checked + span + img {
+#carelib-layouts input:checked + img {
 	border-color: #00a0d2;
 }
