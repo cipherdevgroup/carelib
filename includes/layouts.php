@@ -283,6 +283,7 @@ function carelib_post_type_has_layout( $post_type, $layout ) {
  * @since  1.0.0
  * @access public
  * @param  string $layout_id The ID of the layout to check.
+ * @param  int    $post_id The ID of the post to check.
  * @return bool
  */
 function carelib_has_post_layout( $layout_id, $post_id = '' ) {
@@ -297,7 +298,7 @@ function carelib_has_post_layout( $layout_id, $post_id = '' ) {
  * @since  1.0.0
  * @access public
  * @param  string $layout_id The ID of the layout to check.
- * @param  int $user_id
+ * @param  int    $user_id The ID of the user to check.
  * @return bool
  */
 function carelib_has_user_layout( $layout_id, $user_id = '' ) {
@@ -323,14 +324,15 @@ function carelib_layout_has_sidebar( $sidebar_layouts ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int $post_id
- * @param  string $layout_id
+ * @param  int    $post_id The ID of the post associated with the layout to be set.
+ * @param  string $layout_id The ID of the layout to be set.
  * @return bool
  */
 function carelib_set_post_layout( $post_id, $layout_id ) {
 	if ( 'default' !== $layout_id ) {
 		return update_post_meta( $post_id, carelib_get_layout_meta_key(), $layout_id );
 	}
+
 	return carelib_delete_post_layout( $post_id );
 }
 
@@ -339,14 +341,15 @@ function carelib_set_post_layout( $post_id, $layout_id ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int $user_id
- * @param  string $layout
+ * @param  int    $user_id The ID of the user associated with the layout to be set.
+ * @param  string $layout_id The ID of the layout to be set.
  * @return bool
  */
 function carelib_set_user_layout( $user_id, $layout_id ) {
 	if ( 'default' !== $layout_id ) {
 		return update_user_meta( $user_id, carelib_get_layout_meta_key(), $layout_id );
 	}
+
 	return carelib_delete_user_layout( $user_id );
 }
 
@@ -355,7 +358,7 @@ function carelib_set_user_layout( $user_id, $layout_id ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string $name
+ * @param  string $name The name of the layout to be unregistered.
  * @return void
  */
 function carelib_unregister_layout( $name ) {
@@ -371,7 +374,7 @@ function carelib_unregister_layout( $name ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int $post_id
+ * @param  int $post_id The ID of the post associated with the layout to be deleted.
  * @return bool
  */
 function carelib_delete_post_layout( $post_id ) {
@@ -383,7 +386,7 @@ function carelib_delete_post_layout( $post_id ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int $user_id
+ * @param  int $user_id The ID of the user associated with the layout to be deleted.
  * @return bool
  */
 function carelib_delete_user_layout( $user_id ) {
