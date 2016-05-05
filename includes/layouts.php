@@ -1,6 +1,6 @@
 <?php
 /**
- * Methods for interacting with `CareLib_Layout` objects.
+ * Methods for interacting with theme layouts.
  *
  * @package   CareLib
  * @copyright Copyright (c) 2016, WP Site Care, LLC
