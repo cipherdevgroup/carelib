@@ -73,7 +73,7 @@ function carelib_get_site_description( $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 
 	// Bail if required args have been removed via a filter.
-	if ( ! isset( $args['attr'], $args['description'], $args['tag'], $args['wrap'] ) ) {
+	if ( empty( $args['description'] ) || ! isset( $args['attr'], $args['description'], $args['tag'], $args['wrap'] ) ) {
 		return false;
 	}
 
