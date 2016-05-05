@@ -37,7 +37,7 @@ function carelib_metabox_post_template_add( $post_type, $post ) {
 
 	if ( ! empty( $templates ) && 'page' !== $post_type ) {
 		add_meta_box(
-			"{$GLOBALS['carelib_prefix']}-post-template",
+			'carelib-post-template',
 			esc_html__( 'Template', 'carelib' ),
 			'carelib_metabox_post_template_box',
 			$post_type,
