@@ -17,8 +17,8 @@
  * @param  string         $post_type The post type of the current post.
  * @return bool True if the layout has a metabox, false otherwise.
  */
-function carelib_layout_has_meta_box( CareLib_Layout $layout, $post_type ) {
-	if ( ! $layout->get_image() ) {
+function carelib_layout_has_meta_box( $layout, $post_type ) {
+	if ( ! $layout['image'] ) {
 		return false;
 	}
 
@@ -38,8 +38,8 @@ function carelib_layout_has_meta_box( CareLib_Layout $layout, $post_type ) {
  * @param  string         $post_type The post type of the current post.
  * @return bool True if the layout has a post metabox, false otherwise.
  */
-function carelib_layout_has_post_metabox( CareLib_Layout $layout, $post_type ) {
-	if ( true !== $layout->is_post() ) {
+function carelib_layout_has_post_metabox( $layout, $post_type ) {
+	if ( true !== $layout['is_post_layout'] ) {
 		return false;
 	}
 

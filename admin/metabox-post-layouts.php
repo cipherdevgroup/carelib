@@ -44,7 +44,7 @@ function carelib_metabox_post_layouts_add( $post_type ) {
 	}
 
 	add_meta_box(
-		'carelib-layouts',
+		"{$GLOBALS['carelib_prefix']}-layouts",
 		esc_html__( 'Layout', 'carelib' ),
 		'carelib_metabox_post_layouts_box',
 		$post_type,

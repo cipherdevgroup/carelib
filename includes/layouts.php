@@ -19,8 +19,25 @@
 function carelib_get_layouts() {
 	global $_carelib_layouts;
 
-	if ( ! isset( $_carelib_layouts ) ) {
+	if ( !is_array( $_carelib_layouts) ){
 		$_carelib_layouts = array();
+	} else {
+		foreach( $_carelib_layouts as $id => $data ) {
+			/**
+			 * Filter the passed $args for each layout. If no $id is passed, it will effect all
+			 * registered layouts.
+			 */
+			$layout_defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_layout_args", array(
+				'name'             => '',
+				'label'            => '',
+				'image'            => '%s',
+				'is_global_layout' => false,
+				'is_post_layout'   => true,
+				'is_user_layout'   => true,
+				'post_types'       => array(),
+			), $id );
+			$_carelib_layouts[$id] = wp_parse_args( $data, $layout_defaults );
+		}
 	}
 
 	return (array) $_carelib_layouts;
@@ -71,7 +88,7 @@ function carelib_register_layout( $layout_id, $args = array() ) {
 	}
 
 	if ( ! carelib_layout_exists( $layout_id ) ) {
-		$_carelib_layouts[ $layout_id ] = new CareLib_Layout( $layout_id, $args );
+		$_carelib_layouts[ $layout_id ] = $args;
 	}
 }
 
@@ -111,27 +128,15 @@ function carelib_do_register_layouts() {
  * @return boolean|string False if layout is not registered. ID otherwise.
  */
 function carelib_set_default_layout( $name ) {
-	carelib_register_layout(
-		'default',
-		array(
-			// Translators: Default theme layout option.
-			'label'            => esc_html_x( 'Default', 'theme layout', 'carelib' ),
-			'is_global_layout' => false,
-			'_builtin'         => true,
-			'_internal'        => true,
-		)
-	);
 
 	$layouts = carelib_get_layouts();
 
 	// Don't allow unregistered layouts.
 	if ( ! isset( $layouts[ $name ] ) ) {
 		return false;
+	} else {
+		return sanitize_title_with_dashes( $name );
 	}
-
-	$layouts['default']->set_name( $name );
-
-	return true;
 }
 
 /**
@@ -217,11 +222,11 @@ function carelib_get_layout( $layout_id ) {
 function carelib_get_default_layout() {
 	$layouts = carelib_get_layouts();
 
-	$layout_id = 'default';
-
 	foreach ( (array) $layouts as $id => $object ) {
 		if ( 'default' === $id ) {
-			$name = $object->get_name( $layout_id );
+			$name = 'default';
+		} else {
+			$name = sanitize_title_with_dashes( $id );
 		}
 	}
 
@@ -262,8 +267,8 @@ function carelib_get_theme_layout() {
  * @param  CareLib_Layout $layout The layout to check.
  * @return bool true if the current post type allows a given layout.
  */
-function carelib_post_type_has_layout( $post_type, CareLib_Layout $layout ) {
-	$post_types = $layout->get_post_types();
+function carelib_post_type_has_layout( $post_type, $layout ) {
+	$post_types = (array) $layout['post_types'];
 
 	if ( empty( $post_types ) ) {
 		return true;

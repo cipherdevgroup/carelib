@@ -35,7 +35,7 @@ function carelib_metabox_post_styles_add( $post_type, $post ) {
 	$styles = carelib_get_post_styles( $post_type );
 	if ( ! empty( $styles ) && current_user_can( 'edit_theme_options' ) ) {
 		add_meta_box(
-			'carelib-post-style',
+			"{$GLOBALS['carelib_prefix']}-post-style",
 			esc_html__( 'Style', 'carelib' ),
 			'carelib_metabox_post_styles_box',
 			$post_type,
