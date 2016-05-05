@@ -19,10 +19,10 @@
 function carelib_get_layouts() {
 	global $_carelib_layouts;
 
-	if ( !is_array( $_carelib_layouts) ){
+	if ( ! is_array( $_carelib_layouts ) ) {
 		$_carelib_layouts = array();
 	} else {
-		foreach( $_carelib_layouts as $id => $data ) {
+		foreach ( $_carelib_layouts as $id => $data ) {
 			/**
 			 * Filter the passed $args for each layout. If no $id is passed, it will effect all
 			 * registered layouts.
@@ -36,7 +36,7 @@ function carelib_get_layouts() {
 				'is_user_layout'   => true,
 				'post_types'       => array(),
 			), $id );
-			$_carelib_layouts[$id] = wp_parse_args( $data, $layout_defaults );
+			$_carelib_layouts[ $id ] = wp_parse_args( $data, $layout_defaults );
 		}
 	}
 
