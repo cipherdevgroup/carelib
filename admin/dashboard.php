@@ -102,7 +102,7 @@ function carelib_is_dashboard_page() {
 		return false;
 	}
 	$screen = get_current_screen();
-	if ( is_object( $screen ) && "dashboard_page_{$GLOBALS['carelib_prefix']}-dashboard" === $screen->base ) {
+	if ( is_object( $screen ) && "appearance_page_{$GLOBALS['carelib_prefix']}-dashboard" === $screen->base ) {
 		return true;
 	}
 	return false;
