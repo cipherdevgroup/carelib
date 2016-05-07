@@ -66,12 +66,12 @@ function carelib_layout_exists( $layout_id ) {
 function carelib_register_layout( $layout_id, $args = array() ) {
 	global $_carelib_layouts;
 
-	if ( ! is_array( $_carelib_layouts ) ) {
-		$_carelib_layouts = array();
-	}
-
 	if ( carelib_layout_exists( $layout_id ) ) {
 		return false;
+	}
+
+	if ( ! is_array( $_carelib_layouts ) ) {
+		$_carelib_layouts = array();
 	}
 
 	/**
