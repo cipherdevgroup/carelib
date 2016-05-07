@@ -44,10 +44,10 @@ class CareLib_Customize_Control_Layout extends CareLib_Customize_Control_Radio_I
 		$allowed = ! empty( $args['layouts'] ) ? $args['layouts'] : array_keys( carelib_get_layouts() );
 
 		// Loop through each of the layouts and add it to the choices array with proper key/value pairs.
-		foreach ( carelib_get_layouts() as $layout ) {
-			if ( in_array( $layout['name'], $allowed, true ) && ! ( 'theme_layout' === $id && false === $layout['is_global_layout'] ) && $layout['image'] ) {
+		foreach ( carelib_get_layouts() as $name => $layout ) {
+			if ( in_array( $name, $allowed, true ) && ! ( 'theme_layout' === $id && false === $layout['is_global_layout'] ) && $layout['image'] ) {
 
-				$args['choices'][ $layout['name'] ] = array(
+				$args['choices'][ $name ] = array(
 					'label' => $layout['label'],
 					'url'   => sprintf( $layout['image'], get_template_directory_uri(), get_stylesheet_directory_uri() ),
 				);

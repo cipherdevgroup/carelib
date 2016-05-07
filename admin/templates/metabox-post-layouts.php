@@ -17,7 +17,7 @@
 ?>
 
 <div class="buttonset">
-	<?php foreach ( carelib_get_layouts() as $layout ) : ?>
+	<?php foreach ( carelib_get_layouts() as $name => $layout ) : ?>
 
 		<?php if ( carelib_layout_has_post_metabox( $layout, $post->post_type ) ) : ?>
 
