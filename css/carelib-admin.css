@@ -5,12 +5,17 @@
 /* Layouts Image Control
 -------------------------------------------- */
 
-#carelib-layouts input[type="radio"] {
+#carelib-layouts .theme-layout input[type="radio"] {
 	clip:     rect(1px, 1px, 1px, 1px);
 	height:   1px;
 	overflow: hidden;
 	position: absolute !important;
 	width:    1px;
+}
+
+#carelib-layouts .default-layout {
+	display: block;
+	padding: 10px 5px;
 }
 
 #carelib-layouts img {

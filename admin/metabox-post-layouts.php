@@ -109,7 +109,7 @@ function carelib_metabox_post_layouts_save( $post_id, $post = '' ) {
 		return false;
 	}
 
-	if ( empty( $input ) ) {
+	if ( empty( $input ) || 'default' === $input ) {
 		return carelib_delete_post_layout( $post_id );
 	}
 

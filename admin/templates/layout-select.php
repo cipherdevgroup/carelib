@@ -8,7 +8,7 @@
  * @since     1.0.0
  */
 ?>
-<label>
+<label class="theme-layout">
 	<span class="screen-reader-text"><?php echo esc_html( $layout['label'] ); ?></span>
 
 	<input type="radio" value="<?php echo esc_attr( $name ); ?>" name="carelib-post-layout" <?php checked( $current_layout, $name ); ?> />

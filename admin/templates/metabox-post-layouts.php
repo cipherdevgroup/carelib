@@ -17,6 +17,11 @@
 ?>
 
 <div class="buttonset">
+	<label id="carelib-default-layout" class="default-layout">
+		<input type="radio" value="default" name="carelib-post-layout" <?php checked( $current_layout, 'default' ); ?> />
+		<span><?php esc_html_e( 'Default Layout' ); ?></span>
+	</label>
+
 	<?php foreach ( carelib_get_layouts() as $name => $layout ) : ?>
 
 		<?php if ( carelib_layout_has_post_metabox( $layout, $post->post_type ) ) : ?>
