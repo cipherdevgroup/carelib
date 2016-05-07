@@ -19,25 +19,8 @@
 function carelib_get_layouts() {
 	global $_carelib_layouts;
 
-	if ( ! is_array( $_carelib_layouts ) ) {
+	if ( ! isset( $_carelib_layouts ) ) {
 		$_carelib_layouts = array();
-	} else {
-		foreach ( $_carelib_layouts as $id => $data ) {
-			/**
-			 * Filter the passed $args for each layout. If no $id is passed, it will effect all
-			 * registered layouts.
-			 */
-			$layout_defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_layout_args", array(
-				'name'             => '',
-				'label'            => '',
-				'image'            => '%s',
-				'is_global_layout' => false,
-				'is_post_layout'   => true,
-				'is_user_layout'   => true,
-				'post_types'       => array(),
-			), $id );
-			$_carelib_layouts[ $id ] = wp_parse_args( $data, $layout_defaults );
-		}
 	}
 
 	return (array) $_carelib_layouts;
@@ -78,18 +61,38 @@ function carelib_layout_exists( $layout_id ) {
  * @access public
  * @param  string $layout_id The ID of the layout to be registered.
  * @param  array  $args The properties of the layout to be registered.
- * @return void
+ * @return bool true if layout has been registered, false otherwise.
  */
 function carelib_register_layout( $layout_id, $args = array() ) {
 	global $_carelib_layouts;
 
-	if ( ! isset( $_carelib_layouts ) ) {
+	if ( ! is_array( $_carelib_layouts ) ) {
 		$_carelib_layouts = array();
 	}
 
-	if ( ! carelib_layout_exists( $layout_id ) ) {
-		$_carelib_layouts[ $layout_id ] = $args;
+	if ( carelib_layout_exists( $layout_id ) ) {
+		return false;
 	}
+
+	/**
+	 * Filter the passed $args for each layout. If no $id is passed, it will effect all
+	 * registered layouts.
+	 */
+	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_layout_args", array(
+		'label'            => '',
+		'image'            => '%s',
+		'default'          => false,
+		'is_global_layout' => false,
+		'is_post_layout'   => true,
+		'is_user_layout'   => true,
+		'post_types'       => array(),
+	), $layout_id );
+
+	$args = array_merge( $defaults, $args );
+
+	$_carelib_layouts[ $layout_id ] = $args;
+
+	return true;
 }
 
 /**
@@ -128,15 +131,20 @@ function carelib_do_register_layouts() {
  * @return boolean|string False if layout is not registered. ID otherwise.
  */
 function carelib_set_default_layout( $name ) {
-
-	$layouts = carelib_get_layouts();
+	global $_carelib_layouts;
 
 	// Don't allow unregistered layouts.
-	if ( ! isset( $layouts[ $name ] ) ) {
+	if ( ! isset( $_carelib_layouts[ $name ] ) ) {
 		return false;
-	} else {
-		return sanitize_title_with_dashes( $name );
 	}
+
+	foreach ( $_carelib_layouts as $id => $layout ) {
+		if ( $name === $id ) {
+			$_carelib_layouts[ $name ]['default'] = true;
+		}
+	}
+
+	return true;
 }
 
 /**
@@ -159,7 +167,11 @@ function carelib_filter_layout( $theme_layout ) {
 		$layout_id = carelib_get_post_layout( get_option( 'page_for_posts' ) );
 	}
 
-	return ! empty( $layout_id ) && 'default' !== $layout_id ? $layout_id : $theme_layout;
+	if ( empty( $layout_id ) || $layout_id === $theme_layout ) {
+		return $theme_layout;
+	}
+
+	return sanitize_key( $layout_id );
 }
 
 /**
@@ -220,12 +232,10 @@ function carelib_get_layout( $layout_id ) {
  * @return string
  */
 function carelib_get_default_layout() {
-	$layouts = carelib_get_layouts();
+	$name = 'default';
 
-	foreach ( (array) $layouts as $id => $object ) {
-		if ( 'default' === $id ) {
-			$name = 'default';
-		} else {
+	foreach ( carelib_get_layouts() as $id => $layout ) {
+		if ( true === $layout['default'] ) {
 			$name = sanitize_title_with_dashes( $id );
 		}
 	}
@@ -364,9 +374,7 @@ function carelib_set_user_layout( $user_id, $layout_id ) {
 function carelib_unregister_layout( $name ) {
 	$layouts = carelib_get_layouts();
 
-	if ( carelib_layout_exists( $name ) ) {
-		unset( $layouts[ $name ] );
-	}
+	unset( $layouts[ $name ] );
 }
 
 /**
