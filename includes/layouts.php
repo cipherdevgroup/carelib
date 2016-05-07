@@ -75,7 +75,7 @@ function carelib_register_layout( $layout_id, $args = array() ) {
 	}
 
 	/**
-	 * Filter the passed $args for each layout. If no $id is passed, it will effect all
+	 * Filter the passed $args for each layout. If no $layout_id is passed, it will effect all
 	 * registered layouts.
 	 */
 	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_layout_args", array(

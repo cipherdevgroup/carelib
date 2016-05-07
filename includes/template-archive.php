@@ -153,18 +153,7 @@ function carelib_get_search_title() {
 }
 
 /**
- * Retrieve the 404 page title.
- *
- * @since  1.0.0
- * @access public
- * @return string
- */
-function carelib_get_404_title() {
-	return esc_html__( '404 Not Found', 'carelib' );
-}
-
-/**
- * Filters `get_the_archve_title` to add better archive titles than core.
+ * Filters `get_the_archive_title` to add better archive titles than core.
  *
  * @since  1.0.0
  * @access public
@@ -208,7 +197,7 @@ function carelib_archive_title( $title ) {
 }
 
 /**
- * Filters `get_the_archve_description` to add better archive descriptions
+ * Filters `get_the_archive_description` to add better archive descriptions
  * than core.
  *
  * @since  1.0.0
