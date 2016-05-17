@@ -79,6 +79,30 @@ function carelib_get_image( $args = array() ) {
 }
 
 /**
+ * Get a unique cache key based on an array of values.
+ *
+ * @since  1.0.0
+ * @access protected
+ * @param  array $array Array to use for generating a cache key.
+ * @return string A hashed key to retrieve a cached image.
+ */
+function _carelib_image_get_cache_key( $array ) {
+	$output = false;
+
+	if ( function_exists( 'wp_json_encode' ) ) {
+		$output = wp_json_encode( $array );
+	} else {
+		$output = serialize( $array );
+	}
+
+	if ( $output ) {
+		$output = md5( $output );
+	}
+
+	return $output;
+}
+
+/**
  * Return the cached image if it exists, otherwise search for the image and set
  * the cache for the next usage.
  *
@@ -90,7 +114,7 @@ function carelib_get_image( $args = array() ) {
 function _carelib_image_get_cached_image( $args ) {
 	global $carelib_prefix;
 
-	$key = md5( serialize( compact( array_keys( $args ) ) ) );
+	$key = _carelib_image_get_cache_key( $args );
 
 	$cache = (array) wp_cache_get( $args['post_id'], "{$carelib_prefix}_image" );
 
