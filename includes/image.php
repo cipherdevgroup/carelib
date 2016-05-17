@@ -118,7 +118,7 @@ function _carelib_image_get_cached_image( $args ) {
 
 	$cache = (array) wp_cache_get( $args['post_id'], "{$carelib_prefix}_image" );
 
-	if ( isset( $cache[ $key ] ) ) {
+	if ( $key && isset( $cache[ $key ] ) ) {
 		return $cache[ $key ];
 	}
 
