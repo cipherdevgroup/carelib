@@ -45,7 +45,7 @@ function carelib_get_image( $args = array() ) {
 			'featured'          => true,
 			'attachment'        => true,
 			'size'              => has_image_size( 'post-thumbnail' ) ? 'post-thumbnail': 'thumbnail',
-			'srcset_sizes'      => array(),
+			'responsive'        => true,
 			'default_image'     => false,
 			'link_to_post'      => true,
 			'link_class'        => false,
@@ -302,7 +302,7 @@ function _carelib_image_format_class( $class ) {
  * @return string a formatted html srcset attribute.
  */
 function _carelib_image_format_srcset( $image ) {
-	return empty( $image['srcset'] ) ? '' : sprintf( ' srcset="%s"', esc_attr( join( ', ', $image['srcset'] ) ) );
+	return empty( $image['srcset'] ) ? '' : sprintf( ' srcset="%s"', esc_attr( $image['srcset'] ) );
 }
 
 /**
@@ -512,24 +512,12 @@ function _carelib_image_get_by_attachment( $args ) {
  * @param  int $id The ID of the current attachment.
  * @return false|array A list of srcset image sizes.
  */
-function _carelib_image_get_srcset( $id ) {
-	if ( empty( $args['srcset_sizes'] ) ) {
+function _carelib_image_get_srcset( $id, $args ) {
+	if ( ! $args['responsive'] || ! function_exists( 'wp_get_attachment_image_srcset' ) ) {
 		return false;
 	}
 
-	$srcsets = array();
-	foreach ( $args['srcset_sizes'] as $size => $descriptor ) {
-
-		$image = wp_get_attachment_image_src( $id, $size );
-
-		// Make sure image doesn't match the image used for the `src` attribute.
-		// This will happen often if the particular image size doesn't exist.
-		if ( $image['src'] !== $image[0] ) {
-			$srcsets[] = sprintf( '%s %s', esc_url( $image[0] ), esc_attr( $descriptor ) );
-		}
-	}
-
-	return $srcsets;
+	return wp_get_attachment_image_srcset( $id, $args['size'] );
 }
 
 /**
@@ -562,7 +550,7 @@ function _carelib_image_get_attachment( $id, $args ) {
 		'height'  => $image[2],
 		'alt'     => trim( esc_attr( $alt, true ) ),
 		'caption' => get_post_field( 'post_excerpt', $id ),
-		'srcset'  => _carelib_image_get_srcset( $id, $image ),
+		'srcset'  => _carelib_image_get_srcset( $id, $args ),
 	);
 }
 
