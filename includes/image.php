@@ -114,8 +114,7 @@ function _carelib_image_get_cache_key( $array ) {
 function _carelib_image_get_cached_image( $args ) {
 	global $carelib_prefix;
 
-	$key = _carelib_image_get_cache_key( $args );
-
+	$key   = _carelib_image_get_cache_key( $args );
 	$cache = (array) wp_cache_get( $args['post_id'], "{$carelib_prefix}_image" );
 
 	if ( $key && isset( $cache[ $key ] ) ) {
@@ -127,9 +126,10 @@ function _carelib_image_get_cached_image( $args ) {
 	if ( $image ) {
 		$image = _carelib_image_format_image( $args, $image );
 
-		$cache[ $key ] = $image;
-
-		wp_cache_set( $args['post_id'], $cache, "{$carelib_prefix}_image" );
+		if ( $key ) {
+			$cache[ $key ] = $image;
+			wp_cache_set( $args['post_id'], $cache, "{$carelib_prefix}_image" );
+		}
 	}
 
 	return $image;
