@@ -240,33 +240,6 @@ function _carelib_image_get_size( $args, $image, $type ) {
 }
 
 /**
- * Build a sanitized string of html classes for our grabbed image.
- *
- * @since  1.0.0
- * @access protected
- * @param  array $args Arguments for how to load and display the image.
- * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
- * @return string a formatted string of sanitized HTML classes.
- */
-function _carelib_image_build_classes( $args, $image ) {
-	$format = 'landscape';
-	if ( _carelib_image_get_size( $args, $image, 'height' ) > _carelib_image_get_size( $args, $image, 'width' ) ) {
-		$format = 'portrait';
-	}
-	$classes = array(
-		$format,
-		$args['size'],
-		$args['image_class'],
-	);
-
-	foreach ( (array) $args['meta_key'] as $key ) {
-		$classes[] = $key;
-	}
-
-	return trim( join( ' ', array_unique( _carelib_image_sanitize_classes( $classes ) ) ) );
-}
-
-/**
  * Return a formatted image size attribute.
  *
  * @since  1.0.0
@@ -282,27 +255,31 @@ function _carelib_image_format_size( $args, $image, $type ) {
 }
 
 /**
- * Return a formatted html class attribute.
+ * Build a sanitized string of html classes for our grabbed image.
  *
  * @since  1.0.0
  * @access protected
- * @param  string $class the class attribute to format.
- * @return string a formatted html class.
+ * @param  array $args Arguments for how to load and display the image.
+ * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+ * @return string a formatted string of sanitized HTML classes.
  */
-function _carelib_image_format_class( $class ) {
-	return empty( $class ) ? '' : ' class="' . sanitize_html_class( $class ) . '"';
-}
+function _carelib_image_build_classes( $args, $image ) {
+	$format = 'landscape';
+	if ( _carelib_image_get_size( $args, $image, 'height' ) > _carelib_image_get_size( $args, $image, 'width' ) ) {
+		$format = 'portrait';
+	}
 
-/**
- * Return a formatted image srcset attribute.
- *
- * @since  1.0.0
- * @access protected
- * @param  array $image the array of image values to format.
- * @return string a formatted html srcset attribute.
- */
-function _carelib_image_format_srcset( $image ) {
-	return empty( $image['srcset'] ) ? '' : sprintf( ' srcset="%s"', esc_attr( $image['srcset'] ) );
+	$classes = array(
+		$format,
+		$args['size'],
+		$args['image_class'],
+	);
+
+	foreach ( (array) $args['meta_key'] as $key ) {
+		$classes[] = $key;
+	}
+
+	return trim( join( ' ', array_unique( _carelib_image_sanitize_classes( $classes ) ) ) );
 }
 
 /**
@@ -319,11 +296,45 @@ function _carelib_image_maybe_add_link_wrapper( $html, $args ) {
 	if ( ! $args['link_to_post'] ) {
 		return $html;
 	}
-	return sprintf( '<a href="%s"%s>%s</a>',
-		get_permalink( $args['post_id'] ),
-		_carelib_image_format_class( $args['link_class'] ),
+
+	$attr = array(
+		'href' => get_permalink( $args['post_id'] ),
+	);
+
+	if ( ! empty( $args['link_class'] ) ) {
+		$attr['class'] = $args['link_class'];
+	}
+
+	return sprintf( '<a %s>%s</a>',
+		carelib_get_attr( 'image-link-wrapper', '', $attr ),
 		$html
 	);
+}
+
+function _carelib_image_get_default_attr( $args, $image ) {
+	$attr = array(
+		'src'   => $image['src'],
+		'alt'   => empty( $image['alt'] ) ? get_the_title( $args['post_id'] ) : $image['alt'],
+		'class' => _carelib_image_build_classes( $args, $image ),
+	);
+
+	if ( $image['srcset'] ) {
+		$attr['srcset'] = $image['srcset'];
+
+		if ( $image['sizes'] ) {
+			$attr['sizes'] = $image['sizes'];
+		}
+	}
+
+	if ( $width = _carelib_image_get_size( $args, $image, 'width' ) ) {
+		$attr['width'] = $width;
+	}
+
+	if ( $height = _carelib_image_get_size( $args, $image, 'height' ) ) {
+		$attr['height'] = $height;
+	}
+
+	return $attr;
 }
 
 /**
@@ -336,14 +347,6 @@ function _carelib_image_maybe_add_link_wrapper( $html, $args ) {
  * @return string $image Formatted image markup.
  */
 function _carelib_image_format_image_html( $args, $image ) {
-	$image_alt = '';
-
-	if ( ! empty( $image['alt'] ) ) {
-		$image_alt = $image['alt'];
-	} else {
-		$image_alt = get_the_title( $args['post_id'] );
-	}
-
 	if ( isset( $image['post_thumbnail_id'] ) ) {
 		do_action( 'begin_fetch_post_thumbnail_html',
 			$args['post_id'],
@@ -352,13 +355,8 @@ function _carelib_image_format_image_html( $args, $image ) {
 		);
 	}
 
-	$html = sprintf( '<img src="%s" alt="%s" class="%s" %s%s%s />',
-		$image['src'],
-		esc_attr( $image_alt, true ),
-		_carelib_image_build_classes( $args, $image ),
-		_carelib_image_format_srcset( $image ),
-		_carelib_image_format_size( $args, $image, 'width' ),
-		_carelib_image_format_size( $args, $image, 'height' )
+	$html = sprintf( '<img %s />',
+		carelib_get_attr( 'image', '', _carelib_image_get_default_attr( $args, $image ) )
 	);
 
 	if ( isset( $image['post_thumbnail_id'] ) ) {
@@ -520,6 +518,14 @@ function _carelib_image_get_srcset( $id, $args ) {
 	return wp_get_attachment_image_srcset( $id, $args['size'] );
 }
 
+function _carelib_image_get_sizes( $id, $args ) {
+	if ( ! $args['responsive'] || ! function_exists( 'wp_get_attachment_image_srcset' ) ) {
+		return false;
+	}
+
+	return wp_get_attachment_image_sizes( $id, $args['size'] );
+}
+
 /**
  * Get a WordPress image attachment.
  *
@@ -551,6 +557,7 @@ function _carelib_image_get_attachment( $id, $args ) {
 		'alt'     => trim( esc_attr( $alt, true ) ),
 		'caption' => get_post_field( 'post_excerpt', $id ),
 		'srcset'  => _carelib_image_get_srcset( $id, $args ),
+		'sizes'   => _carelib_image_get_sizes( $id, $args ),
 	);
 }
 
