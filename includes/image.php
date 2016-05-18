@@ -240,21 +240,6 @@ function _carelib_image_get_size( $args, $image, $type ) {
 }
 
 /**
- * Return a formatted image size attribute.
- *
- * @since  1.0.0
- * @access protected
- * @param  array  $args Arguments for how to load and display the image.
- * @param  array  $image Array of image attributes ($image, $classes, $alt, $caption).
- * @param  string $type the type of attribute being formatted (height or width).
- * @return string a formatted image size attribute of height or width.
- */
-function _carelib_image_format_size( $args, $image, $type ) {
-	$size = _carelib_image_get_size( $args, $image, $type );
-	return empty( $size ) ? '' : ' ' . esc_attr( $type ) . '="' . esc_attr( $size ) . '"';
-}
-
-/**
  * Build a sanitized string of html classes for our grabbed image.
  *
  * @since  1.0.0
