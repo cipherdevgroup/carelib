@@ -150,6 +150,13 @@ add_action( 'wp_head', 'carelib_link_pingback', 2 );
 /**
  * Callback defined in includes/head.php
  *
+ * @see carelib_meta_ios_phone_formatting
+ */
+add_action( 'wp_head', 'carelib_meta_ios_phone_formatting', 3 );
+
+/**
+ * Callback defined in includes/head.php
+ *
  * @see carelib_canihas_js
  */
-add_action( 'wp_head', 'carelib_canihas_js', 3 );
+add_action( 'wp_head', 'carelib_canihas_js', 4 );

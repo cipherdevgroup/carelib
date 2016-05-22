@@ -9,7 +9,7 @@
  */
 
 /**
- * Adds the meta charset to the header.
+ * Output a meta meta tag to set the charset.
  *
  * @since  1.0.0
  * @access public
@@ -20,7 +20,7 @@ function carelib_meta_charset() {
 }
 
 /**
- * Adds the meta viewport to the header.
+ * Output a meta meta tag to set the viewport width and initial scale.
  *
  * @since  1.0.0
  * @access public
@@ -30,7 +30,18 @@ function carelib_meta_viewport() {
 }
 
 /**
- * Adds the pingback link to the header.
+ * Output a meta meta tag to prevent iOS devices from auto-formatting phone
+ * numbers by default.
+ *
+ * @since  1.0.0
+ * @access public
+ */
+function carelib_meta_ios_phone_formatting() {
+	echo '<meta name="format-detection" content="telephone=no">' . "\n";
+}
+
+/**
+ * Output the pingback link.
  *
  * @since  1.0.0
  * @access public
