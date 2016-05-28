@@ -92,4 +92,14 @@ if ( ! isset( $GLOBALS['_carelib_layouts'] ) ) {
 
 $GLOBALS['carelib_prefix'] = sanitize_key( $GLOBALS['carelib_prefix'] );
 
-require_once CARELIB_DIR . 'includes/init.php';
+add_action( 'after_setup_theme', 'carelib_init', -95 );
+/**
+ * Load and initialize all library functionality.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
+function carelib_init() {
+	require_once CARELIB_DIR . 'includes/init.php';
+}
