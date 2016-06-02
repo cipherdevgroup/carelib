@@ -427,65 +427,6 @@ function carelib_null_entry_containers() {
 }
 
 /**
- * Return null with a unique namespace to target when unhooking.
- *
- * @since  1.0.0
- * @access public
- * @return null
- */
-function carelib_return_null() {
-	return null;
-}
-
-/**
- * A hookable wrapper around a namespaced null filter for `the_content`.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
-function carelib_null_the_content() {
-	add_filter( 'the_content', 'carelib_return_null' );
-}
-
-/**
- * A hookable wrapper around removing namespaced null filter for `the_content`.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
-function carelib_unnull_the_content() {
-	remove_filter( 'the_content', 'carelib_return_null' );
-}
-
-/**
- * Filter the WordPress content to null between the entry_content_before
- * and entrY_content_after hook locations.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
-function carelib_null_entry_content() {
-	add_action( 'tha_entry_content_before', 'carelib_null_the_content', 99 );
-	add_action( 'tha_entry_content_after',  'carelib_unnull_the_content', 5 );
-}
-
-/**
- * Remove all actions from THA entry hooks and filter the WordPress post
- * content to return null.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
-function carelib_null_entry() {
-	carelib_null_entry_containers();
-	carelib_null_entry_content();
-}
-
-/**
  * Determine if the current view should contain entry footer meta.
  *
  * @since  1.0.0

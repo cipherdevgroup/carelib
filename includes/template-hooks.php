@@ -50,6 +50,17 @@ function carelib_entry_header_meta() {
 }
 
 /**
+ * Add a custom hook for the entry content.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
+function carelib_entry_content() {
+	do_action( "{$GLOBALS['carelib_prefix']}_entry_content" );
+}
+
+/**
  * Add a custom hook for the entry footer if the current view has an entry footer.
  *
  * @since  1.0.0
