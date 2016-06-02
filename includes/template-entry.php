@@ -445,7 +445,7 @@ function carelib_return_null() {
  * @return void
  */
 function carelib_null_the_content() {
-	add_filter( 'the_content', 'carelib_null_the_content' );
+	add_filter( 'the_content', 'carelib_return_null' );
 }
 
 /**
@@ -456,7 +456,7 @@ function carelib_null_the_content() {
  * @return void
  */
 function carelib_unnull_the_content() {
-	remove_filter( 'the_content', 'carelib_null_the_content' );
+	remove_filter( 'the_content', 'carelib_return_null' );
 }
 
 /**
