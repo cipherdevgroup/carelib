@@ -75,9 +75,6 @@ function carelib_attr_body( $attr ) {
 	$attr['itemscope'] = 'itemscope';
 	$attr['itemtype']  = 'http://schema.org/WebPage';
 
-	if ( is_singular( 'post' ) || is_home() || is_archive() ) {
-		$attr['itemtype'] = 'http://schema.org/Blog';
-	}
 	if ( is_search() ) {
 		$attr['itemtype'] = 'http://schema.org/SearchResultsPage';
 	}
@@ -414,21 +411,12 @@ function carelib_attr_post( $attr ) {
 	$attr['class'] = 'entry';
 
 	$post = get_post();
-	if ( is_object( $post ) ) {
+
+	if ( $post instanceof WP_Post ) {
 		$attr['id']        = 'post-' . get_the_ID();
 		$attr['class']     = join( ' ', get_post_class() );
 		$attr['itemscope'] = 'itemscope';
 		$attr['itemtype']  = 'http://schema.org/CreativeWork';
-
-		if ( 'post' === get_post_type() ) {
-			$attr['itemtype']  = 'http://schema.org/BlogPosting';
-			if ( is_main_query() && ! is_search() ) {
-				$attr['itemprop'] = 'blogPost';
-			}
-		}
-		if ( 'attachment' === get_post_type() && wp_attachment_is_image() ) {
-			$attr['itemtype'] = 'http://schema.org/ImageObject';
-		}
 	}
 
 	return $attr;
@@ -494,10 +482,6 @@ function carelib_attr_entry_published( $attr ) {
 function carelib_attr_entry_content( $attr ) {
 	$attr['itemprop'] = 'text';
 
-	if ( 'post' === get_post_type() ) {
-		$attr['itemprop'] = 'articleBody';
-	}
-
 	return $attr;
 }
 
@@ -527,9 +511,6 @@ function carelib_attr_entry_summary( $attr ) {
  */
 function carelib_attr_entry_terms( $attr, $context ) {
 	if ( ! empty( $context ) ) {
-		if ( 'category' === $context ) {
-			$attr['itemprop'] = 'articleSection';
-		}
 		if ( 'post_tag' === $context ) {
 			$attr['itemprop'] = 'keywords';
 		}
