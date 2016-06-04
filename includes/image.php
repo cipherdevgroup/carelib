@@ -21,11 +21,11 @@
  *     @type bool   $featured Whether or not to use core's featured image.
  *     @type bool   $attachment Whether or not to fall back to the first attached image.
  *     @type string $size The image size to display.
- *     @type array  $srcset_sizes An array of additional sizes to use within a srcset.
+ *     @type array  $responsive Whether or not to make the image responsive.
  *     @type bool|string $default_image URI to a default fallback image for when none is found.
  *     @type bool   $link_to_post Whether to link to the post associated with the image.
- *     @type bool   $link_class The class to be applied to the link wrapping the image.
- *     @type bool   $image_class The class to be applied to the image markup.
+ *     @type bool   $link_attr The attributes to be applied to the link wrapping the image.
+ *     @type bool   $image_attr The attributes to be applied to the image markup.
  *     @type bool   $width The width of the image to grab.
  *     @type bool   $height The height of the image to grab.
  *     @type bool   $format The format of the image to be returned. Can be img or array.
@@ -48,8 +48,8 @@ function carelib_get_image( $args = array() ) {
 			'responsive'        => true,
 			'default_image'     => false,
 			'link_to_post'      => true,
-			'link_class'        => false,
-			'image_class'       => false,
+			'link_attr'         => false,
+			'image_attr'        => false,
 			'width'             => false,
 			'height'            => false,
 			'format'            => 'img',
@@ -257,7 +257,6 @@ function _carelib_image_build_classes( $args, $image ) {
 	$classes = array(
 		$format,
 		$args['size'],
-		$args['image_class'],
 	);
 
 	foreach ( (array) $args['meta_key'] as $key ) {
@@ -286,8 +285,8 @@ function _carelib_image_maybe_add_link_wrapper( $html, $args ) {
 		'href' => get_permalink( $args['post_id'] ),
 	);
 
-	if ( ! empty( $args['link_class'] ) ) {
-		$attr['class'] = $args['link_class'];
+	if ( ! empty( $args['link_attr'] ) ) {
+		$attr = array_merge( $attr, $args['link_attr'] );
 	}
 
 	return sprintf( '<a %s>%s</a>',
@@ -342,8 +341,14 @@ function _carelib_image_format_image_html( $args, $image ) {
 		);
 	}
 
+	$attr = _carelib_image_get_default_attr( $args, $image );
+
+	if ( ! empty( $args['image_attr'] ) ) {
+		$attr = array_merge( $attr, $args['image_attr'] );
+	}
+
 	$html = sprintf( '<img %s />',
-		carelib_get_attr( 'image', '', _carelib_image_get_default_attr( $args, $image ) )
+		carelib_get_attr( 'image', '', $attr )
 	);
 
 	if ( isset( $image['post_thumbnail_id'] ) ) {
