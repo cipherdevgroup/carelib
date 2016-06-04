@@ -20,8 +20,6 @@ function carelib_get_attachment_image() {
 		return false;
 	}
 
-	carelib_null_the_content();
-
 	$image = wp_get_attachment_image(
 		get_the_ID(),
 		'full',
