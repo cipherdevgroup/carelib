@@ -477,7 +477,7 @@ function _carelib_is_post_layout_forced( $post_id = '' ) {
 	}
 
 	foreach ( $post_ids as $id ) {
-		if ( $id === $post_id ) {
+		if ( (int) $id === (int) $post_id ) {
 			return true;
 		}
 	}
