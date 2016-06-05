@@ -61,14 +61,89 @@ function carelib_maybe_disable_post_layout_metabox( $post_type, $post ) {
 	}
 }
 
+/**
+ * Determine whether the layout is forced on the current page.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string $post_type The post type of the current post.
+ * @return bool true if the current post type layout is forced, false otherwise
+ */
+function _carelib_is_post_type_layout_forced( $post_type = '' ) {
+	$post_types = (array) apply_filters( "{$GLOBALS['carelib_prefix']}_forced_post_types", array() );
+
+	if ( empty( $post_type ) ) {
+		$post_type = get_post_type();
+	}
+
+	foreach ( $post_types as $type ) {
+		if ( $post_type === $type ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Determine whether the layout is forced on the current page.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int $post_id The post ID for the post to be checked.
+ * @return bool true if the current post layout is forced, false otherwise
+ */
+function _carelib_is_post_layout_forced( $post_id = '' ) {
+	$post_ids = (array) apply_filters( "{$GLOBALS['carelib_prefix']}_forced_post_ids", array() );
+
+	if ( empty( $post_id ) ) {
+		$post_id = get_the_ID();
+	}
+
+	foreach ( $post_ids as $id ) {
+		if ( (int) $id === (int) $post_id ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Determine whether the layout is forced on the current page.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int $post_id The post ID for the post to be checked.
+ * @return bool true if the current page template layout is forced, false otherwise
+ */
+function _carelib_is_template_layout_forced( $post_id = '' ) {
+	$templates = (array) apply_filters( "{$GLOBALS['carelib_prefix']}_forced_templates", array() );
+
+	if ( empty( $post_id ) ) {
+		$post_id = get_the_ID();
+	}
+
+	foreach ( $templates as $template ) {
+		if ( get_page_template_slug( $post_id ) === $template ) {
+			return true;
+		}
+
+		if ( carelib_get_post_template( $post_id ) === $template ) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 /**
  * Disable the layout meta box if the current page uses a forced layout.
  *
  * @since  0.1.0
  * @access public
- * @param  string  $post_type The post type of the current post.
- * @param  WP_Post $post The post type object of the current post.
+ * @param  string $post_type The post type of the current post.
+ * @param  int    $post_id The post ID of the current postt.
  * @return bool
  */
 function _carelib_admin_is_layout_forced( $post_type, $post_id ) {
