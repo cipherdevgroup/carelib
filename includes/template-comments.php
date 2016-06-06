@@ -9,51 +9,6 @@
  */
 
 /**
- * Adds microdata to the comment author link.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $link
- * @return string
- */
-function carelib_get_comment_author_link( $link ) {
-	$pattern = array(
-		'/(class=[\'"])(.+?)([\'"])/i',
-		'/(<a.*?)(>)/i',
-		'/(<a.*?>)(.*?)(<\/a>)/i',
-	);
-
-	$replace = array(
-		'$1$2 fn n$3',
-		'$1 itemprop="url"$2',
-		'$1<span itemprop="name">$2</span>$3',
-	);
-
-	return preg_replace( $pattern, $replace, $link );
-}
-
-/**
- * Adds microdata to the comment author URL link.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $link
- * @return string
- */
-function carelib_get_comment_author_url_link( $link ) {
-	$pattern = array(
-		'/(class=[\'"])(.+?)([\'"])/i',
-		'/(<a.*?)(>)/i',
-	);
-	$replace = array(
-		'$1$2 fn n$3',
-		'$1 itemprop="url"$2',
-	);
-
-	return preg_replace( $pattern, $replace, $link );
-}
-
-/**
  * Uses the $comment_type to determine which comment template should be used.
  * Once the template is located, it is loaded for use.
  *

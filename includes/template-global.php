@@ -134,18 +134,6 @@ function carelib_get_skip_link( $target, $args = array() ) {
 }
 
 /**
- * Adds microdata to avatars.
- *
- * @since  1.0.0
- * @access public
- * @param  string $avatar
- * @return string
- */
-function carelib_get_avatar( $avatar ) {
-	return preg_replace( '/(<img.*?)(\/>)/i', '$1itemprop="image" $2', $avatar );
-}
-
-/**
  * Return an arbitrary widget as a template tag.
  *
  * This is literally just an output buffer around WordPress core's the_widget

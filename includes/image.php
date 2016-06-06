@@ -300,7 +300,6 @@ function _carelib_image_get_default_attr( $args, $image ) {
 		'id'       => "image-{$args['post_id']}",
 		'src'      => $image['src'],
 		'alt'      => empty( $image['alt'] ) ? get_the_title( $args['post_id'] ): $image['alt'],
-		'itemprop' => 'image',
 		'class'    => _carelib_image_build_classes( $args, $image ),
 	);
 

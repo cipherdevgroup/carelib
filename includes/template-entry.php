@@ -54,7 +54,7 @@ function _carelib_get_formatted_title( $id = '', $link = '' ) {
 		$link = get_permalink( absint( $post_id ) );
 	}
 
-	return sprintf( '<a href="%s" rel="bookmark" itemprop="url">%s</a>',
+	return sprintf( '<a href="%s">%s</a>',
 		esc_url( $link ),
 		$title
 	);
@@ -290,18 +290,6 @@ function carelib_excerpt_more( $text ) {
 }
 
 /**
- * Add an image itemprop to attachment images.
- *
- * @since  1.0.0
- * @param  array $attr Existing attributes.
- * @return array Amended attributes.
- */
-function carelib_attachment_image_itemprop( $attr ) {
-	$attr['itemprop'] = 'image';
-	return $attr;
-}
-
-/**
  * Wraps the output of `wp_link_pages()` with `<p class="page-links">` if
  * it's simply wrapped in a `<p>` tag.
  *
@@ -327,28 +315,6 @@ function carelib_link_pages_args( $args ) {
  */
 function carelib_link_pages_link( $link ) {
 	return 0 !== strpos( $link, '<a' ) ? "<span class='page-numbers'>{$link}</span>" : $link;
-}
-
-/**
- * Adds microdata to the author posts link.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $link
- * @return string
- */
-function carelib_the_author_posts_link( $link ) {
-	$pattern = array(
-		'/(<a.*?)(>)/i',
-		'/(<a.*?>)(.*?)(<\/a>)/i',
-	);
-
-	$replace = array(
-		'$1 class="url fn n" itemprop="url"$2',
-		'$1<span itemprop="name">$2</span>$3',
-	);
-
-	return preg_replace( $pattern, $replace, $link );
 }
 
 /**

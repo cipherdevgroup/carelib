@@ -29,18 +29,9 @@ carelib_add_the_content_filters( "{$carelib_prefix}_archive_description" );
 add_filter( 'excerpt_more',          'carelib_excerpt_more', 5 );
 add_filter( 'the_content_more_link', 'carelib_excerpt_more', 5 );
 
-// Add an itemprop of "image" to WordPress attachment images.
-add_filter( 'wp_get_attachment_image_attributes', 'carelib_attachment_image_itemprop' );
-
 // Modifies the arguments and output of wp_link_pages().
 add_filter( 'wp_link_pages_args', 'carelib_link_pages_args', 5 );
 add_filter( 'wp_link_pages_link', 'carelib_link_pages_link', 5 );
-
-// Filters to add microdata support to common template tags.
-add_filter( 'the_author_posts_link',          'carelib_the_author_posts_link',          5 );
-add_filter( 'get_comment_author_link',        'carelib_get_comment_author_link',        5 );
-add_filter( 'get_comment_author_url_link',    'carelib_get_comment_author_url_link',    5 );
-add_filter( 'get_avatar',                     'carelib_get_avatar',                     5 );
 
 add_filter( "{$carelib_prefix}_attr_head",           'carelib_attr_head',           5 );
 add_filter( "{$carelib_prefix}_attr_body",           'carelib_attr_body',           5 );
@@ -61,27 +52,16 @@ add_filter( "{$carelib_prefix}_attr_site-branding",    'carelib_attr_site_brandi
 add_filter( "{$carelib_prefix}_attr_site-title",       'carelib_attr_site_title',       5 );
 add_filter( "{$carelib_prefix}_attr_site-description", 'carelib_attr_site_description', 5 );
 
-// Archive page header attributes.
-add_filter( "{$carelib_prefix}_attr_archive-header",      'carelib_attr_archive_header',      5 );
-add_filter( "{$carelib_prefix}_attr_archive-title",       'carelib_attr_archive_title',       5 );
-add_filter( "{$carelib_prefix}_attr_archive-description", 'carelib_attr_archive_description', 5 );
-
 // Post-specific attributes.
 add_filter( "{$carelib_prefix}_attr_post",            'carelib_attr_post',            5 );
 add_filter( "{$carelib_prefix}_attr_entry",           'carelib_attr_post',            5 ); // Alternate for "post".
-add_filter( "{$carelib_prefix}_attr_entry-title",     'carelib_attr_entry_title',     5 );
-add_filter( "{$carelib_prefix}_attr_entry-author",    'carelib_attr_entry_author',    5 );
 add_filter( "{$carelib_prefix}_attr_entry-published", 'carelib_attr_entry_published', 5 );
-add_filter( "{$carelib_prefix}_attr_entry-content",   'carelib_attr_entry_content',   5 );
 add_filter( "{$carelib_prefix}_attr_entry-summary",   'carelib_attr_entry_summary',   5 );
-add_filter( "{$carelib_prefix}_attr_entry-terms",     'carelib_attr_entry_terms',     5, 2 );
 
 // Comment specific attributes.
 add_filter( "{$carelib_prefix}_attr_comment",           'carelib_attr_comment',           5 );
-add_filter( "{$carelib_prefix}_attr_comment-author",    'carelib_attr_comment_author',    5 );
 add_filter( "{$carelib_prefix}_attr_comment-published", 'carelib_attr_comment_published', 5 );
 add_filter( "{$carelib_prefix}_attr_comment-permalink", 'carelib_attr_comment_permalink', 5 );
-add_filter( "{$carelib_prefix}_attr_comment-content",   'carelib_attr_comment_content',   5 );
 
 add_filter( 'template_include',    'carelib_index_include',      95 );
 add_filter( 'single_template',     'carelib_singular_template',   5 );

@@ -70,14 +70,8 @@ function carelib_get_attr( $slug, $context = '', $attr = array() ) {
  * @return array
  */
 function carelib_attr_body( $attr ) {
-	$attr['class']     = join( ' ', get_body_class() );
-	$attr['dir']       = is_rtl() ? 'rtl' : 'ltr';
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/WebPage';
-
-	if ( is_search() ) {
-		$attr['itemtype'] = 'http://schema.org/SearchResultsPage';
-	}
+	$attr['class'] = join( ' ', get_body_class() );
+	$attr['dir']   = is_rtl() ? 'rtl' : 'ltr';
 
 	return $attr;
 }
@@ -91,10 +85,7 @@ function carelib_attr_body( $attr ) {
  * @return array
  */
 function carelib_attr_site_header( $attr ) {
-	$attr['id']        = 'site-header';
-	$attr['role']      = 'banner';
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/WPHeader';
+	$attr['id'] = 'site-header';
 
 	return $attr;
 }
@@ -136,10 +127,7 @@ function carelib_attr_site_inner( $attr ) {
  * @return array
  */
 function carelib_attr_site_footer( $attr ) {
-	$attr['id']        = 'site-footer';
-	$attr['role']      = 'contentinfo';
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/WPFooter';
+	$attr['id'] = 'site-footer';
 
 	return $attr;
 }
@@ -153,12 +141,7 @@ function carelib_attr_site_footer( $attr ) {
  * @return array
  */
 function carelib_attr_content( $attr ) {
-	$attr['id']   = 'content';
-	$attr['role'] = 'main';
-
-	if ( ! is_singular( 'post' ) && ! is_home() && ! is_archive() ) {
-		$attr['itemprop'] = 'mainContentOfPage';
-	}
+	$attr['id'] = 'content';
 
 	return $attr;
 }
@@ -190,8 +173,6 @@ function carelib_attr_skip_link( $attr, $context ) {
  * @return array
  */
 function carelib_attr_sidebar( $attr, $context ) {
-	$attr['role'] = 'complementary';
-
 	if ( ! empty( $context ) ) {
 
 		$attr['class'] .= " sidebar-{$context}";
@@ -202,9 +183,6 @@ function carelib_attr_sidebar( $attr, $context ) {
 			$attr['aria-label'] = esc_attr( sprintf( _x( '%s Sidebar', 'sidebar aria label', 'carelib' ), $name ) );
 		}
 	}
-
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/WPSideBar';
 
 	return $attr;
 }
@@ -219,7 +197,6 @@ function carelib_attr_sidebar( $attr, $context ) {
  * @return array
  */
 function carelib_attr_button( $attr, $context ) {
-	$attr['role']          = 'button';
 	$attr['aria-expanded'] = 'false';
 	$attr['aria-pressed']  = 'false';
 
@@ -259,8 +236,6 @@ function carelib_attr_menu_toggle( $attr, $context ) {
  * @return array
  */
 function carelib_attr_menu( $attr, $context ) {
-	$attr['role']  = 'navigation';
-
 	if ( ! empty( $context ) ) {
 		$attr['id'] = "menu-{$context}";
 
@@ -269,9 +244,6 @@ function carelib_attr_menu( $attr, $context ) {
 			$attr['aria-label'] = esc_attr( sprintf( _x( '%s Menu', 'nav menu aria label', 'carelib' ), $menu_name ) );
 		}
 	}
-
-	$attr['itemscope']  = 'itemscope';
-	$attr['itemtype']   = 'http://schema.org/SiteNavigationElement';
 
 	return $attr;
 }
@@ -287,26 +259,9 @@ function carelib_attr_menu( $attr, $context ) {
  * @return array
  */
 function carelib_attr_nav( $attr, $context ) {
-	$attr['role']  = 'navigation';
-
 	if ( ! empty( $context ) ) {
 		$attr['id'] = "nav-{$context}";
 	}
-
-	return $attr;
-}
-
-/**
- * <head> attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_head( $attr ) {
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/WebSite';
 
 	return $attr;
 }
@@ -334,8 +289,7 @@ function carelib_attr_site_branding( $attr ) {
  * @return array
  */
 function carelib_attr_site_title( $attr ) {
-	$attr['id']       = 'site-title';
-	$attr['itemprop'] = 'headline';
+	$attr['id'] = 'site-title';
 
 	return $attr;
 }
@@ -349,51 +303,7 @@ function carelib_attr_site_title( $attr ) {
  * @return array
  */
 function carelib_attr_site_description( $attr ) {
-	$attr['id']       = 'site-description';
-	$attr['itemprop'] = 'description';
-
-	return $attr;
-}
-
-/**
- * Archive header attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_archive_header( $attr ) {
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/WebPageElement';
-
-	return $attr;
-}
-
-/**
- * Archive title attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_archive_title( $attr ) {
-	$attr['itemprop'] = 'headline';
-
-	return $attr;
-}
-
-/**
- * Archive description attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_archive_description( $attr ) {
-	$attr['itemprop'] = 'text';
+	$attr['id'] = 'site-description';
 
 	return $attr;
 }
@@ -415,39 +325,7 @@ function carelib_attr_post( $attr ) {
 	if ( $post instanceof WP_Post ) {
 		$attr['id']        = 'post-' . get_the_ID();
 		$attr['class']     = join( ' ', get_post_class() );
-		$attr['itemscope'] = 'itemscope';
-		$attr['itemtype']  = 'http://schema.org/CreativeWork';
 	}
-
-	return $attr;
-}
-
-/**
- * Post title attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_entry_title( $attr ) {
-	$attr['itemprop'] = 'headline';
-
-	return $attr;
-}
-
-/**
- * Post author attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_entry_author( $attr ) {
-	$attr['itemprop']  = 'author';
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/Person';
 
 	return $attr;
 }
@@ -463,24 +341,9 @@ function carelib_attr_entry_author( $attr ) {
 function carelib_attr_entry_published( $attr ) {
 	$attr['class']    = 'entry-published updated';
 	$attr['datetime'] = get_the_time( 'Y-m-d\TH:i:sP' );
-	$attr['itemprop'] = 'datePublished';
 
 	// Translators: Post date/time "title" attribute.
 	$attr['title'] = get_the_time( _x( 'l, F j, Y, g:i a', 'post time format', 'carelib' ) );
-
-	return $attr;
-}
-
-/**
- * Post content (not excerpt) attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_entry_content( $attr ) {
-	$attr['itemprop'] = 'text';
 
 	return $attr;
 }
@@ -494,27 +357,7 @@ function carelib_attr_entry_content( $attr ) {
  * @return array
  */
 function carelib_attr_entry_summary( $attr ) {
-	$attr['class']    = 'entry-content summary';
-	$attr['itemprop'] = 'description';
-
-	return $attr;
-}
-
-/**
- * Post terms (tags, categories, etc.) attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array  $attr Existing attributes.
- * @param  string $context A specific context (e.g., 'primary').
- * @return array
- */
-function carelib_attr_entry_terms( $attr, $context ) {
-	if ( ! empty( $context ) ) {
-		if ( 'post_tag' === $context ) {
-			$attr['itemprop'] = 'keywords';
-		}
-	}
+	$attr['class'] = 'entry-content summary';
 
 	return $attr;
 }
@@ -531,28 +374,6 @@ function carelib_attr_comment( $attr ) {
 	$attr['id']    = 'comment-' . get_comment_ID();
 	$attr['class'] = join( ' ', get_comment_class() );
 
-	if ( in_array( get_comment_type(), array( '', 'comment' ), true ) ) {
-		$attr['itemprop']  = 'comment';
-		$attr['itemscope'] = 'itemscope';
-		$attr['itemtype']  = 'http://schema.org/Comment';
-	}
-
-	return $attr;
-}
-
-/**
- * Comment author attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_comment_author( $attr ) {
-	$attr['itemprop']  = 'author';
-	$attr['itemscope'] = 'itemscope';
-	$attr['itemtype']  = 'http://schema.org/Person';
-
 	return $attr;
 }
 
@@ -565,11 +386,8 @@ function carelib_attr_comment_author( $attr ) {
  * @return array
  */
 function carelib_attr_comment_published( $attr ) {
-	$attr['datetime'] = get_comment_time( 'Y-m-d\TH:i:sP' );
-
 	// Translators: Comment date/time "title" attribute.
-	$attr['title']    = get_comment_time( _x( 'l, F j, Y, g:i a', 'comment time format', 'carelib' ) );
-	$attr['itemprop'] = 'datePublished';
+	$attr['title'] = get_comment_time( _x( 'l, F j, Y, g:i a', 'comment time format', 'carelib' ) );
 
 	return $attr;
 }
@@ -583,22 +401,7 @@ function carelib_attr_comment_published( $attr ) {
  * @return array
  */
 function carelib_attr_comment_permalink( $attr ) {
-	$attr['href']     = get_comment_link();
-	$attr['itemprop'] = 'url';
-
-	return $attr;
-}
-
-/**
- * Comment content/text attributes.
- *
- * @since  1.0.0
- * @access public
- * @param  array $attr Existing attributes.
- * @return array
- */
-function carelib_attr_comment_content( $attr ) {
-	$attr['itemprop'] = 'text';
+	$attr['href'] = get_comment_link();
 
 	return $attr;
 }
