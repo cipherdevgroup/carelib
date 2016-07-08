@@ -7,6 +7,6 @@ __Requires:__ WordPress 4.5
 __Tested up to:__ WordPress 4.5  
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)  
 
-Please note: this software is still under fairly active development. You are free to use it, fork it, and contribute to it, but things will likely break before a stable version is tagged. You've been warned.
+CareLib is a drop-in library for WordPress parent themes. You can learn more about it by reading our [Wiki documentation](https://github.com/wpsitecare/carelib/wiki) and see an implementation of it in our [Alpha starter theme](https://github.com/wpsitecare/alpha).
 
-Based largely on the [Hybrid Core](https://github.com/justintadlock/hybrid-core) framework by [Justin Tadlock](https://github.com/justintadlock).
+Lots of ideas and concepts in CareLib were derived from the [Hybrid Core](https://github.com/justintadlock/hybrid-core) framework by [Justin Tadlock](https://github.com/justintadlock).
