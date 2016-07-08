@@ -61,10 +61,3 @@ add_action( 'customize_preview_init', 'carelib_customize_register_preview_script
  * @see carelib_customize_enqueue_preview_scripts
  */
 add_action( 'customize_preview_init', 'carelib_customize_enqueue_preview_scripts', 10 );
-
-/**
- * Callback defined in includes/customize/styles.php
- *
- * @see carelib_customize_register_controls_styles
- */
-add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_styles', 0 );
