@@ -1,5 +1,9 @@
 # Changelog for CareLib
 
+# 1.0.0
+
+First stable release! Changes from here forward will be more well-documented and backwards compatible.
+
 ## 0.2.0
 
 Too many changes to list. I probably should have released like 10 versions by this point, but nobody is really using this library as far as I can tell, so eh.
