@@ -66,3 +66,48 @@ function carelib_customize_register_layouts( $wp_customize ) {
 		)
 	);
 }
+
+/**
+ * Register our customizer breadcrumb options for the parent class to load.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  object $wp_customize The WordPress customizer API object.
+ * @return void
+ */
+function carelib_register_breadcrumb_settings( $wp_customize ) {
+	$section = "{$GLOBALS['carelib_prefix']}_breadcrumbs";
+
+	$wp_customize->add_section(
+		$section,
+		array(
+			'title'       => __( 'Breadcrumbs', 'carelib' ),
+			'description' => __( 'Choose where you would like breadcrumbs to display.', 'carelib' ),
+			'priority'    => 110,
+			'capability'  => 'edit_theme_options',
+		)
+	);
+
+	$priority = 10;
+
+	foreach ( carelib_get_breadcrumb_options() as $breadcrumb => $setting ) {
+
+		$wp_customize->add_setting(
+			$breadcrumb,
+			array(
+				'default'           => $setting['default'],
+				'sanitize_callback' => 'absint',
+			)
+		);
+
+		$wp_customize->add_control(
+			$breadcrumb,
+			array(
+				'label'    => $setting['label'],
+				'section'  => $section,
+				'type'     => 'checkbox',
+				'priority' => $priority++,
+			)
+		);
+	}
+}

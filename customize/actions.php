@@ -9,15 +9,62 @@
  * @since     1.0.0
  */
 
-// Prevent direct access.
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_styles', 0 );
-add_action( 'init', 'carelib_customize_load_breadcrumb_settings', 0 );
-add_action( 'customize_register', 'carelib_customize_load_classes', 0 );
-add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_scripts', 0 );
-add_action( 'customize_preview_init',             'carelib_customize_register_preview_scripts',  0 );
-add_action( 'customize_preview_init',             'carelib_customize_enqueue_preview_scripts',  10 );
+/**
+ * Callback defined in includes/customize/styles.php
+ *
+ * @see carelib_customize_register_controls_styles
+ */
 add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_styles', 0 );
 
-add_action( 'customize_register', 'carelib_customize_register_layouts' );
+/**
+ * Callback defined in includes/customize/register.php
+ *
+ * @see carelib_customize_load_breadcrumb_settings
+ */
+add_action( 'customize_register', 'carelib_customize_load_classes', 0 );
+
+/**
+ * Callback defined in includes/customize/register.php
+ *
+ * @see carelib_customize_register_layouts
+ */
+add_action( 'customize_register', 'carelib_customize_register_layouts', 10 );
+
+if ( carelib_breadcrumb_plugin_is_active() ) {
+	/**
+	 * Callback defined in includes/customize/register.php
+	 *
+	 * @see carelib_register_breadcrumb_settings
+	 */
+	add_action( 'customize_register', 'carelib_register_breadcrumb_settings', 15 );
+}
+
+/**
+ * Callback defined in includes/customize/scripts.php
+ *
+ * @see carelib_customize_register_controls_scripts
+ */
+add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_scripts', 0 );
+
+/**
+ * Callback defined in includes/customize/scripts.php
+ *
+ * @see carelib_customize_register_preview_scripts
+ */
+add_action( 'customize_preview_init', 'carelib_customize_register_preview_scripts', 0 );
+
+/**
+ * Callback defined in includes/customize/scripts.php
+ *
+ * @see carelib_customize_enqueue_preview_scripts
+ */
+add_action( 'customize_preview_init', 'carelib_customize_enqueue_preview_scripts', 10 );
+
+/**
+ * Callback defined in includes/customize/styles.php
+ *
+ * @see carelib_customize_register_controls_styles
+ */
+add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_styles', 0 );

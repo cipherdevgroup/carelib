@@ -65,8 +65,7 @@ if ( is_admin() ) {
 if ( is_customize_preview() ) {
 	require_once CARELIB_DIR . 'customize/control-radio-image.php';
 	require_once CARELIB_DIR . 'customize/control-layout.php';
-	require_once CARELIB_DIR . 'customize/register-breadcrumbs.php';
-	require_once CARELIB_DIR . 'customize/register-layouts.php';
+	require_once CARELIB_DIR . 'customize/register.php';
 	require_once CARELIB_DIR . 'customize/scripts.php';
 	require_once CARELIB_DIR . 'customize/styles.php';
 	require_once CARELIB_DIR . 'customize/actions.php';
