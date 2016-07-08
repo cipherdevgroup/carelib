@@ -272,7 +272,7 @@ function carelib_get_customizer_link( $args = array() ) {
  */
 function carelib_get_credit_link() {
 	$link = sprintf( '<a class="author-link" href="%s" title="%s">%s</a>',
-		'http://www.wpsitecare.com',
+		'https://www.wpsitecare.com',
 		__( 'Free WordPress Theme by', 'carelib' ) . ' WP Site Care',
 		'WP Site Care'
 	);
