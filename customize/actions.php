@@ -12,13 +12,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Callback defined in includes/customize/styles.php
- *
- * @see carelib_customize_register_controls_styles
- */
-add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_styles', 0 );
-
-/**
  * Callback defined in includes/customize/register.php
  *
  * @see carelib_customize_load_breadcrumb_settings
@@ -40,6 +33,13 @@ if ( carelib_breadcrumb_plugin_is_active() ) {
 	 */
 	add_action( 'customize_register', 'carelib_register_breadcrumb_settings', 15 );
 }
+
+/**
+ * Callback defined in includes/customize/styles.php
+ *
+ * @see carelib_customize_register_controls_styles
+ */
+add_action( 'customize_controls_enqueue_scripts', 'carelib_customize_register_controls_styles', 0 );
 
 /**
  * Callback defined in includes/customize/scripts.php
