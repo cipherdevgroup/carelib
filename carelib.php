@@ -103,3 +103,31 @@ add_action( 'after_setup_theme', 'carelib_init', -95 );
 function carelib_init() {
 	require_once CARELIB_DIR . 'includes/init.php';
 }
+
+add_action( 'after_setup_theme', 'carelib_admin_init', -95 );
+/**
+ * Load and initialize all library functionality.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
+function carelib_admin_init() {
+	if ( is_admin() ) {
+		require_once CARELIB_DIR . 'admin/init.php';
+	}
+}
+
+add_action( 'after_setup_theme', 'carelib_customize_init', -95 );
+/**
+ * Load and initialize all library functionality.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
+function carelib_customize_init() {
+	if ( is_customize_preview() ) {
+		require_once CARELIB_DIR . 'customize/init.php';
+	}
+}
