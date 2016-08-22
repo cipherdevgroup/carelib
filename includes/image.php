@@ -295,6 +295,15 @@ function _carelib_image_maybe_add_link_wrapper( $html, $args ) {
 	);
 }
 
+/**
+ * Get the default image attributes.
+ *
+ * @since  1.0.0
+ * @access protected
+ * @param  array $args Arguments for how to load and display the image.
+ * @param  array $image Array of image attributes ($image, $classes, $alt, $caption).
+ * @return array $attr The default image attributes.
+ */
 function _carelib_image_get_default_attr( $args, $image ) {
 	$attr = array(
 		'id'       => "image-{$args['post_id']}",
@@ -493,13 +502,13 @@ function _carelib_image_get_by_attachment( $args ) {
 }
 
 /**
- * Adds an array of srcset image sources and descriptors based on the
- * `srcset_sizes` argument.
+ * Retrieves the value for an image attachment’s ‘srcset’ attribute.
  *
  * @since  1.0.0
  * @access protected
- * @param  int $id The ID of the current attachment.
- * @return false|array A list of srcset image sizes.
+ * @param  int   $id The ID of the current attachment.
+ * @param  array $args Arguments for how to load and display the image.
+ * @return false|string A 'srcset' value string or false.
  */
 function _carelib_image_get_srcset( $id, $args ) {
 	if ( ! $args['responsive'] || ! function_exists( 'wp_get_attachment_image_srcset' ) ) {
@@ -509,6 +518,15 @@ function _carelib_image_get_srcset( $id, $args ) {
 	return wp_get_attachment_image_srcset( $id, $args['size'] );
 }
 
+/**
+ * Retrieves the value for an image attachment’s ‘sizes’ attribute
+ *
+ * @since  1.0.0
+ * @access protected
+ * @param  int   $id The ID of the current attachment.
+ * @param  array $args Arguments for how to load and display the image.
+ * @return false|string A 'sizes' value string or false.
+ */
 function _carelib_image_get_sizes( $id, $args ) {
 	if ( ! $args['responsive'] || ! function_exists( 'wp_get_attachment_image_srcset' ) ) {
 		return false;
