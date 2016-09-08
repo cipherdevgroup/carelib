@@ -41,9 +41,9 @@ function carelib_get_image( $args = array() ) {
 	$args = wp_parse_args( $args, apply_filters( "{$GLOBALS['carelib_prefix']}_image_defaults",
 		array(
 			'post_id'           => get_the_ID(),
-			'meta_key'          => array( 'Thumbnail', 'thumbnail' ),
+			'meta_key'          => false,
 			'featured'          => true,
-			'attachment'        => true,
+			'attachment'        => false,
 			'size'              => has_image_size( 'post-thumbnail' ) ? 'post-thumbnail': 'thumbnail',
 			'responsive'        => true,
 			'default_image'     => false,
@@ -164,14 +164,14 @@ function _carelib_image_find( $args ) {
  * @return bool|array $image a grabbed image properties or false if no image is found
  */
 function _carelib_image_get_by( $args ) {
-	if ( ! empty( $args['meta_key'] ) ) {
-		if ( $image = _carelib_image_get_by_meta_key( $args ) ) {
+	if ( ! empty( $args['featured'] ) ) {
+		if ( $image = _carelib_image_get_by_featured_image( $args ) ) {
 			return $image;
 		}
 	}
 
-	if ( ! empty( $args['featured'] ) ) {
-		if ( $image = _carelib_image_get_by_featured_image( $args ) ) {
+	if ( ! empty( $args['meta_key'] ) ) {
+		if ( $image = _carelib_image_get_by_meta_key( $args ) ) {
 			return $image;
 		}
 	}
