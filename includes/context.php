@@ -57,7 +57,6 @@ function _carelib_get_context() {
 		} elseif ( is_author() ) {
 			$user_id = get_query_var( 'author' );
 			$context[] = 'user';
-			$context[] = 'user-' . sanitize_html_class( get_the_author_meta( 'user_nicename', $user_id ), $user_id );
 		} elseif ( is_date() ) {
 			$context[] = 'date';
 
@@ -127,31 +126,12 @@ function carelib_body_class_filter( $classes, $class ) {
 		$classes[] = 'blog-' . get_current_blog_id();
 	}
 
-	// Date classes.
-	$time = time() + ( get_option( 'gmt_offset' ) * 3600 );
-	$classes[] = strtolower( gmdate( '\yY \mm \dd \hH l', $time ) );
-
 	// Is the current user logged in.
 	$classes[] = is_user_logged_in() ? 'logged-in' : 'logged-out';
 
 	// WP admin bar.
 	if ( is_admin_bar_showing() ) {
 		$classes[] = 'admin-bar';
-	}
-
-	// Use the '.custom-background' class to integrate with the WP background feature.
-	if ( get_background_image() || get_background_color() ) {
-		$classes[] = 'custom-background';
-	}
-
-	// Add the '.custom-header' class if the user is using a custom header.
-	if ( get_header_image() || ( display_header_text() && get_header_textcolor() ) ) {
-		$classes[] = 'custom-header';
-	}
-
-	// Add the '.display-header-text' class if the user chose to display it.
-	if ( display_header_text() ) {
-		$classes[] = 'display-header-text';
 	}
 
 	// Plural/multiple-post view (opposite of singular).
@@ -180,19 +160,6 @@ function carelib_body_class_filter( $classes, $class ) {
 		if ( $template ) {
 			$classes[] = "{$post->post_type}-template-{$template}";
 		}
-
-		// Attachment mime types.
-		if ( is_attachment() ) {
-			foreach ( explode( '/', get_post_mime_type() ) as $type ) {
-				$classes[] = "attachment-{$type}";
-			}
-		}
-	}
-
-	// Paged views.
-	if ( is_paged() || is_singular() && 1 < get_query_var( 'page' ) ) {
-		$classes[] = 'paged';
-		$classes[] = 'paged-' . intval( get_query_var( 'paged' ) );
 	}
 
 	// Theme layouts.
@@ -225,7 +192,7 @@ function carelib_post_class_filter( $classes, $class, $post_id ) {
 	$post_type   = get_post_type();
 	$post_status = get_post_status();
 
-	$remove = array( 'hentry', "type-{$post_type}", "status-{$post_status}", 'post-password-required' );
+	$remove = array( 'hentry', "type-{$post_type}", "status-{$post_status}" );
 
 	foreach ( $classes as $key => $class ) {
 
@@ -239,29 +206,6 @@ function carelib_post_class_filter( $classes, $class, $post_id ) {
 	$_classes[] = 'entry';
 	$_classes[] = $post_type;
 	$_classes[] = $post_status;
-
-	// Author class.
-	$_classes[] = 'author-' . sanitize_html_class( get_the_author_meta( 'user_nicename' ), get_the_author_meta( 'ID' ) );
-
-	// Password-protected posts.
-	if ( post_password_required() ) {
-		$_classes[] = 'protected';
-	}
-
-	// Has excerpt.
-	if ( post_type_supports( $post->post_type, 'excerpt' ) && has_excerpt() ) {
-		$_classes[] = 'has-excerpt';
-	}
-
-	// Has <!--more--> link.
-	if ( ! is_singular() && false !== strpos( $post->post_content, '<!--more' ) ) {
-		$_classes[] = 'has-more-link';
-	}
-
-	// Has <!--nextpage--> links.
-	if ( false !== strpos( $post->post_content, '<!--nextpage' ) ) {
-		$_classes[] = 'has-pages';
-	}
 
 	$_classes = array_map( 'esc_attr', $_classes );
 
