@@ -312,10 +312,10 @@ function _carelib_image_get_default_attr( $args, $image ) {
 		'class'    => _carelib_image_build_classes( $args, $image ),
 	);
 
-	if ( $image['srcset'] ) {
+	if ( ! empty( $image['srcset'] ) ) {
 		$attr['srcset'] = $image['srcset'];
 
-		if ( $image['sizes'] ) {
+		if ( ! empty( $image['sizes'] ) ) {
 			$attr['sizes'] = $image['sizes'];
 		}
 	}
