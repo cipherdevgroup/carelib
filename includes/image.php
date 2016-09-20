@@ -23,7 +23,7 @@
  *     @type string $size The image size to display.
  *     @type array  $responsive Whether or not to make the image responsive.
  *     @type bool|string $default_image URI to a default fallback image for when none is found.
- *     @type bool   $link_to_post Whether to link to the post associated with the image.
+ *     @type string $link A link to wrap around the retrieved image.
  *     @type bool   $link_attr The attributes to be applied to the link wrapping the image.
  *     @type bool   $image_attr The attributes to be applied to the image markup.
  *     @type bool   $width The width of the image to grab.
@@ -38,35 +38,40 @@
  * @return string|array the raw image string or an array of image attributes.
  */
 function carelib_get_image( $args = array() ) {
-	$args = wp_parse_args( $args, apply_filters( "{$GLOBALS['carelib_prefix']}_image_defaults",
-		array(
-			'post_id'           => get_the_ID(),
-			'meta_key'          => false,
-			'featured'          => true,
-			'attachment'        => false,
-			'size'              => 'thumbnail',
-			'responsive'        => true,
-			'default_image'     => false,
-			'link_to_post'      => true,
-			'link_attr'         => false,
-			'image_attr'        => false,
-			'width'             => false,
-			'height'            => false,
-			'format'            => 'img',
-			'meta_key_save'     => false,
-			'thumbnail_id_save' => false,
-			'cache'             => true,
-			'before'            => '',
-			'after'             => '',
-		)
+	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_image_defaults", array(
+		'post_id'           => get_the_ID(),
+		'meta_key'          => false,
+		'featured'          => true,
+		'attachment'        => false,
+		'size'              => 'thumbnail',
+		'responsive'        => true,
+		'default_image'     => false,
+		'link'              => true,
+		'link_attr'         => false,
+		'image_attr'        => false,
+		'width'             => false,
+		'height'            => false,
+		'format'            => 'img',
+		'meta_key_save'     => false,
+		'thumbnail_id_save' => false,
+		'cache'             => true,
+		'before'            => '',
+		'after'             => '',
 	) );
+
+	$args = wp_parse_args( $args, $defaults );
 
 	if ( empty( $args['post_id'] ) ) {
 		return false;
 	}
 
+	// Back compat for link_to_post argument.
+	if ( isset( $args['link_to_post'] ) ) {
+		$args['link'] = $args['link_to_post'];
+	}
+
 	if ( 'array' === $args['format'] ) {
-		$args['link_to_post'] = false;
+		$args['link'] = false;
 	}
 
 	$image = _carelib_image_get_cached_image( $args );
@@ -277,12 +282,18 @@ function _carelib_image_build_classes( $args, $image ) {
  * @return string $image Formatted image markup.
  */
 function _carelib_image_maybe_add_link_wrapper( $html, $args ) {
-	if ( ! $args['link_to_post'] ) {
+	if ( empty( $args['link'] ) ) {
 		return $html;
 	}
 
+	$link = $args['link'];
+
+	if ( true === $link ) {
+		$link = get_permalink( $args['post_id'] );
+	}
+
 	$attr = array(
-		'href' => get_permalink( $args['post_id'] ),
+		'href' => esc_url( $link ),
 	);
 
 	if ( ! empty( $args['link_attr'] ) ) {
