@@ -3,8 +3,6 @@
  * Load all required library files.
  *
  * @package    CareLib
- * @subpackage CareLib\Init
- * @author     Robert Neu
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
  * @since      1.0.0
@@ -80,6 +78,37 @@ if ( ! defined( 'PARENT_THEME_URI' ) ) {
 if ( ! isset( $GLOBALS['_carelib_layouts'] ) ) {
 	$GLOBALS['_carelib_layouts'] = array();
 }
+
+require_once CARELIB_DIR . 'includes/attributes.php';
+require_once CARELIB_DIR . 'includes/breadcrumbs.php';
+require_once CARELIB_DIR . 'includes/context.php';
+require_once CARELIB_DIR . 'includes/head.php';
+require_once CARELIB_DIR . 'includes/image.php';
+require_once CARELIB_DIR . 'includes/language.php';
+require_once CARELIB_DIR . 'includes/layouts.php';
+require_once CARELIB_DIR . 'includes/menu.php';
+require_once CARELIB_DIR . 'includes/paths.php';
+require_once CARELIB_DIR . 'includes/plugins.php';
+require_once CARELIB_DIR . 'includes/scripts.php';
+require_once CARELIB_DIR . 'includes/search-form.php';
+require_once CARELIB_DIR . 'includes/sidebar.php';
+require_once CARELIB_DIR . 'includes/styles.php';
+require_once CARELIB_DIR . 'includes/support.php';
+require_once CARELIB_DIR . 'includes/template-404.php';
+require_once CARELIB_DIR . 'includes/template-archive.php';
+require_once CARELIB_DIR . 'includes/template-attachment.php';
+require_once CARELIB_DIR . 'includes/template-comments.php';
+require_once CARELIB_DIR . 'includes/template-entry.php';
+require_once CARELIB_DIR . 'includes/template-global.php';
+require_once CARELIB_DIR . 'includes/template-hierarchy.php';
+require_once CARELIB_DIR . 'includes/template-hooks.php';
+require_once CARELIB_DIR . 'includes/template-load.php';
+require_once CARELIB_DIR . 'includes/theme.php';
+require_once CARELIB_DIR . 'includes/tinymce.php';
+require_once CARELIB_DIR . 'admin/layouts.php';
+require_once CARELIB_DIR . 'admin/metabox-post-layouts.php';
+require_once CARELIB_DIR . 'admin/scripts.php';
+require_once CARELIB_DIR . 'admin/styles.php';
 
 add_action( 'after_setup_theme', 'carelib_init', -95 );
 /**

@@ -20,10 +20,6 @@ defined( 'ABSPATH' ) || exit;
  */
 do_action( 'carelib_admin_before_init' );
 
-require_once CARELIB_DIR . 'admin/layouts.php';
-require_once CARELIB_DIR . 'admin/metabox-post-layouts.php';
-require_once CARELIB_DIR . 'admin/scripts.php';
-require_once CARELIB_DIR . 'admin/styles.php';
 require_once CARELIB_DIR . 'admin/actions.php';
 
 /**
