@@ -27,6 +27,17 @@ function carelib_get_404_entry_title() {
 /**
  * Output the 404 entry title.
  *
+ * @since  2.0.0
+ * @access public
+ * @return void
+ */
+function carelib_404_entry_title() {
+	echo carelib_get_404_entry_title();
+}
+
+/**
+ * Output the 404 entry title.
+ *
  * @since  1.0.0
  * @access public
  * @return string $content The modified content.

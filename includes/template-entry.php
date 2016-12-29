@@ -109,6 +109,19 @@ function carelib_get_entry_title( $args = array() ) {
 }
 
 /**
+ * Output a formatted entry title.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_entry_title
+ * @param  array $args A list of arguments to be merged with defaults.
+ * @return void
+ */
+function carelib_entry_title( $args = array() ) {
+	echo carelib_get_entry_title( $args );
+}
+
+/**
  * Get a post's published date and format it to be displayed in a template.
  *
  * @since  1.0.0
@@ -146,6 +159,19 @@ function carelib_get_entry_published( $args = array() ) {
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
 	return apply_filters( 'carelib_entry_published', $html, $args );
+}
+
+/**
+ * Output a post's formatted published date.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_entry_published
+ * @param  array $args A list of arguments to be merged with defaults.
+ * @return void
+ */
+function carelib_entry_published( $args = array() ) {
+	echo carelib_get_entry_published( $args );
 }
 
 /**
@@ -211,6 +237,19 @@ function carelib_get_entry_comments_link( $args = array() ) {
 }
 
 /**
+ * Output a formatted link to the current entry comments.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_entry_comments_link
+ * @param  array $args A list of arguments to be merged with defaults.
+ * @return void
+ */
+function carelib_entry_comments_link( $args = array() ) {
+	echo carelib_get_entry_comments_link( $args );
+}
+
+/**
  * Backwards compatible wrapper for get_the_author_posts_link() which was
  * added to WordPress core in 4.4.
  *
@@ -268,6 +307,19 @@ function carelib_get_entry_author( $args = array() ) {
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
 	return apply_filters( 'carelib_entry_author', $html, $args );
+}
+
+/**
+ * Output formatted information about an entry's author.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_entry_author
+ * @param  array $args A list of arguments to be merged with defaults.
+ * @return void
+ */
+function carelib_entry_author( $args = array() ) {
+	echo carelib_get_entry_author( $args );
 }
 
 /**
@@ -359,6 +411,19 @@ function _carelib_is_full_content() {
  */
 function carelib_get_content() {
 	return apply_filters( 'the_content', _carelib_is_full_content() ? get_the_content() : get_the_excerpt() );
+}
+
+/**
+ * Display either an excerpt or the content depending on what page the user is
+ * currently viewing.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_content
+ * @return void
+ */
+function carelib_content() {
+	echo carelib_get_content();
 }
 
 /**
@@ -493,6 +558,19 @@ function carelib_get_entry_terms( $args = array() ) {
 }
 
 /**
+ * Display a formatted markup block with information about the entry's terms.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_entry_terms
+ * @param  array $args a list of arguments to pass to the entry terms method.
+ * @return void
+ */
+function carelib_entry_terms( $args = array() ) {
+	echo carelib_get_entry_terms( $args );
+}
+
+/**
  * Retrieves the singular name label for a given post object.
  *
  * @since  1.0.0
@@ -598,6 +676,19 @@ function carelib_get_post_navigation( $args = array() ) {
 		carelib_get_attr( 'nav', 'single' ),
 		$links
 	);
+}
+
+/**
+ * Output a next and previous post navigation element on single entries.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_post_navigation
+ * @param  array $args A list of arguments to be merged with defaults.
+ * @return void
+ */
+function carelib_post_navigation( $args = array() ) {
+	echo carelib_get_post_navigation( $args );
 }
 
 /**

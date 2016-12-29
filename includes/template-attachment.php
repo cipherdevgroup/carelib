@@ -43,6 +43,17 @@ function carelib_get_attachment_image() {
 }
 
 /**
+ * Output a formatted attachment image.
+ *
+ * @since  2.0.0
+ * @access public
+ * @return void
+ */
+function carelib_attachment_image() {
+	echo carelib_get_attachment_image();
+}
+
+/**
  * Output a formatted WordPress image gallery of related attachments on
  * attachment image pages.
  *

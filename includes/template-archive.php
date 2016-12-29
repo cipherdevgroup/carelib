@@ -36,7 +36,7 @@ function carelib_is_blog_archive() {
 /**
  * Determine if we're viewing anything within the blog section.
  *
- * @since  0.1.0
+ * @since  2.0.0
  * @access public
  * @uses   carelib_is_blog_archive
  * @return bool true if we're on a blog archive page or a singular post.
@@ -299,6 +299,20 @@ function carelib_get_posts_navigation( $args = array() ) {
 	}
 
 	return apply_filters( 'carelib_posts_navigation', $output, $args );
+}
+
+/**
+ * Helper function to build a newer/older or paginated navigation element within
+ * a loop of multiple entries.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_posts_navigation
+ * @param  array $args A list of arguments to be merged with defaults.
+ * @return void
+ */
+function carelib_posts_navigation( $args = array() ) {
+	echo carelib_get_posts_navigation( $args );
 }
 
 /**

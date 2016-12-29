@@ -51,6 +51,18 @@ function carelib_get_site_title( $args = array() ) {
 }
 
 /**
+ * Display the linked site title wrapped in an `<h1>` or `<p>` tag.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_site_title
+ * @return void
+ */
+function carelib_site_title( $args = array() ) {
+	echo carelib_get_site_title( $args );
+}
+
+/**
  * Return the formatted site description.
  *
  * @since  1.0.0
@@ -90,6 +102,18 @@ function carelib_get_site_description( $args = array() ) {
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
 	return apply_filters( 'carelib_site_description', $html, $args );
+}
+
+/**
+ * Display the site description wrapped in a `<p>` tag.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_site_description
+ * @return void
+ */
+function carelib_site_description( $args = array() ) {
+	echo carelib_get_site_description( $args );
 }
 
 /**
@@ -290,7 +314,7 @@ function carelib_get_theme_info() {
 	$info = '<div class="credit">';
 	$info .= sprintf(
 		// Translators: 1 is current year, 2 is site name/link, 3 is the theme author name/link.
-		__( 'Copyright &#169; %1$s %2$s. Free WordPress Theme by %3$s', 'alpha' ),
+		__( 'Copyright &#169; %1$s %2$s. Free WordPress Theme by %3$s', 'carelib' ),
 		date_i18n( 'Y' ),
 		carelib_get_site_link(),
 		carelib_get_credit_link()

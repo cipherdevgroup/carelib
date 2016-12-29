@@ -62,6 +62,20 @@ function carelib_get_attr( $slug, $context = '', $attr = array() ) {
 }
 
 /**
+ * Output an HTML element's attributes.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  string $slug the slug/ID of the element (e.g., 'sidebar').
+ * @param  string $context a specific context (e.g., 'primary').
+ * @param  array  $attr A list of attributes to be merged.
+ * @return void
+ */
+function carelib_attr( $slug, $context = '', $attr = array() ) {
+	echo carelib_get_attr( $slug, $context, $attr );
+}
+
+/**
  * <body> element attributes.
  *
  * @since  1.0.0

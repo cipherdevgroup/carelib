@@ -84,6 +84,19 @@ function carelib_get_image( $args = array() ) {
 }
 
 /**
+ * Display a featured image using CareLib's advanced image grabber class.
+ *
+ * @since  2.0.0
+ * @access public
+ * @uses   carelib_get_image
+ * @param  array $args a list of arguments to pass to the image grabber class.
+ * @return void
+ */
+function carelib_image( $args = array() ) {
+	echo carelib_get_image( $args );
+}
+
+/**
  * Get a unique cache key based on an array of values.
  *
  * @since  1.0.0
