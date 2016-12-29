@@ -17,12 +17,4 @@
  */
 function carelib_admin_register_scripts() {
 	$suffix = carelib_get_suffix();
-
-	wp_register_script(
-		'carelib-dashboard',
-		carelib_get_js_uri( "carelib-dashboard{$suffix}.js" ),
-		array( 'jquery-ui-tabs' ),
-		CARELIB_VERSION,
-		true
-	);
 }

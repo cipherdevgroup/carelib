@@ -24,11 +24,4 @@ function carelib_admin_register_styles() {
 		null,
 		CARELIB_VERSION
 	);
-
-	wp_register_style(
-		'carelib-dashboard',
-		carelib_get_css_uri( "carelib-dashboard{$suffix}.css" ),
-		null,
-		CARELIB_VERSION
-	);
 }

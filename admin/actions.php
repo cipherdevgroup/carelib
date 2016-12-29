@@ -58,10 +58,3 @@ add_action( 'load-post-new.php', 'carelib_metabox_post_layouts_actions' );
  * @see carelib_maybe_disable_post_layout_metabox
  */
 add_action( 'add_meta_boxes','carelib_maybe_disable_post_layout_metabox', 5, 2 );
-
-/**
- * Callback defined in includes/admin/dashboard.php
- *
- * @see carelib_maybe_add_theme_dashboard
- */
-add_action( 'init', 'carelib_maybe_add_theme_dashboard' );
