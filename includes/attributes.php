@@ -323,8 +323,8 @@ function carelib_attr_post( $attr ) {
 	$post = get_post();
 
 	if ( $post instanceof WP_Post ) {
-		$attr['id']        = 'post-' . get_the_ID();
-		$attr['class']     = join( ' ', get_post_class() );
+		$attr['id']    = 'post-' . get_the_ID();
+		$attr['class'] = join( ' ', get_post_class() );
 	}
 
 	return $attr;
