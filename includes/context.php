@@ -58,24 +58,8 @@ function _carelib_get_context() {
 			$context[] = 'user';
 		} elseif ( is_date() ) {
 			$context[] = 'date';
-
-			if ( is_year() ) {
-				$context[] = 'year';
-			} elseif ( is_month() ) {
-				$context[] = 'month';
-			} elseif ( get_query_var( 'w' ) ) {
-				$context[] = 'week';
-			} elseif ( is_day() ) {
-				$context[] = 'day';
-			}
 		} elseif ( is_time() ) {
 			$context[] = 'time';
-
-			if ( get_query_var( 'hour' ) ) {
-				$context[] = 'hour';
-			} elseif ( get_query_var( 'minute' ) ) {
-				$context[] = 'minute';
-			}
 		}
 	} elseif ( is_search() ) {
 		$context[] = 'search';
