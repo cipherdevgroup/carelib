@@ -33,7 +33,6 @@ require_once CARELIB_DIR . 'includes/paths.php';
 require_once CARELIB_DIR . 'includes/scripts.php';
 require_once CARELIB_DIR . 'includes/search-form.php';
 require_once CARELIB_DIR . 'includes/sidebar.php';
-require_once CARELIB_DIR . 'includes/styles-post.php';
 require_once CARELIB_DIR . 'includes/styles.php';
 require_once CARELIB_DIR . 'includes/support.php';
 require_once CARELIB_DIR . 'includes/template-404.php';

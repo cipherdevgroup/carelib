@@ -33,20 +33,3 @@ function carelib_register_layouts_meta() {
 		'__return_false'
 	);
 }
-
-/**
- * Registers the library's custom metadata keys and sets up the sanitize
- * callback function.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
-function carelib_register_post_style_meta() {
-	register_meta(
-		'post',
-		carelib_get_post_style_meta_key(),
-		'sanitize_text_field',
-		'__return_false'
-	);
-}

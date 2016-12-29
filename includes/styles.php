@@ -127,28 +127,6 @@ function _carelib_locate_theme_file( $file_names ) {
 }
 
 /**
- * Filters the 'stylesheet_uri' and checks if a post has a style that should
- * overwrite the theme's primary `style.css`.
- *
- * @since  1.0.0
- * @access public
- * @param  string $stylesheet_uri
- * @return string
- */
-function carelib_style_filter( $stylesheet_uri ) {
-	if ( ! is_singular() ) {
-		return $stylesheet_uri;
-	}
-	$style = carelib_get_post_style( get_queried_object_id() );
-
-	if ( $style && $style_uri = _carelib_locate_theme_file( array( $style ) ) ) {
-		$stylesheet_uri = $style_uri;
-	}
-
-	return $stylesheet_uri;
-}
-
-/**
  * Searches for a locale stylesheet. This function looks for stylesheets in
  * the `css` folder in the following order:
  *

@@ -74,13 +74,6 @@ add_action( 'init', 'carelib_post_type_support', 15 );
 add_action( 'init', 'carelib_register_layouts_meta', 15 );
 
 /**
- * Callback defined in includes/meta.php
- *
- * @see carelib_register_post_style_meta
- */
-add_action( 'init', 'carelib_register_post_style_meta', 15 );
-
-/**
  * Callback defined in includes/layouts.php
  *
  * @see carelib_do_register_layouts

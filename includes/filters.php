@@ -315,13 +315,6 @@ add_filter( 'stylesheet_uri', 'carelib_min_stylesheet_uri', 5, 2 );
 /**
  * Callback defined in includes/styles.php
  *
- * @see carelib_style_filter
- */
-add_filter( 'stylesheet_uri', 'carelib_style_filter', 15 );
-
-/**
- * Callback defined in includes/styles.php
- *
  * @see carelib_locale_stylesheet_uri
  */
 add_filter( 'locale_stylesheet_uri', 'carelib_locale_stylesheet_uri', 5 );

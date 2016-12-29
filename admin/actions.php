@@ -25,20 +25,6 @@ add_action( 'admin_enqueue_scripts',  'carelib_admin_register_scripts', 0 );
 add_action( 'admin_enqueue_scripts', 'carelib_admin_register_styles', 0 );
 
 /**
- * Callback defined in includes/admin/metabox-post-styles.php
- *
- * @see carelib_metabox_post_styles_actions
- */
-add_action( 'load-post.php', 'carelib_metabox_post_styles_actions' );
-
-/**
- * Callback defined in includes/admin/metabox-post-styles.php
- *
- * @see carelib_metabox_post_styles_actions
- */
-add_action( 'load-post-new.php', 'carelib_metabox_post_styles_actions' );
-
-/**
  * Callback defined in includes/admin/metabox-post-layouts.php
  *
  * @see carelib_metabox_post_layouts_actions
