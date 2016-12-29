@@ -11,7 +11,7 @@
 /**
  * Check if the current layout has a metabox of any kind.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  CareLib_Layout $layout The layout object to check.
  * @param  string         $post_type The post type of the current post.
@@ -32,7 +32,7 @@ function carelib_layout_has_meta_box( $layout, $post_type ) {
 /**
  * Check if the current layout has a post metabox.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  CareLib_Layout $layout The layout object to check.
  * @param  string         $post_type The post type of the current post.
@@ -49,7 +49,7 @@ function carelib_layout_has_post_metabox( $layout, $post_type ) {
 /**
  * Disable the layout meta box if the current page uses a forced layout.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  string  $post_type The post type of the current post.
  * @param  WP_Post $post The post type object of the current post.
@@ -136,7 +136,7 @@ function _carelib_is_template_layout_forced( $post_id = '' ) {
 /**
  * Disable the layout meta box if the current page uses a forced layout.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  string $post_type The post type of the current post.
  * @param  int    $post_id The post ID of the current postt.
