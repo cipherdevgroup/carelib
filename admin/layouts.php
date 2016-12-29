@@ -128,10 +128,6 @@ function _carelib_is_template_layout_forced( $post_id = '' ) {
 		if ( get_page_template_slug( $post_id ) === $template ) {
 			return true;
 		}
-
-		if ( carelib_get_post_template( $post_id ) === $template ) {
-			return true;
-		}
 	}
 
 	return false;

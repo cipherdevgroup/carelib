@@ -55,7 +55,6 @@ function _carelib_get_context() {
 			$context[] = "taxonomy-{$object->taxonomy}";
 			$context[] = "taxonomy-{$object->taxonomy}-" . sanitize_html_class( $object->slug, $object->term_id );
 		} elseif ( is_author() ) {
-			$user_id = get_query_var( 'author' );
 			$context[] = 'user';
 		} elseif ( is_date() ) {
 			$context[] = 'date';
@@ -141,26 +140,6 @@ function carelib_body_class_filter( $classes, $class ) {
 
 	// Merge base contextual classes with $classes.
 	$classes = array_merge( $classes, _carelib_get_context() );
-
-	// Singular post (post_type) classes.
-	if ( is_singular() ) {
-
-		// Get the queried post object.
-		$post = get_queried_object();
-
-		// Checks for custom template.
-		$template = str_replace(
-			array(
-				"{$post->post_type}-template-",
-				"{$post->post_type}-",
-			),
-			'',
-			basename( carelib_get_post_template( $post->ID ), '.php' )
-		);
-		if ( $template ) {
-			$classes[] = "{$post->post_type}-template-{$template}";
-		}
-	}
 
 	// Theme layouts.
 	if ( carelib_has_layouts() ) {

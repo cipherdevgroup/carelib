@@ -69,13 +69,6 @@ add_action( 'init', 'carelib_post_type_support', 15 );
 /**
  * Callback defined in includes/meta.php
  *
- * @see carelib_register_post_template_meta
- */
-add_action( 'init', 'carelib_register_post_template_meta', 15 );
-
-/**
- * Callback defined in includes/meta.php
- *
  * @see carelib_register_layouts_meta
  */
 add_action( 'init', 'carelib_register_layouts_meta', 15 );

@@ -24,7 +24,6 @@ require_once CARELIB_DIR . 'admin/dashboard.php';
 require_once CARELIB_DIR . 'admin/layouts.php';
 require_once CARELIB_DIR . 'admin/metabox-post-layouts.php';
 require_once CARELIB_DIR . 'admin/metabox-post-styles.php';
-require_once CARELIB_DIR . 'admin/metabox-post-templates.php';
 require_once CARELIB_DIR . 'admin/scripts.php';
 require_once CARELIB_DIR . 'admin/styles.php';
 require_once CARELIB_DIR . 'admin/actions.php';

@@ -48,12 +48,6 @@ function carelib_singular_template( $template ) {
 	// Get the queried post.
 	$post = get_queried_object();
 
-	// Check for a custom post template by custom field key '_wp_post_template'.
-	$custom = carelib_get_post_template( get_queried_object_id() );
-	if ( $custom ) {
-		$templates[] = $custom;
-	}
-
 	$templates[] = "{$post->post_type}-{$post->post_name}.php";
 	$templates[] = "{$post->post_type}-{$post->ID}.php";
 	$templates[] = "{$post->post_type}.php";
@@ -111,82 +105,4 @@ function carelib_comments_template( $template ) {
 
 	// Return the found template.
 	return locate_template( $templates );
-}
-
-/**
- * Get a post template.
- *
- * @since  1.0.0
- * @access public
- * @param  int $post_id
- * @return bool
- */
-function carelib_get_post_template( $post_id ) {
-	return get_post_meta( $post_id, carelib_get_post_template_meta_key( $post_id ), true );
-}
-
-/**
- * Set a post template.
- *
- * @since  1.0.0
- * @access public
- * @param  int $post_id
- * @param  string $template
- * @return bool
- */
-function carelib_set_post_template( $post_id, $template ) {
-	return update_post_meta( $post_id, carelib_get_post_template_meta_key( $post_id ), $template );
-}
-
-/**
- * Delete a post template.
- *
- * @since  1.0.0
- * @access public
- * @param  int $post_id
- * @return bool
- */
-function carelib_delete_post_template( $post_id ) {
-	return delete_post_meta( $post_id, carelib_get_post_template_meta_key( $post_id ) );
-}
-
-/**
- * Check if a post of any post type has a custom template.
- *
- * This is the equivalent of WordPress' `is_page_template()` function with
- * the exception that it works for all post types.
- *
- * @since  1.0.0
- * @access public
- * @param  string $template The name of the template to check for.
- * @param  int $post_id
- * @return bool
- */
-function carelib_has_post_template( $template = '', $post_id = '' ) {
-	if ( ! $post_id ) {
-		$post_id = get_the_ID();
-	}
-
-	// Get the post template, which is saved as metadata.
-	$post_template = carelib_get_post_template( $post_id );
-
-	// If a specific template was input, check that the post template matches.
-	if ( $template && $template === $post_template ) {
-		return true;
-	}
-
-	// Return whether we have a post template.
-	return ! empty( $post_template );
-}
-
-/**
- * Return the post template meta key.
- *
- * @since  1.0.0
- * @access public
- * @param  int $post_id
- * @return string
- */
-function carelib_get_post_template_meta_key( $post_id ) {
-	return sprintf( '_wp_%s_template', get_post_type( $post_id ) );
 }

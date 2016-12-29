@@ -19,30 +19,6 @@
  * @access public
  * @return void
  */
-function carelib_register_post_template_meta() {
-	foreach ( get_post_types( array( 'public' => true ) ) as $post_type ) {
-
-		if ( 'page' === $post_type ) {
-			continue;
-		}
-
-		register_meta(
-			'post',
-			"_wp_{$post_type}_template",
-			'sanitize_text_field',
-			'__return_false'
-		);
-	}
-}
-
-/**
- * Registers the library's custom metadata keys and sets up the sanitize
- * callback function.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
 function carelib_register_layouts_meta() {
 	register_meta(
 		'post',
