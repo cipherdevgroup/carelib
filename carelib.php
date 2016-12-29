@@ -110,6 +110,11 @@ require_once CARELIB_DIR . 'admin/metabox-post-layouts.php';
 require_once CARELIB_DIR . 'admin/scripts.php';
 require_once CARELIB_DIR . 'admin/styles.php';
 
+if ( carelib_is_woocommerce_active() ) {
+	require_once CARELIB_DIR . 'includes/woocommerce/template-global.php';
+	require_once CARELIB_DIR . 'includes/woocommerce/template-hooks.php';
+}
+
 add_action( 'after_setup_theme', 'carelib_init', -95 );
 /**
  * Load and initialize all library functionality.
