@@ -3,8 +3,6 @@
  * Wrapper functions for custom template hook locations.
  *
  * @package    CareLib
- * @subpackage CareLib\Classes\Template\Hooks
- * @author     WP Site Care
  * @copyright  Copyright (c) 2016, WP Site Care, LLC
  * @license    GPL-2.0+
  * @since      1.0.0
