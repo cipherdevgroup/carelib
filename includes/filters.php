@@ -250,20 +250,6 @@ add_filter( 'template_include', 'carelib_index_include', 95 );
 /**
  * Callback defined in includes/template-hierarchy.php
  *
- * @see carelib_singular_template
- */
-add_filter( 'single_template', 'carelib_singular_template', 5 );
-
-/**
- * Callback defined in includes/template-hierarchy.php
- *
- * @see carelib_singular_template
- */
-add_filter( 'page_template', 'carelib_singular_template', 5 );
-
-/**
- * Callback defined in includes/template-hierarchy.php
- *
  * Doesn't work b/c bug with get_query_template().
  *
  * @see carelib_front_page_template

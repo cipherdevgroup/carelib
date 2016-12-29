@@ -32,34 +32,6 @@ function carelib_index_include( $template ) {
 }
 
 /**
- * Override the default single (singular post) template.
- *
- * Post templates can be loaded using a custom post template, by slug, or
- * by ID.
- *
- * @since  1.0.0
- * @access public
- * @param  string $template The default WordPress post template.
- * @return string $template The theme post template after all templates have been checked for.
- */
-function carelib_singular_template( $template ) {
-	$templates = array();
-
-	// Get the queried post.
-	$post = get_queried_object();
-
-	$templates[] = "{$post->post_type}-{$post->post_name}.php";
-	$templates[] = "{$post->post_type}-{$post->ID}.php";
-	$templates[] = "{$post->post_type}.php";
-	$templates[] = "single-{$post->post_type}.php";
-	$templates[] = 'single.php';
-	$templates[] = 'singular.php';
-
-	// Return the found template.
-	return locate_template( $templates );
-}
-
-/**
  * Fix for the front page template handling in WordPress core.
  *
  * This overwrites "front-page.php" template if posts are to be shown on
