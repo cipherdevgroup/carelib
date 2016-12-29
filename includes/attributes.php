@@ -133,6 +133,20 @@ function carelib_attr_site_inner( $attr ) {
 }
 
 /**
+ * Modify the site inner attributes to allow for full-width pages..
+ *
+ * @since  0.1.0
+ * @access public
+ * @param  array $attr The current attributes.
+ * @return array
+ */
+function carelib_attr_full_width_inner( $attr ) {
+	$attr['class'] = 'full-width-inner';
+
+	return $attr;
+}
+
+/**
  * Page <footer> element attributes.
  *
  * @since  1.0.0
