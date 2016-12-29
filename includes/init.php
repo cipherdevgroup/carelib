@@ -28,7 +28,6 @@ require_once CARELIB_DIR . 'includes/image.php';
 require_once CARELIB_DIR . 'includes/language.php';
 require_once CARELIB_DIR . 'includes/layouts.php';
 require_once CARELIB_DIR . 'includes/menu.php';
-require_once CARELIB_DIR . 'includes/meta.php';
 require_once CARELIB_DIR . 'includes/paths.php';
 require_once CARELIB_DIR . 'includes/scripts.php';
 require_once CARELIB_DIR . 'includes/search-form.php';

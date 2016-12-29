@@ -9,6 +9,29 @@
  */
 
 /**
+ * Registers the library's custom metadata keys and sets up the sanitize
+ * callback function.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
+function carelib_register_layouts_meta() {
+	register_meta(
+		'post',
+		carelib_get_layout_meta_key(),
+		'sanitize_key',
+		'__return_false'
+	);
+	register_meta(
+		'user',
+		carelib_get_layout_meta_key(),
+		'sanitize_key',
+		'__return_false'
+	);
+}
+
+/**
  * Get all layout objects.
  *
  * @since  1.0.0
