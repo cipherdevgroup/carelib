@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-global $wp_embed, $carelib_prefix;
+global $wp_embed;
 
 /**
  * Callback defined in WordPress core.
@@ -47,7 +47,7 @@ add_filter( 'get_the_archive_description', 'carelib_archive_description', 5 );
  *
  * @see carelib_add_the_content_filters
  */
-carelib_add_the_content_filters( "{$carelib_prefix}_archive_description" );
+carelib_add_the_content_filters( 'carelib_archive_description' );
 
 /**
  * Callback defined in includes/template-entry.php
@@ -82,119 +82,119 @@ add_filter( 'wp_link_pages_link', 'carelib_link_pages_link', 5 );
  *
  * @see carelib_attr_head
  */
-add_filter( "{$carelib_prefix}_attr_head", 'carelib_attr_head', 5 );
+add_filter( 'carelib_attr_head', 'carelib_attr_head', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_body
  */
-add_filter( "{$carelib_prefix}_attr_body", 'carelib_attr_body', 5 );
+add_filter( 'carelib_attr_body', 'carelib_attr_body', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_site_container
  */
-add_filter( "{$carelib_prefix}_attr_site-container", 'carelib_attr_site_container', 5 );
+add_filter( 'carelib_attr_site-container', 'carelib_attr_site_container', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_site_inner
  */
-add_filter( "{$carelib_prefix}_attr_site-inner", 'carelib_attr_site_inner', 5 );
+add_filter( 'carelib_attr_site-inner', 'carelib_attr_site_inner', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_site_footer
  */
-add_filter( "{$carelib_prefix}_attr_site-footer", 'carelib_attr_site_footer', 5 );
+add_filter( 'carelib_attr_site-footer', 'carelib_attr_site_footer', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_content
  */
-add_filter( "{$carelib_prefix}_attr_content", 'carelib_attr_content', 5 );
+add_filter( 'carelib_attr_content', 'carelib_attr_content', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_skip_link
  */
-add_filter( "{$carelib_prefix}_attr_skip-link", 'carelib_attr_skip_link', 5, 2 );
+add_filter( 'carelib_attr_skip-link', 'carelib_attr_skip_link', 5, 2 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_sidebar
  */
-add_filter( "{$carelib_prefix}_attr_sidebar", 'carelib_attr_sidebar', 5, 2 );
+add_filter( 'carelib_attr_sidebar', 'carelib_attr_sidebar', 5, 2 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_menu_toggle
  */
-add_filter( "{$carelib_prefix}_attr_menu-toggle", 'carelib_attr_menu_toggle', 5, 2 );
+add_filter( 'carelib_attr_menu-toggle', 'carelib_attr_menu_toggle', 5, 2 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_menu
  */
-add_filter( "{$carelib_prefix}_attr_menu", 'carelib_attr_menu', 5, 2 );
+add_filter( 'carelib_attr_menu', 'carelib_attr_menu', 5, 2 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_nav
  */
-add_filter( "{$carelib_prefix}_attr_nav", 'carelib_attr_nav', 5, 2 );
+add_filter( 'carelib_attr_nav', 'carelib_attr_nav', 5, 2 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_footer_widgets
  */
-add_filter( "{$carelib_prefix}_attr_footer-widgets", 'carelib_attr_footer_widgets', 5, 2 );
+add_filter( 'carelib_attr_footer-widgets', 'carelib_attr_footer_widgets', 5, 2 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_site_header
  */
-add_filter( "{$carelib_prefix}_attr_site-header", 'carelib_attr_site_header', 5 );
+add_filter( 'carelib_attr_site-header', 'carelib_attr_site_header', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_site_branding
  */
-add_filter( "{$carelib_prefix}_attr_site-branding", 'carelib_attr_site_branding', 5 );
+add_filter( 'carelib_attr_site-branding', 'carelib_attr_site_branding', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_site_title
  */
-add_filter( "{$carelib_prefix}_attr_site-title", 'carelib_attr_site_title', 5 );
+add_filter( 'carelib_attr_site-title', 'carelib_attr_site_title', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_site_description
  */
-add_filter( "{$carelib_prefix}_attr_site-description", 'carelib_attr_site_description', 5 );
+add_filter( 'carelib_attr_site-description', 'carelib_attr_site_description', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_post
  */
-add_filter( "{$carelib_prefix}_attr_post", 'carelib_attr_post', 5 );
+add_filter( 'carelib_attr_post', 'carelib_attr_post', 5 );
 
 /**
  * Alternate for "post"
@@ -203,42 +203,42 @@ add_filter( "{$carelib_prefix}_attr_post", 'carelib_attr_post', 5 );
  *
  * @see carelib_attr_post
  */
-add_filter( "{$carelib_prefix}_attr_entry", 'carelib_attr_post', 5 );
+add_filter( 'carelib_attr_entry', 'carelib_attr_post', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_entry_published
  */
-add_filter( "{$carelib_prefix}_attr_entry-published", 'carelib_attr_entry_published', 5 );
+add_filter( 'carelib_attr_entry-published', 'carelib_attr_entry_published', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_entry_summary
  */
-add_filter( "{$carelib_prefix}_attr_entry-summary", 'carelib_attr_entry_summary', 5 );
+add_filter( 'carelib_attr_entry-summary', 'carelib_attr_entry_summary', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_comment
  */
-add_filter( "{$carelib_prefix}_attr_comment", 'carelib_attr_comment', 5 );
+add_filter( 'carelib_attr_comment', 'carelib_attr_comment', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_comment_published
  */
-add_filter( "{$carelib_prefix}_attr_comment-published", 'carelib_attr_comment_published', 5 );
+add_filter( 'carelib_attr_comment-published', 'carelib_attr_comment_published', 5 );
 
 /**
  * Callback defined in includes/attributes.php
  *
  * @see carelib_attr_comment_permalink
  */
-add_filter( "{$carelib_prefix}_attr_comment-permalink", 'carelib_attr_comment_permalink', 5 );
+add_filter( 'carelib_attr_comment-permalink', 'carelib_attr_comment_permalink', 5 );
 
 /**
  * Callback defined in includes/template-hierarchy.php
@@ -338,4 +338,4 @@ add_filter( 'tiny_mce_before_init', 'carelib_tinymce_formats', 99 );
  *
  * @see carelib_filter_layout
  */
-add_filter( "{$carelib_prefix}_get_theme_layout", 'carelib_filter_layout', 5 );
+add_filter( 'carelib_get_theme_layout', 'carelib_filter_layout', 5 );

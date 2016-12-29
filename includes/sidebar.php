@@ -25,7 +25,7 @@
  * @return string Sidebar ID.
  */
 function carelib_register_sidebar( $args ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_sidebar_defaults", array(
+	$defaults = apply_filters( 'carelib_sidebar_defaults', array(
 		'id'            => '',
 		'name'          => '',
 		'description'   => '',
@@ -40,7 +40,7 @@ function carelib_register_sidebar( $args ) {
 	remove_action( 'widgets_init', '__return_false', 95 );
 
 	// Register the sidebar.
-	return register_sidebar( apply_filters( "{$GLOBALS['carelib_prefix']}_sidebar_args", $args ) );
+	return register_sidebar( apply_filters( 'carelib_sidebar_args', $args ) );
 }
 
 /**
@@ -93,5 +93,5 @@ function carelib_get_sidebar( $name = null ) {
  * @return string
  */
 function carelib_get_primary_sidebar_id() {
-	return sanitize_key( (string) apply_filters( "{$GLOBALS['carelib_prefix']}_primary_sidebar_id", 'primary' ) );
+	return sanitize_key( (string) apply_filters( 'carelib_primary_sidebar_id', 'primary' ) );
 }

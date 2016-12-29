@@ -19,7 +19,7 @@
  * @return bool true on all views by default.
  */
 function carelib_has_entry_header() {
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_has_entry_header", true );
+	return (bool) apply_filters( 'carelib_has_entry_header', true );
 }
 
 /**
@@ -30,7 +30,7 @@ function carelib_has_entry_header() {
  * @return bool true on all views except single pages by default.
  */
 function carelib_has_entry_header_meta() {
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_has_entry_header_meta", ( 'post' === get_post_type() ) );
+	return (bool) apply_filters( 'carelib_has_entry_header_meta', ( 'post' === get_post_type() ) );
 }
 
 /**
@@ -75,7 +75,7 @@ function _carelib_get_formatted_title( $id = '', $link = '' ) {
 function carelib_get_entry_title( $args = array() ) {
 	$is_main  = is_singular() && is_main_query();
 
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_entry_title_defaults",
+	$defaults = apply_filters( 'carelib_entry_title_defaults',
 		array(
 			'tag'     => $is_main ? 'h1' : 'h2',
 			'attr'    => 'entry-title',
@@ -105,7 +105,7 @@ function carelib_get_entry_title( $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_entry_title", $html, $args );
+	return apply_filters( 'carelib_entry_title', $html, $args );
 }
 
 /**
@@ -117,7 +117,7 @@ function carelib_get_entry_title( $args = array() ) {
  * @return string
  */
 function carelib_get_entry_published( $args = array() ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_entry_published_defaults",
+	$defaults = apply_filters( 'carelib_entry_published_defaults',
 		array(
 			'attr'   => 'entry-published',
 			'date'   => get_the_date(),
@@ -145,7 +145,7 @@ function carelib_get_entry_published( $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_entry_published", $html, $args );
+	return apply_filters( 'carelib_entry_published', $html, $args );
 }
 
 /**
@@ -160,14 +160,14 @@ function carelib_get_entry_published( $args = array() ) {
  * - one (text when there is exactly one comment, default is '1 Comment'),
  * - zero (text when there are no comments, default is 'Leave a Comment').
  *
- * Output passes through "{$GLOBALS['carelib_prefix']}_get_entry_comments_link" filter before returning.
+ * Output passes through "carelib_get_entry_comments_link" filter before returning.
  *
  * @since  1.0.0
  * @param  array $args Empty array if no arguments.
  * @return string output
  */
 function carelib_get_entry_comments_link( $args = array() ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_entry_comments_link_defaults",
+	$defaults = apply_filters( 'carelib_entry_comments_link_defaults',
 		array(
 			'hide_if_off' => 'enabled',
 			'attr'        => 'entry-comments-link',
@@ -207,7 +207,7 @@ function carelib_get_entry_comments_link( $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_entry_comments_link", $html, $link, $text, $args );
+	return apply_filters( 'carelib_entry_comments_link', $html, $link, $text, $args );
 }
 
 /**
@@ -238,7 +238,7 @@ function _carelib_get_the_author_posts_link() {
  * @return string
  */
 function carelib_get_entry_author( $args = array() ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_entry_author_defaults",
+	$defaults = apply_filters( 'carelib_entry_author_defaults',
 		array(
 			'text'   => '%s',
 			'link'   => _carelib_get_the_author_posts_link(),
@@ -267,7 +267,7 @@ function carelib_get_entry_author( $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_entry_author", $html, $args );
+	return apply_filters( 'carelib_entry_author', $html, $args );
 }
 
 /**
@@ -276,14 +276,14 @@ function carelib_get_entry_author( $args = array() ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $text
+ * @param  string $text
  * @return string
  */
 function carelib_excerpt_more( $text ) {
 	if ( 0 !== strpos( $text, '<a' ) ) {
 		$text = sprintf( ' <a rel="nofollow" href="%s" class="more-link">%s</a>',
 			esc_url( get_permalink() ),
-			trim( apply_filters( "{$GLOBALS['carelib_prefix']}_read_more_text", $text ) )
+			trim( apply_filters( 'carelib_read_more_text', $text ) )
 		);
 	}
 	return $text;
@@ -295,7 +295,7 @@ function carelib_excerpt_more( $text ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array  $args
+ * @param  array $args
  * @return array
  */
 function carelib_link_pages_args( $args ) {
@@ -310,7 +310,7 @@ function carelib_link_pages_args( $args ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $link
+ * @param  string $link
  * @return string
  */
 function carelib_link_pages_link( $link ) {
@@ -325,7 +325,7 @@ function carelib_link_pages_link( $link ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $title
+ * @param  string $title
  * @return string
  */
 function carelib_untitled_post( $title ) {
@@ -346,7 +346,7 @@ function carelib_untitled_post( $title ) {
  * @return bool true on singular entries by default
  */
 function _carelib_is_full_content() {
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_is_full_content", is_singular() );
+	return apply_filters( 'carelib_is_full_content', is_singular() );
 }
 
 /**
@@ -384,12 +384,12 @@ function carelib_entry_has_content( $post_id = 0 ) {
  * @return void
  */
 function carelib_null_entry_containers() {
-	remove_all_actions( 'tha_entry_top' );
-	remove_all_actions( 'tha_entry_before' );
-	remove_all_actions( 'tha_entry_content_before' );
-	remove_all_actions( 'tha_entry_content_after' );
-	remove_all_actions( 'tha_entry_bottom' );
-	remove_all_actions( 'tha_entry_after' );
+	remove_all_actions( 'carelib_entry_top' );
+	remove_all_actions( 'carelib_entry_before' );
+	remove_all_actions( 'carelib_entry_content_before' );
+	remove_all_actions( 'carelib_entry_content_after' );
+	remove_all_actions( 'carelib_entry_bottom' );
+	remove_all_actions( 'carelib_entry_after' );
 }
 
 /**
@@ -406,7 +406,7 @@ function carelib_has_entry_footer_meta() {
 		$has_meta = true;
 	}
 
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_has_entry_footer_meta", $has_meta );
+	return (bool) apply_filters( 'carelib_has_entry_footer_meta', $has_meta );
 }
 
 /**
@@ -423,7 +423,7 @@ function carelib_has_entry_footer() {
 		$has_footer = true;
 	}
 
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_has_entry_footer", $has_footer );
+	return (bool) apply_filters( 'carelib_has_entry_footer', $has_footer );
 }
 
 /**
@@ -489,7 +489,7 @@ function carelib_get_entry_terms( $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_entry_terms", $html, $terms, $args );
+	return apply_filters( 'carelib_entry_terms', $html, $terms, $args );
 }
 
 /**
@@ -530,7 +530,7 @@ function carelib_get_post_navigation( $args = array() ) {
 
 	$name = _carelib_get_post_type_name( get_queried_object() );
 
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_post_navigation_defaults",
+	$defaults = apply_filters( 'carelib_post_navigation_defaults',
 		array(
 			'post_types'     => array(),
 			'prev_format'    => '<span class="nav-previous">%link</span>',

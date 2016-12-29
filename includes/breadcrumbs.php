@@ -16,30 +16,28 @@
  * @return array $breadcrumbs
  */
 function carelib_get_breadcrumb_options() {
-	$prefix = $GLOBALS['carelib_prefix'];
-
-	return apply_filters( "{$prefix}_breadcrumb_options", array(
-		"{$prefix}_breadcrumb_single" => array(
+	return apply_filters( 'carelib_breadcrumb_options', array(
+		'carelib_breadcrumb_single' => array(
 			'default'  => 0,
 			'label'    => __( 'Single Entries', 'carelib' ),
 		),
-		"{$prefix}_breadcrumb_pages" => array(
+		'carelib_breadcrumb_pages' => array(
 			'default'  => 0,
 			'label'    => __( 'Pages', 'carelib' ),
 		),
-		"{$prefix}_breadcrumb_blog_page" => array(
+		'carelib_breadcrumb_blog_page' => array(
 			'default'  => 0,
 			'label'    => __( 'Blog Page', 'carelib' ),
 		),
-		"{$prefix}_breadcrumb_archive" => array(
+		'carelib_breadcrumb_archive' => array(
 			'default'  => 0,
 			'label'    => __( 'Archives', 'carelib' ),
 		),
-		"{$prefix}_breadcrumb_404" => array(
+		'carelib_breadcrumb_404' => array(
 			'default'  => 0,
 			'label'    => __( '404 Page', 'carelib' ),
 		),
-		"{$prefix}_breadcrumb_attachment" => array(
+		'carelib_breadcrumb_attachment' => array(
 			'default'  => 0,
 			'label'    => __( 'Attachment/Media Pages', 'carelib' ),
 		),
@@ -57,7 +55,7 @@ function carelib_display_breadcrumbs() {
 	// Grab our available breadcrumb display options.
 	$options = array_keys( carelib_get_breadcrumb_options() );
 	// Set up an array of template tags to map to our breadcrumb display options.
-	$tags = apply_filters( "{$GLOBALS['carelib_prefix']}_breadcrumb_tags",
+	$tags = apply_filters( 'carelib_breadcrumb_tags',
 		array(
 			is_singular() && ! is_attachment() && ! is_page(),
 			is_page(),
@@ -86,7 +84,7 @@ function carelib_display_breadcrumbs() {
  * @return mixed false if no plugin is active, callback function name if one is
  */
 function carelib_breadcrumb_plugin_is_active() {
-	$callbacks = apply_filters( "{$GLOBALS['carelib_prefix']}_breadcrumbs_plugins", array(
+	$callbacks = apply_filters( 'carelib_breadcrumbs_plugins', array(
 		'yoast_breadcrumb',
 		'breadcrumb_trail',
 		'bcn_display',

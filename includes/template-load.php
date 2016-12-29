@@ -65,7 +65,7 @@ function carelib_get_template_part( $data, $slug, $name = null ) {
 	 * @param string $name The name of the specialized template.
 	 * @param array  $data The data to be passed into the template scope.
 	 */
-	do_action( "{$GLOBALS['carelib_prefix']}_get_template_part_{$slug}", $data, $slug, $name );
+	do_action( "carelib_get_template_part_{$slug}", $data, $slug, $name );
 
 	$data = (array) $data;
 
@@ -114,7 +114,7 @@ function carelib_framework( $name = '' ) {
 	 * @since 1.0.0
 	 * @param string $name The name of the specialized framework template.
 	 */
-	do_action( "{$GLOBALS['carelib_prefix']}_framework", $name, $templates );
+	do_action( 'carelib_framework', $name, $templates );
 
 	$name      = (string) $name;
 	$templates = (array) $templates;

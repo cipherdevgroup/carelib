@@ -19,7 +19,7 @@
  */
 function carelib_archive_header() {
 	if ( carelib_has_archive_header() ) {
-		do_action( "{$GLOBALS['carelib_prefix']}_archive_header" );
+		do_action( 'carelib_archive_header' );
 	}
 }
 
@@ -32,7 +32,7 @@ function carelib_archive_header() {
  */
 function carelib_entry_header() {
 	if ( carelib_has_entry_header() ) {
-		do_action( "{$GLOBALS['carelib_prefix']}_entry_header" );
+		do_action( 'carelib_entry_header' );
 	}
 }
 
@@ -45,7 +45,7 @@ function carelib_entry_header() {
  */
 function carelib_entry_header_meta() {
 	if ( carelib_has_entry_header_meta() ) {
-		do_action( "{$GLOBALS['carelib_prefix']}_entry_header_meta" );
+		do_action( 'carelib_entry_header_meta' );
 	}
 }
 
@@ -57,7 +57,7 @@ function carelib_entry_header_meta() {
  * @return void
  */
 function carelib_entry_content() {
-	do_action( "{$GLOBALS['carelib_prefix']}_entry_content" );
+	do_action( 'carelib_entry_content' );
 }
 
 /**
@@ -69,7 +69,7 @@ function carelib_entry_content() {
  */
 function carelib_entry_footer() {
 	if ( carelib_has_entry_footer() ) {
-		do_action( "{$GLOBALS['carelib_prefix']}_entry_footer" );
+		do_action( 'carelib_entry_footer' );
 	}
 }
 
@@ -82,6 +82,6 @@ function carelib_entry_footer() {
  */
 function carelib_entry_footer_meta() {
 	if ( carelib_has_entry_footer_meta() ) {
-		do_action( "{$GLOBALS['carelib_prefix']}_entry_footer_meta" );
+		do_action( 'carelib_entry_footer_meta' );
 	}
 }

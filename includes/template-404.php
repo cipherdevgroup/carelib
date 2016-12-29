@@ -16,7 +16,7 @@
  * @return string The 404 entry title.
  */
 function carelib_get_404_entry_title() {
-	$text = apply_filters( "{$GLOBALS['carelib_prefix']}_404_entry_title", __( 'Oops! That page can&rsquo;t be found.', 'carelib' ) );
+	$text = apply_filters( 'carelib_404_entry_title', __( 'Oops! That page can&rsquo;t be found.', 'carelib' ) );
 
 	return sprintf( '<h1 %s>%s</h1>',
 		carelib_get_attr( 'entry-title' ),
@@ -47,5 +47,5 @@ function carelib_get_404_content() {
 
 	$content .= carelib_get_the_widget( 'WP_Widget_Tag_Cloud' );
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_404_content", $content );
+	return apply_filters( 'carelib_404_content', $content );
 }

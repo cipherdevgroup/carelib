@@ -38,7 +38,7 @@
  * @return string|array the raw image string or an array of image attributes.
  */
 function carelib_get_image( $args = array() ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_image_defaults", array(
+	$defaults = apply_filters( 'carelib_image_defaults', array(
 		'post_id'           => get_the_ID(),
 		'meta_key'          => false,
 		'featured'          => true,
@@ -117,10 +117,8 @@ function _carelib_image_get_cache_key( $array ) {
  * @return bool|array $image Image properties or false if no image is found.
  */
 function _carelib_image_get_cached_image( $args ) {
-	global $carelib_prefix;
-
 	$key   = _carelib_image_get_cache_key( $args );
-	$cache = (array) wp_cache_get( $args['post_id'], "{$carelib_prefix}_image" );
+	$cache = (array) wp_cache_get( $args['post_id'], 'carelib_image' );
 
 	if ( $key && isset( $cache[ $key ] ) ) {
 		return $cache[ $key ];
@@ -133,7 +131,7 @@ function _carelib_image_get_cached_image( $args ) {
 
 		if ( $key ) {
 			$cache[ $key ] = $image;
-			wp_cache_set( $args['post_id'], $cache, "{$carelib_prefix}_image" );
+			wp_cache_set( $args['post_id'], $cache, 'carelib_image' );
 		}
 	}
 
@@ -157,7 +155,7 @@ function _carelib_image_find( $args ) {
 		_carelib_image_get_meta_key_save( $args, $image );
 	}
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_image", $image );
+	return apply_filters( 'carelib_image', $image );
 }
 
 /**
@@ -629,7 +627,7 @@ function _carelib_image_get_meta_key_save( $args, $image ) {
  * @return bool true when cache is deleted, false otherwise
  */
 function _carelib_delete_image_cache( $post_id ) {
-	return wp_cache_delete( $post_id, "{$GLOBALS['carelib_prefix']}_image" );
+	return wp_cache_delete( $post_id, 'carelib_image' );
 }
 
 /**

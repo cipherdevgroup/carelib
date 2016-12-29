@@ -11,8 +11,8 @@
 ?>
 <?php
 	wp_nonce_field(
-		"{$GLOBALS['carelib_prefix']}_update_post_layout",
-		"{$GLOBALS['carelib_prefix']}_post_layout_nonce"
+		'carelib_update_post_layout',
+		'carelib_post_layout_nonce'
 	);
 ?>
 

@@ -52,7 +52,7 @@ function carelib_comments_callback( $comment, $args, $depth ) {
 		$templates[] = 'comment.php';
 
 		// Allow devs to filter the template hierarchy.
-		$templates = apply_filters( "{$GLOBALS['carelib_prefix']}_comment_template_hierarchy", $templates, $comment_type );
+		$templates = apply_filters( 'carelib_comment_template_hierarchy', $templates, $comment_type );
 
 		// Locate the comment template.
 		$template = locate_template( $templates );
@@ -75,7 +75,7 @@ function carelib_comments_callback( $comment, $args, $depth ) {
  * @return void
  */
 function carelib_comments_load_template() {
-	if ( apply_filters( "{$GLOBALS['carelib_prefix']}_display_comments", ! ( is_page() || is_attachment() ) ) ) {
+	if ( apply_filters( 'carelib_display_comments', ! ( is_page() || is_attachment() ) ) ) {
 		comments_template();
 	}
 }

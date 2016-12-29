@@ -57,7 +57,7 @@ function carelib_layout_has_post_metabox( $layout, $post_type ) {
  */
 function carelib_maybe_disable_post_layout_metabox( $post_type, $post ) {
 	if ( $post instanceof WP_Post && _carelib_admin_is_layout_forced( $post_type, $post->ID ) ) {
-		add_filter( "{$GLOBALS['carelib_prefix']}_allow_layout_control", '__return_false' );
+		add_filter( 'carelib_allow_layout_control', '__return_false' );
 	}
 }
 
@@ -70,7 +70,7 @@ function carelib_maybe_disable_post_layout_metabox( $post_type, $post ) {
  * @return bool true if the current post type layout is forced, false otherwise
  */
 function _carelib_is_post_type_layout_forced( $post_type = '' ) {
-	$post_types = (array) apply_filters( "{$GLOBALS['carelib_prefix']}_forced_post_types", array() );
+	$post_types = (array) apply_filters( 'carelib_forced_post_types', array() );
 
 	if ( empty( $post_type ) ) {
 		$post_type = get_post_type();
@@ -94,7 +94,7 @@ function _carelib_is_post_type_layout_forced( $post_type = '' ) {
  * @return bool true if the current post layout is forced, false otherwise
  */
 function _carelib_is_post_layout_forced( $post_id = '' ) {
-	$post_ids = (array) apply_filters( "{$GLOBALS['carelib_prefix']}_forced_post_ids", array() );
+	$post_ids = (array) apply_filters( 'carelib_forced_post_ids', array() );
 
 	if ( empty( $post_id ) ) {
 		$post_id = get_the_ID();
@@ -118,7 +118,7 @@ function _carelib_is_post_layout_forced( $post_id = '' ) {
  * @return bool true if the current page template layout is forced, false otherwise
  */
 function _carelib_is_template_layout_forced( $post_id = '' ) {
-	$templates = (array) apply_filters( "{$GLOBALS['carelib_prefix']}_forced_templates", array() );
+	$templates = (array) apply_filters( 'carelib_forced_templates', array() );
 
 	if ( empty( $post_id ) ) {
 		$post_id = get_the_ID();

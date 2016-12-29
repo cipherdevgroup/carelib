@@ -76,7 +76,7 @@ function carelib_customize_register_layouts( $wp_customize ) {
  * @return void
  */
 function carelib_register_breadcrumb_settings( $wp_customize ) {
-	$section = "{$GLOBALS['carelib_prefix']}_breadcrumbs";
+	$section = 'carelib_breadcrumbs';
 
 	$wp_customize->add_section(
 		$section,

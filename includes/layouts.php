@@ -101,7 +101,7 @@ function carelib_register_layout( $layout_id, $args = array() ) {
 	 * Filter the passed $args for each layout. If no $layout_id is passed, it will effect all
 	 * registered layouts.
 	 */
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_layout_args", array(
+	$defaults = apply_filters( 'carelib_layout_args', array(
 		'label'            => '',
 		'image'            => '%s',
 		'default'          => false,
@@ -140,7 +140,7 @@ function carelib_register_layouts( $layouts ) {
  * @return void
  */
 function carelib_do_register_layouts() {
-	do_action( "{$GLOBALS['carelib_prefix']}_register_layouts" );
+	do_action( 'carelib_register_layouts' );
 }
 
 /**
@@ -206,7 +206,7 @@ function carelib_filter_layout( $theme_layout ) {
  * @return string
  */
 function carelib_get_layout_meta_key() {
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_layout_meta_key", 'Layout' );
+	return apply_filters( 'carelib_layout_meta_key', 'Layout' );
 }
 
 /**
@@ -288,7 +288,7 @@ function carelib_get_global_layout() {
  * @return string
  */
 function carelib_get_theme_layout() {
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_get_theme_layout", carelib_get_global_layout() );
+	return apply_filters( 'carelib_get_theme_layout', carelib_get_global_layout() );
 }
 
 /**
@@ -432,7 +432,7 @@ function carelib_delete_user_layout( $user_id ) {
  * @return bool
  */
 function carelib_allow_layout_control() {
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_allow_layout_control", true );
+	return (bool) apply_filters( 'carelib_allow_layout_control', true );
 }
 
 /**
@@ -455,7 +455,7 @@ function carelib_is_layout_forced() {
  * @return string the slug of the forced layout.
  */
 function carelib_force_layout( $layout_id ) {
-	add_filter( "{$GLOBALS['carelib_prefix']}_allow_layout_control", '__return_false' );
+	add_filter( 'carelib_allow_layout_control', '__return_false' );
 
 	return $layout_id;
 }

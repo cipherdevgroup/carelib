@@ -94,8 +94,8 @@ function carelib_metabox_post_layouts_box( $post, $box ) {
  * @return void|int
  */
 function carelib_metabox_post_layouts_save( $post_id, $post = '' ) {
-	$no  = "{$GLOBALS['carelib_prefix']}_post_layout_nonce";
-	$act = "{$GLOBALS['carelib_prefix']}_update_post_layout";
+	$no  = 'carelib_post_layout_nonce';
+	$act = 'carelib_update_post_layout';
 
 	// Verify the nonce for the post formats meta box.
 	if ( ! isset( $_POST[ $no ] ) || ! wp_verify_nonce( $_POST[ $no ], $act ) ) {

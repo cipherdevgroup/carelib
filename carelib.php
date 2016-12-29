@@ -73,15 +73,6 @@ if ( ! defined( 'PARENT_THEME_URI' ) ) {
 }
 
 /**
- * The prefix used by filters throughout the library.
- *
- * @since 1.0.0
- */
-if ( ! isset( $GLOBALS['carelib_prefix'] ) ) {
-	$GLOBALS['carelib_prefix'] = 'carelib';
-}
-
-/**
  * The global used to store all layout objects.
  *
  * @since 1.0.0
@@ -89,8 +80,6 @@ if ( ! isset( $GLOBALS['carelib_prefix'] ) ) {
 if ( ! isset( $GLOBALS['_carelib_layouts'] ) ) {
 	$GLOBALS['_carelib_layouts'] = array();
 }
-
-$GLOBALS['carelib_prefix'] = sanitize_key( $GLOBALS['carelib_prefix'] );
 
 add_action( 'after_setup_theme', 'carelib_init', -95 );
 /**

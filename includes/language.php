@@ -20,7 +20,7 @@
  * @return string The textdomain of the theme.
  */
 function _carelib_get_parent_textdomain() {
-	$domain = apply_filters( "{$GLOBALS['carelib_prefix']}_parent_textdomain", '' );
+	$domain = apply_filters( 'carelib_parent_textdomain', '' );
 
 	// If the textdomain has been set, return it.
 	if ( ! empty( $domain ) ) {
@@ -42,7 +42,7 @@ function _carelib_get_parent_textdomain() {
  * @return string The textdomain of the child theme.
  */
 function _carelib_get_child_textdomain() {
-	$domain = apply_filters( "{$GLOBALS['carelib_prefix']}_child_textdomain", '' );
+	$domain = apply_filters( 'carelib_child_textdomain', '' );
 
 	// If the textdomain has been set, return it.
 	if ( ! empty( $domain ) ) {
@@ -109,7 +109,7 @@ function carelib_load_locale_functions() {
 
 	if ( is_child_theme() ) {
 
-		$child_func = carelib_get_child_dir( _carelib_get_child_domain_path()  . "/{$locale}.php" );
+		$child_func = carelib_get_child_dir( _carelib_get_child_domain_path() . "/{$locale}.php" );
 
 		if ( file_exists( $child_func ) ) {
 			require_once( $child_func );
@@ -155,7 +155,7 @@ function carelib_load_textdomains() {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $locale
+ * @param  string $locale
  * @return string
  */
 function carelib_get_language( $locale = '' ) {
@@ -173,7 +173,7 @@ function carelib_get_language( $locale = '' ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $locale
+ * @param  string $locale
  * @return string
  */
 function carelib_get_region( $locale = '' ) {

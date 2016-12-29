@@ -17,7 +17,7 @@
  * @return string
  */
 function carelib_get_site_title( $args = array() ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_site_title_defaults",
+	$defaults = apply_filters( 'carelib_site_title_defaults',
 		array(
 			'attr'   => 'site-title',
 			'title'  => '<a href="' . esc_url( home_url() ) . '" rel="home">' . get_bloginfo( 'name' ) . '</a>',
@@ -47,7 +47,7 @@ function carelib_get_site_title( $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_site_title", $html, $args );
+	return apply_filters( 'carelib_site_title', $html, $args );
 }
 
 /**
@@ -59,7 +59,7 @@ function carelib_get_site_title( $args = array() ) {
  * @return string
  */
 function carelib_get_site_description( $args = array() ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_site_description_defaults",
+	$defaults = apply_filters( 'carelib_site_description_defaults',
 		array(
 			'attr'        => 'site-description',
 			'description' => get_bloginfo( 'description' ),
@@ -89,7 +89,7 @@ function carelib_get_site_description( $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_site_description", $html, $args );
+	return apply_filters( 'carelib_site_description', $html, $args );
 }
 
 /**
@@ -102,7 +102,7 @@ function carelib_get_site_description( $args = array() ) {
  * @return string
  */
 function carelib_get_skip_link( $target, $args = array() ) {
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_skip_link_defaults",
+	$defaults = apply_filters( 'carelib_skip_link_defaults',
 		array(
 			'attr'   => 'skip-link',
 			'text'   => sprintf( esc_html__( 'Skip to %s (Press enter)', 'carelib' ), $target ),
@@ -130,7 +130,7 @@ function carelib_get_skip_link( $target, $args = array() ) {
 
 	$html .= isset( $args['after'] ) ? $args['after'] : '';
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_skip_link", $html, $target, $args );
+	return apply_filters( 'carelib_skip_link', $html, $target, $args );
 }
 
 /**
@@ -276,7 +276,7 @@ function carelib_get_credit_link() {
 		__( 'Free WordPress Theme by', 'carelib' ) . ' WP Site Care',
 		'WP Site Care'
 	);
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_credit_link", $link );
+	return apply_filters( 'carelib_credit_link', $link );
 }
 
 /**
@@ -296,7 +296,7 @@ function carelib_get_theme_info() {
 		carelib_get_credit_link()
 	);
 	$info .= '</div>';
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_theme_info", $info );
+	return apply_filters( 'carelib_theme_info', $info );
 }
 
 /**

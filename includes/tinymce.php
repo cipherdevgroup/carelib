@@ -49,7 +49,7 @@ function carelib_tinymce_disable_styleselect( $buttons ) {
  * @see    http://wordpress.stackexchange.com/a/128950/9844
  */
 function carelib_tinymce_formats( $args ) {
-	$formats = apply_filters( "{$GLOBALS['carelib_prefix']}_tiny_mce_formats",
+	$formats = apply_filters( 'carelib_tiny_mce_formats',
 		array(
 			array(
 				'title'    => __( 'Drop Cap', 'carelib' ),

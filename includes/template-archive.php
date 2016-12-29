@@ -19,7 +19,7 @@
  * @return bool
  */
 function carelib_is_plural() {
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_is_plural", is_home() || is_archive() || is_search() );
+	return apply_filters( 'carelib_is_plural', is_home() || is_archive() || is_search() );
 }
 
 /**
@@ -30,7 +30,19 @@ function carelib_is_plural() {
  * @return bool true if we're on a blog archive page.
  */
 function carelib_is_blog_archive() {
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_is_blog_archive", ( is_home() || is_archive() ) && ! ( is_post_type_archive() || is_tax() ) );
+	return apply_filters( 'carelib_is_blog_archive', ( is_home() || is_archive() ) && ! ( is_post_type_archive() || is_tax() ) );
+}
+
+/**
+ * Determine if we're viewing anything within the blog section.
+ *
+ * @since  0.1.0
+ * @access public
+ * @uses   carelib_is_blog_archive
+ * @return bool true if we're on a blog archive page or a singular post.
+ */
+function carelib_is_blog() {
+	return carelib_is_blog_archive() || is_singular( 'post' );
 }
 
 /**
@@ -41,7 +53,7 @@ function carelib_is_blog_archive() {
  * @return bool
  */
 function carelib_has_archive_header() {
-	return (bool) apply_filters( "{$GLOBALS['carelib_prefix']}_has_archive_header", is_archive() || is_search() );
+	return (bool) apply_filters( 'carelib_has_archive_header', is_archive() || is_search() );
 }
 
 /**
@@ -157,7 +169,7 @@ function carelib_get_search_title() {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $title
+ * @param  string $title
  * @return string
  */
 function carelib_archive_title( $title ) {
@@ -193,7 +205,7 @@ function carelib_archive_title( $title ) {
 		$title = carelib_get_single_archive_title();
 	}
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_archive_title", $title );
+	return apply_filters( 'carelib_archive_title', $title );
 }
 
 /**
@@ -202,7 +214,7 @@ function carelib_archive_title( $title ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $desc
+ * @param  string $desc
  * @return string
  */
 function carelib_archive_description( $desc ) {
@@ -230,7 +242,7 @@ function carelib_archive_description( $desc ) {
 		$desc = get_post_type_object( get_query_var( 'post_type' ) )->description;
 	}
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_archive_description", $desc );
+	return apply_filters( 'carelib_archive_description', $desc );
 }
 
 
@@ -251,7 +263,7 @@ function carelib_get_posts_navigation( $args = array() ) {
 		return;
 	}
 
-	$defaults = apply_filters( "{$GLOBALS['carelib_prefix']}_posts_navigation_defaults",
+	$defaults = apply_filters( 'carelib_posts_navigation_defaults',
 		array(
 			'nav_type'       => 'pagination',
 			'prev_link_text' => __( 'Newer Posts', 'carelib' ),
@@ -286,7 +298,7 @@ function carelib_get_posts_navigation( $args = array() ) {
 		$output .= '</nav><!-- .nav-archive -->';
 	}
 
-	return apply_filters( "{$GLOBALS['carelib_prefix']}_posts_navigation", $output, $args );
+	return apply_filters( 'carelib_posts_navigation', $output, $args );
 }
 
 /**

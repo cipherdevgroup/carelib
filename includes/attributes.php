@@ -51,7 +51,7 @@ function carelib_get_attr( $slug, $context = '', $attr = array() ) {
 
 	$attr = array_merge(
 		$attr,
-		(array) apply_filters( "{$GLOBALS['carelib_prefix']}_attr_{$slug}", $attr, $context )
+		(array) apply_filters( "carelib_attr_{$slug}", $attr, $context )
 	);
 
 	foreach ( $attr as $name => $value ) {

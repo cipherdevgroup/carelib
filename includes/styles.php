@@ -31,14 +31,14 @@ function carelib_get_google_fonts_string( $families, $editor_style = false ) {
  */
 function carelib_register_styles() {
 	wp_register_style(
-		"{$GLOBALS['carelib_prefix']}-parent",
+		'carelib-parent',
 		carelib_get_parent_stylesheet_uri(),
 		array(),
 		carelib_get_parent_version()
 	);
 
 	wp_register_style(
-		"{$GLOBALS['carelib_prefix']}-style",
+		'carelib-style',
 		get_stylesheet_uri(),
 		array(),
 		carelib_get_theme_version()

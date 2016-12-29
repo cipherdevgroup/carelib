@@ -26,7 +26,7 @@
  */
 function carelib_index_include( $template ) {
 	if ( get_index_template() === $template ) {
-		return carelib_framework( apply_filters( "{$GLOBALS['carelib_prefix']}_index_template", null ) );
+		return carelib_framework( apply_filters( 'carelib_index_template', null ) );
 	}
 	return $template;
 }
@@ -41,7 +41,7 @@ function carelib_index_include( $template ) {
  * @link   http://www.chipbennett.net/2013/09/14/home-page-and-front-page-and-templates-oh-my/
  * @since  1.0.0
  * @access public
- * @param  string  $template
+ * @param  string $template
  * @return string
  */
 function carelib_front_page_template( $template ) {
