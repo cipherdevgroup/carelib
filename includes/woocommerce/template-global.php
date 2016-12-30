@@ -27,7 +27,7 @@ function carelib_wc_is_plural() {
  * @return bool True if viewing any single WooCommerce entry or page.
  */
 function carelib_wc_is_singular() {
-	return is_page( array( 'my-account', 'cart', 'checkout' ) ) || is_product();
+	return is_cart() || is_checkout() || is_account_page() || is_product();
 }
 
 /**
