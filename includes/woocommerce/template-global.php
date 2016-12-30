@@ -138,7 +138,7 @@ function carelib_wc_get_product_image( $post_id = false ) {
 		$post_id = get_the_ID();
 	}
 
-	$image = sprintf( '<img src="%s" alt="%s" />hello',
+	$image = sprintf( '<img src="%s" alt="%s" />',
 		wc_placeholder_img_src(),
 		__( 'Placeholder', 'carelib' )
 	);
