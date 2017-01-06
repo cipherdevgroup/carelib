@@ -67,7 +67,9 @@ function _carelib_get_context() {
 		$context[] = 'error-404';
 	}
 
-	return array_map( 'esc_attr', apply_filters( 'context', array_unique( $context ) ) );
+	$context = (array) apply_filters( 'carelib_context', $context );
+
+	return array_map( 'esc_attr', array_unique( $context ) );
 }
 
 /**
