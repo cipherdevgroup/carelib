@@ -10,8 +10,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-global $wp_embed;
-
 /**
  * Callback defined in WordPress core.
  *
