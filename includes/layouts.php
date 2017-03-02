@@ -89,12 +89,12 @@ function carelib_layout_exists( $layout_id ) {
 function carelib_register_layout( $layout_id, $args = array() ) {
 	global $_carelib_layouts;
 
-	if ( carelib_layout_exists( $layout_id ) ) {
-		return false;
-	}
-
 	if ( ! is_array( $_carelib_layouts ) ) {
 		$_carelib_layouts = array();
+	}
+
+	if ( isset( $_carelib_layouts[ $layout_id ] ) ) {
+		return false;
 	}
 
 	/**
@@ -182,12 +182,16 @@ function carelib_set_default_layout( $name ) {
  * @return string The modified theme layout based on which page is viewed.
  */
 function carelib_filter_layout( $theme_layout ) {
-	if ( is_singular() ) {
-		$layout_id = carelib_get_post_layout( get_queried_object_id() );
-	} elseif ( is_author() ) {
-		$layout_id = carelib_get_user_layout( get_queried_object_id() );
-	} elseif ( carelib_is_blog_archive() ) {
-		$layout_id = carelib_get_post_layout( get_option( 'page_for_posts' ) );
+	static $layout_id;
+
+	if ( null === $layout_id ) {
+		if ( is_singular() ) {
+			$layout_id = carelib_get_post_layout( get_queried_object_id() );
+		} elseif ( is_author() ) {
+			$layout_id = carelib_get_user_layout( get_queried_object_id() );
+		} elseif ( carelib_is_blog_archive() ) {
+			$layout_id = carelib_get_post_layout( get_option( 'page_for_posts' ) );
+		}
 	}
 
 	if ( empty( $layout_id ) || $layout_id === $theme_layout ) {
@@ -242,9 +246,19 @@ function carelib_get_user_layout( $user_id ) {
  * @return object|bool
  */
 function carelib_get_layout( $layout_id ) {
-	$layouts = carelib_get_layouts();
+	static $layout;
 
-	return carelib_layout_exists( $layout_id ) ? $layouts[ $layout_id ] : false;
+	if ( null === $layout ) {
+		$layouts = carelib_get_layouts();
+
+		$layout = false;
+
+		if ( isset( $layouts[ $layout_id ] ) ) {
+			$layout = $layouts[ $layout_id ];
+		}
+	}
+
+	return $layout;
 }
 
 /**
@@ -255,11 +269,15 @@ function carelib_get_layout( $layout_id ) {
  * @return string
  */
 function carelib_get_default_layout() {
-	$name = 'default';
+	static $name;
 
-	foreach ( carelib_get_layouts() as $id => $layout ) {
-		if ( true === $layout['default'] ) {
-			$name = sanitize_title_with_dashes( $id );
+	if ( null === $name ) {
+		$name = 'default';
+
+		foreach ( carelib_get_layouts() as $id => $layout ) {
+			if ( true === $layout['default'] ) {
+				$name = sanitize_title_with_dashes( $id );
+			}
 		}
 	}
 
@@ -274,7 +292,13 @@ function carelib_get_default_layout() {
  * @return string
  */
 function carelib_get_global_layout() {
-	return get_theme_mod( 'theme_layout', carelib_get_default_layout() );
+	static $layout;
+
+	if ( null === $layout ) {
+		$layout = get_theme_mod( 'theme_layout', carelib_get_default_layout() );
+	}
+
+	return $layout;
 }
 
 /**
@@ -288,7 +312,13 @@ function carelib_get_global_layout() {
  * @return string
  */
 function carelib_get_theme_layout() {
-	return apply_filters( 'carelib_get_theme_layout', carelib_get_global_layout() );
+	static $layout;
+
+	if ( null === $layout ) {
+		$layout = apply_filters( 'carelib_get_theme_layout', carelib_get_global_layout() );
+	}
+
+	return $layout;
 }
 
 /**
@@ -320,9 +350,21 @@ function carelib_post_type_has_layout( $post_type, $layout ) {
  * @return bool
  */
 function carelib_has_post_layout( $layout_id, $post_id = '' ) {
-	$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
+	static $has_layout;
 
-	return carelib_get_post_layout( $post_id ) === $layout_id ? true : false;
+	if ( null === $has_layout ) {
+		if (  empty( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+
+		$has_layout = false;
+
+		if ( carelib_get_post_layout( $post_id ) === $layout_id ) {
+			$has_layout = true;
+		}
+	}
+
+	return $has_layout;
 }
 
 /**
@@ -335,9 +377,21 @@ function carelib_has_post_layout( $layout_id, $post_id = '' ) {
  * @return bool
  */
 function carelib_has_user_layout( $layout_id, $user_id = '' ) {
-	$user_id = empty( $user_id ) ? absint( get_query_var( 'author' ) ) : $user_id;
+	static $has_layout;
 
-	return carelib_get_user_layout( $user_id ) === $layout_id ? true : false;
+	if ( null === $has_layout ) {
+		if (  empty( $user_id ) ) {
+			$user_id = absint( get_query_var( 'author' ) );
+		}
+
+		$has_layout = false;
+
+		if ( carelib_get_user_layout( $user_id ) === $layout_id ) {
+			$has_layout = true;
+		}
+	}
+
+	return $has_layout;
 }
 
 /**
@@ -395,9 +449,11 @@ function carelib_set_user_layout( $user_id, $layout_id ) {
  * @return void
  */
 function carelib_unregister_layout( $name ) {
-	$layouts = carelib_get_layouts();
+	global $_carelib_layouts;
 
-	unset( $layouts[ $name ] );
+	if ( is_array( $_carelib_layouts ) ) {
+		unset( $_carelib_layouts[ $name ] );
+	}
 }
 
 /**
