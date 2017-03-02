@@ -246,16 +246,12 @@ function carelib_get_user_layout( $user_id ) {
  * @return object|bool
  */
 function carelib_get_layout( $layout_id ) {
-	static $layout;
+	$layouts = carelib_get_layouts();
 
-	if ( null === $layout ) {
-		$layouts = carelib_get_layouts();
+	$layout = false;
 
-		$layout = false;
-
-		if ( isset( $layouts[ $layout_id ] ) ) {
-			$layout = $layouts[ $layout_id ];
-		}
+	if ( isset( $layouts[ $layout_id ] ) ) {
+		$layout = $layouts[ $layout_id ];
 	}
 
 	return $layout;
@@ -292,13 +288,7 @@ function carelib_get_default_layout() {
  * @return string
  */
 function carelib_get_global_layout() {
-	static $layout;
-
-	if ( null === $layout ) {
-		$layout = get_theme_mod( 'theme_layout', carelib_get_default_layout() );
-	}
-
-	return $layout;
+	return get_theme_mod( 'theme_layout', carelib_get_default_layout() );
 }
 
 /**
@@ -312,13 +302,7 @@ function carelib_get_global_layout() {
  * @return string
  */
 function carelib_get_theme_layout() {
-	static $layout;
-
-	if ( null === $layout ) {
-		$layout = apply_filters( 'carelib_get_theme_layout', carelib_get_global_layout() );
-	}
-
-	return $layout;
+	return apply_filters( 'carelib_get_theme_layout', carelib_get_global_layout() );
 }
 
 /**
@@ -350,18 +334,14 @@ function carelib_post_type_has_layout( $post_type, $layout ) {
  * @return bool
  */
 function carelib_has_post_layout( $layout_id, $post_id = '' ) {
-	static $has_layout;
+	if (  empty( $post_id ) ) {
+		$post_id = get_the_ID();
+	}
 
-	if ( null === $has_layout ) {
-		if (  empty( $post_id ) ) {
-			$post_id = get_the_ID();
-		}
+	$has_layout = false;
 
-		$has_layout = false;
-
-		if ( carelib_get_post_layout( $post_id ) === $layout_id ) {
-			$has_layout = true;
-		}
+	if ( carelib_get_post_layout( $post_id ) === $layout_id ) {
+		$has_layout = true;
 	}
 
 	return $has_layout;
@@ -377,18 +357,14 @@ function carelib_has_post_layout( $layout_id, $post_id = '' ) {
  * @return bool
  */
 function carelib_has_user_layout( $layout_id, $user_id = '' ) {
-	static $has_layout;
+	if (  empty( $user_id ) ) {
+		$user_id = absint( get_query_var( 'author' ) );
+	}
 
-	if ( null === $has_layout ) {
-		if (  empty( $user_id ) ) {
-			$user_id = absint( get_query_var( 'author' ) );
-		}
+	$has_layout = false;
 
-		$has_layout = false;
-
-		if ( carelib_get_user_layout( $user_id ) === $layout_id ) {
-			$has_layout = true;
-		}
+	if ( carelib_get_user_layout( $user_id ) === $layout_id ) {
+		$has_layout = true;
 	}
 
 	return $has_layout;
