@@ -192,7 +192,7 @@ add_filter( 'carelib_attr_site-description', 'carelib_attr_site_description', 5 
  *
  * @see carelib_attr_post
  */
-add_filter( 'carelib_attr_post', 'carelib_attr_post', 5 );
+add_filter( 'carelib_attr_post', 'carelib_attr_post', 5, 2 );
 
 /**
  * Alternate for "post"
