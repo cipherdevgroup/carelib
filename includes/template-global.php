@@ -295,9 +295,8 @@ function carelib_get_customizer_link( $args = array() ) {
  * @return string
  */
 function carelib_get_credit_link() {
-	$link = sprintf( '<a class="author-link" href="%s" title="%s">%s</a>',
+	$link = sprintf( '<a class="author-link" href="%s">%s</a>',
 		'https://www.wpsitecare.com',
-		__( 'Free WordPress Theme by', 'carelib' ) . ' WP Site Care',
 		'WP Site Care'
 	);
 	return apply_filters( 'carelib_credit_link', $link );
