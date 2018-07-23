@@ -6,16 +6,16 @@
   "license": "GPL-2.0+",
   "private": true,
   "bugs": {
-    "url": "https://github.com/wpsitecare/carelib/issues"
+    "url": "https://github.com/cipherdevgroup/carelib/issues"
   },
   "contributors": [
     {
       "name": "Robert Neu",
-      "url": "https://www.wpsitecare.com"
+      "url": "https://cipherdevelopment.com"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/wpsitecare/carelib.git"
+    "url": "https://github.com/cipherdevgroup/carelib.git"
   }
 }

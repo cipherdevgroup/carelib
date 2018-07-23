@@ -3,7 +3,7 @@
  * Template helper functions used for global site elements.
  *
  * @package    CareLib
- * @copyright  Copyright (c) 2016, WP Site Care, LLC
+ * @copyright  Copyright (c) 2018, Cipher Development, LLC
  * @license    GPL-2.0+
  * @since      1.0.0
  */
@@ -296,8 +296,8 @@ function carelib_get_customizer_link( $args = array() ) {
  */
 function carelib_get_credit_link() {
 	$link = sprintf( '<a class="author-link" href="%s">%s</a>',
-		'https://www.wpsitecare.com',
-		'WP Site Care'
+		'https://cipherdevelopment.com',
+		'Cipher'
 	);
 	return apply_filters( 'carelib_credit_link', $link );
 }
