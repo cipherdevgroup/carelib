@@ -273,7 +273,7 @@ add_filter( 'comments_template', 'carelib_comments_template', 5 );
  *
  * @see carelib_body_class_filter
  */
-add_filter( 'body_class', 'carelib_body_class_filter', 0, 2 );
+add_filter( 'body_class', 'carelib_body_class_filter', 0 );
 
 /**
  * Callback defined in includes/context.php
