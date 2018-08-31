@@ -103,7 +103,6 @@ require_once CARELIB_DIR . 'includes/template-global.php';
 require_once CARELIB_DIR . 'includes/template-hooks.php';
 require_once CARELIB_DIR . 'includes/template-load.php';
 require_once CARELIB_DIR . 'includes/theme.php';
-require_once CARELIB_DIR . 'includes/tinymce.php';
 require_once CARELIB_DIR . 'admin/layouts.php';
 require_once CARELIB_DIR . 'admin/metabox-post-layouts.php';
 require_once CARELIB_DIR . 'admin/scripts.php';

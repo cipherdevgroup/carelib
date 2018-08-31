@@ -311,27 +311,6 @@ add_filter( 'locale_stylesheet_uri', 'carelib_locale_stylesheet_uri', 5 );
 add_filter( 'get_search_form', 'carelib_search_form_get_form', 99 );
 
 /**
- * Callback defined in includes/tinymce.php
- *
- * @see carelib_tinymce_add_styleselect
- */
-add_filter( 'mce_buttons', 'carelib_tinymce_add_styleselect', 99 );
-
-/**
- * Callback defined in includes/tinymce.php
- *
- * @see carelib_tinymce_disable_styleselect
- */
-add_filter( 'mce_buttons_2', 'carelib_tinymce_disable_styleselect', 99 );
-
-/**
- * Callback defined in includes/tinymce.php
- *
- * @see carelib_tinymce_formats
- */
-add_filter( 'tiny_mce_before_init', 'carelib_tinymce_formats', 99 );
-
-/**
  * Callback defined in includes/layouts.php
  *
  * @see carelib_filter_layout
