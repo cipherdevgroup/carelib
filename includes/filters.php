@@ -280,7 +280,7 @@ add_filter( 'body_class', 'carelib_body_class_filter', 0 );
  *
  * @see carelib_post_class_filter
  */
-add_filter( 'post_class', 'carelib_post_class_filter', 0, 3 );
+add_filter( 'post_class', 'carelib_post_class_filter', 0 );
 
 /**
  * Callback defined in includes/context.php

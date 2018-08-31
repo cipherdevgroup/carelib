@@ -44,35 +44,11 @@ function carelib_body_class_filter( $classes ) {
  *
  * @since  1.0.0
  * @access public
- * @param  array        $classes
- * @param  string|array $class
- * @param  int          $post_id
+ * @param  array $classes
  * @return array
  */
-function carelib_post_class_filter( $classes, $class, $post_id ) {
-	$_classes    = array();
-	$post        = get_post( $post_id );
-	$post_type   = get_post_type();
-	$post_status = get_post_status();
-
-	$remove = array( 'hentry', "type-{$post_type}", "status-{$post_status}" );
-
-	foreach ( $classes as $key => $class ) {
-
-		if ( in_array( $class, $remove, true ) ) {
-			unset( $classes[ $key ] );
-		} else {
-			$classes[ $key ] = str_replace( 'tag-', 'post_tag-', $class );
-		}
-	}
-
-	$_classes[] = 'entry';
-	$_classes[] = $post_type;
-	$_classes[] = $post_status;
-
-	$_classes = array_map( 'esc_attr', $_classes );
-
-	return array_unique( array_merge( $_classes, $classes ) );
+function carelib_post_class_filter( $classes ) {
+	return array_diff( $classes, array( 'hentry' ) );
 }
 
 /**
