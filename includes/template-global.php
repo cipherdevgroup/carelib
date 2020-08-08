@@ -224,6 +224,7 @@ function carelib_add_the_content_filters( $hook ) {
 		add_filter( $hook, 'wp_filter_contnt_tags', 22 );
 	} else {
 		add_filter( $hook, 'wp_make_content_images_responsive', 22 );
+	}
 	add_filter( $hook, 'wp_make_content_images_responsive', 22 );
 	add_filter( $hook, 'capital_P_dangit',                  24 );
 	add_filter( $hook, 'do_shortcode',                      26 );
@@ -253,6 +254,7 @@ function carelib_remove_the_content_filters( $hook ) {
 		remove_filter( $hook, 'wp_filter_contnt_tags', 22 );
 	} else {
 		remove_filter( $hook, 'wp_make_content_images_responsive', 22 );
+	}
 	remove_filter( $hook, 'wp_make_content_images_responsive', 22 );
 	remove_filter( $hook, 'capital_P_dangit',                  24 );
 	remove_filter( $hook, 'do_shortcode',                      26 );
