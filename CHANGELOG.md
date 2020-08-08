@@ -1,5 +1,11 @@
 # Changelog for CareLib
 
+# 2.2.0
+- Removed TinyMCE styles
+- Simplified body class filter
+- Removed check for `the_posts_pagination`
+- Added support for `wp_filter_content_tags` function and backwards compaitibility for WP pre-5.5
+
 # 2.1.0
 
 Allowed context to be passed into the post class in the default post attributes.
