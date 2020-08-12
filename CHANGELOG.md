@@ -1,5 +1,8 @@
 # Changelog for CareLib
 
+# 2.2.1
+- Fixed typo
+
 # 2.2.0
 - Removed TinyMCE styles
 - Simplified body class filter

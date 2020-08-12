@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-define( 'CARELIB_VERSION', '2.2.0' );
+define( 'CARELIB_VERSION', '2.2.1' );
 
 /**
  * The absolute path to CareLib's root directory with a trailing slash.
