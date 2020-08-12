@@ -221,7 +221,7 @@ function carelib_add_the_content_filters( $hook ) {
 	add_filter( $hook, 'shortcode_unautop',                 18 );
 	add_filter( $hook, 'prepend_attachment',                20 );
 	if ( function_exists( 'wp_filter_content_tags' ) ) {
-		add_filter( $hook, 'wp_filter_contnt_tags', 22 );
+		add_filter( $hook, 'wp_filter_content_tags', 22 );
 	} else {
 		add_filter( $hook, 'wp_make_content_images_responsive', 22 );
 	}
